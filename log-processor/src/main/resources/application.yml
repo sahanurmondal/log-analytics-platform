@@ -1,0 +1,67 @@
+server:
+  port: 8081
+
+spring:
+  application:
+    name: log-processor
+  kafka:
+    bootstrap-servers: localhost:9092
+    consumer:
+      group-id: log-processor-group
+      auto-offset-reset: earliest
+      enable-auto-commit: false
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        spring.json.trusted.packages: "com.sahanurmondal.loganalytics.model"
+        spring.json.type.mapping: "logEvent:com.sahanurmondal.loganalytics.model.LogEvent"
+        max.poll.records: 100
+        max.poll.interval.ms: 300000
+        session.timeout.ms: 30000
+        heartbeat.interval.ms: 10000
+    listener:
+      ack-mode: manual
+      concurrency: 3
+      type: batch
+  elasticsearch:
+    uris: http://localhost:9200
+    connection-timeout: 5s
+    socket-timeout: 30s
+  data:
+    elasticsearch:
+      client:
+        reactive:
+          connection-timeout: 5s
+          socket-timeout: 30s
+
+app:
+  kafka:
+    topic:
+      raw-logs: raw-logs
+    consumer:
+      group-id: log-processor-group
+  elasticsearch:
+    batch-size: 1000
+    refresh-policy: wait_for
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info,metrics,prometheus
+  endpoint:
+    health:
+      show-details: when-authorized
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+logging:
+  level:
+    com.sahanurmondal.loganalytics: DEBUG
+    org.springframework.kafka: INFO
+    org.springframework.data.elasticsearch: DEBUG
+  pattern:
+    file: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"
+    console: "%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n"

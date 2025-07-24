@@ -1,0 +1,261 @@
+"""
+Represents an indexed log event stored in Elasticsearch
+"""
+type IndexedLogEvent {
+    """
+    Unique identifier for the log event
+    """
+    id: ID!
+    
+    """
+    Timestamp when the log event was created (ISO 8601 format)
+    """
+    timestamp: String!
+    
+    """
+    Name of the service that generated the log
+    """
+    serviceName: String!
+    
+    """
+    Log level (e.g., INFO, WARN, ERROR, DEBUG)
+    """
+    logLevel: String!
+    
+    """
+    The actual log message content
+    """
+    message: String!
+    
+    """
+    Additional metadata associated with the log event
+    """
+    metadata: JSON
+    
+    """
+    Hash of the message content for deduplication
+    """
+    messageHash: String
+    
+    """
+    Length of the log message
+    """
+    messageLength: Int
+    
+    """
+    Whether this is an error-level log
+    """
+    isError: Boolean
+    
+    """
+    Whether this is a warning-level log
+    """
+    isWarning: Boolean
+}
+
+"""
+Input parameters for searching log events
+"""
+input LogSearchInput {
+    """
+    Full-text search query to match against log messages
+    """
+    fullTextQuery: String
+    
+    """
+    Filter by specific service name
+    """
+    serviceName: String
+    
+    """
+    Filter by specific log level
+    """
+    logLevel: String
+    
+    """
+    Start time for time range filter (ISO 8601 format)
+    """
+    fromTime: String
+    
+    """
+    End time for time range filter (ISO 8601 format)
+    """
+    toTime: String
+    
+    """
+    Page number for pagination (0-based, default: 0)
+    """
+    page: Int = 0
+    
+    """
+    Number of results per page (default: 20, max: 1000)
+    """
+    size: Int = 20
+    
+    """
+    Field to sort by (default: timestamp)
+    """
+    sortBy: String = "timestamp"
+    
+    """
+    Sort order: ASC or DESC (default: DESC)
+    """
+    sortOrder: SortOrder = DESC
+}
+
+"""
+Sort order enumeration
+"""
+enum SortOrder {
+    ASC
+    DESC
+}
+
+"""
+Search response with pagination information
+"""
+type LogSearchResponse {
+    """
+    List of matching log events
+    """
+    results: [IndexedLogEvent!]!
+    
+    """
+    Total number of matching documents
+    """
+    totalHits: Long!
+    
+    """
+    Current page number
+    """
+    currentPage: Int!
+    
+    """
+    Number of results per page
+    """
+    pageSize: Int!
+    
+    """
+    Total number of pages
+    """
+    totalPages: Int!
+    
+    """
+    Whether there are more results available
+    """
+    hasNext: Boolean!
+    
+    """
+    Whether there are previous results available
+    """
+    hasPrevious: Boolean!
+}
+
+"""
+Log statistics aggregation
+"""
+type LogStats {
+    """
+    Total number of logs in the specified time range
+    """
+    totalLogs: Long!
+    
+    """
+    Number of error logs
+    """
+    errorCount: Long!
+    
+    """
+    Number of warning logs
+    """
+    warningCount: Long!
+    
+    """
+    Log count by service name
+    """
+    logsByService: [ServiceLogCount!]!
+    
+    """
+    Log count by log level
+    """
+    logsByLevel: [LevelLogCount!]!
+    
+    """
+    Time range for the statistics
+    """
+    timeRange: TimeRange!
+}
+
+"""
+Log count grouped by service name
+"""
+type ServiceLogCount {
+    serviceName: String!
+    count: Long!
+}
+
+"""
+Log count grouped by log level
+"""
+type LevelLogCount {
+    logLevel: String!
+    count: Long!
+}
+
+"""
+Time range specification
+"""
+type TimeRange {
+    fromTime: String!
+    toTime: String!
+}
+
+"""
+Input for getting log statistics
+"""
+input LogStatsInput {
+    """
+    Filter by specific service name
+    """
+    serviceName: String
+    
+    """
+    Start time for time range filter (ISO 8601 format)
+    """
+    fromTime: String
+    
+    """
+    End time for time range filter (ISO 8601 format)
+    """
+    toTime: String
+}
+
+"""
+Root query type
+"""
+type Query {
+    """
+    Search for log events with flexible filtering and pagination
+    """
+    searchLogs(input: LogSearchInput!): LogSearchResponse!
+    
+    """
+    Get aggregated log statistics
+    """
+    logStats(input: LogStatsInput): LogStats!
+    
+    """
+    Get a specific log event by ID
+    """
+    logById(id: ID!): IndexedLogEvent
+}
+
+"""
+JSON scalar type for metadata
+"""
+scalar JSON
+
+"""
+Long scalar type for large numbers
+"""
+scalar Long
