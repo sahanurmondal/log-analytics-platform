@@ -52,26 +52,22 @@ public class LogConsumer {
     /**
      * Consumes log events from Kafka and indexes them into Elasticsearch.
      * 
-     * @param logEvents List of log events from Kafka
-     * @param partition Kafka partition
-     * @param offset Kafka offset
+     * @param logEvents      List of log events from Kafka
+     * @param partition      Kafka partition
+     * @param offset         Kafka offset
      * @param acknowledgment Kafka acknowledgment for manual commit
      */
-    @KafkaListener(
-            topics = "${app.kafka.topic.raw-logs}",
-            groupId = "${app.kafka.consumer.group-id}",
-            containerFactory = "kafkaListenerContainerFactory"
-    )
+    @KafkaListener(topics = "${app.kafka.topic.raw-logs}", groupId = "${app.kafka.consumer.group-id}", containerFactory = "kafkaListenerContainerFactory")
     public void consumeLogEvents(@Payload List<LogEvent> logEvents,
-                                @Header(KafkaHeaders.RECEIVED_PARTITION) int partition,
-                                @Header(KafkaHeaders.OFFSET) long offset,
-                                Acknowledgment acknowledgment) {
-        
+            @Header(KafkaHeaders.RECEIVED_PARTITION) int partition,
+            @Header(KafkaHeaders.OFFSET) long offset,
+            Acknowledgment acknowledgment) {
+
         Timer.Sample sample = Timer.start();
-        
+
         try {
-            logger.info("Received {} log events from partition {} at offset {}", 
-                       logEvents.size(), partition, offset);
+            logger.info("Received {} log events from partition {} at offset {}",
+                    logEvents.size(), partition, offset);
 
             if (logEvents.isEmpty()) {
                 logger.warn("Received empty batch of log events");
@@ -86,18 +82,18 @@ public class LogConsumer {
 
             // Bulk index to Elasticsearch
             try {
-                List<IndexedObjectInformation> indexedInfo = elasticsearchOperations.save(indexedEvents);
-                
-                logger.info("Successfully indexed {} log events to Elasticsearch", indexedInfo.size());
-                processedLogsCounter.increment(indexedInfo.size());
+                elasticsearchOperations.save(indexedEvents);
+                long count = indexedEvents.size();
+                logger.info("Successfully indexed {} log events to Elasticsearch", count);
+                processedLogsCounter.increment(count);
 
                 // Acknowledge the message only after successful processing
                 acknowledgment.acknowledge();
-                
+
             } catch (Exception e) {
                 logger.error("Failed to index log events to Elasticsearch: {}", e.getMessage(), e);
                 failedLogsCounter.increment(logEvents.size());
-                
+
                 // For now, we acknowledge even failed messages to avoid infinite retries
                 // In production, you might want to implement dead letter queue
                 acknowledgment.acknowledge();
@@ -107,7 +103,7 @@ public class LogConsumer {
             logger.error("Unexpected error processing log events: {}", e.getMessage(), e);
             failedLogsCounter.increment(logEvents.size());
             acknowledgment.acknowledge();
-            
+
         } finally {
             sample.stop(processingTimer);
         }
@@ -122,23 +118,22 @@ public class LogConsumer {
     private IndexedLogEvent transformToIndexedLogEvent(LogEvent logEvent) {
         try {
             Instant timestamp = Instant.now();
-            
+
             IndexedLogEvent indexedEvent = new IndexedLogEvent(
                     logEvent.serviceName(),
                     logEvent.logLevel(),
                     logEvent.message(),
                     logEvent.metadata(),
-                    timestamp
-            );
-            
+                    timestamp);
+
             // Generate a unique ID for the document
             indexedEvent.setId(generateDocumentId(logEvent, timestamp));
-            
+
             return indexedEvent;
-            
+
         } catch (Exception e) {
             logger.error("Error transforming log event: {}", e.getMessage(), e);
-            
+
             // Create a minimal indexed event in case of transformation error
             IndexedLogEvent fallbackEvent = new IndexedLogEvent();
             fallbackEvent.setId(UUID.randomUUID().toString());
@@ -146,7 +141,7 @@ public class LogConsumer {
             fallbackEvent.setLogLevel(logEvent.logLevel());
             fallbackEvent.setMessage("Error processing: " + logEvent.message());
             fallbackEvent.setTimestamp(Instant.now());
-            
+
             return fallbackEvent;
         }
     }
@@ -154,13 +149,13 @@ public class LogConsumer {
     /**
      * Generates a unique document ID for the Elasticsearch document.
      * 
-     * @param logEvent The log event
+     * @param logEvent  The log event
      * @param timestamp The timestamp
      * @return A unique document ID
      */
     private String generateDocumentId(LogEvent logEvent, Instant timestamp) {
         // Combine service name, timestamp, and a random UUID for uniqueness
-        return String.format("%s-%d-%s", 
+        return String.format("%s-%d-%s",
                 logEvent.serviceName().toLowerCase(),
                 timestamp.toEpochMilli(),
                 UUID.randomUUID().toString().substring(0, 8));

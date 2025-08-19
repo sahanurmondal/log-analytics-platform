@@ -1,0 +1,19 @@
+server:
+  port: 8088
+
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: log-ingestor-route
+          uri: lb://log-ingestor
+          predicates:
+            - Path=/api/v1/logs/**
+        - id: query-api-route
+          uri: lb://query-api
+          predicates:
+            - Path=/graphql/**, /graphiql/**
+      discovery:
+        locator:
+          enabled: true
+          lower-case-service-id: true

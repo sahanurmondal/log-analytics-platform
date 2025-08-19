@@ -1,0 +1,1272 @@
+LEETCODE PROBLEMS - SIMPLE NUMBERED LIST
+================================================================================
+Total: 1041 Problems
+================================================================================
+
+
+ARRAYS
+------
+
+Easy:
+   1. Two Sum (LC 1)
+   2. Best Time to Buy and Sell Stock (LC 121)
+   3. Majority Element (LC 169)
+   4. Move Zeroes (LC 283)
+   5. Plus One (LC 66)
+   6. Remove Duplicates from Sorted Array (LC 26)
+   7. Single Number (LC 136)
+   8. Valid Anagram (LC 242)
+
+Medium:
+   9. 3Sum (LC 15)
+  10. Container With Most Water (LC 11)
+  11. Container Most Water (LC 11)
+  12. Maximum Subarray (LC 53)
+  13. Coin Change (LC 322)
+  14. Counting Bits (LC 338)
+  15. Course Schedule (LC 207)
+  16. Decode Ways (LC 91)
+  17. Find Minimum in Rotated Sorted Array (LC 153)
+  18. First Missing Positive (LC 41)
+  19. Group Anagrams (LC 49)
+  20. House Robber (LC 198)
+  21. Implement Trie (LC 208)
+  22. Jump Game (LC 55)
+  23. Longest Consecutive Sequence (LC 128)
+  24. Longest Increasing Subsequence (LC 300)
+  25. Longest Substring Without Repeating Characters (LC 3)
+  26. Maximum Product Subarray (LC 152)
+  27. Merge Intervals (LC 56)
+  28. Next Permutation (LC 31)
+  29. Number of Islands (LC 200)
+  30. Pacific Atlantic Water Flow (LC 417)
+  31. Perfect Squares (LC 279)
+  32. Product of Array Except Self (LC 238)
+  33. Remove Duplicates from Sorted Array II (LC 80)
+  34. Rotate Image (LC 48)
+  35. Search in Rotated Sorted Array (LC 33)
+  36. Search Rotated Array (LC 33)
+  37. Set Matrix Zeroes (LC 73)
+  38. Spiral Matrix (LC 54)
+  39. Subarray Sum Equals K (LC 560)
+  40. Two Sum II - Input Array Is Sorted (LC 167)
+  41. Two Sum II Input Array Is Sorted (LC 167)
+  42. Valid Sudoku (LC 36)
+  43. Wiggle Subsequence (LC 376)
+  44. Word Break (LC 139)
+
+Hard:
+  45. Basic Calculator (LC 224)
+  46. Burst Balloons (LC 312)
+  47. Count of Smaller Numbers After Self (LC 315)
+  48. Edit Distance (LC 72)
+  49. Find Median from Data Stream (LC 295)
+  50. Interleaving String (LC 97)
+  51. Largest Rectangle in Histogram (LC 84)
+  52. Longest Valid Parentheses (LC 32)
+  53. Maximal Rectangle (LC 85)
+  54. Maximum Sum Circular Subarray (LC 918)
+  55. Median of Two Sorted Arrays (LC 4)
+  56. Minimum Window Subarray (LC 76)
+  57. Minimum Window Substring (LC 76)
+  58. Regular Expression Matching (LC 10)
+  59. Remove Invalid Parentheses (LC 301)
+  60. Reverse Pairs (LC 493)
+  61. Serialize and Deserialize Binary Tree (LC 297)
+  62. Sliding Window Maximum (LC 239)
+  63. Smallest Range Covering Elements from K Lists (LC 632)
+  64. Split Array Largest Sum (LC 410)
+  65. Subarrays with K Different Integers (LC 992)
+  66. Sudoku Solver (LC 37)
+  67. Text Justification (LC 68)
+  68. Trapping Rain Water (LC 42)
+  69. Wildcard Matching (LC 44)
+  70. Word Search II (LC 212)
+
+BACKTRACKING
+------------
+
+Easy:
+  71. Binary Watch (LC 401)
+  72. Generate Parentheses (LC 22)
+  73. Letter Case Permutation (LC 784)
+
+Medium:
+  74. All Paths From Source To Target (LC 797)
+  75. Beautiful Arrangement (LC 526)
+  76. Combinations (LC 77)
+  77. Combination Sum (LC 39)
+  78. Combination Sum II (LC 40)
+  79. Combination Sum III (LC 216)
+  80. Combination Sum IV (LC 377)
+  81. Combination Sum V
+  82. Expression Add Operators (LC 282)
+  83. Find All Combinations Of Size K
+  84. Find All Subsets With Duplicates
+  85. Find All Valid Sudoku Boards
+  86. Generate Parentheses (LC 22)
+  87. Letter Combinations Phone Number (LC 17)
+  88. Palindrome Partitioning (LC 131)
+  89. Partition K Equal Sum Subsets (LC 698)
+  90. Permutations (LC 46)
+  91. Permutations II (LC 47)
+  92. Restore IP Addresses (LC 93)
+  93. Subsets (LC 78)
+  94. Subsets II (LC 90)
+  95. Word Search (LC 79)
+
+Hard:
+  96. All Unique Permutations With Duplicates
+  97. Beautiful Arrangement (LC 526)
+  98. Combination Sum Hard
+  99. Count Number Of Beautiful Subsets
+ 100. Expression Add Operators (LC 282)
+ 101. Find All Valid Combinations Of Parentheses
+ 102. Find All Valid N Queens Boards
+ 103. Find All Valid Word Squares
+ 104. Maximum Number Of Achievable Transfer Requests
+ 105. N-Queens (LC 51)
+ 106. N-Queens II (LC 52)
+ 107. Palindrome Partitioning II (LC 132)
+ 108. Regular Expression Matching (LC 10)
+ 109. Remove Boxes (LC 546)
+ 110. Remove Invalid Parentheses (LC 301)
+ 111. Restore The Array (LC 1416)
+ 112. Unique Paths III (LC 980)
+ 113. Word Break II (LC 140)
+ 114. Word Search II (LC 212)
+
+BINARY SEARCH
+-------------
+
+Easy:
+ 115. Arranging Coins (LC 441)
+ 116. Binary Search (LC 704)
+ 117. Binary Search Extended (LC 704)
+ 118. Find Smallest Letter Greater Than Target (LC 744)
+ 119. First Bad Version (LC 278)
+ 120. First Bad Version Extended (LC 278)
+ 121. Guess Number Higher Or Lower (LC 374)
+ 122. Search Insert Position (LC 35)
+ 123. Sqrt X (LC 69)
+ 124. Valid Perfect Square (LC 367)
+
+Medium:
+ 125. Capacity To Ship Packages Within DDays (LC 1011)
+ 126. Find First And Last Position (LC 34)
+ 127. Find First And Last Position Extended (LC 34)
+ 128. Find Minimum In Rotated Sorted Array (LC 153)
+ 129. Find Minimum In Rotated Sorted Array Extended (LC 153)
+ 130. Find Peak Element (LC 162)
+ 131. Find Peak Element Extended (LC 162)
+ 132. Koko Eating Bananas (LC 875)
+ 133. Koko Eating Bananas Extended (LC 875)
+ 134. Search A2DMatrix II (LC 240)
+ 135. Search In Rotated Sorted Array (LC 33)
+ 136. Search In Rotated Sorted Array II
+ 137. Single Element In Sorted Array (LC 540)
+ 138. Time Based Key Value Store (LC 981)
+
+Hard:
+ 139. Divide Chocolate (LC 1231)
+ 140. Find In Mountain Array (LC 1095)
+ 141. Median Of Two Sorted Arrays (LC 4)
+ 142. Merge KSorted Lists (LC 23)
+ 143. Split Array Largest Sum (LC 410)
+ 144. Super Egg Dropping (LC 887)
+
+BINARY SEARCH TREE
+------------------
+
+Easy:
+ 145. Closest Binary Search Tree Value (LC 270)
+ 146. Convert Sorted Array To BST (LC 108)
+ 147. Convert Sorted List To BST (LC 109)
+ 148. Insert Into BST (LC 701)
+ 149. Minimum Absolute Difference In BST (LC 530)
+ 150. Range Sum Of BST (LC 938)
+ 151. Search In BST (LC 700)
+ 152. Two Sum IVInput Is BST (LC 653)
+
+Medium:
+ 153. All Elements In Two BSTs (LC 1305)
+ 154. BSTIterator (LC 173)
+ 155. BSTTo Greater Sum Tree (LC 1038)
+ 156. Balance Binary Search Tree (LC 1382)
+ 157. Construct BSTFrom Preorder Traversal (LC 1008)
+ 158. Convert BSTTo Greater Tree Medium
+ 159. Delete Node In BST (LC 450)
+ 160. Find BSTFrom Postorder (LC 1008)
+ 161. Find BSTFrom Preorder
+ 162. Find Closest Value In BSTMedium (LC 270)
+ 163. Find Diameter Of BST (LC 543)
+ 164. Find Floor Ceil In BSTMedium
+ 165. Find Height Of BST (LC 104)
+ 166. Find Inorder Predecessor Successor Medium (LC 285)
+ 167. Find LCAIn BSTIterative (LC 235)
+ 168. Find Max In BST
+ 169. Find Min In BST
+ 170. Find Mode In BSTMedium (LC 501)
+ 171. Find Range Sum Of BSTMedium
+ 172. Find Sum Of BST
+ 173. Inorder Successor In BST (LC 285)
+ 174. Insert Into BST (LC 701)
+ 175. Kth Smallest Element In BST (LC 230)
+ 176. Lowest Common Ancestor BST (LC 235)
+ 177. Lowest Common Ancestor Of BST (LC 235)
+ 178. Recover Binary Search Tree (LC 99)
+ 179. Trim Binary Search Tree (LC 669)
+ 180. Unique Binary Search Trees (LC 96)
+ 181. Unique Binary Search Trees II (LC 95)
+ 182. Validate Binary Search Tree (LC 98)
+
+Hard:
+ 183. Closest Binary Search Tree Value II (LC 272)
+ 184. Contains Duplicate III (LC 220)
+ 185. Convert BSTTo Greater Tree (LC 538)
+ 186. Count BSTNodes In Range (LC 938)
+ 187. Count Of Range Sum (LC 327)
+ 188. Count Of Smaller Numbers After Self (LC 315)
+ 189. Find Closest Value In BST (LC 270)
+ 190. Find Floor Ceil In BST (LC 270)
+ 191. Find Inorder Predecessor Successor (LC 285)
+ 192. Find Kth Largest In BST (LC 230)
+ 193. Find Kth Smallest In BST (LC 230)
+ 194. Find Lowest Common Ancestor In BSTWith Parent (LC 1650)
+ 195. Find Mode In BST (LC 501)
+ 196. Find Range Sum Of BST (LC 938)
+ 197. Maximum Sum BSTIn Binary Tree (LC 1373)
+ 198. Recover Binary Search Tree (LC 99)
+ 199. Serialize And Deserialize BST (LC 449)
+ 200. Serialize Deserialize BST (LC 449)
+ 201. Trim BST (LC 669)
+
+BIT MANIPULATION
+----------------
+
+Easy:
+ 202. Binary Number With Alternating Bits (LC 693)
+ 203. Counting Bits (LC 338)
+ 204. Hamming Distance (LC 461)
+ 205. Missing Number (LC 268)
+ 206. Number Complement (LC 476)
+ 207. Number Of1Bits (LC 191)
+ 208. Power Of Four (LC 342)
+ 209. Power Of Two (LC 231)
+ 210. Reverse Bits (LC 190)
+ 211. Single Number (LC 136)
+ 212. XOROperation In Array (LC 1486)
+
+Medium:
+ 213. Bitwise And Of Numbers Range (LC 201)
+ 214. Bitwise Complement (LC 1009)
+ 215. Concatenation Of Consecutive Binary Numbers (LC 1680)
+ 216. Counting Bits (LC 338)
+ 217. Divide Two Integers (LC 29)
+ 218. Find Bitwise ANDOf Numbers Range (LC 201)
+ 219. Find Bitwise Complement (LC 1009)
+ 220. Find Bitwise OROf Numbers Range (LC 201)
+ 221. Find Bitwise Parity (LC 1869)
+ 222. Find Bitwise XOROf Numbers Range (LC 1835)
+ 223. Find Different Bit (LC 1076)
+ 224. Find Missing Number (LC 268)
+ 225. Find Number Of Bits To Flip (LC 461)
+ 226. Find Single Bit (LC 136)
+ 227. Find Single Number IV (LC 137)
+ 228. Find The Difference (LC 389)
+ 229. Find The Duplicate Number (LC 287)
+ 230. Find Two Non Repeating Numbers (LC 260)
+ 231. Find Unique Number In Array
+ 232. Gray Code (LC 89)
+ 233. Integer Replacement (LC 397)
+ 234. Maximum XOROf Two Numbers (LC 421)
+ 235. Missing Number (LC 268)
+ 236. Number Of1Bits (LC 191)
+ 237. Power Of Four (LC 342)
+ 238. Power Of Two (LC 231)
+ 239. Reverse Bits (LC 190)
+ 240. Single Number II (LC 137)
+ 241. Single Number III (LC 260)
+ 242. Subsets Bit Manipulation (LC 78)
+ 243. Sum Of Two Integers (LC 371)
+ 244. Total Hamming Distance (LC 477)
+ 245. UTF8Validation (LC 393)
+
+Hard:
+ 246. Find Single Number V
+ 247. Maximum XORWith Element From Array (LC 1707)
+ 248. Minimum One Bit Operations (LC 1611)
+ 249. Minimum XORSum Of Two Arrays (LC 1879)
+ 250. NQueens IIBit Manipulation (LC 52)
+ 251. Number Of Valid Words For Each Puzzle (LC 1178)
+ 252. Shortest Path Visiting All Nodes (LC 847)
+
+DESIGN
+------
+
+Easy:
+ 253. Logger (LC 359)
+ 254. Min Stack (LC 155)
+ 255. My Hash Map (LC 706)
+ 256. My Hash Set (LC 705)
+ 257. My Queue (LC 232)
+ 258. My Stack (LC 225)
+ 259. Parking System (LC 1603)
+ 260. Solution (LC 384)
+
+Medium:
+ 261. Authentication Manager (LC 1797)
+ 262. Browser History (LC 1472)
+ 263. Custom Stack (LC 1381)
+ 264. Design Add And Search Words Data Structure
+ 265. Design Bitset (LC 2166)
+ 266. Design Browser History
+ 267. Design Cache With TTL
+ 268. Design Chat Room
+ 269. Design Circular Buffer
+ 270. Design Circular Deque
+ 271. Design Circular Priority Queue
+ 272. Design Content Manager
+ 273. Design Data Stream (LC 2526)
+ 274. Design Deque With Min
+ 275. Design Elevator System
+ 276. Design Event Counter (LC 362)
+ 277. Design File System
+ 278. Design Game Leaderboard
+ 279. Design Graph (LC 2642)
+ 280. Design Hash Function
+ 281. Design Hit Counter
+ 282. Design In Memory Key Value Store
+ 283. Design Logger Rate Limiter (LC 359)
+ 284. Design Median Finder
+ 285. Design Moving Average (LC 346)
+ 286. Design Parking Lot
+ 287. Design Parking System
+ 288. Design Peeking Iterator (LC 284)
+ 289. Design Randomized Set
+ 290. Design Rate Limiter
+ 291. Design Search Autocomplete System
+ 292. Design Seat Manager (LC 1845)
+ 293. Design Skip List (LC 1206)
+ 294. Design Snake Game
+ 295. Design Snapshot Array (LC 1146)
+ 296. Design Stack With Increment (LC 1381)
+ 297. Design Stack With Max
+ 298. Design Stack With Min (LC 155)
+ 299. Design Stock Price (LC 2034)
+ 300. Design Tic Tac Toe
+ 301. Design Tiny URL (LC 535)
+ 302. Design Twitter
+ 303. Design Underground System
+ 304. Design Vending Machine
+ 305. Design Video Sharing Platform (LC 1912)
+ 306. Design Word Filter (LC 745)
+ 307. Food Ratings (LC 2353)
+ 308. Front Middle Back Queue (LC 1670)
+ 309. Hit Counter (LC 362)
+ 310. LRUCache (LC 146)
+ 311. Leaderboard (LC 1244)
+ 312. My Circular Deque (LC 641)
+ 313. My Circular Queue (LC 622)
+ 314. Nested Iterator (LC 341)
+ 315. Phone Directory (LC 379)
+ 316. Randomized Set (LC 380)
+ 317. Snake Game (LC 353)
+ 318. Tic Tac Toe (LC 348)
+ 319. Twitter (LC 355)
+ 320. Underground System (LC 1396)
+ 321. Word Dictionary (LC 211)
+
+Hard:
+ 322. All One (LC 432)
+ 323. Autocomplete System (LC 642)
+ 324. Bounded Blocking Queue (LC 1188)
+ 325. Design APIGateway
+ 326. Design Auction System
+ 327. Design Blockchain
+ 328. Design Calendar (LC 729)
+ 329. Design Compiler
+ 330. Design Consistent Hashing
+ 331. Design Container Orchestrator
+ 332. Design Content Delivery Network
+ 333. Design Data Structure (LC 1912)
+ 334. Design Distributed Barrier
+ 335. Design Distributed Bloom Filter
+ 336. Design Distributed Cache
+ 337. Design Distributed Cache With TTL
+ 338. Design Distributed Circuit Breaker
+ 339. Design Distributed Configuration Management
+ 340. Design Distributed Consensus
+ 341. Design Distributed Database
+ 342. Design Distributed Deque With Min
+ 343. Design Distributed Event Counter
+ 344. Design Distributed Event Sourcing
+ 345. Design Distributed File System
+ 346. Design Distributed Graph
+ 347. Design Distributed LRUSet
+ 348. Design Distributed Leader Election
+ 349. Design Distributed Lock
+ 350. Design Distributed Lock Manager
+ 351. Design Distributed Log Aggregation
+ 352. Design Distributed Message Queue
+ 353. Design Distributed Multi Master KVStore
+ 354. Design Distributed Priority Queue
+ 355. Design Distributed Pub Sub
+ 356. Design Distributed Rate Limiter
+ 357. Design Distributed Scheduler
+ 358. Design Distributed Scheduler With Dependencies
+ 359. Design Distributed Search Index
+ 360. Design Distributed Semaphore
+ 361. Design Distributed Service Discovery
+ 362. Design Distributed Set
+ 363. Design Distributed Snapshot
+ 364. Design Distributed Stack With Max
+ 365. Design Distributed Stack With Min
+ 366. Design Distributed Time Series DB
+ 367. Design Distributed Tracing
+ 368. Design Distributed Transaction Log
+ 369. Design Distributed Transaction Manager
+ 370. Design Distributed Trie
+ 371. Design Event Store
+ 372. Design Expression Tree (LC 1628)
+ 373. Design In Memory Database
+ 374. Design Load Balancer
+ 375. Design Log Storage (LC 635)
+ 376. Design Max Stack (LC 716)
+ 377. Design Median Finder (LC 295)
+ 378. Design Memory Allocator (LC 2502)
+ 379. Design Message Queue
+ 380. Design Microservices Orchestrator
+ 381. Design Number Container (LC 2349)
+ 382. Design Operating System
+ 383. Design Range Module (LC 715)
+ 384. Design Recommendation Engine (LC 1642)
+ 385. Design Search Engine
+ 386. Design Service Mesh
+ 387. Design Sliding Window Maximum
+ 388. Design Stream Processing Engine
+ 389. Design Task Scheduler
+ 390. Design Text Editor (LC 2296)
+ 391. Design Twitter Advanced (LC 355)
+ 392. Excel (LC 631)
+ 393. File System (LC 588)
+ 394. LFUCache (LC 460)
+ 395. Movie Renting System (LC 1756)
+ 396. Randomized Collection (LC 381)
+
+DYNAMIC PROGRAMMING
+-------------------
+
+Easy:
+ 397. Climbing Stairs (LC 70)
+ 398. House Robber (LC 198)
+ 399. Maximum Subarray (LC 53)
+ 400. Best Time to Buy and Sell Stock (LC 121)
+ 401. Fibonacci Number (LC 509)
+ 402. N-th Tribonacci Number (LC 1137)
+ 403. Min Cost Climbing Stairs (LC 746)
+ 404. Pascal's Triangle (LC 118)
+ 405. Pascal's Triangle II (LC 119)
+ 406. Counting Bits (LC 338)
+ 407. Is Subsequence (LC 392)
+ 408. Range Sum Query - Immutable (LC 303)
+ 409. Divisor Game (LC 1025)
+ 410. Get Maximum in Generated Array (LC 1646)
+ 411. Minimum Cost For Tickets (LC 983)
+ 412. Delete and Earn (LC 740)
+ 413. Paint Fence (LC 276)
+ 414. Arithmetic Slices (LC 413)
+ 415. Path Sum (LC 112)
+ 416. Unique Paths (LC 62)
+ 417. Masseur LCCI (17.01)
+
+Medium:
+ 418. Coin Change (LC 322)
+ 419. Longest Increasing Subsequence (LC 300)
+ 420. Word Break (LC 139)
+ 421. Decode Ways (LC 91)
+ 422. Unique Paths II (LC 63)
+ 423. Coin Change 2 (LC 518)
+ 424. House Robber II (LC 213)
+ 425. Maximum Product Subarray (LC 152)
+ 426. Longest Common Subsequence (LC 1143)
+ 427. Minimum Path Sum (LC 64)
+ 428. Partition Equal Subset Sum (LC 416)
+ 429. Target Sum (LC 494)
+ 430. Combination Sum IV (LC 377)
+ 431. Longest Palindromic Subsequence (LC 516)
+ 432. Best Time to Buy and Sell Stock with Cooldown (LC 309)
+ 433. Best Time to Buy and Sell Stock with Transaction Fee (LC 714)
+ 434. Best Time to Buy and Sell Stock IV (LC 188)
+ 435. Minimum Falling Path Sum (LC 931)
+ 436. Jump Game II (LC 45)
+ 437. Decode Ways II (LC 639)
+ 438. Cherry Pickup (LC 741)
+ 439. Domino and Tromino Tiling (LC 790)
+ 440. Maximum Sum Circular Subarray (LC 918)
+ 441. Count Square Submatrices with All Ones (LC 1277)
+ 442. Longest Arithmetic Subsequence (LC 1027)
+ 443. Paint House (LC 256)
+ 444. Knapsack Problem (0/1)
+ 445. Video Stitching (LC 1024)
+ 446. Distinct Subsequences (LC 115)
+ 447. Maximum Points You Can Obtain from Cards (LC 1423)
+ 448. Number of Submatrices That Sum to Target (LC 1074)
+ 449. Longest Bitonic Subsequence
+ 450. Count Numbers with Unique Digits (LC 357)
+ 451. Count Submatrices With All Ones (LC 1504)
+ 452. Longest String Chain (LC 1048)
+ 453. Longest Turbulent Subarray (LC 978)
+ 454. Number of Longest Increasing Subsequence (LC 673)
+ 455. Maximum Sum of 3 Non-Overlapping Subarrays (LC 689)
+ 456. Partition Array for Maximum Sum (LC 1043)
+ 457. Maximum Length of Repeated Subarray (LC 718)
+ 458. Longest Alternating Subsequence (LC 1964)
+ 459. Maximum Subarray Sum with One Deletion (LC 1186)
+ 460. Minimum Swaps To Make Sequences Increasing (LC 801)
+ 461. Minimum Number of Removals to Make Mountain Array (LC 1671)
+ 462. Count Ways to Build Staircases
+ 463. Wiggle Subsequence (LC 376)
+ 464. Maximum Profit in Job Scheduling (LC 1235)
+ 465. Stone Game (LC 877)
+ 466. Palindromic Substrings (LC 647)
+ 467. Integer Break (LC 343)
+ 468. Maximal Square (LC 221)
+ 469. Perfect Squares (LC 279)
+ 470. Unique Binary Search Trees (LC 96)
+ 471. Maximum Score from Performing Multiplication Operations (LC 1770)
+ 472. Knight Probability in Chessboard (LC 688)
+ 473. Out of Boundary Paths (LC 576)
+ 474. Predict the Winner (LC 486)
+ 475. Minimum ASCII Delete Sum for Two Strings (LC 712)
+
+Hard:
+ 476. Edit Distance (LC 72)
+ 477. Regular Expression Matching (LC 10)
+ 478. Longest Valid Parentheses (LC 32)
+ 479. Wildcard Matching (LC 44)
+ 480. Scramble String (LC 87)
+ 481. Interleaving String (LC 97)
+ 482. Distinct Subsequences (LC 115)
+ 483. Word Break II (LC 140)
+ 484. Burst Balloons (LC 312)
+ 485. Maximum Rectangle (LC 85)
+ 486. Cherry Pickup II (LC 1463)
+ 487. Palindrome Partitioning II (LC 132)
+ 488. Russian Doll Envelopes (LC 354)
+ 489. Count All Valid Pickup and Delivery Options (LC 1359)
+ 490. Count Different Palindromic Subsequences (LC 730)
+ 491. Count Vowels Permutation (LC 1220)
+ 492. Distinct Subsequences II (LC 940)
+ 493. Frog Jump (LC 403)
+ 494. Split Array Largest Sum (LC 410)
+ 495. Super Egg Drop (LC 887)
+ 496. Strange Printer (LC 664)
+ 497. Minimum Window Subsequence (LC 727)
+ 498. Number of Music Playlists (LC 920)
+ 499. Shortest Common Supersequence (LC 1092)
+ 500. Minimum Insertion Steps to Make a String Palindrome (LC 1312)
+ 501. Number of Ways to Stay in the Same Place After Some Steps (LC 1269)
+ 502. Longest Chunked Palindrome Decomposition (LC 1147)
+ 503. Concatenated Words (LC 472)
+ 504. Freedom Trail (LC 514)
+ 505. Count The Repetitions (LC 466)
+
+GRAPHS
+------
+
+Easy:
+ 506. Clone Graph (LC 133)
+ 507. Count Components (LC 323)
+ 508. Find Center Of Star Graph (LC 1791)
+ 509. Find If Path Exists (LC 1971)
+ 510. Flood Fill (LC 733)
+ 511. Max Area Of Island (LC 695)
+ 512. Number Of Islands (LC 200)
+ 513. Number Of Provinces (LC 547)
+ 514. Shortest Path In Maze (LC 1091)
+
+Medium:
+ 515. AStar Shortest Path
+ 516. Bellman Ford Shortest Path (LC 787)
+ 517. Clone Graph (LC 133)
+ 518. Course Schedule (LC 207)
+ 519. Course Schedule II (LC 210)
+ 520. Detect Cycle Directed Graph (LC 207)
+ 521. Detect Cycle In Directed Graph (LC 207)
+ 522. Detect Cycle In Undirected Graph (LC 261)
+ 523. Dijkstra Shortest Path (LC 743)
+ 524. Find Articulation Points In Graph (LC 1192)
+ 525. Find Bridges In Graph (LC 1192)
+ 526. Find Connected Components (LC 323)
+ 527. Find Eventual Safe States (LC 802)
+ 528. Find The Town Judge (LC 997)
+ 529. Graph Valid Tree (LC 261)
+ 530. Kruskal Minimum Spanning Tree (LC 1135)
+ 531. Minimum Height Trees (LC 310)
+ 532. Minimum Spanning Tree Kruskal (LC 1135)
+ 533. Network Delay Time (LC 743)
+ 534. Number Of Islands (LC 200)
+ 535. Prim Minimum Spanning Tree (LC 1135)
+ 536. Redundant Connection (LC 684)
+ 537. Rotting Oranges (LC 994)
+ 538. Shortest Path Dijkstra (LC 743)
+ 539. Shortest Path In Binary Matrix (LC 1091)
+ 540. Topological Sort (LC 210)
+ 541. Word Ladder (LC 127)
+
+Hard:
+ 542. Alien Dictionary (LC 269)
+ 543. All Pairs Shortest Path Floyd Warshall
+ 544. All Topological Sorts
+ 545. Find All Cycles In Graph
+ 546. Find Articulation Points (LC 1192)
+ 547. Find Biconnected Components
+ 548. Find Bridges In Graph (LC 1192)
+ 549. Find Critical Connections (LC 1192)
+ 550. Find Eulerian Path (LC 332)
+ 551. Find Hamiltonian Path (LC 980)
+ 552. Find Longest Path In DAG (LC 1857)
+ 553. Find Maximum Flow
+ 554. Find Minimum Cut
+ 555. Find The City With The Smallest Number Of Neighbors (LC 1334)
+ 556. Minimum Cost To Connect All Points (LC 1584)
+ 557. Minimum Spanning Tree (LC 1584)
+ 558. Shortest Path With Alternating Colors (LC 1129)
+ 559. Shortest Path With Negative Weights (LC 787)
+ 560. Strongly Connected Components
+
+GREEDY
+------
+
+Medium:
+ 561. Can Place Flowers (LC 605)
+ 562. Car Pooling (LC 1094)
+ 563. Minimum Cost To Hire KWorkers (LC 857)
+ 564. Minimum Number Of Arrows To Burst Balloons (LC 452)
+ 565. Minimum Number Of Coins For Change (LC 322)
+ 566. Minimum Number Of Coins To Make Change (LC 322)
+ 567. Minimum Number Of Refueling Stops (LC 871)
+ 568. Minimum Number Of Taps To Open To Water Garden (LC 1326)
+ 569. Minimum Platforms (LC 253)
+ 570. Partition Labels (LC 763)
+
+Hard:
+ 571. Maximum Number Of Events That Can Be Attended (LC 1353)
+ 572. Maximum Number Of Non Overlapping Subarrays (LC 1546)
+ 573. Maximum Profit With KTransactions (LC 188)
+ 574. Maximum Score From Performing Multiplication Operations (LC 1770)
+ 575. Maximum Score From Removing Stones (LC 1753)
+ 576. Minimum Number Of Coins To Make Change
+ 577. Minimum Number Of Coins To Make Change Unlimited
+ 578. Minimum Number Of Intervals To Cover (LC 1024)
+ 579. Minimum Number Of Intervals To Cover Range
+ 580. Minimum Number Of Meeting Rooms
+ 581. Minimum Number Of Moves To Seat Everyone (LC 2037)
+ 582. Minimum Number Of Steps To Make Two Strings Anagram
+ 583. Minimum Number Of Swaps To Make String Equal
+
+GRID/MATRIX
+-----------
+
+Medium:
+ 584. Battleships In Board (LC 419)
+ 585. Candy Crush (LC 723)
+ 586. Chess Knight Probability (LC 688)
+ 587. Design Tic Tac Toe (LC 348)
+ 588. Diagonal Traverse (LC 498)
+ 589. Flood Fill (LC 733)
+ 590. Game Of Life (LC 289)
+ 591. Island Perimeter (LC 463)
+ 592. Kth Smallest In Sorted Matrix (LC 378)
+ 593. Matrix Block Sum (LC 1314)
+ 594. Max Area Of Island (LC 695)
+ 595. Maximal Square (LC 221)
+ 596. Minesweeper Game (LC 529)
+ 597. Minimum Path Sum (LC 64)
+ 598. Number Of Distinct Islands (LC 694)
+ 599. Pacific Atlantic Water Flow (LC 417)
+ 600. Rotate Image (LC 48)
+ 601. Rotten Oranges (LC 994)
+ 602. Search A2DMatrix II (LC 240)
+ 603. Set Matrix Zeroes (LC 73)
+ 604. Shortest Bridge (LC 934)
+ 605. Spiral Matrix (LC 54)
+ 606. Spiral Matrix II (LC 59)
+ 607. Unique Paths (LC 62)
+ 608. Unique Paths II (LC 63)
+ 609. Valid Sudoku (LC 36)
+ 610. Word Search (LC 79)
+
+Hard:
+ 611. Alien Dictionary (LC 269)
+ 612. Cherry Pickup (LC 741)
+ 613. Cut Off Trees For Golf (LC 675)
+ 614. Escape The Maze (LC 1036)
+ 615. Jump Game IV (LC 1345)
+ 616. Minimum Moves To Reach Target (LC 1553)
+ 617. NQueens (LC 51)
+ 618. NQueens II (LC 52)
+ 619. Number Of Paths With Max Score (LC 1301)
+ 620. Race Car (LC 818)
+ 621. Robot Room Cleaner (LC 489)
+ 622. Shortest Path In Binary Matrix (LC 1091)
+ 623. Shortest Path In Grid (LC 1263)
+ 624. Shortest Path To Get All Keys (LC 864)
+ 625. Shortest Path Visiting All Nodes (LC 847)
+ 626. Sliding Puzzle (LC 773)
+ 627. Swim In Water (LC 778)
+ 628. Trapping Rain Water2D (LC 407)
+ 629. Word Search II (LC 212)
+ 630. Zuma Game (LC 488)
+
+HASH MAPS
+---------
+
+Medium:
+ 631. Find All Anagrams In A String (LC 438)
+ 632. Find All Duplicates In Array (LC 442)
+ 633. Find All Subarrays With Sum K (LC 560)
+ 634. Find All Subarrays With Zero Sum
+ 635. Find All Substrings With Concatenation Of All Words (LC 30)
+ 636. Find Duplicate Subtrees (LC 652)
+ 637. Find First Unique Character (LC 387)
+ 638. Find Intersection Of Two Arrays (LC 349)
+ 639. Find Intersection Of Two Arrays II (LC 350)
+ 640. Find Longest Palindrome (LC 409)
+ 641. Find Longest Substring With At Most K Distinct Characters
+ 642. Find Longest Substring Without Repeating Characters (LC 3)
+ 643. Find Longest Substring With Same Letters After Replacement (LC 424)
+ 644. Find Majority Element (LC 169)
+ 645. Find Minimum Window Substring (LC 76)
+ 646. Find Missing Number (LC 268)
+ 647. Find Subarrays With Equal Sum
+ 648. Group Anagrams (LC 49)
+ 649. Longest Consecutive Sequence (LC 128)
+ 650. Longest Substring Without Repeating Characters (LC 3)
+ 651. Subarray Sum Equals K (LC 560)
+ 652. Top K Frequent Elements (LC 347)
+
+Hard:
+ 653. Find All Subarrays With Sum K
+ 654. Find All Subarrays With Zero Sum
+ 655. Find Longest Substring With At Most K Unique Characters
+ 656. Find Longest Substring With No Repeating Characters
+ 657. Find Longest Substring With Same Letters After Replacement
+ 658. Longest Substring With At Most K Distinct Characters
+ 659. Longest Substring With At Most Two Distinct Characters
+ 660. Longest Substring With K Repeating Characters (LC 395)
+ 661. Minimum Window Substring With All Unique Characters
+ 662. Smallest Subarray With Sum Greater Than K
+
+HEAP/PRIORITY QUEUE
+-------------------
+
+Medium:
+ 663. Find KPairs With Largest Sums Medium
+ 664. Find KPairs With Smallest Sums Medium (LC 373)
+ 665. Find Kth Largest Pair Sum
+ 666. Find Kth Smallest (LC 215)
+ 667. Find Kth Smallest Pair Sum
+ 668. Find Kth Smallest Sum Subarray
+ 669. Find Kth Smallest Sum Subarray_fixed
+ 670. Kth Smallest Element In Sorted Matrix (LC 378)
+
+Hard:
+ 671. Find KPairs With Smallest Sums (LC 373)
+ 672. Find Kth Largest Element In Sorted Matrix (LC 378)
+ 673. Find Kth Largest In Stream (LC 703)
+ 674. Find Kth Largest Number In Array (LC 215)
+ 675. Find Kth Largest Sum In Matrix
+ 676. Find Kth Largest Sum Subarray
+ 677. Find Kth Largest XORCoordinate Value (LC 1738)
+ 678. Find Kth Smallest Number In Array (LC 215)
+ 679. Find Kth Smallest Number In Multiplication Table (LC 668)
+ 680. Find Kth Smallest Pair Distance (LC 719)
+ 681. Find Kth Smallest Prime Fraction (LC 786)
+ 682. Find Kth Smallest Sum Of Matrix With Sorted Rows (LC 1439)
+ 683. Find Median From Data Stream (LC 295)
+ 684. Find Median From Data Stream Hard (LC 295)
+ 685. Find Median From Data Stream Heap (LC 295)
+ 686. Find Median Of Running Stream
+ 687. IPO (LC 502)
+ 688. Merge KSorted Lists (LC 23)
+ 689. Rearrange String KDistance Apart (LC 358)
+ 690. Sliding Window Maximum (LC 239)
+ 691. Trapping Rain Water II (LC 407)
+
+INTERVALS
+---------
+
+Medium:
+ 692. Employee Free Time (LC 759)
+ 693. Erase Overlapping Intervals (LC 435)
+ 694. Find Minimum Meeting Rooms Required (LC 253)
+ 695. Find Right Interval (LC 436)
+ 696. Merge Intervals (LC 56)
+
+Hard:
+ 697. Interval Containment
+ 698. Interval Covering
+ 699. Interval Difference
+ 700. Interval Graph Coloring
+ 701. Interval Intersection Multiple Lists
+ 702. Interval Maximum Overlap
+ 703. Interval Minimum Cover
+ 704. Interval Minimum Gap
+ 705. Interval Overlap Count
+ 706. Interval Partitioning Hard
+ 707. Interval Scheduling Maximum Profit
+ 708. Interval Scheduling Maximum Weight
+ 709. Interval Union
+
+LINKED LIST
+-----------
+
+Medium:
+ 710. Add Two Numbers (LC 2)
+ 711. Add Two Numbers II (LC 445)
+ 712. Copy List with Random Pointer (LC 138)
+ 713. Detect and Remove Loop
+ 714. Flatten Binary Tree to Linked List (LC 114)
+ 715. Intersection of Two Linked Lists (LC 160)
+ 716. Linked List Cycle (LC 141)
+ 717. Linked List Cycle II (LC 142)
+ 718. Odd Even Linked List (LC 328)
+ 719. Palindrome Linked List (LC 234)
+ 720. Partition List (LC 86)
+ 721. Remove Duplicates from Sorted List (LC 83)
+ 722. Remove Duplicates from Sorted List II (LC 82)
+ 723. Remove Duplicates from Unsorted List
+ 724. Remove Kth Node From Beginning
+ 725. Remove Kth Node From End
+ 726. Remove Kth Node From End Of List
+ 727. Remove Linked List Elements (LC 203)
+ 728. Remove Nth Node From End Of List (LC 19)
+ 729. Remove Nth Node From End Of List II
+ 730. Reverse Linked List (LC 206)
+ 731. Reverse Linked List II (LC 92)
+ 732. Rotate List (LC 61)
+ 733. Swap Nodes in Pairs (LC 24)
+
+Hard:
+ 734. Copy List with Random Pointer (LC 138)
+ 735. Detect and Remove Loop
+ 736. Flatten Multilevel Doubly Linked List (LC 430)
+ 737. Remove Cycle From Linked List
+ 738. Remove Duplicates From Doubly Linked List
+ 739. Remove Duplicates From Doubly Linked List II
+ 740. Remove Duplicates From Unsorted List
+ 741. Reverse Alternate K Nodes
+ 742. Reverse Doubly Linked List
+ 743. Reverse Linked List Between M And N
+ 744. Reverse Linked List Between M And N Recursively
+ 745. Reverse Linked List In Groups Of K
+ 746. Reverse Linked List In Groups Of K Recursively
+ 747. Reverse Linked List Recursively
+ 748. Reverse Linked List With Random Pointer
+ 749. Reverse Nodes in K Group (LC 25)
+ 750. Sort Doubly Linked List
+ 751. Sort List (LC 148)
+
+MATH
+----
+
+Medium:
+ 752. Count Primes (LC 204)
+ 753. Divide Two Integers (LC 29)
+ 754. Excel Sheet Column Number (LC 171)
+ 755. Find Nth Digit (LC 400)
+ 756. Fraction To Recurring Decimal (LC 166)
+ 757. Happy Number (LC 202)
+ 758. Integer To Roman (LC 12)
+ 759. Multiply Strings (LC 43)
+ 760. Perfect Squares (LC 279)
+ 761. Pow XN (LC 50)
+ 762. Random Pick Index (LC 398)
+ 763. Reverse Integer (LC 7)
+ 764. Sqrt X (LC 69)
+
+Hard:
+ 765. Count Numbers With Unique Digits Hard (LC 357)
+ 766. Count Primes Hard (LC 204)
+ 767. Find Nth Digit Hard (LC 400)
+ 768. Maximum Product Of Three Numbers (LC 628)
+ 769. Perfect Rectangle (LC 391)
+ 770. Prime Palindrome (LC 866)
+ 771. Super Pow (LC 372)
+
+MATRIX
+------
+
+Easy:
+ 772. Transpose Matrix (LC 867)
+
+Medium:
+ 773. Search a 2D Matrix (LC 74)
+ 774. Count Square Submatrices (LC 1277)
+
+Hard:
+ 775. Longest Increasing Path in Matrix (LC 329)
+
+MISCELLANEOUS
+-------------
+
+Easy:
+ 776. Fizz Buzz (LC 412)
+ 777. Move Zeroes (LC 283)
+ 778. Reverse String (LC 344)
+
+Medium:
+ 779. Random Pick Index (LC 398)
+ 780. Shuffle an Array (LC 384)
+ 781. Task Scheduler (LC 621)
+
+Hard:
+ 782. Calculator (LC 227)
+
+MULTITHREADING
+--------------
+
+Easy:
+ 783. Print in Order (LC 1114)
+ 784. Print FooBar Alternately (LC 1115)
+
+Medium:
+ 785. Print Zero Even Odd (LC 1116)
+ 786. Building H2O (LC 1117)
+
+Hard:
+ 787. The Dining Philosophers (LC 1226)
+
+QUEUES
+------
+
+Medium:
+ 788. Design Circular Queue (LC 622)
+ 789. First Unique Character In Stream (LC 387)
+ 790. Implement Queue Using Stacks (LC 232)
+ 791. Implement Stack Using Queues (LC 225)
+ 792. Moving Average From Data Stream (LC 346)
+ 793. Number Of Recent Calls (LC 933)
+ 794. Open The Lock (LC 752)
+ 795. Snake And Ladders (LC 909)
+ 796. Zigzag Level Order Traversal (LC 103)
+
+Hard:
+ 797. Bus Routes (LC 815)
+ 798. Cut Off Trees For Golf Event (LC 675)
+ 799. Minimum Cost To Make At Least One Valid Path (LC 1368)
+ 800. Minimum Knight Moves (LC 1197)
+ 801. Minimum Moves To Reach Target With Rotations (LC 1210)
+ 802. Minimum Number Of Flips To Convert Binary Matrix To Zero Matrix (LC 1284)
+ 803. Reachable Nodes In Subdivided Graph (LC 882)
+ 804. Shortest Distance From All Buildings (LC 317)
+ 805. Swim In Rising Water (LC 778)
+ 806. The Maze II (LC 505)
+ 807. Walls And Gates (LC 286)
+ 808. Word Ladder II (LC 126)
+
+RECURSION
+---------
+
+Medium:
+ 809. Combination Sum II (LC 40)
+ 810. NQueens II (LC 52)
+ 811. Permutations II (LC 47)
+
+Hard:
+ 812. Android Unlock Patterns (LC 351)
+ 813. Cracking The Safe (LC 753)
+ 814. Factor Combinations (LC 254)
+ 815. Number Of Squareful Arrays (LC 996)
+ 816. Numbers With Same Consecutive Differences (LC 967)
+ 817. Optimal Account Balancing (LC 465)
+ 818. Palindrome Partitioning II (LC 132)
+ 819. Remove Invalid Parentheses (LC 301)
+ 820. Split String Into Max Number Of Unique Substrings (LC 1593)
+ 821. Strobogrammatic Number II (LC 247)
+ 822. Wildcard Matching (LC 44)
+ 823. Zuma Game (LC 488)
+
+SLIDING WINDOW
+--------------
+
+Medium:
+ 824. Binary Subarrays With Sum (LC 930)
+ 825. Contains Duplicate II (LC 219)
+ 826. Contains Duplicate III (LC 220)
+ 827. Count Vowel Substrings (LC 2062)
+ 828. Find All Anagrams In String (LC 438)
+ 829. Find KLength Substrings With No Repeated Characters (LC 1100)
+ 830. Fruit Into Baskets (LC 904)
+ 831. Get Equal Substrings Within Budget (LC 1208)
+ 832. Grumpy Bookstore Owner (LC 1052)
+ 833. Longest Nice Subarray (LC 2401)
+ 834. Longest Subarray Of1s After Deleting One Element (LC 1493)
+ 835. Longest Subarray With At Most KDistinct Characters (LC 340)
+ 836. Max Consecutive Ones III (LC 1004)
+ 837. Max Points From Cards (LC 1423)
+ 838. Maximum Average Subarray I (LC 643)
+ 839. Maximum Sum Subarray Of Size K (LC 643)
+ 840. Minimum Size Subarray Sum (LC 209)
+ 841. Permutation In String (LC 567)
+ 842. Repeated String Match (LC 686)
+ 843. Subarray Product Less Than K (LC 713)
+
+Hard:
+ 844. Constrained Subsequence Sum (LC 1425)
+ 845. Count Subarrays With Fixed Bounds (LC 2444)
+ 846. Minimum Number Of Flips To Make Binary String Alternating (LC 1888)
+ 847. Minimum Window Covering All Characters (LC 76)
+ 848. Minimum Window Subsequence (LC 727)
+ 849. Minimum Window With Character Frequency (LC 340)
+ 850. Number Of Substrings Containing All Three Characters (LC 1358)
+ 851. Shortest Subarray With Sum At Least K (LC 862)
+ 852. Sliding Window Average (LC 346)
+ 853. Sliding Window Maximum Deque (LC 239)
+ 854. Sliding Window Median (LC 480)
+ 855. Sliding Window Minimum
+ 856. Subarrays With KDifferent Integers (LC 992)
+
+SORTING
+-------
+
+Easy:
+ 857. Array Partition I (LC 561)
+ 858. Sort Array By Parity II (LC 922)
+
+Medium:
+ 859. Car Pooling (LC 1094)
+ 860. Custom Sort String (LC 791)
+ 861. Height Checker (LC 1051)
+ 862. K Closest Points To Origin (LC 973)
+ 863. Largest Number (LC 179)
+ 864. Minimum Number Of Arrows To Burst Balloons (LC 452)
+ 865. Queue Reconstruction By Height (LC 406)
+ 866. Relative Sort Array (LC 1122)
+ 867. Reorder Data In Log Files (LC 937)
+ 868. Sort Array By Parity (LC 905)
+ 869. Sort Characters By Frequency (LC 451)
+ 870. Sort Colors (LC 75)
+ 871. Sort Transformed Array (LC 360)
+ 872. Wiggle Sort (LC 280)
+ 873. Wiggle Sort II (LC 324)
+
+Hard:
+ 874. Count Inversions
+ 875. Count Range Sum (LC 327)
+ 876. Create Maximum Number (LC 321)
+ 877. Maximum Gap (LC 164)
+ 878. Russian Doll Envelopes (LC 354)
+ 879. Skyline Problem (LC 218)
+ 880. Wiggle Sort II (LC 324)
+
+STACKS
+------
+
+Medium:
+ 881. Asteroid Collision (LC 735)
+ 882. Baseball Game (LC 682)
+ 883. Daily Temperatures (LC 739)
+ 884. Evaluate Reverse Polish Notation (LC 150)
+ 885. Exclusive Time Of Functions (LC 636)
+ 886. Freq Stack (LC 895)
+ 887. Largest Rectangle In Histogram (LC 84)
+ 888. Min Stack (LC 155)
+ 889. Monotonic Stack
+ 890. Next Greater Element (LC 496)
+ 891. Next Greater Element II (LC 503)
+ 892. Next Smaller Element
+ 893. Online Stock Span (LC 901)
+ 894. Previous Greater Element
+ 895. Remove KDigits (LC 402)
+ 896. Score Of Parentheses (LC 856)
+ 897. Simplify Path (LC 71)
+ 898. Stack With Increment (LC 1381)
+ 899. Sum Of Subarray Minimums (LC 907)
+ 900. Validate Stack Sequences (LC 946)
+
+Hard:
+ 901. Basic Calculator III (LC 772)
+ 902. Calculator With Variables
+ 903. Count Submatrices With All Ones (LC 1504)
+ 904. Largest Component Size By Common Factor (LC 952)
+ 905. Largest Rectangle In Binary Matrix (LC 85)
+ 906. Max Stack (LC 716)
+ 907. Minimum Cost Tree From Leaf Values (LC 1130)
+ 908. Number Of Atoms (LC 726)
+ 909. Shortest Unsorted Continuous Subarray (LC 581)
+ 910. Sum Of Subarray Ranges (LC 2104)
+
+STRINGS
+-------
+
+Easy:
+ 911. Valid Palindrome (LC 125)
+
+Medium:
+ 912. Check If Anagram (LC 242)
+ 913. Count And Say (LC 38)
+ 914. Implement Str Str (LC 28)
+ 915. Longest Common Prefix (LC 14)
+ 916. Longest Palindromic Substring (LC 5)
+ 917. Remove Duplicates (LC 1047)
+ 918. Reverse Words In AString (LC 151)
+ 919. Roman To Integer (LC 13)
+
+Hard:
+ 920. Count Different Palindromic Subsequences (LC 730)
+ 921. Distinct Subsequences (LC 115)
+ 922. Edit Distance (LC 72)
+ 923. Find The Longest Substring Containing Vowels In Even Counts (LC 1371)
+ 924. KMPString Matching (LC 28)
+ 925. Longest Palindromic Substring Hard (LC 5)
+ 926. Scramble String (LC 87)
+ 927. Shortest Palindrome (LC 214)
+ 928. Substring With Concatenation Of All Words (LC 30)
+ 929. Text Justification (LC 68)
+
+TREES
+-----
+
+Easy:
+ 930. Binary Tree Inorder Traversal (LC 94)
+
+Medium:
+ 931. Binary Tree Level Order Traversal (LC 102)
+ 932. Binary Tree Right Side View (LC 199)
+ 933. Binary Tree Zigzag Level Order Traversal (LC 103)
+ 934. Construct Binary Tree From Inorder And Postorder Traversal (LC 106)
+ 935. Construct Binary Tree From Preorder And Inorder Traversal (LC 105)
+ 936. Construct Quad Tree (LC 427)
+ 937. Convert Sorted Array To Binary Search Tree (LC 108)
+ 938. Convert Sorted List To Binary Search Tree (LC 109)
+ 939. Count Complete Tree Nodes (LC 222)
+ 940. Find All Duplicate Subtrees (LC 652)
+ 941. Find All Nodes Distance KIn Binary Tree (LC 863)
+ 942. Find Bottom Left Tree Value (LC 513)
+ 943. Find Closest Leaf In Binary Tree (LC 742)
+ 944. Find Diameter Of Binary Tree (LC 543)
+ 945. Find Duplicate Subtrees (LC 652)
+ 946. Find LCAOf Binary Tree (LC 236)
+ 947. Find Largest Value In Each Tree Row (LC 515)
+ 948. Find Leaves Of Binary Tree (LC 366)
+ 949. Find Longest Path With Same Value (LC 687)
+ 950. Find Maximum Average Subtree (LC 1120)
+ 951. Find Maximum Depth Of Binary Tree (LC 104)
+ 952. Find Maximum Depth Of Nary Tree (LC 559)
+ 953. Find Maximum Level Sum Of Binary Tree (LC 1161)
+ 954. Find Maximum Path Sum Between Two Leaves
+ 955. Find Maximum Product Of Splitted Binary Tree (LC 1339)
+ 956. Find Maximum Sum BSTIn Binary Tree (LC 1373)
+ 957. Find Maximum Sum Of Non Adjacent Nodes (LC 337)
+ 958. Find Maximum Sum Of Root To Leaf Path
+ 959. Find Maximum Width Of Binary Tree (LC 662)
+ 960. Find Minimum Absolute Difference In BST (LC 530)
+ 961. Find Minimum Depth Of Binary Tree (LC 111)
+ 962. Find Minimum Depth Of Nary Tree
+ 963. Find Minimum Time To Collect All Apples (LC 1443)
+ 964. Find Mode In Binary Search Tree (LC 501)
+ 965. Find Path Sum III (LC 437)
+ 966. Find Second Minimum Value In Binary Tree (LC 671)
+ 967. Find Sum Of Left Leaves (LC 404)
+ 968. Find Sum Of Right Leaves
+ 969. Find Tilt Of Binary Tree (LC 563)
+ 970. Find Tree Diameter
+ 971. Invert Binary Tree (LC 226)
+ 972. Lowest Common Ancestor Of BST (LC 235)
+ 973. Path Sum II (LC 113)
+ 974. Populating Next Right Pointers In Each Node (LC 116)
+ 975. Quad Tree Intersection (LC 558)
+ 976. Sum Root To Leaf Numbers (LC 129)
+ 977. Symmetric Tree (LC 101)
+ 978. Validate Binary Search Tree (LC 98)
+ 979. Zigzag Level Order Traversal (LC 103)
+
+Hard:
+ 980. Binary Tree Maximum Path Sum (LC 124)
+ 981. Count Paths With Sum (LC 437)
+ 982. Count Unique BSTs (LC 96)
+ 983. Find Largest BSTSubtree (LC 333)
+ 984. Find Maximum Sum Of Non Adjacent Nodes Hard (LC 337)
+ 985. Find Maximum Sum Path Between Leaves
+ 986. Find Minimum Number Of Nodes To Remove For Full Binary Tree
+ 987. Longest Zig Zag Path In Binary Tree (LC 1372)
+ 988. Maximum Binary Tree (LC 654)
+ 989. Maximum Binary Tree II (LC 998)
+ 990. Maximum Sum Of Three Non Overlapping Subtrees (LC 689)
+ 991. Maximum Width Ramp In Binary Tree
+ 992. Minimum Cost To Merge Stones (LC 1000)
+ 993. Minimum Number Of Nodes To Remove For Full Binary Tree
+ 994. Recover Binary Search Tree (LC 99)
+ 995. Serialize And Deserialize Binary Tree (LC 297)
+ 996. Unique BSTII (LC 95)
+
+TRIES
+-----
+
+Medium:
+ 997. Add and Search Word (LC 211)
+ 998. Camelcase Matching (LC 1023)
+ 999. Implement Trie (LC 208)
+1000. Lexicographical Numbers (LC 386)
+1001. Longest Word In Dictionary (LC 720)
+1002. Map Sum (LC 677)
+1003. Replace Words (LC 648)
+1004. Stream Of Characters (LC 1032)
+
+Hard:
+1005. Autocomplete System (LC 642)
+1006. Concatenated Words (LC 472)
+1007. Design In Memory File System (LC 588)
+1008. Palindrome Pairs (LC 336)
+1009. Shortest Word Distance (LC 244)
+1010. Sum Of Prefix Scores (LC 2416)
+1011. Word Ladder (LC 127)
+1012. Word Search I (LC 79)
+
+TWO POINTERS
+------------
+
+Medium:
+1013. Fruit Into Baskets (LC 904)
+1014. Interval List Intersections (LC 986)
+1015. Move Zeroes (LC 283)
+1016. Squares Of Sorted Array (LC 977)
+1017. Three Sum Closest (LC 16)
+1018. Two Sum II (LC 167)
+1019. Valid Palindrome II (LC 680)
+
+Hard:
+1020. Four Sum (LC 18)
+
+UNION FIND
+----------
+
+Easy:
+1021. Find If Path Exists (LC 1971)
+1022. Number Of Connected Components (LC 323)
+
+Medium:
+1023. Accounts Merge (LC 721)
+1024. Earliest Acquaintance (LC 1101)
+1025. Friend Circles (LC 547)
+1026. Graph Valid Tree (LC 261)
+1027. Longest Consecutive Sequence (LC 128)
+1028. Most Stones Removed (LC 947)
+1029. Number Of Connected Components (LC 323)
+1030. Number Of Islands (LC 200)
+1031. Number Of Islands II (LC 305)
+1032. Number Of Operations To Make Network Connected (LC 1319)
+1033. Number Of Provinces (LC 547)
+1034. Redundant Connection (LC 684)
+1035. Regions Cut By Slashes (LC 959)
+1036. Satisfiability Of Equality Equations (LC 990)
+1037. Surrounded Regions (LC 130)
+
+Hard:
+1038. Redundant Connection II (LC 685)
+1039. Satisfiability Equations (LC 990)
+1040. Similar String Groups (LC 839)
+1041. Smallest String With Swaps (LC 1202)

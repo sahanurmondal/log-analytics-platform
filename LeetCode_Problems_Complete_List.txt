@@ -1,0 +1,1449 @@
+====================================================================================================
+                                   LEETCODE PROBLEMS COLLECTION
+                              Complete List - Organized by Category & Difficulty
+                                        Total: 1041 Problems
+====================================================================================================
+
+
+============================== ARRAYS ==============================
+
+Category Summary: 70 problems (Easy: 8, Medium: 36, Hard: 26)
+
+  📌 EASY (8 problems):
+  ------------------------------------------------------------
+   254. Two Sum (LeetCode #1)
+   255. Best Time to Buy and Sell Stock (LeetCode #121)
+   256. Majority Element (LeetCode #169)
+   257. Move Zeroes (LeetCode #283)
+   258. Plus One (LeetCode #66)
+   259. Remove Duplicates from Sorted Array (LeetCode #26)
+   260. Single Number (LeetCode #136)
+   261. Valid Anagram (LeetCode #242)
+
+  📌 MEDIUM (36 problems):
+  ------------------------------------------------------------
+   262. 3Sum (LeetCode #15)
+   263. Container With Most Water (LeetCode #11)
+   264. Container Most Water (LeetCode #11)
+   265. Maximum Subarray (LeetCode #53)
+   266. Coin Change (LeetCode #322)
+   267. Counting Bits (LeetCode #338)
+   268. Course Schedule (LeetCode #207)
+   269. Decode Ways (LeetCode #91)
+   270. Find Minimum in Rotated Sorted Array (LeetCode #153)
+   271. First Missing Positive (LeetCode #41)
+   272. Group Anagrams (LeetCode #49)
+   273. House Robber (LeetCode #198)
+   274. Implement Trie (LeetCode #208)
+   275. Jump Game (LeetCode #55)
+   276. Longest Consecutive Sequence (LeetCode #128)
+   277. Longest Increasing Subsequence (LeetCode #300)
+   278. Longest Substring Without Repeating Characters (LeetCode #3)
+   279. Maximum Product Subarray (LeetCode #152)
+   280. Merge Intervals (LeetCode #56)
+   281. Next Permutation (LeetCode #31)
+   282. Number of Islands (LeetCode #200)
+   283. Pacific Atlantic Water Flow (LeetCode #417)
+   284. Perfect Squares (LeetCode #279)
+   285. Product of Array Except Self (LeetCode #238)
+   286. Remove Duplicates from Sorted Array II (LeetCode #80)
+   287. Rotate Image (LeetCode #48)
+   288. Search in Rotated Sorted Array (LeetCode #33)
+   289. Search Rotated Array (LeetCode #33)
+   290. Set Matrix Zeroes (LeetCode #73)
+   291. Spiral Matrix (LeetCode #54)
+   292. Subarray Sum Equals K (LeetCode #560)
+   293. Two Sum II - Input Array Is Sorted (LeetCode #167)
+   294. Two Sum II Input Array Is Sorted (LeetCode #167)
+   295. Valid Sudoku (LeetCode #36)
+   296. Wiggle Subsequence (LeetCode #376)
+   297. Word Break (LeetCode #139)
+
+  📌 HARD (26 problems):
+  ------------------------------------------------------------
+   298. Basic Calculator (LeetCode #224)
+   299. Burst Balloons (LeetCode #312)
+   300. Count of Smaller Numbers After Self (LeetCode #315)
+   301. Edit Distance (LeetCode #72)
+   302. Find Median from Data Stream (LeetCode #295)
+   303. Interleaving String (LeetCode #97)
+   304. Largest Rectangle in Histogram (LeetCode #84)
+   305. Longest Valid Parentheses (LeetCode #32)
+   306. Maximal Rectangle (LeetCode #85)
+   307. Maximum Sum Circular Subarray (LeetCode #918)
+   308. Median of Two Sorted Arrays (LeetCode #4)
+   309. Minimum Window Subarray (LeetCode #76)
+   310. Minimum Window Substring (LeetCode #76)
+   311. Regular Expression Matching (LeetCode #10)
+   312. Remove Invalid Parentheses (LeetCode #301)
+   313. Reverse Pairs (LeetCode #493)
+   314. Serialize and Deserialize Binary Tree (LeetCode #297)
+   315. Sliding Window Maximum (LeetCode #239)
+   316. Smallest Range Covering Elements from K Lists (LeetCode #632)
+   317. Split Array Largest Sum (LeetCode #410)
+   318. Subarrays with K Different Integers (LeetCode #992)
+   319. Sudoku Solver (LeetCode #37)
+   320. Text Justification (LeetCode #68)
+   321. Trapping Rain Water (LeetCode #42)
+   322. Wildcard Matching (LeetCode #44)
+   323. Word Search II (LeetCode #212)
+
+
+============================== BACKTRACKING ==============================
+
+Category Summary: 44 problems (Easy: 3, Medium: 22, Hard: 19)
+
+  📌 EASY (3 problems):
+  ------------------------------------------------------------
+   545. Binary Watch (LeetCode #401)
+   546. Generate Parentheses (LeetCode #22)
+   547. Letter Case Permutation (LeetCode #784)
+
+  📌 MEDIUM (22 problems):
+  ------------------------------------------------------------
+   548. All Paths From Source To Target (LeetCode #797)
+   549. Beautiful Arrangement (LeetCode #526)
+   550. Combinations (LeetCode #77)
+   551. Combination Sum (LeetCode #39)
+   552. Combination Sum II (LeetCode #40)
+   553. Combination Sum III (LeetCode #216)
+   554. Combination Sum IV (LeetCode #377)
+   555. Combination Sum V
+   556. Expression Add Operators (LeetCode #282)
+   557. Find All Combinations Of Size K
+   558. Find All Subsets With Duplicates
+   559. Find All Valid Sudoku Boards
+   560. Generate Parentheses (LeetCode #22)
+   561. Letter Combinations Phone Number (LeetCode #17)
+   562. Palindrome Partitioning (LeetCode #131)
+   563. Partition K Equal Sum Subsets (LeetCode #698)
+   564. Permutations (LeetCode #46)
+   565. Permutations II (LeetCode #47)
+   566. Restore IP Addresses (LeetCode #93)
+   567. Subsets (LeetCode #78)
+   568. Subsets II (LeetCode #90)
+   569. Word Search (LeetCode #79)
+
+  📌 HARD (19 problems):
+  ------------------------------------------------------------
+   570. All Unique Permutations With Duplicates
+   571. Beautiful Arrangement (LeetCode #526)
+   572. Combination Sum Hard
+   573. Count Number Of Beautiful Subsets
+   574. Expression Add Operators (LeetCode #282)
+   575. Find All Valid Combinations Of Parentheses
+   576. Find All Valid N Queens Boards
+   577. Find All Valid Word Squares
+   578. Maximum Number Of Achievable Transfer Requests
+   579. N-Queens (LeetCode #51)
+   580. N-Queens II (LeetCode #52)
+   581. Palindrome Partitioning II (LeetCode #132)
+   582. Regular Expression Matching (LeetCode #10)
+   583. Remove Boxes (LeetCode #546)
+   584. Remove Invalid Parentheses (LeetCode #301)
+   585. Restore The Array (LeetCode #1416)
+   586. Unique Paths III (LeetCode #980)
+   587. Word Break II (LeetCode #140)
+   588. Word Search II (LeetCode #212)
+
+
+============================== BINARY SEARCH ==============================
+
+Category Summary: 30 problems (Easy: 10, Medium: 14, Hard: 6)
+
+  📌 EASY (10 problems):
+  ------------------------------------------------------------
+   673. Arranging Coins (LeetCode #441)
+   674. Binary Search (LeetCode #704)
+   675. Binary Search Extended (LeetCode #704)
+   676. Find Smallest Letter Greater Than Target (LeetCode #744)
+   677. First Bad Version (LeetCode #278)
+   678. First Bad Version Extended (LeetCode #278)
+   679. Guess Number Higher Or Lower (LeetCode #374)
+   680. Search Insert Position (LeetCode #35)
+   681. Sqrt X (LeetCode #69)
+   682. Valid Perfect Square (LeetCode #367)
+
+  📌 MEDIUM (14 problems):
+  ------------------------------------------------------------
+   683. Capacity To Ship Packages Within DDays (LeetCode #1011)
+   684. Find First And Last Position (LeetCode #34)
+   685. Find First And Last Position Extended (LeetCode #34)
+   686. Find Minimum In Rotated Sorted Array (LeetCode #153)
+   687. Find Minimum In Rotated Sorted Array Extended (LeetCode #153)
+   688. Find Peak Element (LeetCode #162)
+   689. Find Peak Element Extended (LeetCode #162)
+   690. Koko Eating Bananas (LeetCode #875)
+   691. Koko Eating Bananas Extended (LeetCode #875)
+   692. Search A2DMatrix II (LeetCode #240)
+   693. Search In Rotated Sorted Array (LeetCode #33)
+   694. Search In Rotated Sorted Array II
+   695. Single Element In Sorted Array (LeetCode #540)
+   696. Time Based Key Value Store (LeetCode #981)
+
+  📌 HARD (6 problems):
+  ------------------------------------------------------------
+   697. Divide Chocolate (LeetCode #1231)
+   698. Find In Mountain Array (LeetCode #1095)
+   699. Median Of Two Sorted Arrays (LeetCode #4)
+   700. Merge KSorted Lists (LeetCode #23)
+   701. Split Array Largest Sum (LeetCode #410)
+   702. Super Egg Dropping (LeetCode #887)
+
+
+============================== BINARY SEARCH TREE ==============================
+
+Category Summary: 57 problems (Easy: 8, Medium: 30, Hard: 19)
+
+  📌 EASY (8 problems):
+  ------------------------------------------------------------
+   391. Closest Binary Search Tree Value (LeetCode #270)
+   392. Convert Sorted Array To BST (LeetCode #108)
+   393. Convert Sorted List To BST (LeetCode #109)
+   394. Insert Into BST (LeetCode #701)
+   395. Minimum Absolute Difference In BST (LeetCode #530)
+   396. Range Sum Of BST (LeetCode #938)
+   397. Search In BST (LeetCode #700)
+   398. Two Sum IVInput Is BST (LeetCode #653)
+
+  📌 MEDIUM (30 problems):
+  ------------------------------------------------------------
+   399. All Elements In Two BSTs (LeetCode #1305)
+   400. BSTIterator (LeetCode #173)
+   401. BSTTo Greater Sum Tree (LeetCode #1038)
+   402. Balance Binary Search Tree (LeetCode #1382)
+   403. Construct BSTFrom Preorder Traversal (LeetCode #1008)
+   404. Convert BSTTo Greater Tree Medium
+   405. Delete Node In BST (LeetCode #450)
+   406. Find BSTFrom Postorder (LeetCode #1008)
+   407. Find BSTFrom Preorder
+   408. Find Closest Value In BSTMedium (LeetCode #270)
+   409. Find Diameter Of BST (LeetCode #543)
+   410. Find Floor Ceil In BSTMedium
+   411. Find Height Of BST (LeetCode #104)
+   412. Find Inorder Predecessor Successor Medium (LeetCode #285)
+   413. Find LCAIn BSTIterative (LeetCode #235)
+   414. Find Max In BST
+   415. Find Min In BST
+   416. Find Mode In BSTMedium (LeetCode #501)
+   417. Find Range Sum Of BSTMedium
+   418. Find Sum Of BST
+   419. Inorder Successor In BST (LeetCode #285)
+   420. Insert Into BST (LeetCode #701)
+   421. Kth Smallest Element In BST (LeetCode #230)
+   422. Lowest Common Ancestor BST (LeetCode #235)
+   423. Lowest Common Ancestor Of BST (LeetCode #235)
+   424. Recover Binary Search Tree (LeetCode #99)
+   425. Trim Binary Search Tree (LeetCode #669)
+   426. Unique Binary Search Trees (LeetCode #96)
+   427. Unique Binary Search Trees II (LeetCode #95)
+   428. Validate Binary Search Tree (LeetCode #98)
+
+  📌 HARD (19 problems):
+  ------------------------------------------------------------
+   429. Closest Binary Search Tree Value II (LeetCode #272)
+   430. Contains Duplicate III (LeetCode #220)
+   431. Convert BSTTo Greater Tree (LeetCode #538)
+   432. Count BSTNodes In Range (LeetCode #938)
+   433. Count Of Range Sum (LeetCode #327)
+   434. Count Of Smaller Numbers After Self (LeetCode #315)
+   435. Find Closest Value In BST (LeetCode #270)
+   436. Find Floor Ceil In BST (LeetCode #270)
+   437. Find Inorder Predecessor Successor (LeetCode #285)
+   438. Find Kth Largest In BST (LeetCode #230)
+   439. Find Kth Smallest In BST (LeetCode #230)
+   440. Find Lowest Common Ancestor In BSTWith Parent (LeetCode #1650)
+   441. Find Mode In BST (LeetCode #501)
+   442. Find Range Sum Of BST (LeetCode #938)
+   443. Maximum Sum BSTIn Binary Tree (LeetCode #1373)
+   444. Recover Binary Search Tree (LeetCode #99)
+   445. Serialize And Deserialize BST (LeetCode #449)
+   446. Serialize Deserialize BST (LeetCode #449)
+   447. Trim BST (LeetCode #669)
+
+
+============================== BIT MANIPULATION ==============================
+
+Category Summary: 51 problems (Easy: 11, Medium: 33, Hard: 7)
+
+  📌 EASY (11 problems):
+  ------------------------------------------------------------
+   589. Binary Number With Alternating Bits (LeetCode #693)
+   590. Counting Bits (LeetCode #338)
+   591. Hamming Distance (LeetCode #461)
+   592. Missing Number (LeetCode #268)
+   593. Number Complement (LeetCode #476)
+   594. Number Of1Bits (LeetCode #191)
+   595. Power Of Four (LeetCode #342)
+   596. Power Of Two (LeetCode #231)
+   597. Reverse Bits (LeetCode #190)
+   598. Single Number (LeetCode #136)
+   599. XOROperation In Array (LeetCode #1486)
+
+  📌 MEDIUM (33 problems):
+  ------------------------------------------------------------
+   600. Bitwise And Of Numbers Range (LeetCode #201)
+   601. Bitwise Complement (LeetCode #1009)
+   602. Concatenation Of Consecutive Binary Numbers (LeetCode #1680)
+   603. Counting Bits (LeetCode #338)
+   604. Divide Two Integers (LeetCode #29)
+   605. Find Bitwise ANDOf Numbers Range (LeetCode #201)
+   606. Find Bitwise Complement (LeetCode #1009)
+   607. Find Bitwise OROf Numbers Range (LeetCode #201)
+   608. Find Bitwise Parity (LeetCode #1869)
+   609. Find Bitwise XOROf Numbers Range (LeetCode #1835)
+   610. Find Different Bit (LeetCode #1076)
+   611. Find Missing Number (LeetCode #268)
+   612. Find Number Of Bits To Flip (LeetCode #461)
+   613. Find Single Bit (LeetCode #136)
+   614. Find Single Number IV (LeetCode #137)
+   615. Find The Difference (LeetCode #389)
+   616. Find The Duplicate Number (LeetCode #287)
+   617. Find Two Non Repeating Numbers (LeetCode #260)
+   618. Find Unique Number In Array
+   619. Gray Code (LeetCode #89)
+   620. Integer Replacement (LeetCode #397)
+   621. Maximum XOROf Two Numbers (LeetCode #421)
+   622. Missing Number (LeetCode #268)
+   623. Number Of1Bits (LeetCode #191)
+   624. Power Of Four (LeetCode #342)
+   625. Power Of Two (LeetCode #231)
+   626. Reverse Bits (LeetCode #190)
+   627. Single Number II (LeetCode #137)
+   628. Single Number III (LeetCode #260)
+   629. Subsets Bit Manipulation (LeetCode #78)
+   630. Sum Of Two Integers (LeetCode #371)
+   631. Total Hamming Distance (LeetCode #477)
+   632. UTF8Validation (LeetCode #393)
+
+  📌 HARD (7 problems):
+  ------------------------------------------------------------
+   633. Find Single Number V
+   634. Maximum XORWith Element From Array (LeetCode #1707)
+   635. Minimum One Bit Operations (LeetCode #1611)
+   636. Minimum XORSum Of Two Arrays (LeetCode #1879)
+   637. NQueens IIBit Manipulation (LeetCode #52)
+   638. Number Of Valid Words For Each Puzzle (LeetCode #1178)
+   639. Shortest Path Visiting All Nodes (LeetCode #847)
+
+
+============================== DESIGN ==============================
+
+Category Summary: 144 problems (Easy: 8, Medium: 61, Hard: 75)
+
+  📌 EASY (8 problems):
+  ------------------------------------------------------------
+     1. Logger (LeetCode #359)
+     2. Min Stack (LeetCode #155)
+     3. My Hash Map (LeetCode #706)
+     4. My Hash Set (LeetCode #705)
+     5. My Queue (LeetCode #232)
+     6. My Stack (LeetCode #225)
+     7. Parking System (LeetCode #1603)
+     8. Solution (LeetCode #384)
+
+  📌 MEDIUM (61 problems):
+  ------------------------------------------------------------
+     9. Authentication Manager (LeetCode #1797)
+    10. Browser History (LeetCode #1472)
+    11. Custom Stack (LeetCode #1381)
+    12. Design Add And Search Words Data Structure
+    13. Design Bitset (LeetCode #2166)
+    14. Design Browser History
+    15. Design Cache With TTL
+    16. Design Chat Room
+    17. Design Circular Buffer
+    18. Design Circular Deque
+    19. Design Circular Priority Queue
+    20. Design Content Manager
+    21. Design Data Stream (LeetCode #2526)
+    22. Design Deque With Min
+    23. Design Elevator System
+    24. Design Event Counter (LeetCode #362)
+    25. Design File System
+    26. Design Game Leaderboard
+    27. Design Graph (LeetCode #2642)
+    28. Design Hash Function
+    29. Design Hit Counter
+    30. Design In Memory Key Value Store
+    31. Design Logger Rate Limiter (LeetCode #359)
+    32. Design Median Finder
+    33. Design Moving Average (LeetCode #346)
+    34. Design Parking Lot
+    35. Design Parking System
+    36. Design Peeking Iterator (LeetCode #284)
+    37. Design Randomized Set
+    38. Design Rate Limiter
+    39. Design Search Autocomplete System
+    40. Design Seat Manager (LeetCode #1845)
+    41. Design Skip List (LeetCode #1206)
+    42. Design Snake Game
+    43. Design Snapshot Array (LeetCode #1146)
+    44. Design Stack With Increment (LeetCode #1381)
+    45. Design Stack With Max
+    46. Design Stack With Min (LeetCode #155)
+    47. Design Stock Price (LeetCode #2034)
+    48. Design Tic Tac Toe
+    49. Design Tiny URL (LeetCode #535)
+    50. Design Twitter
+    51. Design Underground System
+    52. Design Vending Machine
+    53. Design Video Sharing Platform (LeetCode #1912)
+    54. Design Word Filter (LeetCode #745)
+    55. Food Ratings (LeetCode #2353)
+    56. Front Middle Back Queue (LeetCode #1670)
+    57. Hit Counter (LeetCode #362)
+    58. LRUCache (LeetCode #146)
+    59. Leaderboard (LeetCode #1244)
+    60. My Circular Deque (LeetCode #641)
+    61. My Circular Queue (LeetCode #622)
+    62. Nested Iterator (LeetCode #341)
+    63. Phone Directory (LeetCode #379)
+    64. Randomized Set (LeetCode #380)
+    65. Snake Game (LeetCode #353)
+    66. Tic Tac Toe (LeetCode #348)
+    67. Twitter (LeetCode #355)
+    68. Underground System (LeetCode #1396)
+    69. Word Dictionary (LeetCode #211)
+
+  📌 HARD (75 problems):
+  ------------------------------------------------------------
+    70. All One (LeetCode #432)
+    71. Autocomplete System (LeetCode #642)
+    72. Bounded Blocking Queue (LeetCode #1188)
+    73. Design APIGateway
+    74. Design Auction System
+    75. Design Blockchain
+    76. Design Calendar (LeetCode #729)
+    77. Design Compiler
+    78. Design Consistent Hashing
+    79. Design Container Orchestrator
+    80. Design Content Delivery Network
+    81. Design Data Structure (LeetCode #1912)
+    82. Design Distributed Barrier
+    83. Design Distributed Bloom Filter
+    84. Design Distributed Cache
+    85. Design Distributed Cache With TTL
+    86. Design Distributed Circuit Breaker
+    87. Design Distributed Configuration Management
+    88. Design Distributed Consensus
+    89. Design Distributed Database
+    90. Design Distributed Deque With Min
+    91. Design Distributed Event Counter
+    92. Design Distributed Event Sourcing
+    93. Design Distributed File System
+    94. Design Distributed Graph
+    95. Design Distributed LRUSet
+    96. Design Distributed Leader Election
+    97. Design Distributed Lock
+    98. Design Distributed Lock Manager
+    99. Design Distributed Log Aggregation
+   100. Design Distributed Message Queue
+   101. Design Distributed Multi Master KVStore
+   102. Design Distributed Priority Queue
+   103. Design Distributed Pub Sub
+   104. Design Distributed Rate Limiter
+   105. Design Distributed Scheduler
+   106. Design Distributed Scheduler With Dependencies
+   107. Design Distributed Search Index
+   108. Design Distributed Semaphore
+   109. Design Distributed Service Discovery
+   110. Design Distributed Set
+   111. Design Distributed Snapshot
+   112. Design Distributed Stack With Max
+   113. Design Distributed Stack With Min
+   114. Design Distributed Time Series DB
+   115. Design Distributed Tracing
+   116. Design Distributed Transaction Log
+   117. Design Distributed Transaction Manager
+   118. Design Distributed Trie
+   119. Design Event Store
+   120. Design Expression Tree (LeetCode #1628)
+   121. Design In Memory Database
+   122. Design Load Balancer
+   123. Design Log Storage (LeetCode #635)
+   124. Design Max Stack (LeetCode #716)
+   125. Design Median Finder (LeetCode #295)
+   126. Design Memory Allocator (LeetCode #2502)
+   127. Design Message Queue
+   128. Design Microservices Orchestrator
+   129. Design Number Container (LeetCode #2349)
+   130. Design Operating System
+   131. Design Range Module (LeetCode #715)
+   132. Design Recommendation Engine (LeetCode #1642)
+   133. Design Search Engine
+   134. Design Service Mesh
+   135. Design Sliding Window Maximum
+   136. Design Stream Processing Engine
+   137. Design Task Scheduler
+   138. Design Text Editor (LeetCode #2296)
+   139. Design Twitter Advanced (LeetCode #355)
+   140. Excel (LeetCode #631)
+   141. File System (LeetCode #588)
+   142. LFUCache (LeetCode #460)
+   143. Movie Renting System (LeetCode #1756)
+   144. Randomized Collection (LeetCode #381)
+
+
+============================== DYNAMIC PROGRAMMING ==============================
+
+Category Summary: 109 problems (Easy: 21, Medium: 58, Hard: 30)
+
+  📌 EASY (21 problems):
+  ------------------------------------------------------------
+   145. Climbing Stairs (LeetCode #70)
+   146. House Robber (LeetCode #198)
+   147. Maximum Subarray (LeetCode #53)
+   148. Best Time to Buy and Sell Stock (LeetCode #121)
+   149. Fibonacci Number (LeetCode #509)
+   150. N-th Tribonacci Number (LeetCode #1137)
+   151. Min Cost Climbing Stairs (LeetCode #746)
+   152. Pascal's Triangle (LeetCode #118)
+   153. Pascal's Triangle II (LeetCode #119)
+   154. Counting Bits (LeetCode #338)
+   155. Is Subsequence (LeetCode #392)
+   156. Range Sum Query - Immutable (LeetCode #303)
+   157. Divisor Game (LeetCode #1025)
+   158. Get Maximum in Generated Array (LeetCode #1646)
+   159. Minimum Cost For Tickets (LeetCode #983)
+   160. Delete and Earn (LeetCode #740)
+   161. Paint Fence (LeetCode #276)
+   162. Arithmetic Slices (LeetCode #413)
+   163. Path Sum (LeetCode #112)
+   164. Unique Paths (LeetCode #62)
+   165. Masseur LCCI (17.01)
+
+  📌 MEDIUM (58 problems):
+  ------------------------------------------------------------
+   166. Coin Change (LeetCode #322)
+   167. Longest Increasing Subsequence (LeetCode #300)
+   168. Word Break (LeetCode #139)
+   169. Decode Ways (LeetCode #91)
+   170. Unique Paths II (LeetCode #63)
+   171. Coin Change 2 (LeetCode #518)
+   172. House Robber II (LeetCode #213)
+   173. Maximum Product Subarray (LeetCode #152)
+   174. Longest Common Subsequence (LeetCode #1143)
+   175. Minimum Path Sum (LeetCode #64)
+   176. Partition Equal Subset Sum (LeetCode #416)
+   177. Target Sum (LeetCode #494)
+   178. Combination Sum IV (LeetCode #377)
+   179. Longest Palindromic Subsequence (LeetCode #516)
+   180. Best Time to Buy and Sell Stock with Cooldown (LeetCode #309)
+   181. Best Time to Buy and Sell Stock with Transaction Fee (LeetCode #714)
+   182. Best Time to Buy and Sell Stock IV (LeetCode #188)
+   183. Minimum Falling Path Sum (LeetCode #931)
+   184. Jump Game II (LeetCode #45)
+   185. Decode Ways II (LeetCode #639)
+   186. Cherry Pickup (LeetCode #741)
+   187. Domino and Tromino Tiling (LeetCode #790)
+   188. Maximum Sum Circular Subarray (LeetCode #918)
+   189. Count Square Submatrices with All Ones (LeetCode #1277)
+   190. Longest Arithmetic Subsequence (LeetCode #1027)
+   191. Paint House (LeetCode #256)
+   192. Knapsack Problem (0/1)
+   193. Video Stitching (LeetCode #1024)
+   194. Distinct Subsequences (LeetCode #115)
+   195. Maximum Points You Can Obtain from Cards (LeetCode #1423)
+   196. Number of Submatrices That Sum to Target (LeetCode #1074)
+   197. Longest Bitonic Subsequence
+   198. Count Numbers with Unique Digits (LeetCode #357)
+   199. Count Submatrices With All Ones (LeetCode #1504)
+   200. Longest String Chain (LeetCode #1048)
+   201. Longest Turbulent Subarray (LeetCode #978)
+   202. Number of Longest Increasing Subsequence (LeetCode #673)
+   203. Maximum Sum of 3 Non-Overlapping Subarrays (LeetCode #689)
+   204. Partition Array for Maximum Sum (LeetCode #1043)
+   205. Maximum Length of Repeated Subarray (LeetCode #718)
+   206. Longest Alternating Subsequence (LeetCode #1964)
+   207. Maximum Subarray Sum with One Deletion (LeetCode #1186)
+   208. Minimum Swaps To Make Sequences Increasing (LeetCode #801)
+   209. Minimum Number of Removals to Make Mountain Array (LeetCode #1671)
+   210. Count Ways to Build Staircases
+   211. Wiggle Subsequence (LeetCode #376)
+   212. Maximum Profit in Job Scheduling (LeetCode #1235)
+   213. Stone Game (LeetCode #877)
+   214. Palindromic Substrings (LeetCode #647)
+   215. Integer Break (LeetCode #343)
+   216. Maximal Square (LeetCode #221)
+   217. Perfect Squares (LeetCode #279)
+   218. Unique Binary Search Trees (LeetCode #96)
+   219. Maximum Score from Performing Multiplication Operations (LeetCode #1770)
+   220. Knight Probability in Chessboard (LeetCode #688)
+   221. Out of Boundary Paths (LeetCode #576)
+   222. Predict the Winner (LeetCode #486)
+   223. Minimum ASCII Delete Sum for Two Strings (LeetCode #712)
+
+  📌 HARD (30 problems):
+  ------------------------------------------------------------
+   224. Edit Distance (LeetCode #72)
+   225. Regular Expression Matching (LeetCode #10)
+   226. Longest Valid Parentheses (LeetCode #32)
+   227. Wildcard Matching (LeetCode #44)
+   228. Scramble String (LeetCode #87)
+   229. Interleaving String (LeetCode #97)
+   230. Distinct Subsequences (LeetCode #115)
+   231. Word Break II (LeetCode #140)
+   232. Burst Balloons (LeetCode #312)
+   233. Maximum Rectangle (LeetCode #85)
+   234. Cherry Pickup II (LeetCode #1463)
+   235. Palindrome Partitioning II (LeetCode #132)
+   236. Russian Doll Envelopes (LeetCode #354)
+   237. Count All Valid Pickup and Delivery Options (LeetCode #1359)
+   238. Count Different Palindromic Subsequences (LeetCode #730)
+   239. Count Vowels Permutation (LeetCode #1220)
+   240. Distinct Subsequences II (LeetCode #940)
+   241. Frog Jump (LeetCode #403)
+   242. Split Array Largest Sum (LeetCode #410)
+   243. Super Egg Drop (LeetCode #887)
+   244. Strange Printer (LeetCode #664)
+   245. Minimum Window Subsequence (LeetCode #727)
+   246. Number of Music Playlists (LeetCode #920)
+   247. Shortest Common Supersequence (LeetCode #1092)
+   248. Minimum Insertion Steps to Make a String Palindrome (LeetCode #1312)
+   249. Number of Ways to Stay in the Same Place After Some Steps (LeetCode #1269)
+   250. Longest Chunked Palindrome Decomposition (LeetCode #1147)
+   251. Concatenated Words (LeetCode #472)
+   252. Freedom Trail (LeetCode #514)
+   253. Count The Repetitions (LeetCode #466)
+
+
+============================== GRAPHS ==============================
+
+Category Summary: 55 problems (Easy: 9, Medium: 27, Hard: 19)
+
+  📌 EASY (9 problems):
+  ------------------------------------------------------------
+   448. Clone Graph (LeetCode #133)
+   449. Count Components (LeetCode #323)
+   450. Find Center Of Star Graph (LeetCode #1791)
+   451. Find If Path Exists (LeetCode #1971)
+   452. Flood Fill (LeetCode #733)
+   453. Max Area Of Island (LeetCode #695)
+   454. Number Of Islands (LeetCode #200)
+   455. Number Of Provinces (LeetCode #547)
+   456. Shortest Path In Maze (LeetCode #1091)
+
+  📌 MEDIUM (27 problems):
+  ------------------------------------------------------------
+   457. AStar Shortest Path
+   458. Bellman Ford Shortest Path (LeetCode #787)
+   459. Clone Graph (LeetCode #133)
+   460. Course Schedule (LeetCode #207)
+   461. Course Schedule II (LeetCode #210)
+   462. Detect Cycle Directed Graph (LeetCode #207)
+   463. Detect Cycle In Directed Graph (LeetCode #207)
+   464. Detect Cycle In Undirected Graph (LeetCode #261)
+   465. Dijkstra Shortest Path (LeetCode #743)
+   466. Find Articulation Points In Graph (LeetCode #1192)
+   467. Find Bridges In Graph (LeetCode #1192)
+   468. Find Connected Components (LeetCode #323)
+   469. Find Eventual Safe States (LeetCode #802)
+   470. Find The Town Judge (LeetCode #997)
+   471. Graph Valid Tree (LeetCode #261)
+   472. Kruskal Minimum Spanning Tree (LeetCode #1135)
+   473. Minimum Height Trees (LeetCode #310)
+   474. Minimum Spanning Tree Kruskal (LeetCode #1135)
+   475. Network Delay Time (LeetCode #743)
+   476. Number Of Islands (LeetCode #200)
+   477. Prim Minimum Spanning Tree (LeetCode #1135)
+   478. Redundant Connection (LeetCode #684)
+   479. Rotting Oranges (LeetCode #994)
+   480. Shortest Path Dijkstra (LeetCode #743)
+   481. Shortest Path In Binary Matrix (LeetCode #1091)
+   482. Topological Sort (LeetCode #210)
+   483. Word Ladder (LeetCode #127)
+
+  📌 HARD (19 problems):
+  ------------------------------------------------------------
+   484. Alien Dictionary (LeetCode #269)
+   485. All Pairs Shortest Path Floyd Warshall
+   486. All Topological Sorts
+   487. Find All Cycles In Graph
+   488. Find Articulation Points (LeetCode #1192)
+   489. Find Biconnected Components
+   490. Find Bridges In Graph (LeetCode #1192)
+   491. Find Critical Connections (LeetCode #1192)
+   492. Find Eulerian Path (LeetCode #332)
+   493. Find Hamiltonian Path (LeetCode #980)
+   494. Find Longest Path In DAG (LeetCode #1857)
+   495. Find Maximum Flow
+   496. Find Minimum Cut
+   497. Find The City With The Smallest Number Of Neighbors (LeetCode #1334)
+   498. Minimum Cost To Connect All Points (LeetCode #1584)
+   499. Minimum Spanning Tree (LeetCode #1584)
+   500. Shortest Path With Alternating Colors (LeetCode #1129)
+   501. Shortest Path With Negative Weights (LeetCode #787)
+   502. Strongly Connected Components
+
+
+============================== GREEDY ==============================
+
+Category Summary: 23 problems (Easy: 0, Medium: 10, Hard: 13)
+
+  📌 MEDIUM (10 problems):
+  ------------------------------------------------------------
+   794. Can Place Flowers (LeetCode #605)
+   795. Car Pooling (LeetCode #1094)
+   796. Minimum Cost To Hire KWorkers (LeetCode #857)
+   797. Minimum Number Of Arrows To Burst Balloons (LeetCode #452)
+   798. Minimum Number Of Coins For Change (LeetCode #322)
+   799. Minimum Number Of Coins To Make Change (LeetCode #322)
+   800. Minimum Number Of Refueling Stops (LeetCode #871)
+   801. Minimum Number Of Taps To Open To Water Garden (LeetCode #1326)
+   802. Minimum Platforms (LeetCode #253)
+   803. Partition Labels (LeetCode #763)
+
+  📌 HARD (13 problems):
+  ------------------------------------------------------------
+   804. Maximum Number Of Events That Can Be Attended (LeetCode #1353)
+   805. Maximum Number Of Non Overlapping Subarrays (LeetCode #1546)
+   806. Maximum Profit With KTransactions (LeetCode #188)
+   807. Maximum Score From Performing Multiplication Operations (LeetCode #1770)
+   808. Maximum Score From Removing Stones (LeetCode #1753)
+   809. Minimum Number Of Coins To Make Change
+   810. Minimum Number Of Coins To Make Change Unlimited
+   811. Minimum Number Of Intervals To Cover (LeetCode #1024)
+   812. Minimum Number Of Intervals To Cover Range
+   813. Minimum Number Of Meeting Rooms
+   814. Minimum Number Of Moves To Seat Everyone (LeetCode #2037)
+   815. Minimum Number Of Steps To Make Two Strings Anagram
+   816. Minimum Number Of Swaps To Make String Equal
+
+
+============================== GRID/MATRIX ==============================
+
+Category Summary: 47 problems (Easy: 0, Medium: 27, Hard: 20)
+
+  📌 MEDIUM (27 problems):
+  ------------------------------------------------------------
+   875. Battleships In Board (LeetCode #419)
+   876. Candy Crush (LeetCode #723)
+   877. Chess Knight Probability (LeetCode #688)
+   878. Design Tic Tac Toe (LeetCode #348)
+   879. Diagonal Traverse (LeetCode #498)
+   880. Flood Fill (LeetCode #733)
+   881. Game Of Life (LeetCode #289)
+   882. Island Perimeter (LeetCode #463)
+   883. Kth Smallest In Sorted Matrix (LeetCode #378)
+   884. Matrix Block Sum (LeetCode #1314)
+   885. Max Area Of Island (LeetCode #695)
+   886. Maximal Square (LeetCode #221)
+   887. Minesweeper Game (LeetCode #529)
+   888. Minimum Path Sum (LeetCode #64)
+   889. Number Of Distinct Islands (LeetCode #694)
+   890. Pacific Atlantic Water Flow (LeetCode #417)
+   891. Rotate Image (LeetCode #48)
+   892. Rotten Oranges (LeetCode #994)
+   893. Search A2DMatrix II (LeetCode #240)
+   894. Set Matrix Zeroes (LeetCode #73)
+   895. Shortest Bridge (LeetCode #934)
+   896. Spiral Matrix (LeetCode #54)
+   897. Spiral Matrix II (LeetCode #59)
+   898. Unique Paths (LeetCode #62)
+   899. Unique Paths II (LeetCode #63)
+   900. Valid Sudoku (LeetCode #36)
+   901. Word Search (LeetCode #79)
+
+  📌 HARD (20 problems):
+  ------------------------------------------------------------
+   902. Alien Dictionary (LeetCode #269)
+   903. Cherry Pickup (LeetCode #741)
+   904. Cut Off Trees For Golf (LeetCode #675)
+   905. Escape The Maze (LeetCode #1036)
+   906. Jump Game IV (LeetCode #1345)
+   907. Minimum Moves To Reach Target (LeetCode #1553)
+   908. NQueens (LeetCode #51)
+   909. NQueens II (LeetCode #52)
+   910. Number Of Paths With Max Score (LeetCode #1301)
+   911. Race Car (LeetCode #818)
+   912. Robot Room Cleaner (LeetCode #489)
+   913. Shortest Path In Binary Matrix (LeetCode #1091)
+   914. Shortest Path In Grid (LeetCode #1263)
+   915. Shortest Path To Get All Keys (LeetCode #864)
+   916. Shortest Path Visiting All Nodes (LeetCode #847)
+   917. Sliding Puzzle (LeetCode #773)
+   918. Swim In Water (LeetCode #778)
+   919. Trapping Rain Water2D (LeetCode #407)
+   920. Word Search II (LeetCode #212)
+   921. Zuma Game (LeetCode #488)
+
+
+============================== HASH MAPS ==============================
+
+Category Summary: 32 problems (Easy: 0, Medium: 22, Hard: 10)
+
+  📌 MEDIUM (22 problems):
+  ------------------------------------------------------------
+   703. Find All Anagrams In A String (LeetCode #438)
+   704. Find All Duplicates In Array (LeetCode #442)
+   705. Find All Subarrays With Sum K (LeetCode #560)
+   706. Find All Subarrays With Zero Sum
+   707. Find All Substrings With Concatenation Of All Words (LeetCode #30)
+   708. Find Duplicate Subtrees (LeetCode #652)
+   709. Find First Unique Character (LeetCode #387)
+   710. Find Intersection Of Two Arrays (LeetCode #349)
+   711. Find Intersection Of Two Arrays II (LeetCode #350)
+   712. Find Longest Palindrome (LeetCode #409)
+   713. Find Longest Substring With At Most K Distinct Characters
+   714. Find Longest Substring Without Repeating Characters (LeetCode #3)
+   715. Find Longest Substring With Same Letters After Replacement (LeetCode #424)
+   716. Find Majority Element (LeetCode #169)
+   717. Find Minimum Window Substring (LeetCode #76)
+   718. Find Missing Number (LeetCode #268)
+   719. Find Subarrays With Equal Sum
+   720. Group Anagrams (LeetCode #49)
+   721. Longest Consecutive Sequence (LeetCode #128)
+   722. Longest Substring Without Repeating Characters (LeetCode #3)
+   723. Subarray Sum Equals K (LeetCode #560)
+   724. Top K Frequent Elements (LeetCode #347)
+
+  📌 HARD (10 problems):
+  ------------------------------------------------------------
+   725. Find All Subarrays With Sum K
+   726. Find All Subarrays With Zero Sum
+   727. Find Longest Substring With At Most K Unique Characters
+   728. Find Longest Substring With No Repeating Characters
+   729. Find Longest Substring With Same Letters After Replacement
+   730. Longest Substring With At Most K Distinct Characters
+   731. Longest Substring With At Most Two Distinct Characters
+   732. Longest Substring With K Repeating Characters (LeetCode #395)
+   733. Minimum Window Substring With All Unique Characters
+   734. Smallest Subarray With Sum Greater Than K
+
+
+============================== HEAP/PRIORITY QUEUE ==============================
+
+Category Summary: 29 problems (Easy: 0, Medium: 8, Hard: 21)
+
+  📌 MEDIUM (8 problems):
+  ------------------------------------------------------------
+   765. Find KPairs With Largest Sums Medium
+   766. Find KPairs With Smallest Sums Medium (LeetCode #373)
+   767. Find Kth Largest Pair Sum
+   768. Find Kth Smallest (LeetCode #215)
+   769. Find Kth Smallest Pair Sum
+   770. Find Kth Smallest Sum Subarray
+   771. Find Kth Smallest Sum Subarray_fixed
+   772. Kth Smallest Element In Sorted Matrix (LeetCode #378)
+
+  📌 HARD (21 problems):
+  ------------------------------------------------------------
+   773. Find KPairs With Smallest Sums (LeetCode #373)
+   774. Find Kth Largest Element In Sorted Matrix (LeetCode #378)
+   775. Find Kth Largest In Stream (LeetCode #703)
+   776. Find Kth Largest Number In Array (LeetCode #215)
+   777. Find Kth Largest Sum In Matrix
+   778. Find Kth Largest Sum Subarray
+   779. Find Kth Largest XORCoordinate Value (LeetCode #1738)
+   780. Find Kth Smallest Number In Array (LeetCode #215)
+   781. Find Kth Smallest Number In Multiplication Table (LeetCode #668)
+   782. Find Kth Smallest Pair Distance (LeetCode #719)
+   783. Find Kth Smallest Prime Fraction (LeetCode #786)
+   784. Find Kth Smallest Sum Of Matrix With Sorted Rows (LeetCode #1439)
+   785. Find Median From Data Stream (LeetCode #295)
+   786. Find Median From Data Stream Hard (LeetCode #295)
+   787. Find Median From Data Stream Heap (LeetCode #295)
+   788. Find Median Of Running Stream
+   789. IPO (LeetCode #502)
+   790. Merge KSorted Lists (LeetCode #23)
+   791. Rearrange String KDistance Apart (LeetCode #358)
+   792. Sliding Window Maximum (LeetCode #239)
+   793. Trapping Rain Water II (LeetCode #407)
+
+
+============================== INTERVALS ==============================
+
+Category Summary: 18 problems (Easy: 0, Medium: 5, Hard: 13)
+
+  📌 MEDIUM (5 problems):
+  ------------------------------------------------------------
+   817. Employee Free Time (LeetCode #759)
+   818. Erase Overlapping Intervals (LeetCode #435)
+   819. Find Minimum Meeting Rooms Required (LeetCode #253)
+   820. Find Right Interval (LeetCode #436)
+   821. Merge Intervals (LeetCode #56)
+
+  📌 HARD (13 problems):
+  ------------------------------------------------------------
+   822. Interval Containment
+   823. Interval Covering
+   824. Interval Difference
+   825. Interval Graph Coloring
+   826. Interval Intersection Multiple Lists
+   827. Interval Maximum Overlap
+   828. Interval Minimum Cover
+   829. Interval Minimum Gap
+   830. Interval Overlap Count
+   831. Interval Partitioning Hard
+   832. Interval Scheduling Maximum Profit
+   833. Interval Scheduling Maximum Weight
+   834. Interval Union
+
+
+============================== LINKED LIST ==============================
+
+Category Summary: 42 problems (Easy: 0, Medium: 24, Hard: 18)
+
+  📌 MEDIUM (24 problems):
+  ------------------------------------------------------------
+   503. Add Two Numbers (LeetCode #2)
+   504. Add Two Numbers II (LeetCode #445)
+   505. Copy List with Random Pointer (LeetCode #138)
+   506. Detect and Remove Loop
+   507. Flatten Binary Tree to Linked List (LeetCode #114)
+   508. Intersection of Two Linked Lists (LeetCode #160)
+   509. Linked List Cycle (LeetCode #141)
+   510. Linked List Cycle II (LeetCode #142)
+   511. Odd Even Linked List (LeetCode #328)
+   512. Palindrome Linked List (LeetCode #234)
+   513. Partition List (LeetCode #86)
+   514. Remove Duplicates from Sorted List (LeetCode #83)
+   515. Remove Duplicates from Sorted List II (LeetCode #82)
+   516. Remove Duplicates from Unsorted List
+   517. Remove Kth Node From Beginning
+   518. Remove Kth Node From End
+   519. Remove Kth Node From End Of List
+   520. Remove Linked List Elements (LeetCode #203)
+   521. Remove Nth Node From End Of List (LeetCode #19)
+   522. Remove Nth Node From End Of List II
+   523. Reverse Linked List (LeetCode #206)
+   524. Reverse Linked List II (LeetCode #92)
+   525. Rotate List (LeetCode #61)
+   526. Swap Nodes in Pairs (LeetCode #24)
+
+  📌 HARD (18 problems):
+  ------------------------------------------------------------
+   527. Copy List with Random Pointer (LeetCode #138)
+   528. Detect and Remove Loop
+   529. Flatten Multilevel Doubly Linked List (LeetCode #430)
+   530. Remove Cycle From Linked List
+   531. Remove Duplicates From Doubly Linked List
+   532. Remove Duplicates From Doubly Linked List II
+   533. Remove Duplicates From Unsorted List
+   534. Reverse Alternate K Nodes
+   535. Reverse Doubly Linked List
+   536. Reverse Linked List Between M And N
+   537. Reverse Linked List Between M And N Recursively
+   538. Reverse Linked List In Groups Of K
+   539. Reverse Linked List In Groups Of K Recursively
+   540. Reverse Linked List Recursively
+   541. Reverse Linked List With Random Pointer
+   542. Reverse Nodes in K Group (LeetCode #25)
+   543. Sort Doubly Linked List
+   544. Sort List (LeetCode #148)
+
+
+============================== MATH ==============================
+
+Category Summary: 20 problems (Easy: 0, Medium: 13, Hard: 7)
+
+  📌 MEDIUM (13 problems):
+  ------------------------------------------------------------
+   970. Count Primes (LeetCode #204)
+   971. Divide Two Integers (LeetCode #29)
+   972. Excel Sheet Column Number (LeetCode #171)
+   973. Find Nth Digit (LeetCode #400)
+   974. Fraction To Recurring Decimal (LeetCode #166)
+   975. Happy Number (LeetCode #202)
+   976. Integer To Roman (LeetCode #12)
+   977. Multiply Strings (LeetCode #43)
+   978. Perfect Squares (LeetCode #279)
+   979. Pow XN (LeetCode #50)
+   980. Random Pick Index (LeetCode #398)
+   981. Reverse Integer (LeetCode #7)
+   982. Sqrt X (LeetCode #69)
+
+  📌 HARD (7 problems):
+  ------------------------------------------------------------
+   983. Count Numbers With Unique Digits Hard (LeetCode #357)
+   984. Count Primes Hard (LeetCode #204)
+   985. Find Nth Digit Hard (LeetCode #400)
+   986. Maximum Product Of Three Numbers (LeetCode #628)
+   987. Perfect Rectangle (LeetCode #391)
+   988. Prime Palindrome (LeetCode #866)
+   989. Super Pow (LeetCode #372)
+
+
+============================== MATRIX ==============================
+
+Category Summary: 4 problems (Easy: 1, Medium: 2, Hard: 1)
+
+  📌 EASY (1 problems):
+  ------------------------------------------------------------
+  1026. Transpose Matrix (LeetCode #867)
+
+  📌 MEDIUM (2 problems):
+  ------------------------------------------------------------
+  1027. Search a 2D Matrix (LeetCode #74)
+  1028. Count Square Submatrices (LeetCode #1277)
+
+  📌 HARD (1 problems):
+  ------------------------------------------------------------
+  1029. Longest Increasing Path in Matrix (LeetCode #329)
+
+
+============================== MISCELLANEOUS ==============================
+
+Category Summary: 7 problems (Easy: 3, Medium: 3, Hard: 1)
+
+  📌 EASY (3 problems):
+  ------------------------------------------------------------
+  1035. Fizz Buzz (LeetCode #412)
+  1036. Move Zeroes (LeetCode #283)
+  1037. Reverse String (LeetCode #344)
+
+  📌 MEDIUM (3 problems):
+  ------------------------------------------------------------
+  1038. Random Pick Index (LeetCode #398)
+  1039. Shuffle an Array (LeetCode #384)
+  1040. Task Scheduler (LeetCode #621)
+
+  📌 HARD (1 problems):
+  ------------------------------------------------------------
+  1041. Calculator (LeetCode #227)
+
+
+============================== MULTITHREADING ==============================
+
+Category Summary: 5 problems (Easy: 2, Medium: 2, Hard: 1)
+
+  📌 EASY (2 problems):
+  ------------------------------------------------------------
+  1030. Print in Order (LeetCode #1114)
+  1031. Print FooBar Alternately (LeetCode #1115)
+
+  📌 MEDIUM (2 problems):
+  ------------------------------------------------------------
+  1032. Print Zero Even Odd (LeetCode #1116)
+  1033. Building H2O (LeetCode #1117)
+
+  📌 HARD (1 problems):
+  ------------------------------------------------------------
+  1034. The Dining Philosophers (LeetCode #1226)
+
+
+============================== QUEUES ==============================
+
+Category Summary: 21 problems (Easy: 0, Medium: 9, Hard: 12)
+
+  📌 MEDIUM (9 problems):
+  ------------------------------------------------------------
+   990. Design Circular Queue (LeetCode #622)
+   991. First Unique Character In Stream (LeetCode #387)
+   992. Implement Queue Using Stacks (LeetCode #232)
+   993. Implement Stack Using Queues (LeetCode #225)
+   994. Moving Average From Data Stream (LeetCode #346)
+   995. Number Of Recent Calls (LeetCode #933)
+   996. Open The Lock (LeetCode #752)
+   997. Snake And Ladders (LeetCode #909)
+   998. Zigzag Level Order Traversal (LeetCode #103)
+
+  📌 HARD (12 problems):
+  ------------------------------------------------------------
+   999. Bus Routes (LeetCode #815)
+  1000. Cut Off Trees For Golf Event (LeetCode #675)
+  1001. Minimum Cost To Make At Least One Valid Path (LeetCode #1368)
+  1002. Minimum Knight Moves (LeetCode #1197)
+  1003. Minimum Moves To Reach Target With Rotations (LeetCode #1210)
+  1004. Minimum Number Of Flips To Convert Binary Matrix To Zero Matrix (LeetCode #1284)
+  1005. Reachable Nodes In Subdivided Graph (LeetCode #882)
+  1006. Shortest Distance From All Buildings (LeetCode #317)
+  1007. Swim In Rising Water (LeetCode #778)
+  1008. The Maze II (LeetCode #505)
+  1009. Walls And Gates (LeetCode #286)
+  1010. Word Ladder II (LeetCode #126)
+
+
+============================== RECURSION ==============================
+
+Category Summary: 15 problems (Easy: 0, Medium: 3, Hard: 12)
+
+  📌 MEDIUM (3 problems):
+  ------------------------------------------------------------
+  1011. Combination Sum II (LeetCode #40)
+  1012. NQueens II (LeetCode #52)
+  1013. Permutations II (LeetCode #47)
+
+  📌 HARD (12 problems):
+  ------------------------------------------------------------
+  1014. Android Unlock Patterns (LeetCode #351)
+  1015. Cracking The Safe (LeetCode #753)
+  1016. Factor Combinations (LeetCode #254)
+  1017. Number Of Squareful Arrays (LeetCode #996)
+  1018. Numbers With Same Consecutive Differences (LeetCode #967)
+  1019. Optimal Account Balancing (LeetCode #465)
+  1020. Palindrome Partitioning II (LeetCode #132)
+  1021. Remove Invalid Parentheses (LeetCode #301)
+  1022. Split String Into Max Number Of Unique Substrings (LeetCode #1593)
+  1023. Strobogrammatic Number II (LeetCode #247)
+  1024. Wildcard Matching (LeetCode #44)
+  1025. Zuma Game (LeetCode #488)
+
+
+============================== SLIDING WINDOW ==============================
+
+Category Summary: 33 problems (Easy: 0, Medium: 20, Hard: 13)
+
+  📌 MEDIUM (20 problems):
+  ------------------------------------------------------------
+   640. Binary Subarrays With Sum (LeetCode #930)
+   641. Contains Duplicate II (LeetCode #219)
+   642. Contains Duplicate III (LeetCode #220)
+   643. Count Vowel Substrings (LeetCode #2062)
+   644. Find All Anagrams In String (LeetCode #438)
+   645. Find KLength Substrings With No Repeated Characters (LeetCode #1100)
+   646. Fruit Into Baskets (LeetCode #904)
+   647. Get Equal Substrings Within Budget (LeetCode #1208)
+   648. Grumpy Bookstore Owner (LeetCode #1052)
+   649. Longest Nice Subarray (LeetCode #2401)
+   650. Longest Subarray Of1s After Deleting One Element (LeetCode #1493)
+   651. Longest Subarray With At Most KDistinct Characters (LeetCode #340)
+   652. Max Consecutive Ones III (LeetCode #1004)
+   653. Max Points From Cards (LeetCode #1423)
+   654. Maximum Average Subarray I (LeetCode #643)
+   655. Maximum Sum Subarray Of Size K (LeetCode #643)
+   656. Minimum Size Subarray Sum (LeetCode #209)
+   657. Permutation In String (LeetCode #567)
+   658. Repeated String Match (LeetCode #686)
+   659. Subarray Product Less Than K (LeetCode #713)
+
+  📌 HARD (13 problems):
+  ------------------------------------------------------------
+   660. Constrained Subsequence Sum (LeetCode #1425)
+   661. Count Subarrays With Fixed Bounds (LeetCode #2444)
+   662. Minimum Number Of Flips To Make Binary String Alternating (LeetCode #1888)
+   663. Minimum Window Covering All Characters (LeetCode #76)
+   664. Minimum Window Subsequence (LeetCode #727)
+   665. Minimum Window With Character Frequency (LeetCode #340)
+   666. Number Of Substrings Containing All Three Characters (LeetCode #1358)
+   667. Shortest Subarray With Sum At Least K (LeetCode #862)
+   668. Sliding Window Average (LeetCode #346)
+   669. Sliding Window Maximum Deque (LeetCode #239)
+   670. Sliding Window Median (LeetCode #480)
+   671. Sliding Window Minimum
+   672. Subarrays With KDifferent Integers (LeetCode #992)
+
+
+============================== SORTING ==============================
+
+Category Summary: 24 problems (Easy: 2, Medium: 15, Hard: 7)
+
+  📌 EASY (2 problems):
+  ------------------------------------------------------------
+   946. Array Partition I (LeetCode #561)
+   947. Sort Array By Parity II (LeetCode #922)
+
+  📌 MEDIUM (15 problems):
+  ------------------------------------------------------------
+   948. Car Pooling (LeetCode #1094)
+   949. Custom Sort String (LeetCode #791)
+   950. Height Checker (LeetCode #1051)
+   951. K Closest Points To Origin (LeetCode #973)
+   952. Largest Number (LeetCode #179)
+   953. Minimum Number Of Arrows To Burst Balloons (LeetCode #452)
+   954. Queue Reconstruction By Height (LeetCode #406)
+   955. Relative Sort Array (LeetCode #1122)
+   956. Reorder Data In Log Files (LeetCode #937)
+   957. Sort Array By Parity (LeetCode #905)
+   958. Sort Characters By Frequency (LeetCode #451)
+   959. Sort Colors (LeetCode #75)
+   960. Sort Transformed Array (LeetCode #360)
+   961. Wiggle Sort (LeetCode #280)
+   962. Wiggle Sort II (LeetCode #324)
+
+  📌 HARD (7 problems):
+  ------------------------------------------------------------
+   963. Count Inversions
+   964. Count Range Sum (LeetCode #327)
+   965. Create Maximum Number (LeetCode #321)
+   966. Maximum Gap (LeetCode #164)
+   967. Russian Doll Envelopes (LeetCode #354)
+   968. Skyline Problem (LeetCode #218)
+   969. Wiggle Sort II (LeetCode #324)
+
+
+============================== STACKS ==============================
+
+Category Summary: 30 problems (Easy: 0, Medium: 20, Hard: 10)
+
+  📌 MEDIUM (20 problems):
+  ------------------------------------------------------------
+   735. Asteroid Collision (LeetCode #735)
+   736. Baseball Game (LeetCode #682)
+   737. Daily Temperatures (LeetCode #739)
+   738. Evaluate Reverse Polish Notation (LeetCode #150)
+   739. Exclusive Time Of Functions (LeetCode #636)
+   740. Freq Stack (LeetCode #895)
+   741. Largest Rectangle In Histogram (LeetCode #84)
+   742. Min Stack (LeetCode #155)
+   743. Monotonic Stack
+   744. Next Greater Element (LeetCode #496)
+   745. Next Greater Element II (LeetCode #503)
+   746. Next Smaller Element
+   747. Online Stock Span (LeetCode #901)
+   748. Previous Greater Element
+   749. Remove KDigits (LeetCode #402)
+   750. Score Of Parentheses (LeetCode #856)
+   751. Simplify Path (LeetCode #71)
+   752. Stack With Increment (LeetCode #1381)
+   753. Sum Of Subarray Minimums (LeetCode #907)
+   754. Validate Stack Sequences (LeetCode #946)
+
+  📌 HARD (10 problems):
+  ------------------------------------------------------------
+   755. Basic Calculator III (LeetCode #772)
+   756. Calculator With Variables
+   757. Count Submatrices With All Ones (LeetCode #1504)
+   758. Largest Component Size By Common Factor (LeetCode #952)
+   759. Largest Rectangle In Binary Matrix (LeetCode #85)
+   760. Max Stack (LeetCode #716)
+   761. Minimum Cost Tree From Leaf Values (LeetCode #1130)
+   762. Number Of Atoms (LeetCode #726)
+   763. Shortest Unsorted Continuous Subarray (LeetCode #581)
+   764. Sum Of Subarray Ranges (LeetCode #2104)
+
+
+============================== STRINGS ==============================
+
+Category Summary: 19 problems (Easy: 1, Medium: 8, Hard: 10)
+
+  📌 EASY (1 problems):
+  ------------------------------------------------------------
+   835. Valid Palindrome (LeetCode #125)
+
+  📌 MEDIUM (8 problems):
+  ------------------------------------------------------------
+   836. Check If Anagram (LeetCode #242)
+   837. Count And Say (LeetCode #38)
+   838. Implement Str Str (LeetCode #28)
+   839. Longest Common Prefix (LeetCode #14)
+   840. Longest Palindromic Substring (LeetCode #5)
+   841. Remove Duplicates (LeetCode #1047)
+   842. Reverse Words In AString (LeetCode #151)
+   843. Roman To Integer (LeetCode #13)
+
+  📌 HARD (10 problems):
+  ------------------------------------------------------------
+   844. Count Different Palindromic Subsequences (LeetCode #730)
+   845. Distinct Subsequences (LeetCode #115)
+   846. Edit Distance (LeetCode #72)
+   847. Find The Longest Substring Containing Vowels In Even Counts (LeetCode #1371)
+   848. KMPString Matching (LeetCode #28)
+   849. Longest Palindromic Substring Hard (LeetCode #5)
+   850. Scramble String (LeetCode #87)
+   851. Shortest Palindrome (LeetCode #214)
+   852. Substring With Concatenation Of All Words (LeetCode #30)
+   853. Text Justification (LeetCode #68)
+
+
+============================== TREES ==============================
+
+Category Summary: 67 problems (Easy: 1, Medium: 49, Hard: 17)
+
+  📌 EASY (1 problems):
+  ------------------------------------------------------------
+   324. Binary Tree Inorder Traversal (LeetCode #94)
+
+  📌 MEDIUM (49 problems):
+  ------------------------------------------------------------
+   325. Binary Tree Level Order Traversal (LeetCode #102)
+   326. Binary Tree Right Side View (LeetCode #199)
+   327. Binary Tree Zigzag Level Order Traversal (LeetCode #103)
+   328. Construct Binary Tree From Inorder And Postorder Traversal (LeetCode #106)
+   329. Construct Binary Tree From Preorder And Inorder Traversal (LeetCode #105)
+   330. Construct Quad Tree (LeetCode #427)
+   331. Convert Sorted Array To Binary Search Tree (LeetCode #108)
+   332. Convert Sorted List To Binary Search Tree (LeetCode #109)
+   333. Count Complete Tree Nodes (LeetCode #222)
+   334. Find All Duplicate Subtrees (LeetCode #652)
+   335. Find All Nodes Distance KIn Binary Tree (LeetCode #863)
+   336. Find Bottom Left Tree Value (LeetCode #513)
+   337. Find Closest Leaf In Binary Tree (LeetCode #742)
+   338. Find Diameter Of Binary Tree (LeetCode #543)
+   339. Find Duplicate Subtrees (LeetCode #652)
+   340. Find LCAOf Binary Tree (LeetCode #236)
+   341. Find Largest Value In Each Tree Row (LeetCode #515)
+   342. Find Leaves Of Binary Tree (LeetCode #366)
+   343. Find Longest Path With Same Value (LeetCode #687)
+   344. Find Maximum Average Subtree (LeetCode #1120)
+   345. Find Maximum Depth Of Binary Tree (LeetCode #104)
+   346. Find Maximum Depth Of Nary Tree (LeetCode #559)
+   347. Find Maximum Level Sum Of Binary Tree (LeetCode #1161)
+   348. Find Maximum Path Sum Between Two Leaves
+   349. Find Maximum Product Of Splitted Binary Tree (LeetCode #1339)
+   350. Find Maximum Sum BSTIn Binary Tree (LeetCode #1373)
+   351. Find Maximum Sum Of Non Adjacent Nodes (LeetCode #337)
+   352. Find Maximum Sum Of Root To Leaf Path
+   353. Find Maximum Width Of Binary Tree (LeetCode #662)
+   354. Find Minimum Absolute Difference In BST (LeetCode #530)
+   355. Find Minimum Depth Of Binary Tree (LeetCode #111)
+   356. Find Minimum Depth Of Nary Tree
+   357. Find Minimum Time To Collect All Apples (LeetCode #1443)
+   358. Find Mode In Binary Search Tree (LeetCode #501)
+   359. Find Path Sum III (LeetCode #437)
+   360. Find Second Minimum Value In Binary Tree (LeetCode #671)
+   361. Find Sum Of Left Leaves (LeetCode #404)
+   362. Find Sum Of Right Leaves
+   363. Find Tilt Of Binary Tree (LeetCode #563)
+   364. Find Tree Diameter
+   365. Invert Binary Tree (LeetCode #226)
+   366. Lowest Common Ancestor Of BST (LeetCode #235)
+   367. Path Sum II (LeetCode #113)
+   368. Populating Next Right Pointers In Each Node (LeetCode #116)
+   369. Quad Tree Intersection (LeetCode #558)
+   370. Sum Root To Leaf Numbers (LeetCode #129)
+   371. Symmetric Tree (LeetCode #101)
+   372. Validate Binary Search Tree (LeetCode #98)
+   373. Zigzag Level Order Traversal (LeetCode #103)
+
+  📌 HARD (17 problems):
+  ------------------------------------------------------------
+   374. Binary Tree Maximum Path Sum (LeetCode #124)
+   375. Count Paths With Sum (LeetCode #437)
+   376. Count Unique BSTs (LeetCode #96)
+   377. Find Largest BSTSubtree (LeetCode #333)
+   378. Find Maximum Sum Of Non Adjacent Nodes Hard (LeetCode #337)
+   379. Find Maximum Sum Path Between Leaves
+   380. Find Minimum Number Of Nodes To Remove For Full Binary Tree
+   381. Longest Zig Zag Path In Binary Tree (LeetCode #1372)
+   382. Maximum Binary Tree (LeetCode #654)
+   383. Maximum Binary Tree II (LeetCode #998)
+   384. Maximum Sum Of Three Non Overlapping Subtrees (LeetCode #689)
+   385. Maximum Width Ramp In Binary Tree
+   386. Minimum Cost To Merge Stones (LeetCode #1000)
+   387. Minimum Number Of Nodes To Remove For Full Binary Tree
+   388. Recover Binary Search Tree (LeetCode #99)
+   389. Serialize And Deserialize Binary Tree (LeetCode #297)
+   390. Unique BSTII (LeetCode #95)
+
+
+============================== TRIES ==============================
+
+Category Summary: 16 problems (Easy: 0, Medium: 8, Hard: 8)
+
+  📌 MEDIUM (8 problems):
+  ------------------------------------------------------------
+   922. Add and Search Word (LeetCode #211)
+   923. Camelcase Matching (LeetCode #1023)
+   924. Implement Trie (LeetCode #208)
+   925. Lexicographical Numbers (LeetCode #386)
+   926. Longest Word In Dictionary (LeetCode #720)
+   927. Map Sum (LeetCode #677)
+   928. Replace Words (LeetCode #648)
+   929. Stream Of Characters (LeetCode #1032)
+
+  📌 HARD (8 problems):
+  ------------------------------------------------------------
+   930. Autocomplete System (LeetCode #642)
+   931. Concatenated Words (LeetCode #472)
+   932. Design In Memory File System (LeetCode #588)
+   933. Palindrome Pairs (LeetCode #336)
+   934. Shortest Word Distance (LeetCode #244)
+   935. Sum Of Prefix Scores (LeetCode #2416)
+   936. Word Ladder (LeetCode #127)
+   937. Word Search I (LeetCode #79)
+
+
+============================== TWO POINTERS ==============================
+
+Category Summary: 8 problems (Easy: 0, Medium: 7, Hard: 1)
+
+  📌 MEDIUM (7 problems):
+  ------------------------------------------------------------
+   938. Fruit Into Baskets (LeetCode #904)
+   939. Interval List Intersections (LeetCode #986)
+   940. Move Zeroes (LeetCode #283)
+   941. Squares Of Sorted Array (LeetCode #977)
+   942. Three Sum Closest (LeetCode #16)
+   943. Two Sum II (LeetCode #167)
+   944. Valid Palindrome II (LeetCode #680)
+
+  📌 HARD (1 problems):
+  ------------------------------------------------------------
+   945. Four Sum (LeetCode #18)
+
+
+============================== UNION FIND ==============================
+
+Category Summary: 21 problems (Easy: 2, Medium: 15, Hard: 4)
+
+  📌 EASY (2 problems):
+  ------------------------------------------------------------
+   854. Find If Path Exists (LeetCode #1971)
+   855. Number Of Connected Components (LeetCode #323)
+
+  📌 MEDIUM (15 problems):
+  ------------------------------------------------------------
+   856. Accounts Merge (LeetCode #721)
+   857. Earliest Acquaintance (LeetCode #1101)
+   858. Friend Circles (LeetCode #547)
+   859. Graph Valid Tree (LeetCode #261)
+   860. Longest Consecutive Sequence (LeetCode #128)
+   861. Most Stones Removed (LeetCode #947)
+   862. Number Of Connected Components (LeetCode #323)
+   863. Number Of Islands (LeetCode #200)
+   864. Number Of Islands II (LeetCode #305)
+   865. Number Of Operations To Make Network Connected (LeetCode #1319)
+   866. Number Of Provinces (LeetCode #547)
+   867. Redundant Connection (LeetCode #684)
+   868. Regions Cut By Slashes (LeetCode #959)
+   869. Satisfiability Of Equality Equations (LeetCode #990)
+   870. Surrounded Regions (LeetCode #130)
+
+  📌 HARD (4 problems):
+  ------------------------------------------------------------
+   871. Redundant Connection II (LeetCode #685)
+   872. Satisfiability Equations (LeetCode #990)
+   873. Similar String Groups (LeetCode #839)
+   874. Smallest String With Swaps (LeetCode #1202)
+
+
+====================================================================================================
+                                             COMPREHENSIVE SUMMARY
+====================================================================================================
+
+📊 PROBLEM STATISTICS:
+   Total Problems: 1,041
+   Easy:          90 (8.6%)
+   Medium:        551 (52.9%)
+   Hard:          400 (38.4%)
+
+📂 CATEGORY BREAKDOWN (28 categories):
+   • Arrays                   :  70 problems (E: 8 M:36 H:26)
+   • Backtracking             :  44 problems (E: 3 M:22 H:19)
+   • Binary Search            :  30 problems (E:10 M:14 H: 6)
+   • Binary Search Tree       :  57 problems (E: 8 M:30 H:19)
+   • Bit Manipulation         :  51 problems (E:11 M:33 H: 7)
+   • Design                   : 144 problems (E: 8 M:61 H:75)
+   • Dynamic Programming      : 109 problems (E:21 M:58 H:30)
+   • Graphs                   :  55 problems (E: 9 M:27 H:19)
+   • Greedy                   :  23 problems (E: 0 M:10 H:13)
+   • Grid/Matrix              :  47 problems (E: 0 M:27 H:20)
+   • Hash Maps                :  32 problems (E: 0 M:22 H:10)
+   • Heap/Priority Queue      :  29 problems (E: 0 M: 8 H:21)
+   • Intervals                :  18 problems (E: 0 M: 5 H:13)
+   • Linked List              :  42 problems (E: 0 M:24 H:18)
+   • Math                     :  20 problems (E: 0 M:13 H: 7)
+   • Matrix                   :   4 problems (E: 1 M: 2 H: 1)
+   • Miscellaneous            :   7 problems (E: 3 M: 3 H: 1)
+   • Multithreading           :   5 problems (E: 2 M: 2 H: 1)
+   • Queues                   :  21 problems (E: 0 M: 9 H:12)
+   • Recursion                :  15 problems (E: 0 M: 3 H:12)
+   • Sliding Window           :  33 problems (E: 0 M:20 H:13)
+   • Sorting                  :  24 problems (E: 2 M:15 H: 7)
+   • Stacks                   :  30 problems (E: 0 M:20 H:10)
+   • Strings                  :  19 problems (E: 1 M: 8 H:10)
+   • Trees                    :  67 problems (E: 1 M:49 H:17)
+   • Tries                    :  16 problems (E: 0 M: 8 H: 8)
+   • Two Pointers             :   8 problems (E: 0 M: 7 H: 1)
+   • Union Find               :  21 problems (E: 2 M:15 H: 4)
+
+📈 DIFFICULTY DISTRIBUTION:
+   Easy problems are 8.6% of the collection
+   Medium problems are 52.9% of the collection
+   Hard problems are 38.4% of the collection
+
+🔗 LEETCODE LINKS:
+   Problems with LeetCode numbers: 852 (81.8%)
+   Custom/Practice problems: 189 (18.2%)

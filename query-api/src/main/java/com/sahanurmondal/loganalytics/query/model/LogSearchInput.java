@@ -15,7 +15,8 @@ public class LogSearchInput {
     private SortOrder sortOrder = SortOrder.DESC;
 
     // Default constructor
-    public LogSearchInput() {}
+    public LogSearchInput() {
+    }
 
     // Getters and setters
     public String getFullTextQuery() {
@@ -104,8 +105,4 @@ public class LogSearchInput {
                 ", sortOrder=" + sortOrder +
                 '}';
     }
-}
-
-enum SortOrder {
-    ASC, DESC
 }

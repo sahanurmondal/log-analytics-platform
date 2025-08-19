@@ -1,6 +1,12 @@
 package com.sahanurmondal.loganalytics.query.controller;
 
-import com.sahanurmondal.loganalytics.query.model.*;
+import com.sahanurmondal.loganalytics.query.model.IndexedLogEventDto;
+import com.sahanurmondal.loganalytics.query.model.LogSearchInput;
+import com.sahanurmondal.loganalytics.query.model.LogSearchResponse;
+import com.sahanurmondal.loganalytics.query.model.LogStats;
+import com.sahanurmondal.loganalytics.query.model.LogStatsInput;
+import com.sahanurmondal.loganalytics.query.model.SortOrder;
+import com.sahanurmondal.loganalytics.query.model.TimeRange;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Timer;
@@ -27,7 +33,7 @@ import java.util.Map;
 
 /**
  * GraphQL controller for searching and querying indexed logs.
- * 
+ *
  * Provides GraphQL endpoints for flexible log querying with advanced
  * filtering, pagination, and aggregation capabilities.
  */
@@ -52,7 +58,7 @@ public class LogSearchGraphQlController {
 
     /**
      * Searches logs based on the provided input criteria.
-     * 
+     *
      * @param input Search input containing filters and pagination parameters
      * @return Search response with results and pagination information
      */
@@ -76,8 +82,7 @@ public class LogSearchGraphQlController {
                     .setPageable(createPageable(page, size, input.getSortBy(), input.getSortOrder()));
 
             // Execute search
-            SearchHits<Map> searchHits = elasticsearchOperations.search(query, Map.class, 
-                    org.springframework.data.elasticsearch.core.index.IndexCoordinates.of("logs"));
+            SearchHits<Map> searchHits = elasticsearchOperations.search(query, Map.class);
 
             // Transform results
             List<IndexedLogEventDto> results = searchHits.getSearchHits().stream()
@@ -86,8 +91,8 @@ public class LogSearchGraphQlController {
 
             LogSearchResponse response = new LogSearchResponse(results, searchHits.getTotalHits(), page, size);
 
-            logger.info("GraphQL search completed. Found {} results out of {} total", 
-                       results.size(), searchHits.getTotalHits());
+            logger.info("GraphQL search completed. Found {} results out of {} total",
+                    results.size(), searchHits.getTotalHits());
 
             return response;
 
@@ -101,7 +106,7 @@ public class LogSearchGraphQlController {
 
     /**
      * Gets a specific log event by its ID.
-     * 
+     *
      * @param id The log event ID
      * @return The log event or null if not found
      */
@@ -109,17 +114,16 @@ public class LogSearchGraphQlController {
     public IndexedLogEventDto logById(@Argument String id) {
         try {
             logger.debug("Fetching log by ID: {}", id);
-            
-            Map<String, Object> result = elasticsearchOperations.get(id, Map.class,
-                    org.springframework.data.elasticsearch.core.index.IndexCoordinates.of("logs"));
-            
+
+            Map<String, Object> result = elasticsearchOperations.get(id, Map.class);
+
             if (result != null) {
                 return mapToIndexedLogEventDto(id, result);
             }
-            
+
             logger.warn("Log not found with ID: {}", id);
             return null;
-            
+
         } catch (Exception e) {
             logger.error("Error fetching log by ID {}: {}", id, e.getMessage(), e);
             return null;
@@ -128,7 +132,7 @@ public class LogSearchGraphQlController {
 
     /**
      * Gets aggregated statistics for logs.
-     * 
+     *
      * @param input Statistics input with optional filters
      * @return Log statistics
      */
@@ -136,37 +140,34 @@ public class LogSearchGraphQlController {
     public LogStats logStats(@Argument LogStatsInput input) {
         try {
             logger.info("Getting log statistics: {}", input);
-            
+
             // Default to last 24 hours if no time range specified
             Instant defaultTo = Instant.now();
-            Instant actualFrom = parseTimestamp(input != null ? input.getFromTime() : null, 
-                                              defaultTo.minus(24, ChronoUnit.HOURS));
+            Instant actualFrom = parseTimestamp(input != null ? input.getFromTime() : null,
+                    defaultTo.minus(24, ChronoUnit.HOURS));
             Instant actualTo = parseTimestamp(input != null ? input.getToTime() : null, defaultTo);
 
             // Build base criteria
             Criteria criteria = new Criteria();
             criteria = criteria.and("timestamp").between(actualFrom, actualTo);
-            
+
             if (input != null && StringUtils.hasText(input.getServiceName())) {
                 criteria = criteria.and("serviceName").is(input.getServiceName());
             }
 
             // Get total count
             Query totalQuery = new CriteriaQuery(criteria);
-            long totalLogs = elasticsearchOperations.count(totalQuery, 
-                    org.springframework.data.elasticsearch.core.index.IndexCoordinates.of("logs"));
+            long totalLogs = elasticsearchOperations.count(totalQuery, Map.class);
 
             // Get error count
             Criteria errorCriteria = criteria.and("isError").is(true);
             Query errorQuery = new CriteriaQuery(errorCriteria);
-            long errorCount = elasticsearchOperations.count(errorQuery,
-                    org.springframework.data.elasticsearch.core.index.IndexCoordinates.of("logs"));
+            long errorCount = elasticsearchOperations.count(errorQuery, Map.class);
 
             // Get warning count
             Criteria warningCriteria = criteria.and("isWarning").is(true);
             Query warningQuery = new CriteriaQuery(warningCriteria);
-            long warningCount = elasticsearchOperations.count(warningQuery,
-                    org.springframework.data.elasticsearch.core.index.IndexCoordinates.of("logs"));
+            long warningCount = elasticsearchOperations.count(warningQuery, Map.class);
 
             // Create LogStats response (simplified version without aggregations for now)
             LogStats stats = new LogStats();
@@ -174,8 +175,8 @@ public class LogSearchGraphQlController {
             stats.setErrorCount(errorCount);
             stats.setWarningCount(warningCount);
             stats.setLogsByService(List.of()); // TODO: Implement aggregations
-            stats.setLogsByLevel(List.of());   // TODO: Implement aggregations
-            
+            stats.setLogsByLevel(List.of()); // TODO: Implement aggregations
+
             TimeRange timeRange = new TimeRange();
             timeRange.setFromTime(actualFrom.toString());
             timeRange.setToTime(actualTo.toString());
@@ -210,7 +211,7 @@ public class LogSearchGraphQlController {
         // Time range filter
         Instant fromTime = parseTimestamp(input.getFromTime(), null);
         Instant toTime = parseTimestamp(input.getToTime(), null);
-        
+
         if (fromTime != null && toTime != null) {
             criteria = criteria.and("timestamp").between(fromTime, toTime);
         } else if (fromTime != null) {
@@ -228,10 +229,13 @@ public class LogSearchGraphQlController {
         return PageRequest.of(page, size, sort);
     }
 
+    @SuppressWarnings("rawtypes")
     private IndexedLogEventDto mapToIndexedLogEventDto(SearchHit<Map> hit) {
+        // noinspection unchecked
         return mapToIndexedLogEventDto(hit.getId(), hit.getContent());
     }
 
+    @SuppressWarnings("unchecked")
     private IndexedLogEventDto mapToIndexedLogEventDto(String id, Map<String, Object> source) {
         return new IndexedLogEventDto(
                 id,
@@ -243,8 +247,7 @@ public class LogSearchGraphQlController {
                 (String) source.get("messageHash"),
                 (Integer) source.get("messageLength"),
                 (Boolean) source.get("isError"),
-                (Boolean) source.get("isWarning")
-        );
+                (Boolean) source.get("isWarning"));
     }
 
     private Instant parseTimestamp(Object timestamp) {

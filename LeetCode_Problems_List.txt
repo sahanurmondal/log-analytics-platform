@@ -1,0 +1,1296 @@
+================================================================================
+                    LEETCODE PROBLEMS COLLECTION
+                   Organized by Category & Difficulty
+================================================================================
+
+
+==================== ARRAYS ====================
+
+  Easy (8 problems):
+  ------------------------
+  254. Two Sum (1)
+  255. Best Time to Buy and Sell Stock (121)
+  256. Majority Element (169)
+  257. Move Zeroes (283)
+  258. Plus One (66)
+  259. Remove Duplicates from Sorted Array (26)
+  260. Single Number (136)
+  261. Valid Anagram (242)
+
+  Medium (36 problems):
+  --------------------------
+  262. 3Sum (15)
+  263. Container With Most Water (11)
+  264. Container Most Water (11)
+  265. Maximum Subarray (53)
+  266. Coin Change (322)
+  267. Counting Bits (338)
+  268. Course Schedule (207)
+  269. Decode Ways (91)
+  270. Find Minimum in Rotated Sorted Array (153)
+  271. First Missing Positive (41)
+  272. Group Anagrams (49)
+  273. House Robber (198)
+  274. Implement Trie (208)
+  275. Jump Game (55)
+  276. Longest Consecutive Sequence (128)
+  277. Longest Increasing Subsequence (300)
+  278. Longest Substring Without Repeating Characters (3)
+  279. Maximum Product Subarray (152)
+  280. Merge Intervals (56)
+  281. Next Permutation (31)
+  282. Number of Islands (200)
+  283. Pacific Atlantic Water Flow (417)
+  284. Perfect Squares (279)
+  285. Product of Array Except Self (238)
+  286. Remove Duplicates from Sorted Array II (80)
+  287. Rotate Image (48)
+  288. Search in Rotated Sorted Array (33)
+  289. Search Rotated Array (33)
+  290. Set Matrix Zeroes (73)
+  291. Spiral Matrix (54)
+  292. Subarray Sum Equals K (560)
+  293. Two Sum II - Input Array Is Sorted (167)
+  294. Two Sum II Input Array Is Sorted (167)
+  295. Valid Sudoku (36)
+  296. Wiggle Subsequence (376)
+  297. Word Break (139)
+
+  Hard (26 problems):
+  ------------------------
+  298. Basic Calculator (224)
+  299. Burst Balloons (312)
+  300. Count of Smaller Numbers After Self (315)
+  301. Edit Distance (72)
+  302. Find Median from Data Stream (295)
+  303. Interleaving String (97)
+  304. Largest Rectangle in Histogram (84)
+  305. Longest Valid Parentheses (32)
+  306. Maximal Rectangle (85)
+  307. Maximum Sum Circular Subarray (918)
+  308. Median of Two Sorted Arrays (4)
+  309. Minimum Window Subarray (76)
+  310. Minimum Window Substring (76)
+  311. Regular Expression Matching (10)
+  312. Remove Invalid Parentheses (301)
+  313. Reverse Pairs (493)
+  314. Serialize and Deserialize Binary Tree (297)
+  315. Sliding Window Maximum (239)
+  316. Smallest Range Covering Elements from K Lists (632)
+  317. Split Array Largest Sum (410)
+  318. Subarrays with K Different Integers (992)
+  319. Sudoku Solver (37)
+  320. Text Justification (68)
+  321. Trapping Rain Water (42)
+  322. Wildcard Matching (44)
+  323. Word Search II (212)
+
+
+==================== BACKTRACKING ====================
+
+  Easy (3 problems):
+  ------------------------
+  545. Binary Watch (401)
+  546. Generate Parentheses (22)
+  547. Letter Case Permutation (784)
+
+  Medium (22 problems):
+  --------------------------
+  548. All Paths From Source To Target (797)
+  549. Beautiful Arrangement (526)
+  550. Combinations (77)
+  551. Combination Sum (39)
+  552. Combination Sum II (40)
+  553. Combination Sum III (216)
+  554. Combination Sum IV (377)
+  555. Combination Sum V
+  556. Expression Add Operators (282)
+  557. Find All Combinations Of Size K
+  558. Find All Subsets With Duplicates
+  559. Find All Valid Sudoku Boards
+  560. Generate Parentheses (22)
+  561. Letter Combinations Phone Number (17)
+  562. Palindrome Partitioning (131)
+  563. Partition K Equal Sum Subsets (698)
+  564. Permutations (46)
+  565. Permutations II (47)
+  566. Restore IP Addresses (93)
+  567. Subsets (78)
+  568. Subsets II (90)
+  569. Word Search (79)
+
+  Hard (19 problems):
+  ------------------------
+  570. All Unique Permutations With Duplicates
+  571. Beautiful Arrangement (526)
+  572. Combination Sum Hard
+  573. Count Number Of Beautiful Subsets
+  574. Expression Add Operators (282)
+  575. Find All Valid Combinations Of Parentheses
+  576. Find All Valid N Queens Boards
+  577. Find All Valid Word Squares
+  578. Maximum Number Of Achievable Transfer Requests
+  579. N-Queens (51)
+  580. N-Queens II (52)
+  581. Palindrome Partitioning II (132)
+  582. Regular Expression Matching (10)
+  583. Remove Boxes (546)
+  584. Remove Invalid Parentheses (301)
+  585. Restore The Array (1416)
+  586. Unique Paths III (980)
+  587. Word Break II (140)
+  588. Word Search II (212)
+
+
+==================== BINARY SEARCH ====================
+
+  Easy (10 problems):
+  ------------------------
+  673. Arranging Coins (441)
+  674. Binary Search (704)
+  675. Binary Search Extended (704)
+  676. Find Smallest Letter Greater Than Target (744)
+  677. First Bad Version (278)
+  678. First Bad Version Extended (278)
+  679. Guess Number Higher Or Lower (374)
+  680. Search Insert Position (35)
+  681. Sqrt X (69)
+  682. Valid Perfect Square (367)
+
+  Medium (36 problems):
+  --------------------------
+  683. Capacity To Ship Packages Within DDays (1011)
+  684. Find First And Last Position (34)
+  685. Find First And Last Position Extended (34)
+  686. Find Minimum In Rotated Sorted Array (153)
+  687. Find Minimum In Rotated Sorted Array Extended (153)
+  688. Find Peak Element (162)
+  689. Find Peak Element Extended (162)
+  690. Koko Eating Bananas (875)
+  691. Koko Eating Bananas Extended (875)
+  692. Search A2DMatrix II (240)
+  693. Search In Rotated Sorted Array (33)
+  694. Search In Rotated Sorted Array II
+  695. Single Element In Sorted Array (540)
+  696. Time Based Key Value Store (981)
+  703. Find All Anagrams In A String (438)
+  704. Find All Duplicates In Array (442)
+  705. Find All Subarrays With Sum K (560)
+  706. Find All Subarrays With Zero Sum
+  707. Find All Substrings With Concatenation Of All Words (30)
+  708. Find Duplicate Subtrees (652)
+  709. Find First Unique Character (387)
+  710. Find Intersection Of Two Arrays (349)
+  711. Find Intersection Of Two Arrays II (350)
+  712. Find Longest Palindrome (409)
+  713. Find Longest Substring With At Most K Distinct Characters
+  714. Find Longest Substring Without Repeating Characters (3)
+  715. Find Longest Substring With Same Letters After Replacement (424)
+  716. Find Majority Element (169)
+  717. Find Minimum Window Substring (76)
+  718. Find Missing Number (268)
+  719. Find Subarrays With Equal Sum
+  720. Group Anagrams (49)
+  721. Longest Consecutive Sequence (128)
+  722. Longest Substring Without Repeating Characters (3)
+  723. Subarray Sum Equals K (560)
+  724. Top K Frequent Elements (347)
+
+  Hard (16 problems):
+  ------------------------
+  697. Divide Chocolate (1231)
+  698. Find In Mountain Array (1095)
+  699. Median Of Two Sorted Arrays (4)
+  700. Merge KSorted Lists (23)
+  701. Split Array Largest Sum (410)
+  702. Super Egg Dropping (887)
+  725. Find All Subarrays With Sum K
+  726. Find All Subarrays With Zero Sum
+  727. Find Longest Substring With At Most K Unique Characters
+  728. Find Longest Substring With No Repeating Characters
+  729. Find Longest Substring With Same Letters After Replacement
+  730. Longest Substring With At Most K Distinct Characters
+  731. Longest Substring With At Most Two Distinct Characters
+  732. Longest Substring With K Repeating Characters (395)
+  733. Minimum Window Substring With All Unique Characters
+  734. Smallest Subarray With Sum Greater Than K
+
+
+==================== BINARY SEARCH TREE ====================
+
+  Easy (17 problems):
+  ------------------------
+  391. Closest Binary Search Tree Value (270)
+  392. Convert Sorted Array To BST (108)
+  393. Convert Sorted List To BST (109)
+  394. Insert Into BST (701)
+  395. Minimum Absolute Difference In BST (530)
+  396. Range Sum Of BST (938)
+  397. Search In BST (700)
+  398. Two Sum IVInput Is BST (653)
+  448. Clone Graph (133)
+  449. Count Components (323)
+  450. Find Center Of Star Graph (1791)
+  451. Find If Path Exists (1971)
+  452. Flood Fill (733)
+  453. Max Area Of Island (695)
+  454. Number Of Islands (200)
+  455. Number Of Provinces (547)
+  456. Shortest Path In Maze (1091)
+
+  Medium (57 problems):
+  --------------------------
+  399. All Elements In Two BSTs (1305)
+  400. BSTIterator (173)
+  401. BSTTo Greater Sum Tree (1038)
+  402. Balance Binary Search Tree (1382)
+  403. Construct BSTFrom Preorder Traversal (1008)
+  404. Convert BSTTo Greater Tree Medium
+  405. Delete Node In BST (450)
+  406. Find BSTFrom Postorder (1008)
+  407. Find BSTFrom Preorder
+  408. Find Closest Value In BSTMedium (270)
+  409. Find Diameter Of BST (543)
+  410. Find Floor Ceil In BSTMedium
+  411. Find Height Of BST (104)
+  412. Find Inorder Predecessor Successor Medium (285)
+  413. Find LCAIn BSTIterative (235)
+  414. Find Max In BST
+  415. Find Min In BST
+  416. Find Mode In BSTMedium (501)
+  417. Find Range Sum Of BSTMedium
+  418. Find Sum Of BST
+  419. Inorder Successor In BST (285)
+  420. Insert Into BST (701)
+  421. Kth Smallest Element In BST (230)
+  422. Lowest Common Ancestor BST (235)
+  423. Lowest Common Ancestor Of BST (235)
+  424. Recover Binary Search Tree (99)
+  425. Trim Binary Search Tree (669)
+  426. Unique Binary Search Trees (96)
+  427. Unique Binary Search Trees II (95)
+  428. Validate Binary Search Tree (98)
+  457. AStar Shortest Path
+  458. Bellman Ford Shortest Path (787)
+  459. Clone Graph (133)
+  460. Course Schedule (207)
+  461. Course Schedule II (210)
+  462. Detect Cycle Directed Graph (207)
+  463. Detect Cycle In Directed Graph (207)
+  464. Detect Cycle In Undirected Graph (261)
+  465. Dijkstra Shortest Path (743)
+  466. Find Articulation Points In Graph (1192)
+  467. Find Bridges In Graph (1192)
+  468. Find Connected Components (323)
+  469. Find Eventual Safe States (802)
+  470. Find The Town Judge (997)
+  471. Graph Valid Tree (261)
+  472. Kruskal Minimum Spanning Tree (1135)
+  473. Minimum Height Trees (310)
+  474. Minimum Spanning Tree Kruskal (1135)
+  475. Network Delay Time (743)
+  476. Number Of Islands (200)
+  477. Prim Minimum Spanning Tree (1135)
+  478. Redundant Connection (684)
+  479. Rotting Oranges (994)
+  480. Shortest Path Dijkstra (743)
+  481. Shortest Path In Binary Matrix (1091)
+  482. Topological Sort (210)
+  483. Word Ladder (127)
+
+  Hard (38 problems):
+  ------------------------
+  429. Closest Binary Search Tree Value II (272)
+  430. Contains Duplicate III (220)
+  431. Convert BSTTo Greater Tree (538)
+  432. Count BSTNodes In Range (938)
+  433. Count Of Range Sum (327)
+  434. Count Of Smaller Numbers After Self (315)
+  435. Find Closest Value In BST (270)
+  436. Find Floor Ceil In BST (270)
+  437. Find Inorder Predecessor Successor (285)
+  438. Find Kth Largest In BST (230)
+  439. Find Kth Smallest In BST (230)
+  440. Find Lowest Common Ancestor In BSTWith Parent (1650)
+  441. Find Mode In BST (501)
+  442. Find Range Sum Of BST (938)
+  443. Maximum Sum BSTIn Binary Tree (1373)
+  444. Recover Binary Search Tree (99)
+  445. Serialize And Deserialize BST (449)
+  446. Serialize Deserialize BST (449)
+  447. Trim BST (669)
+  484. Alien Dictionary (269)
+  485. All Pairs Shortest Path Floyd Warshall
+  486. All Topological Sorts
+  487. Find All Cycles In Graph
+  488. Find Articulation Points (1192)
+  489. Find Biconnected Components
+  490. Find Bridges In Graph (1192)
+  491. Find Critical Connections (1192)
+  492. Find Eulerian Path (332)
+  493. Find Hamiltonian Path (980)
+  494. Find Longest Path In DAG (1857)
+  495. Find Maximum Flow
+  496. Find Minimum Cut
+  497. Find The City With The Smallest Number Of Neighbors (1334)
+  498. Minimum Cost To Connect All Points (1584)
+  499. Minimum Spanning Tree (1584)
+  500. Shortest Path With Alternating Colors (1129)
+  501. Shortest Path With Negative Weights (787)
+  502. Strongly Connected Components
+
+
+==================== BIT MANIPULATION ====================
+
+  Easy (11 problems):
+  ------------------------
+  589. Binary Number With Alternating Bits (693)
+  590. Counting Bits (338)
+  591. Hamming Distance (461)
+  592. Missing Number (268)
+  593. Number Complement (476)
+  594. Number Of1Bits (191)
+  595. Power Of Four (342)
+  596. Power Of Two (231)
+  597. Reverse Bits (190)
+  598. Single Number (136)
+  599. XOROperation In Array (1486)
+
+  Medium (53 problems):
+  --------------------------
+  600. Bitwise And Of Numbers Range (201)
+  601. Bitwise Complement (1009)
+  602. Concatenation Of Consecutive Binary Numbers (1680)
+  603. Counting Bits (338)
+  604. Divide Two Integers (29)
+  605. Find Bitwise ANDOf Numbers Range (201)
+  606. Find Bitwise Complement (1009)
+  607. Find Bitwise OROf Numbers Range (201)
+  608. Find Bitwise Parity (1869)
+  609. Find Bitwise XOROf Numbers Range (1835)
+  610. Find Different Bit (1076)
+  611. Find Missing Number (268)
+  612. Find Number Of Bits To Flip (461)
+  613. Find Single Bit (136)
+  614. Find Single Number IV (137)
+  615. Find The Difference (389)
+  616. Find The Duplicate Number (287)
+  617. Find Two Non Repeating Numbers (260)
+  618. Find Unique Number In Array
+  619. Gray Code (89)
+  620. Integer Replacement (397)
+  621. Maximum XOROf Two Numbers (421)
+  622. Missing Number (268)
+  623. Number Of1Bits (191)
+  624. Power Of Four (342)
+  625. Power Of Two (231)
+  626. Reverse Bits (190)
+  627. Single Number II (137)
+  628. Single Number III (260)
+  629. Subsets Bit Manipulation (78)
+  630. Sum Of Two Integers (371)
+  631. Total Hamming Distance (477)
+  632. UTF8Validation (393)
+  640. Binary Subarrays With Sum (930)
+  641. Contains Duplicate II (219)
+  642. Contains Duplicate III (220)
+  643. Count Vowel Substrings (2062)
+  644. Find All Anagrams In String (438)
+  645. Find KLength Substrings With No Repeated Characters (1100)
+  646. Fruit Into Baskets (904)
+  647. Get Equal Substrings Within Budget (1208)
+  648. Grumpy Bookstore Owner (1052)
+  649. Longest Nice Subarray (2401)
+  650. Longest Subarray Of1s After Deleting One Element (1493)
+  651. Longest Subarray With At Most KDistinct Characters (340)
+  652. Max Consecutive Ones III (1004)
+  653. Max Points From Cards (1423)
+  654. Maximum Average Subarray I (643)
+  655. Maximum Sum Subarray Of Size K (643)
+  656. Minimum Size Subarray Sum (209)
+  657. Permutation In String (567)
+  658. Repeated String Match (686)
+  659. Subarray Product Less Than K (713)
+
+  Hard (20 problems):
+  ------------------------
+  633. Find Single Number V
+  634. Maximum XORWith Element From Array (1707)
+  635. Minimum One Bit Operations (1611)
+  636. Minimum XORSum Of Two Arrays (1879)
+  637. NQueens IIBit Manipulation (52)
+  638. Number Of Valid Words For Each Puzzle (1178)
+  639. Shortest Path Visiting All Nodes (847)
+  660. Constrained Subsequence Sum (1425)
+  661. Count Subarrays With Fixed Bounds (2444)
+  662. Minimum Number Of Flips To Make Binary String Alternating (1888)
+  663. Minimum Window Covering All Characters (76)
+  664. Minimum Window Subsequence (727)
+  665. Minimum Window With Character Frequency (340)
+  666. Number Of Substrings Containing All Three Characters (1358)
+  667. Shortest Subarray With Sum At Least K (862)
+  668. Sliding Window Average (346)
+  669. Sliding Window Maximum Deque (239)
+  670. Sliding Window Median (480)
+  671. Sliding Window Minimum
+  672. Subarrays With KDifferent Integers (992)
+
+
+==================== DESIGN ====================
+
+  Easy (8 problems):
+  ------------------------
+    1. Logger (359)
+    2. Min Stack (155)
+    3. My Hash Map (706)
+    4. My Hash Set (705)
+    5. My Queue (232)
+    6. My Stack (225)
+    7. Parking System (1603)
+    8. Solution (384)
+
+  Medium (61 problems):
+  --------------------------
+    9. Authentication Manager (1797)
+   10. Browser History (1472)
+   11. Custom Stack (1381)
+   12. Design Add And Search Words Data Structure
+   13. Design Bitset (2166)
+   14. Design Browser History
+   15. Design Cache With TTL
+   16. Design Chat Room
+   17. Design Circular Buffer
+   18. Design Circular Deque
+   19. Design Circular Priority Queue
+   20. Design Content Manager
+   21. Design Data Stream (2526)
+   22. Design Deque With Min
+   23. Design Elevator System
+   24. Design Event Counter (362)
+   25. Design File System
+   26. Design Game Leaderboard
+   27. Design Graph (2642)
+   28. Design Hash Function
+   29. Design Hit Counter
+   30. Design In Memory Key Value Store
+   31. Design Logger Rate Limiter (359)
+   32. Design Median Finder
+   33. Design Moving Average (346)
+   34. Design Parking Lot
+   35. Design Parking System
+   36. Design Peeking Iterator (284)
+   37. Design Randomized Set
+   38. Design Rate Limiter
+   39. Design Search Autocomplete System
+   40. Design Seat Manager (1845)
+   41. Design Skip List (1206)
+   42. Design Snake Game
+   43. Design Snapshot Array (1146)
+   44. Design Stack With Increment (1381)
+   45. Design Stack With Max
+   46. Design Stack With Min (155)
+   47. Design Stock Price (2034)
+   48. Design Tic Tac Toe
+   49. Design Tiny URL (535)
+   50. Design Twitter
+   51. Design Underground System
+   52. Design Vending Machine
+   53. Design Video Sharing Platform (1912)
+   54. Design Word Filter (745)
+   55. Food Ratings (2353)
+   56. Front Middle Back Queue (1670)
+   57. Hit Counter (362)
+   58. LRUCache (146)
+   59. Leaderboard (1244)
+   60. My Circular Deque (641)
+   61. My Circular Queue (622)
+   62. Nested Iterator (341)
+   63. Phone Directory (379)
+   64. Randomized Set (380)
+   65. Snake Game (353)
+   66. Tic Tac Toe (348)
+   67. Twitter (355)
+   68. Underground System (1396)
+   69. Word Dictionary (211)
+
+  Hard (75 problems):
+  ------------------------
+   70. All One (432)
+   71. Autocomplete System (642)
+   72. Bounded Blocking Queue (1188)
+   73. Design APIGateway
+   74. Design Auction System
+   75. Design Blockchain
+   76. Design Calendar (729)
+   77. Design Compiler
+   78. Design Consistent Hashing
+   79. Design Container Orchestrator
+   80. Design Content Delivery Network
+   81. Design Data Structure (1912)
+   82. Design Distributed Barrier
+   83. Design Distributed Bloom Filter
+   84. Design Distributed Cache
+   85. Design Distributed Cache With TTL
+   86. Design Distributed Circuit Breaker
+   87. Design Distributed Configuration Management
+   88. Design Distributed Consensus
+   89. Design Distributed Database
+   90. Design Distributed Deque With Min
+   91. Design Distributed Event Counter
+   92. Design Distributed Event Sourcing
+   93. Design Distributed File System
+   94. Design Distributed Graph
+   95. Design Distributed LRUSet
+   96. Design Distributed Leader Election
+   97. Design Distributed Lock
+   98. Design Distributed Lock Manager
+   99. Design Distributed Log Aggregation
+  100. Design Distributed Message Queue
+  101. Design Distributed Multi Master KVStore
+  102. Design Distributed Priority Queue
+  103. Design Distributed Pub Sub
+  104. Design Distributed Rate Limiter
+  105. Design Distributed Scheduler
+  106. Design Distributed Scheduler With Dependencies
+  107. Design Distributed Search Index
+  108. Design Distributed Semaphore
+  109. Design Distributed Service Discovery
+  110. Design Distributed Set
+  111. Design Distributed Snapshot
+  112. Design Distributed Stack With Max
+  113. Design Distributed Stack With Min
+  114. Design Distributed Time Series DB
+  115. Design Distributed Tracing
+  116. Design Distributed Transaction Log
+  117. Design Distributed Transaction Manager
+  118. Design Distributed Trie
+  119. Design Event Store
+  120. Design Expression Tree (1628)
+  121. Design In Memory Database
+  122. Design Load Balancer
+  123. Design Log Storage (635)
+  124. Design Max Stack (716)
+  125. Design Median Finder (295)
+  126. Design Memory Allocator (2502)
+  127. Design Message Queue
+  128. Design Microservices Orchestrator
+  129. Design Number Container (2349)
+  130. Design Operating System
+  131. Design Range Module (715)
+  132. Design Recommendation Engine (1642)
+  133. Design Search Engine
+  134. Design Service Mesh
+  135. Design Sliding Window Maximum
+  136. Design Stream Processing Engine
+  137. Design Task Scheduler
+  138. Design Text Editor (2296)
+  139. Design Twitter Advanced (355)
+  140. Excel (631)
+  141. File System (588)
+  142. LFUCache (460)
+  143. Movie Renting System (1756)
+  144. Randomized Collection (381)
+
+
+==================== DYNAMIC PROGRAMMING ====================
+
+  Easy (21 problems):
+  ------------------------
+  145. Climbing Stairs (70)
+  146. House Robber (198)
+  147. Maximum Subarray (53)
+  148. Best Time to Buy and Sell Stock (121)
+  149. Fibonacci Number (509)
+  150. N-th Tribonacci Number (1137)
+  151. Min Cost Climbing Stairs (746)
+  152. Pascal's Triangle (118)
+  153. Pascal's Triangle II (119)
+  154. Counting Bits (338)
+  155. Is Subsequence (392)
+  156. Range Sum Query - Immutable (303)
+  157. Divisor Game (1025)
+  158. Get Maximum in Generated Array (1646)
+  159. Minimum Cost For Tickets (983)
+  160. Delete and Earn (740)
+  161. Paint Fence (276)
+  162. Arithmetic Slices (413)
+  163. Path Sum (112)
+  164. Unique Paths (62)
+  165. Masseur LCCI (17.01)
+
+  Medium (58 problems):
+  --------------------------
+  166. Coin Change (322)
+  167. Longest Increasing Subsequence (300)
+  168. Word Break (139)
+  169. Decode Ways (91)
+  170. Unique Paths II (63)
+  171. Coin Change 2 (518)
+  172. House Robber II (213)
+  173. Maximum Product Subarray (152)
+  174. Longest Common Subsequence (1143)
+  175. Minimum Path Sum (64)
+  176. Partition Equal Subset Sum (416)
+  177. Target Sum (494)
+  178. Combination Sum IV (377)
+  179. Longest Palindromic Subsequence (516)
+  180. Best Time to Buy and Sell Stock with Cooldown (309)
+  181. Best Time to Buy and Sell Stock with Transaction Fee (714)
+  182. Best Time to Buy and Sell Stock IV (188)
+  183. Minimum Falling Path Sum (931)
+  184. Jump Game II (45)
+  185. Decode Ways II (639)
+  186. Cherry Pickup (741)
+  187. Domino and Tromino Tiling (790)
+  188. Maximum Sum Circular Subarray (918)
+  189. Count Square Submatrices with All Ones (1277)
+  190. Longest Arithmetic Subsequence (1027)
+  191. Paint House (256)
+  192. Knapsack Problem (0/1)
+  193. Video Stitching (1024)
+  194. Distinct Subsequences (115)
+  195. Maximum Points You Can Obtain from Cards (1423)
+  196. Number of Submatrices That Sum to Target (1074)
+  197. Longest Bitonic Subsequence
+  198. Count Numbers with Unique Digits (357)
+  199. Count Submatrices With All Ones (1504)
+  200. Longest String Chain (1048)
+  201. Longest Turbulent Subarray (978)
+  202. Number of Longest Increasing Subsequence (673)
+  203. Maximum Sum of 3 Non-Overlapping Subarrays (689)
+  204. Partition Array for Maximum Sum (1043)
+  205. Maximum Length of Repeated Subarray (718)
+  206. Longest Alternating Subsequence (1964)
+  207. Maximum Subarray Sum with One Deletion (1186)
+  208. Minimum Swaps To Make Sequences Increasing (801)
+  209. Minimum Number of Removals to Make Mountain Array (1671)
+  210. Count Ways to Build Staircases
+  211. Wiggle Subsequence (376)
+  212. Maximum Profit in Job Scheduling (1235)
+  213. Stone Game (877)
+  214. Palindromic Substrings (647)
+  215. Integer Break (343)
+  216. Maximal Square (221)
+  217. Perfect Squares (279)
+  218. Unique Binary Search Trees (96)
+  219. Maximum Score from Performing Multiplication Operations (1770)
+  220. Knight Probability in Chessboard (688)
+  221. Out of Boundary Paths (576)
+  222. Predict the Winner (486)
+  223. Minimum ASCII Delete Sum for Two Strings (712)
+
+  Hard (30 problems):
+  ------------------------
+  224. Edit Distance (72)
+  225. Regular Expression Matching (10)
+  226. Longest Valid Parentheses (32)
+  227. Wildcard Matching (44)
+  228. Scramble String (87)
+  229. Interleaving String (97)
+  230. Distinct Subsequences (115)
+  231. Word Break II (140)
+  232. Burst Balloons (312)
+  233. Maximum Rectangle (85)
+  234. Cherry Pickup II (1463)
+  235. Palindrome Partitioning II (132)
+  236. Russian Doll Envelopes (354)
+  237. Count All Valid Pickup and Delivery Options (1359)
+  238. Count Different Palindromic Subsequences (730)
+  239. Count Vowels Permutation (1220)
+  240. Distinct Subsequences II (940)
+  241. Frog Jump (403)
+  242. Split Array Largest Sum (410)
+  243. Super Egg Drop (887)
+  244. Strange Printer (664)
+  245. Minimum Window Subsequence (727)
+  246. Number of Music Playlists (920)
+  247. Shortest Common Supersequence (1092)
+  248. Minimum Insertion Steps to Make a String Palindrome (1312)
+  249. Number of Ways to Stay in the Same Place After Some Steps (1269)
+  250. Longest Chunked Palindrome Decomposition (1147)
+  251. Concatenated Words (472)
+  252. Freedom Trail (514)
+  253. Count The Repetitions (466)
+
+
+==================== GREEDY ====================
+
+  Medium (10 problems):
+  --------------------------
+  794. Can Place Flowers (605)
+  795. Car Pooling (1094)
+  796. Minimum Cost To Hire KWorkers (857)
+  797. Minimum Number Of Arrows To Burst Balloons (452)
+  798. Minimum Number Of Coins For Change (322)
+  799. Minimum Number Of Coins To Make Change (322)
+  800. Minimum Number Of Refueling Stops (871)
+  801. Minimum Number Of Taps To Open To Water Garden (1326)
+  802. Minimum Platforms (253)
+  803. Partition Labels (763)
+
+  Hard (13 problems):
+  ------------------------
+  804. Maximum Number Of Events That Can Be Attended (1353)
+  805. Maximum Number Of Non Overlapping Subarrays (1546)
+  806. Maximum Profit With KTransactions (188)
+  807. Maximum Score From Performing Multiplication Operations (1770)
+  808. Maximum Score From Removing Stones (1753)
+  809. Minimum Number Of Coins To Make Change
+  810. Minimum Number Of Coins To Make Change Unlimited
+  811. Minimum Number Of Intervals To Cover (1024)
+  812. Minimum Number Of Intervals To Cover Range
+  813. Minimum Number Of Meeting Rooms
+  814. Minimum Number Of Moves To Seat Everyone (2037)
+  815. Minimum Number Of Steps To Make Two Strings Anagram
+  816. Minimum Number Of Swaps To Make String Equal
+
+
+==================== INTERVALS ====================
+
+  Medium (5 problems):
+  --------------------------
+  817. Employee Free Time (759)
+  818. Erase Overlapping Intervals (435)
+  819. Find Minimum Meeting Rooms Required (253)
+  820. Find Right Interval (436)
+  821. Merge Intervals (56)
+
+  Hard (13 problems):
+  ------------------------
+  822. Interval Containment
+  823. Interval Covering
+  824. Interval Difference
+  825. Interval Graph Coloring
+  826. Interval Intersection Multiple Lists
+  827. Interval Maximum Overlap
+  828. Interval Minimum Cover
+  829. Interval Minimum Gap
+  830. Interval Overlap Count
+  831. Interval Partitioning Hard
+  832. Interval Scheduling Maximum Profit
+  833. Interval Scheduling Maximum Weight
+  834. Interval Union
+
+
+==================== LINKED LIST ====================
+
+  Medium (24 problems):
+  --------------------------
+  503. Add Two Numbers (2)
+  504. Add Two Numbers II (445)
+  505. Copy List with Random Pointer (138)
+  506. Detect and Remove Loop
+  507. Flatten Binary Tree to Linked List (114)
+  508. Intersection of Two Linked Lists (160)
+  509. Linked List Cycle (141)
+  510. Linked List Cycle II (142)
+  511. Odd Even Linked List (328)
+  512. Palindrome Linked List (234)
+  513. Partition List (86)
+  514. Remove Duplicates from Sorted List (83)
+  515. Remove Duplicates from Sorted List II (82)
+  516. Remove Duplicates from Unsorted List
+  517. Remove Kth Node From Beginning
+  518. Remove Kth Node From End
+  519. Remove Kth Node From End Of List
+  520. Remove Linked List Elements (203)
+  521. Remove Nth Node From End Of List (19)
+  522. Remove Nth Node From End Of List II
+  523. Reverse Linked List (206)
+  524. Reverse Linked List II (92)
+  525. Rotate List (61)
+  526. Swap Nodes in Pairs (24)
+
+  Hard (18 problems):
+  ------------------------
+  527. Copy List with Random Pointer (138)
+  528. Detect and Remove Loop
+  529. Flatten Multilevel Doubly Linked List (430)
+  530. Remove Cycle From Linked List
+  531. Remove Duplicates From Doubly Linked List
+  532. Remove Duplicates From Doubly Linked List II
+  533. Remove Duplicates From Unsorted List
+  534. Reverse Alternate K Nodes
+  535. Reverse Doubly Linked List
+  536. Reverse Linked List Between M And N
+  537. Reverse Linked List Between M And N Recursively
+  538. Reverse Linked List In Groups Of K
+  539. Reverse Linked List In Groups Of K Recursively
+  540. Reverse Linked List Recursively
+  541. Reverse Linked List With Random Pointer
+  542. Reverse Nodes in K Group (25)
+  543. Sort Doubly Linked List
+  544. Sort List (148)
+
+
+==================== MATH ====================
+
+  Medium (13 problems):
+  --------------------------
+  970. Count Primes (204)
+  971. Divide Two Integers (29)
+  972. Excel Sheet Column Number (171)
+  973. Find Nth Digit (400)
+  974. Fraction To Recurring Decimal (166)
+  975. Happy Number (202)
+  976. Integer To Roman (12)
+  977. Multiply Strings (43)
+  978. Perfect Squares (279)
+  979. Pow XN (50)
+  980. Random Pick Index (398)
+  981. Reverse Integer (7)
+  982. Sqrt X (69)
+
+  Hard (7 problems):
+  ------------------------
+  983. Count Numbers With Unique Digits Hard (357)
+  984. Count Primes Hard (204)
+  985. Find Nth Digit Hard (400)
+  986. Maximum Product Of Three Numbers (628)
+  987. Perfect Rectangle (391)
+  988. Prime Palindrome (866)
+  989. Super Pow (372)
+
+
+==================== MISCELLANEOUS ====================
+
+  Easy (3 problems):
+  ------------------------
+  1035. Fizz Buzz (412)
+  1036. Move Zeroes (283)
+  1037. Reverse String (344)
+
+  Medium (3 problems):
+  --------------------------
+  1038. Random Pick Index (398)
+  1039. Shuffle an Array (384)
+  1040. Task Scheduler (621)
+
+  Hard (1 problems):
+  ------------------------
+  1041. Calculator (227)
+
+
+==================== QUEUES ====================
+
+  Medium (9 problems):
+  --------------------------
+  990. Design Circular Queue (622)
+  991. First Unique Character In Stream (387)
+  992. Implement Queue Using Stacks (232)
+  993. Implement Stack Using Queues (225)
+  994. Moving Average From Data Stream (346)
+  995. Number Of Recent Calls (933)
+  996. Open The Lock (752)
+  997. Snake And Ladders (909)
+  998. Zigzag Level Order Traversal (103)
+
+  Hard (12 problems):
+  ------------------------
+  999. Bus Routes (815)
+  1000. Cut Off Trees For Golf Event (675)
+  1001. Minimum Cost To Make At Least One Valid Path (1368)
+  1002. Minimum Knight Moves (1197)
+  1003. Minimum Moves To Reach Target With Rotations (1210)
+  1004. Minimum Number Of Flips To Convert Binary Matrix To Zero Matrix (1284)
+  1005. Reachable Nodes In Subdivided Graph (882)
+  1006. Shortest Distance From All Buildings (317)
+  1007. Swim In Rising Water (778)
+  1008. The Maze II (505)
+  1009. Walls And Gates (286)
+  1010. Word Ladder II (126)
+
+
+==================== RECURSION ====================
+
+  Easy (2 problems):
+  ------------------------
+  1030. Print in Order (1114)
+  1031. Print FooBar Alternately (1115)
+
+  Medium (8 problems):
+  --------------------------
+  1011. Combination Sum II (40)
+  1012. NQueens II (52)
+  1013. Permutations II (47)
+  1027. Search a 2D Matrix (74)
+  1028. Count Square Submatrices (1277)
+  1029. Longest Increasing Path in Matrix (329)
+  1032. Print Zero Even Odd (1116)
+  1033. Building H2O (1117)
+
+  Hard (14 problems):
+  ------------------------
+  1014. Android Unlock Patterns (351)
+  1015. Cracking The Safe (753)
+  1016. Factor Combinations (254)
+  1017. Number Of Squareful Arrays (996)
+  1018. Numbers With Same Consecutive Differences (967)
+  1019. Optimal Account Balancing (465)
+  1020. Palindrome Partitioning II (132)
+  1021. Remove Invalid Parentheses (301)
+  1022. Split String Into Max Number Of Unique Substrings (1593)
+  1023. Strobogrammatic Number II (247)
+  1024. Wildcard Matching (44)
+  1025. Zuma Game (488)
+  1026. Transpose Matrix (867)
+  1034. The Dining Philosophers (1226)
+
+
+==================== SORTING ====================
+
+  Easy (2 problems):
+  ------------------------
+  946. Array Partition I (561)
+  947. Sort Array By Parity II (922)
+
+  Medium (15 problems):
+  --------------------------
+  948. Car Pooling (1094)
+  949. Custom Sort String (791)
+  950. Height Checker (1051)
+  951. K Closest Points To Origin (973)
+  952. Largest Number (179)
+  953. Minimum Number Of Arrows To Burst Balloons (452)
+  954. Queue Reconstruction By Height (406)
+  955. Relative Sort Array (1122)
+  956. Reorder Data In Log Files (937)
+  957. Sort Array By Parity (905)
+  958. Sort Characters By Frequency (451)
+  959. Sort Colors (75)
+  960. Sort Transformed Array (360)
+  961. Wiggle Sort (280)
+  962. Wiggle Sort II (324)
+
+  Hard (7 problems):
+  ------------------------
+  963. Count Inversions
+  964. Count Range Sum (327)
+  965. Create Maximum Number (321)
+  966. Maximum Gap (164)
+  967. Russian Doll Envelopes (354)
+  968. Skyline Problem (218)
+  969. Wiggle Sort II (324)
+
+
+==================== STACKS ====================
+
+  Medium (28 problems):
+  --------------------------
+  735. Asteroid Collision (735)
+  736. Baseball Game (682)
+  737. Daily Temperatures (739)
+  738. Evaluate Reverse Polish Notation (150)
+  739. Exclusive Time Of Functions (636)
+  740. Freq Stack (895)
+  741. Largest Rectangle In Histogram (84)
+  742. Min Stack (155)
+  743. Monotonic Stack
+  744. Next Greater Element (496)
+  745. Next Greater Element II (503)
+  746. Next Smaller Element
+  747. Online Stock Span (901)
+  748. Previous Greater Element
+  749. Remove KDigits (402)
+  750. Score Of Parentheses (856)
+  751. Simplify Path (71)
+  752. Stack With Increment (1381)
+  753. Sum Of Subarray Minimums (907)
+  754. Validate Stack Sequences (946)
+  765. Find KPairs With Largest Sums Medium
+  766. Find KPairs With Smallest Sums Medium (373)
+  767. Find Kth Largest Pair Sum
+  768. Find Kth Smallest (215)
+  769. Find Kth Smallest Pair Sum
+  770. Find Kth Smallest Sum Subarray
+  771. Find Kth Smallest Sum Subarray_fixed
+  772. Kth Smallest Element In Sorted Matrix (378)
+
+  Hard (31 problems):
+  ------------------------
+  755. Basic Calculator III (772)
+  756. Calculator With Variables
+  757. Count Submatrices With All Ones (1504)
+  758. Largest Component Size By Common Factor (952)
+  759. Largest Rectangle In Binary Matrix (85)
+  760. Max Stack (716)
+  761. Minimum Cost Tree From Leaf Values (1130)
+  762. Number Of Atoms (726)
+  763. Shortest Unsorted Continuous Subarray (581)
+  764. Sum Of Subarray Ranges (2104)
+  773. Find KPairs With Smallest Sums (373)
+  774. Find Kth Largest Element In Sorted Matrix (378)
+  775. Find Kth Largest In Stream (703)
+  776. Find Kth Largest Number In Array (215)
+  777. Find Kth Largest Sum In Matrix
+  778. Find Kth Largest Sum Subarray
+  779. Find Kth Largest XORCoordinate Value (1738)
+  780. Find Kth Smallest Number In Array (215)
+  781. Find Kth Smallest Number In Multiplication Table (668)
+  782. Find Kth Smallest Pair Distance (719)
+  783. Find Kth Smallest Prime Fraction (786)
+  784. Find Kth Smallest Sum Of Matrix With Sorted Rows (1439)
+  785. Find Median From Data Stream (295)
+  786. Find Median From Data Stream Hard (295)
+  787. Find Median From Data Stream Heap (295)
+  788. Find Median Of Running Stream
+  789. IPO (502)
+  790. Merge KSorted Lists (23)
+  791. Rearrange String KDistance Apart (358)
+  792. Sliding Window Maximum (239)
+  793. Trapping Rain Water II (407)
+
+
+==================== STRINGS ====================
+
+  Easy (1 problems):
+  ------------------------
+  835. Valid Palindrome (125)
+
+  Medium (8 problems):
+  --------------------------
+  836. Check If Anagram (242)
+  837. Count And Say (38)
+  838. Implement Str Str (28)
+  839. Longest Common Prefix (14)
+  840. Longest Palindromic Substring (5)
+  841. Remove Duplicates (1047)
+  842. Reverse Words In AString (151)
+  843. Roman To Integer (13)
+
+  Hard (10 problems):
+  ------------------------
+  844. Count Different Palindromic Subsequences (730)
+  845. Distinct Subsequences (115)
+  846. Edit Distance (72)
+  847. Find The Longest Substring Containing Vowels In Even Counts (1371)
+  848. KMPString Matching (28)
+  849. Longest Palindromic Substring Hard (5)
+  850. Scramble String (87)
+  851. Shortest Palindrome (214)
+  852. Substring With Concatenation Of All Words (30)
+  853. Text Justification (68)
+
+
+==================== TREES ====================
+
+  Easy (1 problems):
+  ------------------------
+  324. Binary Tree Inorder Traversal (94)
+
+  Medium (49 problems):
+  --------------------------
+  325. Binary Tree Level Order Traversal (102)
+  326. Binary Tree Right Side View (199)
+  327. Binary Tree Zigzag Level Order Traversal (103)
+  328. Construct Binary Tree From Inorder And Postorder Traversal (106)
+  329. Construct Binary Tree From Preorder And Inorder Traversal (105)
+  330. Construct Quad Tree (427)
+  331. Convert Sorted Array To Binary Search Tree (108)
+  332. Convert Sorted List To Binary Search Tree (109)
+  333. Count Complete Tree Nodes (222)
+  334. Find All Duplicate Subtrees (652)
+  335. Find All Nodes Distance KIn Binary Tree (863)
+  336. Find Bottom Left Tree Value (513)
+  337. Find Closest Leaf In Binary Tree (742)
+  338. Find Diameter Of Binary Tree (543)
+  339. Find Duplicate Subtrees (652)
+  340. Find LCAOf Binary Tree (236)
+  341. Find Largest Value In Each Tree Row (515)
+  342. Find Leaves Of Binary Tree (366)
+  343. Find Longest Path With Same Value (687)
+  344. Find Maximum Average Subtree (1120)
+  345. Find Maximum Depth Of Binary Tree (104)
+  346. Find Maximum Depth Of Nary Tree (559)
+  347. Find Maximum Level Sum Of Binary Tree (1161)
+  348. Find Maximum Path Sum Between Two Leaves
+  349. Find Maximum Product Of Splitted Binary Tree (1339)
+  350. Find Maximum Sum BSTIn Binary Tree (1373)
+  351. Find Maximum Sum Of Non Adjacent Nodes (337)
+  352. Find Maximum Sum Of Root To Leaf Path
+  353. Find Maximum Width Of Binary Tree (662)
+  354. Find Minimum Absolute Difference In BST (530)
+  355. Find Minimum Depth Of Binary Tree (111)
+  356. Find Minimum Depth Of Nary Tree
+  357. Find Minimum Time To Collect All Apples (1443)
+  358. Find Mode In Binary Search Tree (501)
+  359. Find Path Sum III (437)
+  360. Find Second Minimum Value In Binary Tree (671)
+  361. Find Sum Of Left Leaves (404)
+  362. Find Sum Of Right Leaves
+  363. Find Tilt Of Binary Tree (563)
+  364. Find Tree Diameter
+  365. Invert Binary Tree (226)
+  366. Lowest Common Ancestor Of BST (235)
+  367. Path Sum II (113)
+  368. Populating Next Right Pointers In Each Node (116)
+  369. Quad Tree Intersection (558)
+  370. Sum Root To Leaf Numbers (129)
+  371. Symmetric Tree (101)
+  372. Validate Binary Search Tree (98)
+  373. Zigzag Level Order Traversal (103)
+
+  Hard (17 problems):
+  ------------------------
+  374. Binary Tree Maximum Path Sum (124)
+  375. Count Paths With Sum (437)
+  376. Count Unique BSTs (96)
+  377. Find Largest BSTSubtree (333)
+  378. Find Maximum Sum Of Non Adjacent Nodes Hard (337)
+  379. Find Maximum Sum Path Between Leaves
+  380. Find Minimum Number Of Nodes To Remove For Full Binary Tree
+  381. Longest Zig Zag Path In Binary Tree (1372)
+  382. Maximum Binary Tree (654)
+  383. Maximum Binary Tree II (998)
+  384. Maximum Sum Of Three Non Overlapping Subtrees (689)
+  385. Maximum Width Ramp In Binary Tree
+  386. Minimum Cost To Merge Stones (1000)
+  387. Minimum Number Of Nodes To Remove For Full Binary Tree
+  388. Recover Binary Search Tree (99)
+  389. Serialize And Deserialize Binary Tree (297)
+  390. Unique BSTII (95)
+
+
+==================== TRIES ====================
+
+  Medium (15 problems):
+  --------------------------
+  922. Add and Search Word (211)
+  923. Camelcase Matching (1023)
+  924. Implement Trie (208)
+  925. Lexicographical Numbers (386)
+  926. Longest Word In Dictionary (720)
+  927. Map Sum (677)
+  928. Replace Words (648)
+  929. Stream Of Characters (1032)
+  938. Fruit Into Baskets (904)
+  939. Interval List Intersections (986)
+  940. Move Zeroes (283)
+  941. Squares Of Sorted Array (977)
+  942. Three Sum Closest (16)
+  943. Two Sum II (167)
+  944. Valid Palindrome II (680)
+
+  Hard (9 problems):
+  ------------------------
+  930. Autocomplete System (642)
+  931. Concatenated Words (472)
+  932. Design In Memory File System (588)
+  933. Palindrome Pairs (336)
+  934. Shortest Word Distance (244)
+  935. Sum Of Prefix Scores (2416)
+  936. Word Ladder (127)
+  937. Word Search I (79)
+  945. Four Sum (18)
+
+
+==================== UNION FIND ====================
+
+  Easy (2 problems):
+  ------------------------
+  854. Find If Path Exists (1971)
+  855. Number Of Connected Components (323)
+
+  Medium (42 problems):
+  --------------------------
+  856. Accounts Merge (721)
+  857. Earliest Acquaintance (1101)
+  858. Friend Circles (547)
+  859. Graph Valid Tree (261)
+  860. Longest Consecutive Sequence (128)
+  861. Most Stones Removed (947)
+  862. Number Of Connected Components (323)
+  863. Number Of Islands (200)
+  864. Number Of Islands II (305)
+  865. Number Of Operations To Make Network Connected (1319)
+  866. Number Of Provinces (547)
+  867. Redundant Connection (684)
+  868. Regions Cut By Slashes (959)
+  869. Satisfiability Of Equality Equations (990)
+  870. Surrounded Regions (130)
+  875. Battleships In Board (419)
+  876. Candy Crush (723)
+  877. Chess Knight Probability (688)
+  878. Design Tic Tac Toe (348)
+  879. Diagonal Traverse (498)
+  880. Flood Fill (733)
+  881. Game Of Life (289)
+  882. Island Perimeter (463)
+  883. Kth Smallest In Sorted Matrix (378)
+  884. Matrix Block Sum (1314)
+  885. Max Area Of Island (695)
+  886. Maximal Square (221)
+  887. Minesweeper Game (529)
+  888. Minimum Path Sum (64)
+  889. Number Of Distinct Islands (694)
+  890. Pacific Atlantic Water Flow (417)
+  891. Rotate Image (48)
+  892. Rotten Oranges (994)
+  893. Search A2DMatrix II (240)
+  894. Set Matrix Zeroes (73)
+  895. Shortest Bridge (934)
+  896. Spiral Matrix (54)
+  897. Spiral Matrix II (59)
+  898. Unique Paths (62)
+  899. Unique Paths II (63)
+  900. Valid Sudoku (36)
+  901. Word Search (79)
+
+  Hard (24 problems):
+  ------------------------
+  871. Redundant Connection II (685)
+  872. Satisfiability Equations (990)
+  873. Similar String Groups (839)
+  874. Smallest String With Swaps (1202)
+  902. Alien Dictionary (269)
+  903. Cherry Pickup (741)
+  904. Cut Off Trees For Golf (675)
+  905. Escape The Maze (1036)
+  906. Jump Game IV (1345)
+  907. Minimum Moves To Reach Target (1553)
+  908. NQueens (51)
+  909. NQueens II (52)
+  910. Number Of Paths With Max Score (1301)
+  911. Race Car (818)
+  912. Robot Room Cleaner (489)
+  913. Shortest Path In Binary Matrix (1091)
+  914. Shortest Path In Grid (1263)
+  915. Shortest Path To Get All Keys (864)
+  916. Shortest Path Visiting All Nodes (847)
+  917. Sliding Puzzle (773)
+  918. Swim In Water (778)
+  919. Trapping Rain Water2D (407)
+  920. Word Search II (212)
+  921. Zuma Game (488)
+
+
+================================================================================
+                            SUMMARY
+================================================================================
+
+Total Problems: 1041
+Easy: 89
+Medium: 552
+Hard: 400
+
+Categories: 20
+  - Arrays: 70 problems
+  - Backtracking: 44 problems
+  - Binary Search: 62 problems
+  - Binary Search Tree: 112 problems
+  - Bit Manipulation: 84 problems
+  - Design: 144 problems
+  - Dynamic Programming: 109 problems
+  - Greedy: 23 problems
+  - Intervals: 18 problems
+  - Linked List: 42 problems
+  - Math: 20 problems
+  - Miscellaneous: 7 problems
+  - Queues: 21 problems
+  - Recursion: 24 problems
+  - Sorting: 24 problems
+  - Stacks: 59 problems
+  - Strings: 19 problems
+  - Trees: 67 problems
+  - Tries: 24 problems
+  - Union Find: 68 problems

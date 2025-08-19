@@ -9,8 +9,6 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.graphql.execution.RuntimeWiringConfigurer;
 
-import java.util.Map;
-
 /**
  * GraphQL configuration for custom scalar types.
  */
@@ -55,7 +53,7 @@ public class GraphQLScalarConfig {
                                 throw new CoercingSerializeException("Expected a Long value");
                             }
 
-                            @Override
+                            @Override//
                             public Long parseValue(Object input) throws CoercingParseValueException {
                                 if (input instanceof Number) {
                                     return ((Number) input).longValue();

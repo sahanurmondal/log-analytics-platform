@@ -1,354 +1,215 @@
-# High-Throughput Log Analytics Platform
+# High-Throughput Log Analytics Platform (Production-Ready)
 
-A distributed, event-driven log analytics platform built with Java 17, Spring Boot 3, and Elasticsearch for real-time log ingestion, processing, and searching.
+A distributed, event-driven log analytics platform built with Java 17, Spring Boot 3, and Elasticsearch. This enhanced version incorporates production-ready patterns including an API Gateway, centralized configuration, a schema registry, distributed tracing, and containerization for the entire stack.
 
 ## Architecture Overview
 
-This platform is designed to handle high-throughput log ingestion and provide fast, full-text search capabilities across distributed applications. The system follows an event-driven architecture using Kafka as the central messaging backbone, ensuring scalability, resilience, and decoupling between components.
+This platform is designed for high-throughput, resilient log ingestion and provides fast, full-text search capabilities. The system uses an event-driven architecture with Kafka and Confluent Schema Registry, ensuring data integrity, scalability, and decoupling between components. All services are centrally configured and observable via distributed tracing.
 
 ### High-Level Design (HLD)
 
 ```mermaid
 graph TD
-    A[Log Sources] --> B[Load Balancer]
-    B --> C[Log Ingestor API<br/>Cluster]
-    C --> D[Kafka Topic<br/>raw-logs]
-    D --> E[Log Processor<br/>Cluster]
-    E --> F[Elasticsearch<br/>Cluster]
-    
-    G[Users] --> H[GraphQL Query API]
-    H --> F
-    
-    I[Kibana Dashboard] --> F
-    
-    subgraph "Infrastructure"
-        J[Zookeeper]
-        D -.-> J
+    subgraph "External Traffic"
+        U[Users/Clients] --> GW[API Gateway]
     end
-    
-    subgraph "Monitoring"
-        K[Prometheus/Grafana]
-        C --> K
-        E --> K
-        H --> K
+
+    subgraph "Core Platform"
+        GW --> I[Log Ingestor API]
+        GW --> Q[GraphQL Query API]
+        
+        I -- Avro over Kafka --> K[Kafka Topic<br/>raw-logs]
+        K -- Avro over Kafka --> P[Log Processor]
+        
+        P --> E[Elasticsearch Cluster]
+        Q --> E
+    end
+
+    subgraph "Supporting Services"
+        SR[Schema Registry]
+        K <--> SR
+        I <--> SR
+        P <--> SR
+        
+        CS[Config Server]
+        I -.-> CS
+        P -.-> CS
+        Q -.-> CS
+        GW -.-> CS
+        
+        Z[Zipkin<br/>Distributed Tracing]
+        I -.-> Z
+        P -.-> Z
+        Q -.-> Z
+        GW -.-> Z
+    end
+
+    subgraph "Data & Infrastructure"
+        K -.-> ZK[Zookeeper]
+        E
     end
 ```
 
 ## Core Components & Responsibilities
 
-### 1. Log Ingestor (`log-ingestor`)
-**Port: 8080**
-
-- **Purpose**: High-availability, stateless REST API entry point for log ingestion
+### 1. API Gateway (`api-gateway`)
+**Port: 8088**
+- **Purpose**: Single, unified entry point for all incoming traffic.
+- **Technology**: Spring Cloud Gateway.
 - **Responsibilities**:
-  - Accept HTTP POST requests with batches of log events
-  - Validate incoming log data
-  - Publish events to Kafka topics for downstream processing
-  - Provide metrics and health checks
-- **Key Features**:
-  - Asynchronous Kafka publishing with proper error handling
-  - Batching support for high-throughput scenarios
-  - Configurable retry mechanisms and dead letter queues
-  - Comprehensive metrics collection (ingested logs, failures, latency)
+  - Route requests to appropriate downstream services (`log-ingestor`, `query-api`).
+  - Provide a coarse-grained security layer (rate limiting, authentication can be added here).
+  - Centralize cross-cutting concerns like metrics and tracing for all ingress traffic.
 
-### 2. Apache Kafka
-**Port: 9092**
-
-- **Purpose**: Durable, scalable message buffer that decouples ingestion from processing
-- **Benefits**:
-  - **Durability**: Messages are persisted to disk and replicated
-  - **Scalability**: Horizontal scaling through partitioning
-  - **Decoupling**: Producers and consumers operate independently
-  - **Fault Tolerance**: Built-in replication and failover mechanisms
-- **Configuration**:
-  - Topic: `raw-logs` with configurable partitions and replication factor
-  - Consumer groups enable parallel processing across multiple processor instances
-
-### 3. Log Processor (`log-processor`)
-**Port: 8081**
-
-- **Purpose**: Consumes log events from Kafka, enriches them, and performs bulk indexing into Elasticsearch
+### 2. Config Server (`config-server`)
+**Port: 8888**
+- **Purpose**: Centralized configuration management for all microservices.
+- **Technology**: Spring Cloud Config.
 - **Responsibilities**:
-  - Consume messages from Kafka topics with proper offset management
-  - Transform and enrich log events with additional metadata (timestamps, IDs, computed fields)
-  - Perform efficient bulk indexing to Elasticsearch
-  - Handle processing errors and implement retry logic
-- **Key Features**:
-  - Batch processing for optimal Elasticsearch indexing performance
-  - Configurable consumer groups for parallel processing
-  - Automatic schema mapping and index management
-  - Comprehensive error handling with dead letter queue support
+  - Serve environment-specific configurations from a centralized source (e.g., a Git repository).
+  - Eliminate configuration drift and simplify management across services.
 
-### 4. Elasticsearch Cluster
+### 3. Log Ingestor (`log-ingestor`)
+- **Purpose**: High-availability API for log ingestion.
+- **Responsibilities**:
+  - Accept HTTP POST requests with log events.
+  - Validate and serialize log data into **Avro format** using a schema from the **Schema Registry**.
+  - Publish events to a Kafka topic, propagating **OpenTelemetry trace context**.
+
+### 4. Apache Kafka & Confluent Schema Registry
+- **Kafka Port**: 9092
+- **Schema Registry Port**: 8081
+- **Purpose**: Durable, scalable message buffer with enforced data contracts.
+- **Responsibilities**:
+  - **Kafka**: Decouples ingestion from processing, providing durability and back-pressure resistance.
+  - **Schema Registry**: Enforces a strict Avro schema for all messages in the `raw-logs` topic, preventing data quality issues.
+
+### 5. Log Processor (`log-processor`)
+- **Purpose**: Consumes, enriches, and indexes log events.
+- **Responsibilities**:
+  - Consume messages from Kafka, deserializing them using the Avro schema from the **Schema Registry**.
+  - Transform and enrich log events.
+  - Perform efficient bulk indexing into Elasticsearch.
+  - Propagates distributed tracing context from Kafka messages.
+
+### 6. Elasticsearch Cluster
 **Port: 9200**
+- **Purpose**: Distributed search and analytics engine.
+- **Capabilities**: Full-text search, aggregations, and horizontal scalability.
 
-- **Purpose**: Distributed search and analytics engine for indexed log data
-- **Capabilities**:
-  - **Full-text Search**: Advanced text analysis and relevance scoring
-  - **Aggregations**: Real-time analytics and statistical computations
-  - **Scalability**: Horizontal scaling with automatic sharding and replication
-  - **Performance**: Sub-second search response times across millions of documents
-- **Index Configuration**:
-  - Dynamic mapping for flexible log event schemas
-  - Optimized field types for efficient storage and searching
-  - Time-based index rotation for better performance and management
-
-### 5. Query API (`query-api`)
-**Port: 8082**
-
-- **Purpose**: GraphQL API interface for searching and analyzing indexed logs
+### 7. Query API (`query-api`)
+- **Purpose**: Secure GraphQL API for searching and analyzing logs.
 - **Responsibilities**:
-  - Provide flexible GraphQL endpoints with multiple filter options
-  - Execute complex Elasticsearch queries and aggregations
-  - Return structured search results with pagination
-  - Offer statistical and analytical queries
-- **GraphQL Capabilities**:
-  - Schema-driven API with type safety and introspection
-  - Full-text search across log messages with flexible filtering
-  - Multi-field filtering (service name, log level, time range)
-  - Advanced sorting and pagination
-  - Aggregation queries for analytics and statistics
-  - Interactive GraphiQL interface for development and testing
+  - Provide flexible GraphQL endpoints for complex queries.
+  - **Security**: Implements query depth and complexity analysis to prevent DoS attacks.
+  - Execute Elasticsearch queries and return structured results.
 
-## Scalability & Resilience Strategy
-
-### Horizontal Scaling
-- **Log Ingestor**: Deploy multiple instances behind a load balancer for high availability
-- **Log Processor**: Scale consumer instances based on Kafka partition count and processing load
-- **Query API**: Deploy multiple read-only instances for distributed query processing
-- **Elasticsearch**: Add nodes to the cluster for increased storage and query capacity
-
-### Kafka Partitioning Strategy
-- **Partition Key**: Uses service name as partition key for balanced distribution
-- **Consumer Groups**: Multiple processor instances consume from different partitions in parallel
-- **Scalability**: Add more partitions and consumers to handle increased throughput
-
-### Fault Tolerance
-- **Kafka Replication**: Configure topic replication factor ≥ 3 for production
-- **Elasticsearch Replicas**: Set replica count based on availability requirements
-- **Circuit Breakers**: Implement circuit breakers in API gateways for resilience
-- **Health Checks**: All services expose health endpoints for monitoring and auto-healing
-
-### Performance Optimizations
-- **Batch Processing**: Both Kafka consumption and Elasticsearch indexing use batching
-- **Async Processing**: Non-blocking I/O throughout the pipeline
-- **Connection Pooling**: Efficient resource utilization for database connections
-- **Caching**: Strategic caching at API and search layers
+### 8. Distributed Tracing (OpenTelemetry & Zipkin)
+**Zipkin Port: 9411**
+- **Purpose**: Provides end-to-end visibility of requests as they travel through the system.
+- **Technology**: OpenTelemetry SDKs with a Zipkin exporter.
+- **Features**:
+  - Trace context is propagated across HTTP calls (via API Gateway) and Kafka messages.
+  - Allows developers to visualize request latency, identify bottlenecks, and debug issues in a distributed environment.
 
 ## Technology Stack
 
-- **Runtime**: Java 17 with GraalVM support for potential native compilation
-- **Framework**: Spring Boot 3.2.x with Spring Cloud for microservices patterns
-- **Messaging**: Apache Kafka for event streaming
-- **Search Engine**: Elasticsearch 8.x for indexing and searching
-- **Build Tool**: Maven with multi-module project structure
-- **Containerization**: Docker and Docker Compose for local development
-- **Monitoring**: Micrometer with Prometheus/Grafana integration
-- **Testing**: TestContainers for integration testing
+- **Runtime**: Java 17
+- **Framework**: Spring Boot 3.2.x & Spring Cloud 2023.0.0
+- **API Gateway**: Spring Cloud Gateway
+- **Configuration**: Spring Cloud Config
+- **Messaging**: Apache Kafka with **Confluent Schema Registry (Avro)**
+- **Search Engine**: Elasticsearch 8.x
+- **Distributed Tracing**: **OpenTelemetry** with **Zipkin**
+- **GraphQL Security**: Query complexity/depth analysis
+- **Build Tool**: Maven
+- **Containerization**: **Docker** and **Docker Compose** (for all services)
 
 ## Local Development
 
+The entire platform, including all applications and backing services, can be started with a single command.
+
 ### Prerequisites
-- Java 17+
-- Maven 3.8+
 - Docker and Docker Compose
 
-### Starting Infrastructure
+### Starting The Entire Platform
 
-1. **Start the infrastructure services:**
-```bash
-docker-compose up -d
-```
+1.  **Build all application images and start all containers:**
+    ```bash
+    docker-compose up --build -d
+    ```
+    This command will:
+    - Build the Docker image for each microservice (`api-gateway`, `config-server`, `log-ingestor`, `log-processor`, `query-api`).
+    - Start all Java applications.
+    - Start all backing services: Zookeeper, Kafka, Schema Registry, Elasticsearch, Kibana, and Zipkin.
 
-This will start:
-- Zookeeper (port 2181)
-- Kafka (port 9092)
-- Elasticsearch (port 9200)
-- Kibana (port 5601) for log visualization
-
-2. **Verify services are running:**
-```bash
-# Check Kafka
-docker exec -it kafka kafka-topics --bootstrap-server localhost:9092 --list
-
-# Check Elasticsearch
-curl -X GET "localhost:9200/_cluster/health?pretty"
-
-# Check Kibana
-open http://localhost:5601
-```
-
-### Running the Applications
-
-1. **Build all modules:**
-```bash
-mvn clean install
-```
-
-2. **Start each service (in separate terminals):**
-
-```bash
-# Log Ingestor (Port 8080)
-cd log-ingestor
-mvn spring-boot:run
-
-# Log Processor (Port 8081)
-cd log-processor
-mvn spring-boot:run
-
-# Query API (Port 8082)
-cd query-api
-mvn spring-boot:run
-```
+2.  **Verify services are running:**
+    - **API Gateway**: `http://localhost:8088/actuator/health`
+    - **Kibana**: `http://localhost:5601`
+    - **Zipkin Traces**: `http://localhost:9411`
+    - **GraphQL API**: `http://localhost:8088/graphiql` (accessed via Gateway)
 
 ### Testing the Platform
 
-1. **Ingest sample logs:**
-```bash
-curl -X POST http://localhost:8080/api/v1/logs \
-  -H "Content-Type: application/json" \
-  -d '[
-    {
-      "serviceName": "user-service",
-      "logLevel": "INFO",
-      "message": "User login successful",
-      "metadata": {"userId": "12345", "ip": "192.168.1.1"}
-    },
-    {
-      "serviceName": "order-service",
-      "logLevel": "ERROR",
-      "message": "Payment processing failed",
-      "metadata": {"orderId": "order-789", "error": "timeout"}
-    }
-  ]'
-```
+All requests should now go through the API Gateway on port `8088`.
 
-2. **Search logs using GraphQL:**
+1.  **Ingest sample logs:**
+    ```bash
+    curl -X POST http://localhost:8088/api/v1/logs \
+      -H "Content-Type: application/json" \
+      -d '[
+        {
+          "serviceName": "user-service",
+          "logLevel": "INFO",
+          "message": "User login successful via gateway",
+          "metadata": {"userId": "12345", "ip": "192.168.1.1"}
+        }
+      ]'
+    ```
 
-The Query API now uses GraphQL for flexible and powerful querying. You can use the interactive GraphiQL interface or send GraphQL queries directly.
+2.  **Search logs using GraphQL (via Gateway):**
+    - Open the interactive GraphiQL UI: **http://localhost:8088/graphiql**
+    - Run a query:
+      ```graphql
+      query searchLogs {
+        searchLogs(input: { fullTextQuery: "gateway" }) {
+          results {
+            id
+            timestamp
+            serviceName
+            logLevel
+            message
+          }
+        }
+      }
+      ```
 
-**Using GraphiQL Interface:**
-- Open http://localhost:8082/graphiql in your browser
-- Use the interactive query editor with auto-completion and documentation
+3.  **View Distributed Traces:**
+    - Perform a few ingest and query operations.
+    - Open the Zipkin UI: **http://localhost:9411**
+    - Click "Run Query" to see traces. You should see the full flow from `api-gateway` -> `log-ingestor` -> `kafka` -> `log-processor`.
 
-**Example GraphQL Queries:**
+4.  **Stopping the platform:**
+    ```bash
+    docker-compose down
+    ```
 
-```graphql
-# Search for error logs from a specific service
-query searchForErrors {
-  searchLogs(input: {
-    logLevel: "ERROR",
-    serviceName: "order-service",
-    fullTextQuery: "payment"
-  }) {
-    results {
-      id
-      timestamp
-      serviceName
-      logLevel
-      message
-      metadata
-    }
-    totalHits
-    currentPage
-    hasNext
-  }
-}
+## Production Deployment and Security
 
-# Get log statistics
-query getLogStats {
-  logStats(input: {
-    fromTime: "2025-01-01T00:00:00Z",
-    toTime: "2025-01-02T00:00:00Z"
-  }) {
-    totalLogs
-    errorCount
-    warningCount
-    timeRange {
-      fromTime
-      toTime
-    }
-  }
-}
-
-# Fetch a specific log by ID
-query getLogById {
-  logById(id: "user-service-1735689600000-abc12345") {
-    id
-    timestamp
-    serviceName
-    logLevel
-    message
-    isError
-    isWarning
-  }
-}
-```
-
-**Using cURL:**
-```bash
-# GraphQL search query
-curl -X POST http://localhost:8082/graphql \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "query { searchLogs(input: { fullTextQuery: \"payment\", page: 0, size: 10 }) { results { id timestamp serviceName logLevel message } totalHits } }"
-  }'
-
-# Get statistics
-curl -X POST http://localhost:8082/graphql \
-  -H "Content-Type: application/json" \
-  -d '{
-    "query": "query { logStats { totalLogs errorCount warningCount } }"
-  }'
-```
-
-3. **View in Kibana:**
-   - Open http://localhost:5601
-   - Create an index pattern for `logs*`
-   - Explore the data in Discover tab
-
-4. **Interactive GraphQL Development:**
-   - Open http://localhost:8082/graphiql 
-   - Use the interactive GraphiQL interface for query development
-   - Explore the schema documentation and auto-completion features
-   - Test complex queries with real-time results
-
-### Monitoring and Metrics
-
-All services expose metrics via Spring Boot Actuator:
-- Health: `http://localhost:808X/actuator/health`
-- Metrics: `http://localhost:808X/actuator/metrics`
-- Prometheus: `http://localhost:808X/actuator/prometheus`
-
-**GraphQL API Additional Endpoints:**
-- GraphQL Endpoint: `http://localhost:8082/graphql`
-- GraphiQL Interactive UI: `http://localhost:8082/graphiql` 
-- GraphQL Schema: Available through introspection in GraphiQL
-
-## Production Deployment
-
-### Kubernetes Deployment
-- Use Helm charts for templated deployments
-- Configure HorizontalPodAutoscaler for auto-scaling
-- Set up proper resource limits and requests
-- Implement readiness and liveness probes
+This enhanced architecture is significantly more robust and secure.
 
 ### Configuration Management
-- Use ConfigMaps and Secrets for environment-specific configurations
-- Implement configuration hot-reloading where applicable
-- Set up proper log levels and structured logging
+- **Spring Cloud Config** provides a single source of truth for all configurations, suitable for managing different environments (dev, staging, prod).
 
-### Monitoring and Alerting
-- Deploy Prometheus for metrics collection
-- Set up Grafana dashboards for visualization
-- Configure alerts for critical metrics (error rates, latency, throughput)
-- Implement distributed tracing with Jaeger or Zipkin
+### Security
+- **API Gateway**: Acts as a control point for implementing authentication (e.g., OAuth2/OIDC), rate limiting, and WAF rules.
+- **GraphQL Security**: The Query API is protected against overly complex or deep queries that could be used to overload the system.
+- **Schema Registry**: Enforces strict message schemas, preventing malformed data from entering the processing pipeline and improving data security and quality.
 
-### Security Considerations
-- Enable Elasticsearch security features (authentication, TLS)
-- Implement API authentication and rate limiting
-- Use network policies to restrict inter-service communication
-- Regular security scanning of container images
+### Observability
+- **Centralized Logging**: The platform's core purpose.
+- **Metrics**: All services expose Prometheus metrics via Actuator.
+- **Distributed Tracing**: **OpenTelemetry** provides critical end-to-end visibility, which is essential for debugging and performance tuning in a production microservices environment.
 
 ## Future Enhancements
 
