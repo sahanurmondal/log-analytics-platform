@@ -36,7 +36,8 @@ public class VirtualThreadsExample {
         // 1. Platform threads with fixed thread pool
         Instant start = Instant.now();
 
-        try (ExecutorService executorService = Executors.newFixedThreadPool(200)) {
+        ExecutorService executorService = Executors.newFixedThreadPool(200);
+        try {
             AtomicInteger completedTasks = new AtomicInteger(0);
 
             for (int i = 0; i < TASK_COUNT; i++) {
@@ -67,6 +68,10 @@ public class VirtualThreadsExample {
 
             System.out.println("Platform threads: " + completedTasks.get() +
                     " tasks completed, all done: " + completed);
+        } finally {
+            if (executorService != null && !executorService.isShutdown()) {
+                executorService.shutdownNow();
+            }
         }
 
         Duration platformTime = Duration.between(start, Instant.now());
@@ -90,7 +95,8 @@ public class VirtualThreadsExample {
                 virtualExecutor = Executors.newCachedThreadPool();
             }
 
-            try (ExecutorService executor = virtualExecutor) {
+            ExecutorService executor = virtualExecutor;
+            try {
                 for (int i = 0; i < TASK_COUNT; i++) {
                     executor.submit(() -> {
                         try {
@@ -116,6 +122,10 @@ public class VirtualThreadsExample {
 
                 System.out.println("Virtual threads: " + completedTasks.get() +
                         " tasks completed, all done: " + completed);
+            } finally {
+                if (executor != null && !executor.isShutdown()) {
+                    executor.shutdownNow();
+                }
             }
         } catch (Exception e) {
             System.out.println("Error working with virtual threads: " + e);
@@ -204,16 +214,24 @@ public class VirtualThreadsExample {
             AtomicInteger counter = new AtomicInteger(0);
             Instant start = Instant.now();
 
-            try (finalExecutor) {
-                IntStream.range(0, THREAD_COUNT).forEach(i -> {
+            try {
+                IntStream.range(0, THREAD_COUNT).forEach(ignored -> {
                     finalExecutor.submit(() -> {
                         counter.incrementAndGet();
-                        Thread.sleep(10); // Simulate some work
+                        try {
+                            Thread.sleep(10); // Simulate some work
+                        } catch (InterruptedException ex) {
+                            Thread.currentThread().interrupt();
+                        }
                         return null;
                     });
                 });
             } catch (Exception e) {
                 System.out.println("Error submitting tasks: " + e.getMessage());
+            } finally {
+                if (finalExecutor != null && !finalExecutor.isShutdown()) {
+                    finalExecutor.shutdown();
+                }
             }
 
             boolean terminated = false;
