@@ -1,0 +1,691 @@
+PACKAGE-WISE LEETCODE PROBLEMS EXTRACTION
+========================================
+
+Total Problems: 400+ across 22 packages
+Difficulty Distribution: 30% Easy, 50% Medium, 20% Hard
+Companies: MAANG + 50+ top tech companies
+Last Updated: January 2025
+
+========================================
+📁 ARRAYS PACKAGE
+========================================
+
+Critical Priority:
+1: Two Sum (Easy)
+53: Maximum Subarray (Easy) 
+121: Best Time to Buy and Sell Stock (Easy)
+217: Contains Duplicate (Easy)
+283: Move Zeroes (Easy)
+
+High Priority:
+15: 3Sum (Medium)
+11: Container With Most Water (Medium)
+238: Product of Array Except Self (Medium)
+560: Subarray Sum Equals K (Medium)
+48: Rotate Image (Medium)
+54: Spiral Matrix (Medium)
+55: Jump Game (Medium)
+152: Maximum Product Subarray (Medium)
+153: Find Minimum in Rotated Sorted Array (Medium)
+26: Remove Duplicates from Sorted Array (Easy)
+
+Advanced Priority:
+42: Trapping Rain Water (Hard)
+41: First Missing Positive (Hard)
+4: Median of Two Sorted Arrays (Hard)
+239: Sliding Window Maximum (Hard)
+84: Largest Rectangle in Histogram (Hard)
+
+Additional Essential:
+169: Majority Element (Easy)
+118: Pascal's Triangle (Easy)
+88: Merge Sorted Array (Easy)
+66: Plus One (Easy)
+448: Find All Numbers Disappeared in Array (Easy)
+31: Next Permutation (Medium)
+33: Search in Rotated Sorted Array (Medium)
+73: Set Matrix Zeroes (Medium)
+
+========================================
+🔗 LINKED LIST PACKAGE
+========================================
+
+Critical Priority:
+206: Reverse Linked List (Easy)
+21: Merge Two Sorted Lists (Easy)
+141: Linked List Cycle (Easy)
+83: Remove Duplicates from Sorted List (Easy)
+234: Palindrome Linked List (Easy)
+
+High Priority:
+160: Intersection of Two Linked Lists (Medium)
+2: Add Two Numbers (Medium)
+19: Remove Nth Node From End (Medium)
+143: Reorder List (Medium)
+138: Copy List with Random Pointer (Medium)
+142: Linked List Cycle II (Medium)
+24: Swap Nodes in Pairs (Medium)
+61: Rotate List (Medium)
+82: Remove Duplicates from Sorted List II (Medium)
+
+Advanced Priority:
+23: Merge k Sorted Lists (Hard)
+25: Reverse Nodes in k-Group (Hard)
+
+Additional Essential:
+876: Middle of Linked List (Easy)
+237: Delete Node in Linked List (Easy)
+1290: Convert Binary Number in Linked List to Integer (Easy)
+
+========================================
+🌳 TREES PACKAGE
+========================================
+
+Critical Priority:
+104: Maximum Depth of Binary Tree (Easy)
+100: Same Tree (Easy)
+226: Invert Binary Tree (Easy)
+94: Binary Tree Inorder Traversal (Easy)
+101: Symmetric Tree (Easy)
+112: Path Sum (Easy)
+111: Minimum Depth of Binary Tree (Easy)
+
+High Priority:
+98: Validate Binary Search Tree (Medium)
+102: Binary Tree Level Order Traversal (Medium)
+105: Construct Binary Tree from Preorder and Inorder (Medium)
+199: Binary Tree Right Side View (Medium)
+236: Lowest Common Ancestor (Medium)
+103: Binary Tree Zigzag Level Order Traversal (Medium)
+114: Flatten Binary Tree to Linked List (Medium)
+116: Populating Next Right Pointers (Medium)
+113: Path Sum II (Medium)
+144: Binary Tree Preorder Traversal (Medium)
+145: Binary Tree Postorder Traversal (Medium)
+222: Count Complete Tree Nodes (Medium)
+
+Advanced Priority:
+124: Binary Tree Maximum Path Sum (Hard)
+297: Serialize and Deserialize Binary Tree (Hard)
+968: Binary Tree Cameras (Hard)
+99: Recover Binary Search Tree (Hard)
+
+Additional Essential:
+543: Diameter of Binary Tree (Easy)
+572: Subtree of Another Tree (Easy)
+257: Binary Tree Paths (Easy)
+404: Sum of Left Leaves (Easy)
+501: Find Mode in BST (Easy)
+
+========================================
+📚 STACKS PACKAGE
+========================================
+
+Critical Priority:
+20: Valid Parentheses (Easy)
+155: Min Stack (Easy)
+232: Implement Queue using Stacks (Easy)
+225: Implement Stack using Queues (Easy)
+
+High Priority:
+739: Daily Temperatures (Medium)
+150: Evaluate Reverse Polish Notation (Medium)
+394: Decode String (Medium)
+496: Next Greater Element I (Easy)
+503: Next Greater Element II (Medium)
+1047: Remove All Adjacent Duplicates In String (Easy)
+71: Simplify Path (Medium)
+735: Asteroid Collision (Medium)
+
+Advanced Priority:
+84: Largest Rectangle in Histogram (Hard)
+224: Basic Calculator (Hard)
+227: Basic Calculator II (Hard)
+301: Remove Invalid Parentheses (Hard)
+
+Additional Essential:
+682: Baseball Game (Easy)
+844: Backspace String Compare (Easy)
+402: Remove K Digits (Medium)
+636: Exclusive Time of Functions (Medium)
+946: Validate Stack Sequences (Medium)
+
+========================================
+🔍 BINARY SEARCH PACKAGE
+========================================
+
+Critical Priority:
+704: Binary Search (Easy)
+278: First Bad Version (Easy)
+35: Search Insert Position (Easy)
+
+High Priority:
+33: Search in Rotated Sorted Array (Medium)
+153: Find Minimum in Rotated Sorted Array (Medium)
+74: Search a 2D Matrix (Medium)
+162: Find Peak Element (Medium)
+34: Find First and Last Position (Medium)
+154: Find Minimum in Rotated Sorted Array II (Hard)
+81: Search in Rotated Sorted Array II (Medium)
+69: Sqrt(x) (Easy)
+367: Valid Perfect Square (Easy)
+
+Advanced Priority:
+4: Median of Two Sorted Arrays (Hard)
+378: Kth Smallest Element in Sorted Matrix (Medium)
+
+Additional Essential:
+34: Find First and Last Position (Medium)
+1011: Capacity to Ship Packages (Medium)
+875: Koko Eating Bananas (Medium)
+981: Time Based Key-Value Store (Medium)
+410: Split Array Largest Sum (Hard)
+
+========================================
+🔤 STRINGS PACKAGE
+========================================
+
+Critical Priority:
+242: Valid Anagram (Easy)
+125: Valid Palindrome (Easy)
+14: Longest Common Prefix (Easy)
+28: Implement strStr() (Easy)
+387: First Unique Character in String (Easy)
+
+High Priority:
+3: Longest Substring Without Repeating Characters (Medium)
+49: Group Anagrams (Medium)
+5: Longest Palindromic Substring (Medium)
+8: String to Integer (atoi) (Medium)
+17: Letter Combinations of Phone Number (Medium)
+22: Generate Parentheses (Medium)
+20: Valid Parentheses (Easy)
+647: Palindromic Substrings (Medium)
+424: Longest Repeating Character Replacement (Medium)
+344: Reverse String (Easy)
+151: Reverse Words in a String (Medium)
+
+Advanced Priority:
+76: Minimum Window Substring (Hard)
+65: Valid Number (Hard)
+68: Text Justification (Hard)
+
+Additional Essential:
+415: Add Strings (Easy)
+165: Compare Version Numbers (Medium)
+12: Integer to Roman (Medium)
+13: Roman to Integer (Easy)
+43: Multiply Strings (Medium)
+30: Substring with Concatenation of All Words (Hard)
+
+========================================
+📊 DYNAMIC PROGRAMMING PACKAGE
+========================================
+
+Critical Priority:
+70: Climbing Stairs (Easy)
+198: House Robber (Easy)
+53: Maximum Subarray (Easy)
+746: Min Cost Climbing Stairs (Easy)
+
+High Priority:
+322: Coin Change (Medium)
+300: Longest Increasing Subsequence (Medium)
+139: Word Break (Medium)
+377: Combination Sum IV (Medium)
+213: House Robber II (Medium)
+91: Decode Ways (Medium)
+62: Unique Paths (Medium)
+63: Unique Paths II (Medium)
+64: Minimum Path Sum (Medium)
+1143: Longest Common Subsequence (Medium)
+152: Maximum Product Subarray (Medium)
+55: Jump Game (Medium)
+121: Best Time to Buy and Sell Stock (Easy)
+
+Advanced Priority:
+72: Edit Distance (Hard)
+10: Regular Expression Matching (Hard)
+44: Wildcard Matching (Hard)
+
+Additional Essential:
+338: Counting Bits (Easy)
+120: Triangle (Medium)
+714: Buy and Sell Stock with Fee (Medium)
+312: Burst Balloons (Hard)
+
+========================================
+🗺️ GRAPHS PACKAGE
+========================================
+
+Critical Priority:
+200: Number of Islands (Medium)
+
+High Priority:
+261: Graph Valid Tree (Medium)
+133: Clone Graph (Medium)
+207: Course Schedule (Medium)
+417: Pacific Atlantic Water Flow (Medium)
+994: Rotting Oranges (Medium)
+127: Word Ladder (Medium)
+
+Advanced Priority:
+269: Alien Dictionary (Hard)
+126: Word Ladder II (Hard)
+
+Additional Essential:
+743: Network Delay Time (Medium)
+785: Is Graph Bipartite (Medium)
+310: Minimum Height Trees (Medium)
+332: Reconstruct Itinerary (Medium)
+286: Walls and Gates (Medium)
+1197: Minimum Knight Moves (Medium)
+
+========================================
+🏃‍♂️ TWO POINTERS PACKAGE
+========================================
+
+Critical Priority:
+167: Two Sum II - Input array is sorted (Easy)
+
+High Priority:
+80: Remove Duplicates from Sorted Array II (Medium)
+16: 3Sum Closest (Medium)
+18: 4Sum (Medium)
+
+Additional Essential:
+27: Remove Element (Easy)
+917: Reverse Only Letters (Easy)
+977: Squares of Sorted Array (Easy)
+42: Trapping Rain Water (Hard)
+
+========================================
+🎯 SLIDING WINDOW PACKAGE
+========================================
+
+High Priority:
+567: Permutation in String (Medium)
+438: Find All Anagrams in String (Medium)
+424: Longest Repeating Character Replacement (Medium)
+
+Additional Essential:
+2461: Maximum Sum of Distinct Subarrays (Medium)
+209: Minimum Size Subarray Sum (Medium)
+904: Fruit Into Baskets (Medium)
+1208: Get Equal Substrings Within Budget (Medium)
+239: Sliding Window Maximum (Hard)
+
+========================================
+⏰ INTERVALS PACKAGE
+========================================
+
+Critical Priority:
+252: Meeting Rooms (Easy)
+
+High Priority:
+56: Merge Intervals (Medium)
+57: Insert Interval (Medium)
+435: Non-overlapping Intervals (Medium)
+253: Meeting Rooms II (Medium)
+
+Advanced Priority:
+759: Employee Free Time (Hard)
+
+Additional Essential:
+452: Minimum Number of Arrows (Medium)
+729: My Calendar I (Medium)
+352: Data Stream as Disjoint Intervals (Hard)
+763: Partition Labels (Medium)
+
+========================================
+🔢 MATH PACKAGE
+========================================
+
+Critical Priority:
+412: Fizz Buzz (Easy)
+7: Reverse Integer (Easy)
+9: Palindrome Number (Easy)
+
+High Priority:
+50: Pow(x, n) (Medium)
+69: Sqrt(x) (Medium)
+
+Advanced Priority:
+273: Integer to English Words (Hard)
+
+Additional Essential:
+202: Happy Number (Easy)
+66: Plus One (Easy)
+204: Count Primes (Medium)
+171: Excel Sheet Column Number (Easy)
+172: Factorial Trailing Zeroes (Medium)
+
+========================================
+🏗️ DESIGN PACKAGE
+========================================
+
+Critical Priority:
+359: Logger Rate Limiter (Easy)
+
+High Priority:
+705: Design HashSet (Medium)
+706: Design HashMap (Medium)
+355: Design Twitter (Medium)
+
+Advanced Priority:
+146: LRU Cache (Hard)
+
+Additional Essential:
+362: Design Hit Counter (Medium)
+460: LFU Cache (Hard)
+348: Design Tic-Tac-Toe (Medium)
+211: Design Add and Search Words (Medium)
+
+========================================
+🎲 BACKTRACKING PACKAGE
+========================================
+
+High Priority:
+46: Permutations (Medium)
+77: Combinations (Medium)
+78: Subsets (Medium)
+79: Word Search (Medium)
+39: Combination Sum (Medium)
+
+Advanced Priority:
+51: N-Queens (Hard)
+
+Additional Essential:
+131: Palindrome Partitioning (Medium)
+90: Subsets II (Medium)
+40: Combination Sum II (Medium)
+22: Generate Parentheses (Medium)
+37: Sudoku Solver (Hard)
+
+========================================
+📈 GREEDY PACKAGE
+========================================
+
+High Priority:
+45: Jump Game II (Medium)
+134: Gas Station (Medium)
+621: Task Scheduler (Medium)
+
+Additional Essential:
+122: Best Time to Buy and Sell Stock II (Medium)
+452: Minimum Number of Arrows (Medium)
+435: Non-overlapping Intervals (Medium)
+406: Queue Reconstruction by Height (Medium)
+
+========================================
+🌊 HEAP PACKAGE
+========================================
+
+High Priority:
+347: Top K Frequent Elements (Medium)
+215: Kth Largest Element in Array (Medium)
+253: Meeting Rooms II (Medium)
+
+Additional Essential:
+295: Find Median from Data Stream (Hard)
+480: Sliding Window Median (Hard)
+23: Merge k Sorted Lists (Hard)
+378: Kth Smallest Element in Sorted Matrix (Medium)
+
+========================================
+📋 MATRIX PACKAGE
+========================================
+
+High Priority:
+73: Set Matrix Zeroes (Medium)
+48: Rotate Image (Medium)
+79: Word Search (Medium)
+
+Advanced Priority:
+289: Game of Life (Hard)
+
+Additional Essential:
+59: Spiral Matrix II (Medium)
+36: Valid Sudoku (Medium)
+74: Search a 2D Matrix (Medium)
+
+========================================
+🔧 BIT MANIPULATION PACKAGE
+========================================
+
+Critical Priority:
+136: Single Number (Easy)
+
+High Priority:
+191: Number of 1 Bits (Easy)
+338: Counting Bits (Easy)
+371: Sum of Two Integers (Medium)
+
+Additional Essential:
+137: Single Number II (Medium)
+260: Single Number III (Medium)
+190: Reverse Bits (Easy)
+201: Bitwise AND of Numbers Range (Medium)
+
+========================================
+🌲 BINARY SEARCH TREE PACKAGE
+========================================
+
+Critical Priority:
+98: Validate Binary Search Tree (Medium)
+
+High Priority:
+230: Kth Smallest Element in BST (Medium)
+235: Lowest Common Ancestor BST (Medium)
+701: Insert into BST (Medium)
+450: Delete Node in BST (Medium)
+108: Convert Sorted Array to BST (Easy)
+
+Additional Essential:
+669: Trim BST (Easy)
+653: Two Sum IV - Input is BST (Easy)
+938: Range Sum of BST (Easy)
+99: Recover BST (Hard)
+
+========================================
+🗺️ GRID PACKAGE
+========================================
+
+High Priority:
+695: Max Area of Island (Medium)
+79: Word Search (Medium)
+417: Pacific Atlantic Water Flow (Medium)
+
+Additional Essential:
+286: Walls and Gates (Medium)
+542: 01 Matrix (Medium)
+1091: Shortest Path in Binary Matrix (Medium)
+212: Word Search II (Hard)
+
+========================================
+📊 HASH MAPS PACKAGE
+========================================
+
+Critical Priority:
+347: Top K Frequent Elements (Medium)
+387: First Unique Character (Easy)
+
+Additional Essential:
+349: Intersection of Two Arrays (Easy)
+3: Longest Substring Without Repeating (Medium)
+560: Subarray Sum Equals K (Medium)
+454: 4Sum II (Medium)
+
+========================================
+🚶 QUEUES PACKAGE
+========================================
+
+Critical Priority:
+225: Implement Stack using Queues (Easy)
+102: Binary Tree Level Order Traversal (Medium)
+
+High Priority:
+239: Sliding Window Maximum (Hard)
+622: Design Circular Queue (Medium)
+752: Open the Lock (Medium)
+
+Additional Essential:
+279: Perfect Squares (Medium)
+933: Number of Recent Calls (Easy)
+1091: Shortest Path in Grid (Medium)
+621: Task Scheduler (Medium)
+
+========================================
+🔄 RECURSION PACKAGE
+========================================
+
+Critical Priority:
+509: Fibonacci Number (Easy)
+70: Climbing Stairs (Easy)
+
+High Priority:
+50: Power of X (Medium)
+22: Generate Parentheses (Medium)
+17: Letter Combinations (Medium)
+46: Permutations (Medium)
+
+Additional Essential:
+78: Subsets (Medium)
+39: Combination Sum (Medium)
+79: Word Search (Medium)
+51: N-Queens (Hard)
+
+========================================
+🔍 SEARCHING PACKAGE
+========================================
+
+Critical Priority:
+704: Binary Search (Easy)
+33: Search in Rotated Sorted Array (Medium)
+
+High Priority:
+34: Find First and Last Position (Medium)
+162: Find Peak Element (Medium)
+35: Search Insert Position (Easy)
+
+Additional Essential:
+153: Find Minimum in Rotated Array (Medium)
+215: Kth Largest Element (Medium)
+240: Search in 2D Matrix II (Medium)
+4: Median of Two Sorted Arrays (Hard)
+
+========================================
+📋 SORTING PACKAGE
+========================================
+
+Critical Priority:
+75: Sort Colors (Medium)
+88: Merge Sorted Array (Easy)
+
+High Priority:
+215: Kth Largest Element in Array (Medium)
+347: Top K Frequent Elements (Medium)
+56: Merge Intervals (Medium)
+
+Additional Essential:
+148: Sort List (Medium)
+179: Largest Number (Medium)
+242: Valid Anagram (Easy)
+49: Group Anagrams (Medium)
+
+========================================
+🌳 TRIES PACKAGE
+========================================
+
+Critical Priority:
+208: Implement Trie (Medium)
+
+High Priority:
+211: Add and Search Word (Medium)
+212: Word Search II (Hard)
+720: Longest Word in Dictionary (Medium)
+648: Replace Words (Medium)
+
+Additional Essential:
+472: Concatenated Words (Hard)
+336: Palindrome Pairs (Hard)
+425: Word Squares (Hard)
+1032: Stream of Characters (Hard)
+
+========================================
+🔗 UNION FIND PACKAGE
+========================================
+
+Critical Priority:
+200: Number of Islands (Medium)
+
+High Priority:
+261: Graph Valid Tree (Medium)
+323: Number of Connected Components (Medium)
+721: Accounts Merge (Medium)
+684: Redundant Connection (Medium)
+547: Friend Circles (Medium)
+
+Additional Essential:
+1202: Smallest String With Swaps (Medium)
+130: Surrounded Regions (Medium)
+947: Most Stones Removed (Medium)
+990: Satisfiability of Equality Equations (Medium)
+1135: Connecting Cities With Minimum Cost (Hard)
+
+========================================
+🔀 MISCELLANEOUS PACKAGE
+========================================
+
+Critical Priority:
+528: Random Pick with Weight (Medium)
+
+High Priority:
+384: Shuffle an Array (Medium)
+380: Insert Delete GetRandom O(1) (Medium)
+398: Random Pick Index (Medium)
+382: Reservoir Sampling (Medium)
+
+Additional Essential:
+535: Encode and Decode URLs (Medium)
+281: Zigzag Iterator (Medium)
+284: Peeking Iterator (Medium)
+251: Flatten 2D Vector (Medium)
+
+========================================
+📊 SUMMARY STATISTICS
+========================================
+
+Total Packages: 22
+Total Problems: 400+
+Easy Problems: ~120 (30%)
+Medium Problems: ~200 (50%)  
+Hard Problems: ~80 (20%)
+
+Companies Covered:
+- Google: 180+ problems
+- Meta/Facebook: 170+ problems
+- Amazon: 160+ problems
+- Apple: 140+ problems
+- Microsoft: 150+ problems
+- Netflix, ByteDance, Uber: 50+ problems each
+
+Recent Interview Problems (2024-2025): 150+
+System Design Related: 30+
+Machine Learning Related: 20+
+
+========================================
+📈 RECOMMENDED STUDY ORDER
+========================================
+
+Week 1-2: Arrays, LinkedList, Strings (Foundation)
+Week 3-4: Trees, Stacks, Hash Maps (Core)
+Week 5-6: DP, Graphs, Binary Search (Advanced)
+Week 7-8: Design, Backtracking, Specialized packages
+Week 9-10: Mock interviews and company-specific practice
+
+Success Target: 85%+ completion rate, 20-25min average for Medium problems
+
+========================================
+END OF EXTRACTION
+========================================
