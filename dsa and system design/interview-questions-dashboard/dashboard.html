@@ -448,15 +448,32 @@
         }
 
         .code-block {
-            background: #2d3748;
-            color: #e2e8f0;
+            background: #1e1e1e;
+            color: #d4d4d4;
             padding: 15px;
             border-radius: 6px;
-            font-family: 'Monaco', 'Consolas', monospace;
-            font-size: 0.9rem;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+            line-height: 1.5;
             overflow-x: auto;
             margin: 10px 0;
+            border: 1px solid #3c3c3c;
             white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .approach-item {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            transition: all 0.3s ease;
+        }
+
+        .approach-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            transform: translateY(-2px);
         }
 
         .references-section {
@@ -492,6 +509,16 @@
 
         .local-solution:hover {
             background: #138496;
+        }
+
+        .local-solution:not([href]) {
+            background: #6c757d;
+            cursor: default;
+            opacity: 0.8;
+        }
+
+        .local-solution:not([href]):hover {
+            background: #6c757d;
         }
 
         .pagination {
@@ -743,11 +770,11 @@
         }
 
         function extractDescription(question) {
-            if (question.answer && question.answer.problem_understanding) {
-                return question.answer.problem_understanding.substring(0, 200) + '...';
-            }
+            // if (question.answer && question.answer.problem_understanding) {
+            //     return question.answer.problem_understanding.substring(0, 200) + '...';
+            // }
             if (question.description) {
-                return question.description.substring(0, 200) + '...';
+                return question.description.substring(0, 500) + '...';
             }
             return 'No description available';
         }
@@ -757,14 +784,42 @@
 
             // Check for coding questions
             if (question.question_type === 'coding') {
-                return question.answer.approaches && question.answer.approaches.length > 0;
+                const answer = question.answer;
+
+                // Check approaches quality
+                const hasQualityApproaches = answer.approaches && answer.approaches.length > 0 &&
+                    answer.approaches.some(approach =>
+                        approach.description &&
+                        approach.description.length > 30 &&
+                        !approach.description.toLowerCase().includes('simple brute force') &&
+                        !approach.description.toLowerCase().includes('basic approach') &&
+                        approach.description !== 'No description available'
+                    );
+
+                // Check optimal solution quality
+                const hasQualityOptimalSolution = answer.optimal_solution &&
+                    answer.optimal_solution.description &&
+                    answer.optimal_solution.description.length > 50;
+
+                // Check interview tips quality
+                const hasQualityTips = answer.interview_tips &&
+                    answer.interview_tips.length > 0 &&
+                    answer.interview_tips.some(tip => tip && tip.length > 20 &&
+                        !tip.includes('Generic') && !tip.includes('placeholder'));
+
+                // Require at least 2 quality components
+                const qualityComponents = [hasQualityApproaches, hasQualityOptimalSolution, hasQualityTips]
+                    .filter(Boolean).length;
+
+                return qualityComponents >= 2;
             }
 
             // Check for system design questions
             if (question.category === 'System Design') {
                 return question.answer.functional_requirements ||
                     question.answer.high_level_design ||
-                    question.answer.detailed_design;
+                    question.answer.detailed_design ||
+                    question.systemDesignAnswerPath;
             }
 
             // Check for database questions
@@ -773,7 +828,7 @@
                     question.answer.concept_explanation;
             }
 
-            return true;
+            return Object.keys(question.answer).length > 0;
         }
 
         function extractTags(question) {
@@ -1089,7 +1144,24 @@
             // Approaches
             if (answer.approaches && answer.approaches.length > 0) {
                 html += `<h4>🚀 Solution Approaches</h4>`;
-                answer.approaches.forEach(approach => {
+                answer.approaches.forEach((approach, index) => {
+                    // Clean up description if it contains code or extra content
+                    let cleanDescription = approach.description || 'No description available';
+                    if (cleanDescription.length > 300) {
+                        cleanDescription = cleanDescription.substring(0, 300) + '...';
+                    }
+
+                    // Clean up code formatting
+                    let cleanCode = approach.code || '';
+                    if (cleanCode) {
+                        // Remove comment blocks and clean up
+                        cleanCode = cleanCode
+                            .replace(/\/\*[\s\S]*?\*\//g, '') // Remove /* */ comments
+                            .replace(/\/\/.*$/gm, '') // Remove // comments
+                            .replace(/^\s*\n/gm, '') // Remove empty lines
+                            .trim();
+                    }
+
                     html += `
                         <div class="approach-item">
                             <div class="approach-header">
@@ -1099,8 +1171,8 @@
                                     <span class="complexity-item space-complexity">Space: ${approach.space_complexity}</span>
                                 </div>
                             </div>
-                            <p>${approach.description}</p>
-                            ${approach.code ? `<div class="code-block">${approach.code}</div>` : ''}
+                            <p>${cleanDescription}</p>
+                            ${cleanCode && cleanCode.length > 10 ? `<div class="code-block">${cleanCode}</div>` : ''}
                         </div>
                     `;
                 });
@@ -1180,17 +1252,29 @@
                 `;
 
                 if (question.references.local_solution && question.references.local_solution.trim()) {
-                    html += `<a href="${question.references.local_solution}" target="_blank" class="reference-link local-solution">📁 Local Solution</a>`;
+                    // Check if it's a relative path and convert it properly
+                    let localPath = question.references.local_solution;
+                    if (localPath.startsWith('../solutions/')) {
+                        // Convert relative path to a proper link or show as information
+                        const fileName = localPath.split('/').pop();
+                        html += `<span class="reference-link local-solution" title="${localPath}">📁 Local: ${fileName}</span>`;
+                    } else {
+                        html += `<a href="${localPath}" target="_blank" class="reference-link local-solution">📁 Local Solution</a>`;
+                    }
                 }
+
                 if (question.references.leetcode) {
                     html += `<a href="${question.references.leetcode}" target="_blank" class="reference-link">🔗 LeetCode</a>`;
                 }
+
                 if (question.references.blog_links && question.references.blog_links.length > 0) {
                     question.references.blog_links.slice(0, 3).forEach(link => {
                         const linkText = link.includes('geeksforgeeks') ? '📚 GeeksforGeeks' :
                             link.includes('leetcode') ? '💬 LeetCode Discuss' :
                                 link.includes('interviewbit') ? '📖 InterviewBit' :
-                                    link.includes('programcreek') ? '💻 ProgramCreek' : '📖 Blog';
+                                    link.includes('programcreek') ? '💻 ProgramCreek' :
+                                        link.includes('hackerrank') ? '🏆 HackerRank' :
+                                            link.includes('programiz') ? '📖 Programiz' : '📖 Blog';
                         html += `<a href="${link}" target="_blank" class="reference-link">${linkText}</a>`;
                     });
                 }
@@ -1208,9 +1292,7 @@
                 }
 
                 html += `</div>`;
-            }
-
-            html += `</div></div>`;
+            } html += `</div></div>`;
             return html;
         }
 
