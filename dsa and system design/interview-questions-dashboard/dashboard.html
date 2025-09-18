@@ -770,13 +770,50 @@
         }
 
         function extractDescription(question) {
-            // if (question.answer && question.answer.problem_understanding) {
-            //     return question.answer.problem_understanding.substring(0, 200) + '...';
-            // }
-            if (question.description) {
-                return question.description.substring(0, 500) + '...';
+            // Try to extract description from the first approach's description
+            if (question.answer && question.answer.approaches && question.answer.approaches.length > 0) {
+                const firstApproachDesc = question.answer.approaches[0].description;
+                if (firstApproachDesc && firstApproachDesc.length > 50) {
+                    // Extract the problem statement part (usually before the first "Follow-ups:" or code)
+                    let desc = firstApproachDesc;
+
+                    // Remove LeetCode URL prefix if present
+                    desc = desc.replace(/^LeetCode \d+:\s*[^https]*https:\/\/leetcode\.com\/[^\s]+\s*/, '');
+
+                    // Extract the main problem description before Follow-ups or examples
+                    const followUpIndex = desc.indexOf('Follow-ups:');
+                    const exampleIndex = desc.indexOf('Example:');
+
+                    if (followUpIndex > 0) {
+                        desc = desc.substring(0, followUpIndex).trim();
+                    } else if (exampleIndex > 0 && exampleIndex < 300) {
+                        // Include the example if it's early in the description
+                        const afterExample = desc.indexOf('\n', exampleIndex + 50);
+                        if (afterExample > 0) {
+                            desc = desc.substring(0, afterExample).trim();
+                        }
+                    }
+
+                    // Clean up and return reasonable length
+                    if (desc && desc.length > 20) {
+                        return desc.substring(0, 400) + (desc.length > 400 ? '...' : '');
+                    }
+                }
             }
-            return 'No description available';
+
+            // For system design questions, create description from title
+            if (question.category === 'System Design') {
+                const cleanTitle = question.title.replace(/^\d+\.\s*/, '');
+                return `Design and discuss the architecture for: ${cleanTitle}`;
+            }
+
+            // For other questions, try to use title as basis for description
+            if (question.title) {
+                const cleanTitle = question.title.replace(/^\d+\.\s*/, '');
+                return `Solve: ${cleanTitle}`;
+            }
+
+            return 'Technical interview question - click to view details';
         }
 
         function hasValidAnswer(question) {
@@ -1066,10 +1103,11 @@
             `;
 
             // Problem Understanding
-            if (answer.problem_understanding) {
+            const problemDesc = extractDescription(question);
+            if (problemDesc && problemDesc !== 'Technical interview question - click to view details') {
                 html += `
                     <h4>🎯 Problem Understanding</h4>
-                    <p>${answer.problem_understanding}</p>
+                    <p>${problemDesc}</p>
                 `;
             } else if (question.category === 'System Design') {
                 // For system design questions without problem_understanding, show title as problem
