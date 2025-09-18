@@ -311,6 +311,13 @@
             background: #0056b3;
         }
 
+        .view-original.disabled {
+            background: #6c757d;
+            color: #fff;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+
         .view-answer {
             background: #28a745;
             color: white;
@@ -805,6 +812,15 @@
                         url: question.url || answerData.references?.leetcode || '#'
                     };
 
+                    // Debug logging for first few questions
+                    if (question.question_number <= 10) {
+                        console.log(`Question ${question.question_number}:`, {
+                            questionUrl: question.url,
+                            leetcodeUrl: answerData.references?.leetcode,
+                            finalUrl: enhanced.url
+                        });
+                    }
+
                     // Use the complete dataset description which is more detailed
                     enhanced.description = question.description || extractDescription(enhanced);
                     enhanced.hasAnswer = hasValidAnswer(enhanced);
@@ -1266,7 +1282,10 @@
                             </div>
                         ` : ''}
                         <div class="question-actions">
-                            <a href="${question.url && question.url !== '#' ? question.url : '#'}" target="_blank" class="view-original" ${question.url && question.url !== '#' ? '' : 'style="opacity: 0.5; cursor: not-allowed;" onclick="return false;"'}>View Original</a>
+                            ${question.url && question.url !== '#' ? 
+                                `<a href="${question.url}" target="_blank" class="view-original">View Original</a>` : 
+                                `<span class="view-original disabled">View Original</span>`
+                            }
                             ${question.hasAnswer ?
                         `<button class="view-answer" onclick="toggleAnswer(${question.question_number})">View Answer</button>` :
                         `<button class="view-answer" disabled title="Answer not available">No Answer</button>`
