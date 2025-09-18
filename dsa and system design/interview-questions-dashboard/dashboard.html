@@ -13,52 +13,55 @@
         }
 
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             min-height: 100vh;
-            padding: 20px;
+            color: #333;
         }
 
         .container {
             max-width: 1400px;
             margin: 0 auto;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
+            padding: 20px;
         }
 
         .header {
-            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
-            color: white;
+            background: white;
+            border-radius: 15px;
             padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
             text-align: center;
         }
 
         .header h1 {
-            font-size: 2.5rem;
-            margin-bottom: 10px;
+            color: #2c3e50;
+            font-size: 2.5em;
             font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
         }
 
         .header p {
-            font-size: 1.1rem;
-            opacity: 0.9;
+            color: #7f8c8d;
+            font-size: 1.1em;
         }
 
         .stats {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
-            padding: 30px;
-            background: #f8f9fa;
+            margin-bottom: 25px;
         }
 
         .stat-card {
             background: white;
+            border-radius: 15px;
             padding: 25px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             text-align: center;
             transition: transform 0.3s ease;
         }
@@ -68,36 +71,37 @@
         }
 
         .stat-number {
-            font-size: 2.5rem;
+            font-size: 2.5em;
             font-weight: 700;
-            color: #2c3e50;
-            margin-bottom: 8px;
+            color: #667eea;
+            margin-bottom: 10px;
         }
 
         .stat-label {
-            font-size: 1rem;
             color: #7f8c8d;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 1.1em;
+            font-weight: 500;
         }
 
         .filters {
-            padding: 30px;
             background: white;
-            border-bottom: 1px solid #eee;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
         }
 
         .filters h3 {
-            margin-bottom: 20px;
             color: #2c3e50;
-            font-size: 1.3rem;
+            margin-bottom: 20px;
+            font-size: 1.5em;
         }
 
         .filter-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
 
         .filter-group {
@@ -133,7 +137,10 @@
         }
 
         .content {
-            padding: 30px;
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
         }
 
         .results-header {
@@ -146,37 +153,39 @@
         }
 
         .results-info {
-            font-size: 1.1rem;
+            font-size: 1.2em;
             color: #2c3e50;
             font-weight: 600;
         }
 
         .pagination-info {
-            font-size: 0.95rem;
+            font-size: 1em;
             color: #7f8c8d;
         }
 
         .questions-list {
-            max-height: 800px;
-            overflow-y: auto;
-            border: 1px solid #eee;
-            border-radius: 10px;
-            padding: 15px;
-            background: #fafafa;
+            max-height: none;
+            overflow-y: visible;
+            border: none;
+            border-radius: 0;
+            padding: 0;
+            background: transparent;
         }
 
         .question-card {
-            background: white;
-            border-radius: 10px;
+            background: #f8f9fa;
+            border-radius: 15px;
             padding: 25px;
             margin-bottom: 20px;
-            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            transition: all 0.3s ease;
+            border: 1px solid #e9ecef;
         }
 
         .question-card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+            border-color: #667eea;
         }
 
         .question-header {
@@ -188,13 +197,14 @@
         }
 
         .question-number {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #667eea, #764ba2);
             color: white;
-            padding: 8px 15px;
-            border-radius: 20px;
+            padding: 10px 16px;
+            border-radius: 25px;
             font-weight: 700;
             font-size: 0.9rem;
             white-space: nowrap;
+            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
         }
 
         .question-title {
@@ -535,6 +545,21 @@
             border: 1px solid #f5c6cb;
         }
 
+        .system-design-link {
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border: 2px solid #667eea;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+
+        .system-design-link h4 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
         @media (max-width: 768px) {
             .header h1 {
                 font-size: 2rem;
@@ -571,24 +596,20 @@
 
         <div class="stats">
             <div class="stat-card">
-                <div class="stat-number" id="total-count">-</div>
+                <div class="stat-number" id="total-count">0</div>
                 <div class="stat-label">Total Questions</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="answered-count">-</div>
+                <div class="stat-number" id="answered-count">0</div>
                 <div class="stat-label">With Answers</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="total-companies">-</div>
+                <div class="stat-number" id="total-companies">0</div>
                 <div class="stat-label">Companies</div>
             </div>
             <div class="stat-card">
-                <div class="stat-number" id="total-categories">-</div>
+                <div class="stat-number" id="total-categories">0</div>
                 <div class="stat-label">Categories</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="filtered-count">-</div>
-                <div class="stat-label">Filtered Results</div>
             </div>
         </div>
 
@@ -666,54 +687,101 @@
 
         async function loadQuestionsData() {
             try {
-                // Load both questions and comprehensive answers
-                const [questionsResponse, answersResponse] = await Promise.all([
-                    fetch('./src/company/webscraper/multithreaded_extraction/complete_questions_dataset.json'),
-                    fetch('./src/company/webscraper/multithreaded_extraction/comprehensive_answers.json')
-                ]);
-
+                // Load the main questions data
+                const questionsResponse = await fetch('./src/company/webscraper/multithreaded_extraction/comprehensive_answers.json');
                 if (!questionsResponse.ok) {
-                    throw new Error(`HTTP error loading questions! status: ${questionsResponse.status}`);
+                    throw new Error(`Failed to load questions: ${questionsResponse.status}`);
                 }
-                if (!answersResponse.ok) {
-                    console.warn('Comprehensive answers not available, continuing with questions only');
-                    const questionsData = await questionsResponse.json();
-                    return questionsData;
-                }
+                const questionsData = await questionsResponse.json();
 
-                const questions = await questionsResponse.json();
-                const answers = await answersResponse.json();
+                // Create a mapping for system design answers
+                const systemDesignAnswers = {
+                    42: 'q001_collaborative_document_editing.md',
+                    46: 'q002_crypto_exchange_design.md',
+                    52: 'q003_e_commerce_portal_design.md',
+                    54: 'q004_stock_price_system_design.md',
+                    55: 'q005_library_management_system.md',
+                    57: 'q006_optimal_storage_strategy.md',
+                    66: 'q007_facebook_messenger_design.md',
+                    69: 'q008_cdn_design.md',
+                    84: 'q009_social_platform_design.md'
+                    // Add more mappings based on your system design questions
+                };
 
-                // Create a map of answers by question number for quick lookup
-                const answersMap = new Map();
-                answers.forEach(answer => {
-                    answersMap.set(answer.question_number, answer);
-                });
-
-                // Merge questions with their corresponding answers
-                const mergedData = questions.map(question => {
-                    const answer = answersMap.get(question.question_number);
-                    return {
-                        ...question,
-                        hasAnswer: !!answer,
-                        answer: answer ? answer.answer : null,
-                        references: answer ? answer.references : null
+                // Process and enhance questions data
+                const mergedData = questionsData.map(question => {
+                    const enhanced = {
+                        question_number: question.question_number,
+                        title: question.title,
+                        difficulty: question.difficulty || 'Unknown',
+                        category: question.category || 'Other',
+                        question_type: question.question_type || 'general',
+                        company: question.company || 'Various',
+                        description: extractDescription(question),
+                        hasAnswer: hasValidAnswer(question),
+                        answer: question.answer || {},
+                        references: question.references || {},
+                        tags: extractTags(question)
                     };
+
+                    // Add system design answer path if available
+                    if (question.category === 'System Design' && systemDesignAnswers[question.question_number]) {
+                        enhanced.systemDesignAnswerPath = `./src/company/webscraper/multithreaded_extraction/system-design/answers/${systemDesignAnswers[question.question_number]}`;
+                    }
+
+                    return enhanced;
                 });
 
-                console.log(`Loaded ${questions.length} questions and ${answers.length} answers`);
-
-                // Log some statistics
-                const questionsWithAnswers = mergedData.filter(q => q.hasAnswer).length;
-                console.log(`Questions with answers: ${questionsWithAnswers}/${mergedData.length}`);
-
+                console.log(`Successfully loaded ${mergedData.length} questions`);
                 return mergedData;
             } catch (error) {
-                console.error('Error loading data:', error);
+                console.error('Error loading questions:', error);
                 document.getElementById('questions-list').innerHTML =
-                    '<div class="error">Error loading data. Please check the file paths and try again.</div>';
+                    '<div class="error">Error loading questions data. Please check the file path and try again.</div>';
                 return [];
             }
+        }
+
+        function extractDescription(question) {
+            if (question.answer && question.answer.problem_understanding) {
+                return question.answer.problem_understanding.substring(0, 200) + '...';
+            }
+            if (question.description) {
+                return question.description.substring(0, 200) + '...';
+            }
+            return 'No description available';
+        }
+
+        function hasValidAnswer(question) {
+            if (!question.answer) return false;
+
+            // Check for coding questions
+            if (question.question_type === 'coding') {
+                return question.answer.approaches && question.answer.approaches.length > 0;
+            }
+
+            // Check for system design questions
+            if (question.category === 'System Design') {
+                return question.answer.functional_requirements ||
+                    question.answer.high_level_design ||
+                    question.answer.detailed_design;
+            }
+
+            // Check for database questions
+            if (question.category === 'Databases') {
+                return question.answer.sql_examples ||
+                    question.answer.concept_explanation;
+            }
+
+            return true;
+        }
+
+        function extractTags(question) {
+            const tags = [];
+            if (question.difficulty) tags.push(question.difficulty);
+            if (question.category) tags.push(question.category);
+            if (question.question_type) tags.push(question.question_type);
+            return tags;
         }
 
         async function initializeDashboard() {
@@ -735,7 +803,6 @@
 
             document.getElementById('total-count').textContent = totalQuestions.toLocaleString();
             document.getElementById('answered-count').textContent = questionsWithAnswers.toLocaleString();
-            document.getElementById('total-questions').textContent = totalQuestions.toLocaleString();
             document.getElementById('total-companies').textContent = companies.size;
             document.getElementById('total-categories').textContent = categories.size;
         }
@@ -951,6 +1018,64 @@
                 `;
             }
 
+            // System Design specific sections
+            if (question.category === 'System Design') {
+                if (question.systemDesignAnswerPath) {
+                    html += `
+                        <div class="system-design-link">
+                            <h4>📋 Complete System Design Answer</h4>
+                            <a href="${question.systemDesignAnswerPath}" target="_blank" class="reference-link" style="display: inline-block; padding: 10px 20px; margin: 10px 0; background: linear-gradient(135deg, #667eea, #764ba2); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
+                                📖 View Full System Design Solution
+                            </a>
+                        </div>
+                    `;
+                }
+
+                if (answer.functional_requirements) {
+                    html += `
+                        <h4>📋 Functional Requirements</h4>
+                        ${Array.isArray(answer.functional_requirements) ?
+                            `<ul>${answer.functional_requirements.map(req => `<li>${req}</li>`).join('')}</ul>` :
+                            `<p>${answer.functional_requirements}</p>`
+                        }
+                    `;
+                }
+
+                if (answer.non_functional_requirements) {
+                    html += `
+                        <h4>⚡ Non-Functional Requirements</h4>
+                        ${Array.isArray(answer.non_functional_requirements) ?
+                            `<ul>${answer.non_functional_requirements.map(req => `<li>${req}</li>`).join('')}</ul>` :
+                            `<p>${answer.non_functional_requirements}</p>`
+                        }
+                    `;
+                }
+
+                if (answer.high_level_design) {
+                    html += `
+                        <h4>🏗️ High Level Design</h4>
+                        <p>${answer.high_level_design}</p>
+                    `;
+                }
+
+                if (answer.detailed_design) {
+                    html += `
+                        <h4>🔧 Detailed Design</h4>
+                        <p>${answer.detailed_design}</p>
+                    `;
+                }
+
+                if (answer.scalability_considerations) {
+                    html += `
+                        <h4>📈 Scalability Considerations</h4>
+                        ${Array.isArray(answer.scalability_considerations) ?
+                            `<ul>${answer.scalability_considerations.map(consideration => `<li>${consideration}</li>`).join('')}</ul>` :
+                            `<p>${answer.scalability_considerations}</p>`
+                        }
+                    `;
+                }
+            }
+
             // Key Insights
             if (answer.key_insights && answer.key_insights.length > 0) {
                 html += `
@@ -979,6 +1104,24 @@
                         </div>
                     `;
                 });
+            }
+
+            // Optimal Solution (specific highlight for coding questions)
+            if (answer.optimal_solution && question.question_type === 'coding') {
+                html += `
+                    <h4>⭐ Optimal Solution</h4>
+                    <div class="approach-item" style="border: 2px solid #28a745; background: #f8fff8;">
+                        <div class="approach-header">
+                            <div class="approach-name" style="color: #28a745; font-weight: 700;">${answer.optimal_solution.name}</div>
+                            <div class="complexity">
+                                <span class="complexity-item time-complexity">Time: ${answer.optimal_solution.time_complexity}</span>
+                                <span class="complexity-item space-complexity">Space: ${answer.optimal_solution.space_complexity}</span>
+                            </div>
+                        </div>
+                        <p>${answer.optimal_solution.description}</p>
+                        ${answer.optimal_solution.code ? `<div class="code-block">${answer.optimal_solution.code}</div>` : ''}
+                    </div>
+                `;
             }
 
             // Examples (for certain question types)
@@ -1032,25 +1175,39 @@
             if (question.references) {
                 html += `
                     <div class="references-section">
-                        <h4>🔗 References</h4>
+                        <h4>🔗 References & Resources</h4>
                         <div class="reference-links">
                 `;
 
-                if (question.references.local_solution) {
-                    html += `<a href="#" class="reference-link local-solution" onclick="alert('Local solution: ${question.references.local_solution}')" title="${question.references.local_solution}">📁 Local Solution</a>`;
+                if (question.references.local_solution && question.references.local_solution.trim()) {
+                    html += `<a href="${question.references.local_solution}" target="_blank" class="reference-link local-solution">📁 Local Solution</a>`;
                 }
                 if (question.references.leetcode) {
                     html += `<a href="${question.references.leetcode}" target="_blank" class="reference-link">🔗 LeetCode</a>`;
                 }
                 if (question.references.blog_links && question.references.blog_links.length > 0) {
-                    question.references.blog_links.slice(0, 2).forEach(link => {
+                    question.references.blog_links.slice(0, 3).forEach(link => {
                         const linkText = link.includes('geeksforgeeks') ? '📚 GeeksforGeeks' :
-                            link.includes('leetcode') ? '💬 LeetCode Discuss' : '📖 Blog';
+                            link.includes('leetcode') ? '💬 LeetCode Discuss' :
+                                link.includes('interviewbit') ? '📖 InterviewBit' :
+                                    link.includes('programcreek') ? '💻 ProgramCreek' : '📖 Blog';
                         html += `<a href="${link}" target="_blank" class="reference-link">${linkText}</a>`;
                     });
                 }
 
-                html += `</div></div>`;
+                // Similar Problems
+                if (question.references.similar_problems && question.references.similar_problems.length > 0) {
+                    html += `</div>
+                        <h5 style="margin-top: 15px; color: #667eea;">🔄 Similar Problems</h5>
+                        <ul style="margin-top: 8px;">
+                            ${question.references.similar_problems.map(problem => `<li>${problem}</li>`).join('')}
+                        </ul>
+                    `;
+                } else {
+                    html += `</div>`;
+                }
+
+                html += `</div>`;
             }
 
             html += `</div></div>`;
