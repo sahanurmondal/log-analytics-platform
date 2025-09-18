@@ -1282,10 +1282,10 @@
                             </div>
                         ` : ''}
                         <div class="question-actions">
-                            ${question.url && question.url !== '#' ? 
-                                `<a href="${question.url}" target="_blank" class="view-original">View Original</a>` : 
-                                `<span class="view-original disabled">View Original</span>`
-                            }
+                            ${question.url && question.url !== '#' ?
+                        `<a href="${question.url}" target="_blank" class="view-original">View Original</a>` :
+                        `<span class="view-original disabled">View Original</span>`
+                    }
                             ${question.hasAnswer ?
                         `<button class="view-answer" onclick="toggleAnswer(${question.question_number})">View Answer</button>` :
                         `<button class="view-answer" disabled title="Answer not available">No Answer</button>`
