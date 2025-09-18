@@ -176,10 +176,15 @@
             background: #f8f9fa;
             border-radius: 15px;
             padding: 25px;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
             transition: all 0.3s ease;
             border: 1px solid #e9ecef;
+            position: relative;
+            overflow: hidden;
+            min-height: auto;
+            display: block;
+            clear: both;
         }
 
         .question-card:hover {
@@ -192,8 +197,9 @@
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 15px;
-            gap: 15px;
+            margin-bottom: 20px;
+            gap: 20px;
+            flex-wrap: wrap;
         }
 
         .question-number {
@@ -205,10 +211,12 @@
             font-size: 0.9rem;
             white-space: nowrap;
             box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
+            flex-shrink: 0;
         }
 
         .question-title {
             flex: 1;
+            min-width: 0;
         }
 
         .question-title h3 {
@@ -216,12 +224,16 @@
             font-size: 1.3rem;
             margin-bottom: 10px;
             line-height: 1.4;
+            word-wrap: break-word;
+            overflow-wrap: break-word;
         }
 
         .question-meta {
             display: flex;
             flex-wrap: wrap;
-            gap: 8px;
+            gap: 10px;
+            align-items: center;
+            margin-top: 5px;
         }
 
         .meta-tag {
@@ -456,10 +468,34 @@
             font-size: 13px;
             line-height: 1.5;
             overflow-x: auto;
+            overflow-y: visible;
             margin: 10px 0;
             border: 1px solid #3c3c3c;
             white-space: pre-wrap;
             word-wrap: break-word;
+            max-height: none;
+            min-height: auto;
+            position: relative;
+        }
+
+        .solution-section {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 15px 0;
+            max-height: none;
+            overflow: visible;
+        }
+
+        .answer-section {
+            max-height: none;
+            overflow: visible;
+            margin-top: 20px;
+            padding: 20px;
+            background: #ffffff;
+            border: 1px solid #e9ecef;
+            border-radius: 10px;
         }
 
         .approach-item {
@@ -645,7 +681,7 @@
             <div class="filter-grid">
                 <div class="filter-group">
                     <label for="search">Search</label>
-                    <input type="text" id="search" placeholder="Search by title or description...">
+                    <input type="text" id="search" placeholder="Search by title, description, company, or category...">
                 </div>
                 <div class="filter-group">
                     <label for="company">Company</label>
@@ -714,12 +750,29 @@
 
         async function loadQuestionsData() {
             try {
-                // Load the main questions data
-                const questionsResponse = await fetch('./src/company/webscraper/multithreaded_extraction/comprehensive_answers.json');
+                // Load both datasets
+                const [questionsResponse, answersResponse] = await Promise.all([
+                    fetch('./src/company/webscraper/multithreaded_extraction/complete_questions_dataset.json'),
+                    fetch('./src/company/webscraper/multithreaded_extraction/comprehensive_answers.json')
+                ]);
+
                 if (!questionsResponse.ok) {
-                    throw new Error(`Failed to load questions: ${questionsResponse.status}`);
+                    throw new Error(`Failed to load questions dataset: ${questionsResponse.status}`);
                 }
+                if (!answersResponse.ok) {
+                    throw new Error(`Failed to load answers dataset: ${answersResponse.status}`);
+                }
+
                 const questionsData = await questionsResponse.json();
+                const answersData = await answersResponse.json();
+
+                // Create a map of answers by question number for quick lookup
+                const answersMap = new Map();
+                answersData.forEach(item => {
+                    if (item.question_number) {
+                        answersMap.set(item.question_number, item);
+                    }
+                });
 
                 // Create a mapping for system design answers
                 const systemDesignAnswers = {
@@ -732,32 +785,40 @@
                     66: 'q007_facebook_messenger_design.md',
                     69: 'q008_cdn_design.md',
                     84: 'q009_social_platform_design.md'
-                    // Add more mappings based on your system design questions
                 };
 
-                // Process and enhance questions data
-                const mergedData = questionsData.map(question => {
+                // Process and enhance questions data by merging both datasets
+                const mergedData = await Promise.all(questionsData.map(async (question) => {
+                    // Get corresponding answer data
+                    const answerData = answersMap.get(question.question_number) || {};
+
                     const enhanced = {
                         question_number: question.question_number,
                         title: question.title,
                         difficulty: question.difficulty || 'Unknown',
                         category: question.category || 'Other',
-                        question_type: question.question_type || 'general',
+                        question_type: 'coding', // Most questions in the dataset are coding
                         company: question.company || 'Various',
-                        description: extractDescription(question),
-                        hasAnswer: hasValidAnswer(question),
-                        answer: question.answer || {},
-                        references: question.references || {},
-                        tags: extractTags(question)
+                        answer: answerData.answer || {},
+                        references: answerData.references || {},
+                        tags: question.tags || [],
+                        url: question.url || answerData.references?.leetcode || '#'
                     };
+
+                    // Use the complete dataset description which is more detailed
+                    enhanced.description = question.description || extractDescription(enhanced);
+                    enhanced.hasAnswer = hasValidAnswer(enhanced);
 
                     // Add system design answer path if available
                     if (question.category === 'System Design' && systemDesignAnswers[question.question_number]) {
                         enhanced.systemDesignAnswerPath = `./src/company/webscraper/multithreaded_extraction/system-design/answers/${systemDesignAnswers[question.question_number]}`;
                     }
 
-                    return enhanced;
-                });
+                    // Enhance with local solution if available
+                    const enhancedWithLocal = await enhanceQuestionWithLocalSolution(enhanced);
+
+                    return enhancedWithLocal;
+                }));
 
                 console.log(`Successfully loaded ${mergedData.length} questions`);
                 return mergedData;
@@ -769,34 +830,234 @@
             }
         }
 
+        function correctLocalSolutionPath(originalPath) {
+            if (!originalPath || originalPath.trim() === '') return null;
+
+            // Original paths are like "../solutions/arrays/RotateArray.java"
+            // They should be "../dsa/arrays/easy/RotateArray.java" (or medium/hard)
+
+            // Extract category and filename
+            const pathParts = originalPath.split('/');
+            if (pathParts.length < 3) return null;
+
+            const category = pathParts[pathParts.length - 2]; // e.g., "arrays"
+            const filename = pathParts[pathParts.length - 1]; // e.g., "RotateArray.java"
+
+            // Try different difficulty levels
+            const difficulties = ['easy', 'medium', 'hard'];
+
+            // Return the corrected base path structure
+            return {
+                category: category,
+                filename: filename,
+                possiblePaths: difficulties.map(diff => `../dsa/${category}/${diff}/${filename}`)
+            };
+        }
+
+        async function extractOptimalSolutionFromFile(filePath) {
+            try {
+                const response = await fetch(filePath);
+                if (!response.ok) return null;
+
+                const fileContent = await response.text();
+
+                // Find the optimal solution method (usually marked with "optimal" in comments)
+                const lines = fileContent.split('\n');
+                let optimalMethod = '';
+                let inOptimalMethod = false;
+                let braceCount = 0;
+                let methodStarted = false;
+
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+
+                    // Look for optimal solution indicators
+                    if (!inOptimalMethod && (
+                        line.includes('optimal') ||
+                        line.includes('Optimal') ||
+                        line.includes('O(1)') ||
+                        line.includes('reverse') ||
+                        line.includes('Time: O(n), Space: O(1)')
+                    )) {
+                        // Look for the next method declaration
+                        for (let j = i; j < lines.length; j++) {
+                            if (lines[j].includes('public ') && lines[j].includes('(')) {
+                                inOptimalMethod = true;
+                                i = j - 1; // Will be incremented in next iteration
+                                break;
+                            }
+                        }
+                        continue;
+                    }
+
+                    if (inOptimalMethod) {
+                        if (line.includes('public ') && line.includes('(')) {
+                            methodStarted = true;
+                        }
+
+                        if (methodStarted) {
+                            // Skip Javadoc comments and single line comments
+                            const trimmedLine = line.trim();
+                            if (trimmedLine.startsWith('/**') ||
+                                trimmedLine.startsWith('*') ||
+                                trimmedLine.startsWith('*/') ||
+                                trimmedLine.startsWith('//')) {
+                                continue;
+                            }
+
+                            // Clean up the line - remove inline comments
+                            let cleanLine = line;
+                            const commentIndex = cleanLine.indexOf('//');
+                            if (commentIndex !== -1) {
+                                cleanLine = cleanLine.substring(0, commentIndex).trimEnd();
+                            }
+
+                            if (cleanLine.trim()) { // Only add non-empty lines
+                                optimalMethod += cleanLine + '\n';
+                            }
+
+                            // Count braces to find method end
+                            for (let char of cleanLine) {
+                                if (char === '{') braceCount++;
+                                if (char === '}') braceCount--;
+                            }
+
+                            // Method is complete when braces are balanced
+                            if (braceCount === 0 && cleanLine.includes('}')) {
+                                break;
+                            }
+                        }
+                    }
+                }
+
+                // If no optimal method found, try to extract the main public method
+                if (!optimalMethod.trim()) {
+                    optimalMethod = extractMainMethod(fileContent);
+                }
+
+                return optimalMethod.trim();
+
+            } catch (error) {
+                console.error('Error loading file:', filePath, error);
+                return null;
+            }
+        }
+
+        function extractMainMethod(fileContent) {
+            const lines = fileContent.split('\n');
+            let method = '';
+            let inMethod = false;
+            let braceCount = 0;
+
+            for (let i = 0; i < lines.length; i++) {
+                const line = lines[i];
+                const trimmedLine = line.trim();
+
+                // Skip class declaration and imports
+                if (trimmedLine.startsWith('import ') ||
+                    trimmedLine.startsWith('package ') ||
+                    trimmedLine.startsWith('class ') ||
+                    trimmedLine.startsWith('public class ')) {
+                    continue;
+                }
+
+                // Look for public method
+                if (!inMethod && line.includes('public ') && line.includes('(') && !line.includes('class ')) {
+                    inMethod = true;
+                }
+
+                if (inMethod) {
+                    // Skip Javadoc and comments
+                    if (trimmedLine.startsWith('/**') ||
+                        trimmedLine.startsWith('*') ||
+                        trimmedLine.startsWith('*/') ||
+                        trimmedLine.startsWith('//')) {
+                        continue;
+                    }
+
+                    // Clean up the line
+                    let cleanLine = line;
+                    const commentIndex = cleanLine.indexOf('//');
+                    if (commentIndex !== -1) {
+                        cleanLine = cleanLine.substring(0, commentIndex).trimEnd();
+                    }
+
+                    if (cleanLine.trim()) {
+                        method += cleanLine + '\n';
+                    }
+
+                    // Count braces
+                    for (let char of cleanLine) {
+                        if (char === '{') braceCount++;
+                        if (char === '}') braceCount--;
+                    }
+
+                    // Method is complete
+                    if (braceCount === 0 && cleanLine.includes('}')) {
+                        break;
+                    }
+                }
+            }
+
+            return method.trim();
+        }
+
+        async function enhanceQuestionWithLocalSolution(question) {
+            if (!question.references || !question.references.local_solution) {
+                return question;
+            }
+
+            const correctedPath = correctLocalSolutionPath(question.references.local_solution);
+            if (!correctedPath) return question;
+
+            // Try each possible path until we find the file
+            for (const path of correctedPath.possiblePaths) {
+                const optimalCode = await extractOptimalSolutionFromFile(path);
+                if (optimalCode) {
+                    // Enhance the question's optimal solution
+                    if (question.answer && question.answer.optimal_solution) {
+                        question.answer.optimal_solution.code = optimalCode;
+                        question.answer.optimal_solution.source = 'local_file';
+                    }
+                    // Update the reference path to the correct one
+                    question.references.local_solution = path;
+                    break;
+                }
+            }
+
+            return question;
+        }
+
         function extractDescription(question) {
             // Try to extract description from the first approach's description
             if (question.answer && question.answer.approaches && question.answer.approaches.length > 0) {
                 const firstApproachDesc = question.answer.approaches[0].description;
-                if (firstApproachDesc && firstApproachDesc.length > 50) {
-                    // Extract the problem statement part (usually before the first "Follow-ups:" or code)
+                if (firstApproachDesc && firstApproachDesc.length > 30) {
                     let desc = firstApproachDesc;
 
-                    // Remove LeetCode URL prefix if present
-                    desc = desc.replace(/^LeetCode \d+:\s*[^https]*https:\/\/leetcode\.com\/[^\s]+\s*/, '');
+                    // Remove LeetCode URL and clean up formatting
+                    desc = desc.replace(/https:\/\/leetcode\.com\/[^\s]+\s*/g, '');
+                    desc = desc.replace(/^LeetCode \d+:\s*[^A-Z]*([A-Z])/g, '$1');
 
-                    // Extract the main problem description before Follow-ups or examples
-                    const followUpIndex = desc.indexOf('Follow-ups:');
-                    const exampleIndex = desc.indexOf('Example:');
+                    // Extract content before Follow-ups, Examples, or code sections
+                    const stopPatterns = ['Follow-ups:', 'Example:', 'Examples:', 'Time:', 'Space:', '```', 'public class', 'class Solution'];
+                    let minIndex = desc.length;
 
-                    if (followUpIndex > 0) {
-                        desc = desc.substring(0, followUpIndex).trim();
-                    } else if (exampleIndex > 0 && exampleIndex < 300) {
-                        // Include the example if it's early in the description
-                        const afterExample = desc.indexOf('\n', exampleIndex + 50);
-                        if (afterExample > 0) {
-                            desc = desc.substring(0, afterExample).trim();
+                    for (const pattern of stopPatterns) {
+                        const index = desc.indexOf(pattern);
+                        if (index > 50 && index < minIndex) {
+                            minIndex = index;
                         }
                     }
 
-                    // Clean up and return reasonable length
+                    if (minIndex < desc.length) {
+                        desc = desc.substring(0, minIndex).trim();
+                    }
+
+                    // Clean up extra whitespace and return reasonable length
+                    desc = desc.replace(/\s+/g, ' ').trim();
                     if (desc && desc.length > 20) {
-                        return desc.substring(0, 400) + (desc.length > 400 ? '...' : '');
+                        return desc.length > 300 ? desc.substring(0, 300) + '...' : desc;
                     }
                 }
             }
@@ -810,10 +1071,10 @@
             // For other questions, try to use title as basis for description
             if (question.title) {
                 const cleanTitle = question.title.replace(/^\d+\.\s*/, '');
-                return `Solve: ${cleanTitle}`;
+                return `Solve the problem: ${cleanTitle}`;
             }
 
-            return 'Technical interview question - click to view details';
+            return null; // Return null instead of fallback text to hide empty descriptions
         }
 
         function hasValidAnswer(question) {
@@ -900,10 +1161,14 @@
         }
 
         function populateFilters() {
-            const companies = [...new Set(questionsData.map(q => q.company).filter(Boolean))].sort();
+            // Extract unique companies from the questions data
+            const companies = [...new Set(questionsData.map(q => q.company).filter(company => company && company !== 'Various' && company !== 'Unknown'))].sort();
             const categories = [...new Set(questionsData.map(q => q.category).filter(Boolean))].sort();
 
             const companySelect = document.getElementById('company');
+            // Clear existing options (keep the "All Companies" option)
+            companySelect.innerHTML = '<option value="">All Companies</option>';
+
             companies.forEach(company => {
                 const option = document.createElement('option');
                 option.value = company;
@@ -912,6 +1177,9 @@
             });
 
             const categorySelect = document.getElementById('category');
+            // Clear existing options (keep the "All Categories" option)
+            categorySelect.innerHTML = '<option value="">All Categories</option>';
+
             categories.forEach(category => {
                 const option = document.createElement('option');
                 option.value = category;
@@ -942,7 +1210,9 @@
             filteredQuestions = questionsData.filter(question => {
                 const matchesSearch = !search ||
                     question.title.toLowerCase().includes(search) ||
-                    (question.description && question.description.toLowerCase().includes(search));
+                    (question.description && question.description.toLowerCase().includes(search)) ||
+                    (question.company && question.company.toLowerCase().includes(search)) ||
+                    (question.category && question.category.toLowerCase().includes(search));
 
                 const matchesCompany = !company || question.company === company;
                 const matchesCategory = !category || question.category === category;
@@ -988,7 +1258,7 @@
                                 </div>
                             </div>
                         </div>
-                        ${question.description ? `<div class="question-description">${question.description}</div>` : ''}
+                        ${question.description && question.description !== 'Technical interview question - click to view details' ? `<div class="question-description">${question.description.replace(/\n/g, '<br>')}</div>` : ''}
                         ${question.tags && question.tags.length > 0 ? `
                             <div class="question-tags">
                                 ${question.tags.slice(0, 5).map(tag => `<span class="tag">${tag}</span>`).join('')}
@@ -996,7 +1266,7 @@
                             </div>
                         ` : ''}
                         <div class="question-actions">
-                            <a href="${question.url}" target="_blank" class="view-original">View Original</a>
+                            <a href="${question.url && question.url !== '#' ? question.url : '#'}" target="_blank" class="view-original" ${question.url && question.url !== '#' ? '' : 'style="opacity: 0.5; cursor: not-allowed;" onclick="return false;"'}>View Original</a>
                             ${question.hasAnswer ?
                         `<button class="view-answer" onclick="toggleAnswer(${question.question_number})">View Answer</button>` :
                         `<button class="view-answer" disabled title="Answer not available">No Answer</button>`
@@ -1189,21 +1459,33 @@
             if (answer.approaches && answer.approaches.length > 0) {
                 html += `<h4>🚀 Solution Approaches</h4>`;
                 answer.approaches.forEach((approach, index) => {
-                    // Clean up description if it contains code or extra content
+                    // Clean up description - no longer truncate to allow full content
                     let cleanDescription = approach.description || 'No description available';
-                    if (cleanDescription.length > 300) {
-                        cleanDescription = cleanDescription.substring(0, 300) + '...';
+
+                    // Only limit extremely long descriptions (over 1000 chars)
+                    if (cleanDescription.length > 1000) {
+                        cleanDescription = cleanDescription.substring(0, 1000) + '...';
                     }
 
-                    // Clean up code formatting
+                    // Clean up code formatting and filter out placeholders
                     let cleanCode = approach.code || '';
                     if (cleanCode) {
-                        // Remove comment blocks and clean up
-                        cleanCode = cleanCode
-                            .replace(/\/\*[\s\S]*?\*\//g, '') // Remove /* */ comments
-                            .replace(/\/\/.*$/gm, '') // Remove // comments
-                            .replace(/^\s*\n/gm, '') // Remove empty lines
-                            .trim();
+                        // Check if this is placeholder code
+                        const isPlaceholder = cleanCode.includes('Implement optimized solution here') ||
+                            cleanCode.includes('Consider edge cases and constraints') ||
+                            cleanCode.includes('Aim for O(n) time and O(1) space when possible') ||
+                            cleanCode.trim().split('\n').every(line => line.trim().startsWith('//'));
+
+                        if (isPlaceholder) {
+                            cleanCode = ''; // Hide placeholder code
+                        } else {
+                            // Remove comment blocks and clean up real code
+                            cleanCode = cleanCode
+                                .replace(/\/\*[\s\S]*?\*\//g, '') // Remove /* */ comments
+                                .replace(/\/\/.*$/gm, '') // Remove // comments
+                                .replace(/^\s*\n/gm, '') // Remove empty lines
+                                .trim();
+                        }
                     }
 
                     html += `
@@ -1224,6 +1506,17 @@
 
             // Optimal Solution (specific highlight for coding questions)
             if (answer.optimal_solution && question.question_type === 'coding') {
+                // Filter out placeholder code for optimal solution too
+                let optimalCode = answer.optimal_solution.code || '';
+                const isOptimalPlaceholder = optimalCode.includes('Implement optimized solution here') ||
+                    optimalCode.includes('Consider edge cases and constraints') ||
+                    optimalCode.includes('Aim for O(n) time and O(1) space when possible') ||
+                    optimalCode.trim().split('\n').every(line => line.trim().startsWith('//'));
+
+                if (isOptimalPlaceholder) {
+                    optimalCode = '';
+                }
+
                 html += `
                     <h4>⭐ Optimal Solution</h4>
                     <div class="approach-item" style="border: 2px solid #28a745; background: #f8fff8;">
@@ -1235,7 +1528,7 @@
                             </div>
                         </div>
                         <p>${answer.optimal_solution.description}</p>
-                        ${answer.optimal_solution.code ? `<div class="code-block">${answer.optimal_solution.code}</div>` : ''}
+                        ${optimalCode ? `<div class="code-block">${optimalCode}</div>` : ''}
                     </div>
                 `;
             }
