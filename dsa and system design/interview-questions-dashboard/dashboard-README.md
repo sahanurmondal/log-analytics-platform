@@ -2,9 +2,6 @@
 
 A comprehensive, modern dashboard for exploring **1,299 DSA coding questions** and **210 system design questions** from top tech companies, with enhanced answers and interactive features.
 
-🎯 **Live Dashboard**: [View Dashboard](https://sahanurmondal.github.io/log-analytics-platform/dsa and system design
-/interview-questions-dashboard/dashboard.html)
-
 ## ✨ Key Features
 
 ### 📊 **Enhanced Question Database**
