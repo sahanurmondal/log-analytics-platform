@@ -211,6 +211,18 @@ This enhanced architecture is significantly more robust and secure.
 - **Metrics**: All services expose Prometheus metrics via Actuator.
 - **Distributed Tracing**: **OpenTelemetry** provides critical end-to-end visibility, which is essential for debugging and performance tuning in a production microservices environment.
 
+## Additional Features
+
+### 🎯 Interview Questions Dashboard
+This repository also includes a comprehensive **Interview Questions Dashboard** with 1,509 questions (1,299 DSA + 210 System Design) featuring enhanced answers and optimal solutions.
+
+**Live Dashboard**: [View Here](https://sahanurmondal.github.io/log-analytics-platform/dsa%20and%20system%20design/interview-questions-dashboard/dashboard.html)
+
+- 🔍 **Advanced Filtering**: Company, category, difficulty, question type
+- 💡 **Enhanced Solutions**: 818 coding questions with optimal approaches
+- 🏗️ **System Design**: Complete solutions with detailed explanations
+- 📱 **Modern UI**: Responsive design for all devices
+
 ## Future Enhancements
 
 - **Stream Processing**: Add Apache Kafka Streams for real-time log analysis

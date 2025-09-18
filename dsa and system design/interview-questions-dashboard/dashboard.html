@@ -1071,6 +1071,12 @@
                     <h4>🎯 Problem Understanding</h4>
                     <p>${answer.problem_understanding}</p>
                 `;
+            } else if (question.category === 'System Design') {
+                // For system design questions without problem_understanding, show title as problem
+                html += `
+                    <h4>🎯 System Design Problem</h4>
+                    <p>Design and discuss the architecture for: <strong>${question.title.replace(/^\d+\.\s*/, '')}</strong></p>
+                `;
             }
 
             // System Design specific sections
