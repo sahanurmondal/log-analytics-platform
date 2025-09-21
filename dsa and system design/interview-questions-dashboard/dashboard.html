@@ -1030,11 +1030,6 @@
             for (const path of correctedPath.possiblePaths) {
                 const optimalCode = await extractOptimalSolutionFromFile(path);
                 if (optimalCode) {
-                    // Enhance the question's optimal solution
-                    if (question.answer && question.answer.optimal_solution) {
-                        question.answer.optimal_solution.code = optimalCode;
-                        question.answer.optimal_solution.source = 'local_file';
-                    }
                     // Update the reference path to the correct one
                     question.references.local_solution = path;
                     break;
@@ -1110,11 +1105,6 @@
                         approach.description !== 'No description available'
                     );
 
-                // Check optimal solution quality
-                const hasQualityOptimalSolution = answer.optimal_solution &&
-                    answer.optimal_solution.description &&
-                    answer.optimal_solution.description.length > 50;
-
                 // Check interview tips quality
                 const hasQualityTips = answer.interview_tips &&
                     answer.interview_tips.length > 0 &&
@@ -1122,10 +1112,10 @@
                         !tip.includes('Generic') && !tip.includes('placeholder'));
 
                 // Require at least 2 quality components
-                const qualityComponents = [hasQualityApproaches, hasQualityOptimalSolution, hasQualityTips]
+                const qualityComponents = [hasQualityApproaches, hasQualityTips]
                     .filter(Boolean).length;
 
-                return qualityComponents >= 2;
+                return qualityComponents >= 1;
             }
 
             // Check for system design questions
@@ -1523,35 +1513,6 @@
                 });
             }
 
-            // Optimal Solution (specific highlight for coding questions)
-            if (answer.optimal_solution && question.question_type === 'coding') {
-                // Filter out placeholder code for optimal solution too
-                let optimalCode = answer.optimal_solution.code || '';
-                const isOptimalPlaceholder = optimalCode.includes('Implement optimized solution here') ||
-                    optimalCode.includes('Consider edge cases and constraints') ||
-                    optimalCode.includes('Aim for O(n) time and O(1) space when possible') ||
-                    optimalCode.trim().split('\n').every(line => line.trim().startsWith('//'));
-
-                if (isOptimalPlaceholder) {
-                    optimalCode = '';
-                }
-
-                html += `
-                    <h4>⭐ Optimal Solution</h4>
-                    <div class="approach-item" style="border: 2px solid #28a745; background: #f8fff8;">
-                        <div class="approach-header">
-                            <div class="approach-name" style="color: #28a745; font-weight: 700;">${answer.optimal_solution.name}</div>
-                            <div class="complexity">
-                                <span class="complexity-item time-complexity">Time: ${answer.optimal_solution.time_complexity}</span>
-                                <span class="complexity-item space-complexity">Space: ${answer.optimal_solution.space_complexity}</span>
-                            </div>
-                        </div>
-                        <p>${answer.optimal_solution.description}</p>
-                        ${optimalCode ? `<div class="code-block">${optimalCode}</div>` : ''}
-                    </div>
-                `;
-            }
-
             // Examples (for certain question types)
             if (answer.examples && answer.examples.length > 0) {
                 html += `
@@ -1621,18 +1582,6 @@
 
                 if (question.references.leetcode) {
                     html += `<a href="${question.references.leetcode}" target="_blank" class="reference-link">🔗 LeetCode</a>`;
-                }
-
-                if (question.references.blog_links && question.references.blog_links.length > 0) {
-                    question.references.blog_links.slice(0, 3).forEach(link => {
-                        const linkText = link.includes('geeksforgeeks') ? '📚 GeeksforGeeks' :
-                            link.includes('leetcode') ? '💬 LeetCode Discuss' :
-                                link.includes('interviewbit') ? '📖 InterviewBit' :
-                                    link.includes('programcreek') ? '💻 ProgramCreek' :
-                                        link.includes('hackerrank') ? '🏆 HackerRank' :
-                                            link.includes('programiz') ? '📖 Programiz' : '📖 Blog';
-                        html += `<a href="${link}" target="_blank" class="reference-link">${linkText}</a>`;
-                    });
                 }
 
                 // Similar Problems

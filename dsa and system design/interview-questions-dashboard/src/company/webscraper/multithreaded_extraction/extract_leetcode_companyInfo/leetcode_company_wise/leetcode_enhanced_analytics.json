@@ -1,0 +1,342 @@
+{
+  "topCompanies": [
+    {
+      "name": "google",
+      "problemCount": 1937
+    },
+    {
+      "name": "amazon",
+      "problemCount": 1829
+    },
+    {
+      "name": "microsoft",
+      "problemCount": 1147
+    },
+    {
+      "name": "facebook",
+      "problemCount": 1142
+    },
+    {
+      "name": "bloomberg",
+      "problemCount": 1006
+    },
+    {
+      "name": "apple",
+      "problemCount": 662
+    },
+    {
+      "name": "adobe",
+      "problemCount": 626
+    },
+    {
+      "name": "uber",
+      "problemCount": 587
+    },
+    {
+      "name": "tiktok",
+      "problemCount": 443
+    },
+    {
+      "name": "yahoo",
+      "problemCount": 364
+    },
+    {
+      "name": "oracle",
+      "problemCount": 309
+    },
+    {
+      "name": "goldman-sachs",
+      "problemCount": 248
+    },
+    {
+      "name": "salesforce",
+      "problemCount": 197
+    },
+    {
+      "name": "tcs",
+      "problemCount": 178
+    },
+    {
+      "name": "walmart-labs",
+      "problemCount": 171
+    },
+    {
+      "name": "linkedin",
+      "problemCount": 167
+    },
+    {
+      "name": "yandex",
+      "problemCount": 150
+    },
+    {
+      "name": "zoho",
+      "problemCount": 147
+    },
+    {
+      "name": "accenture",
+      "problemCount": 143
+    },
+    {
+      "name": "ibm",
+      "problemCount": 140
+    },
+    {
+      "name": "nvidia",
+      "problemCount": 139
+    },
+    {
+      "name": "flipkart",
+      "problemCount": 121
+    },
+    {
+      "name": "de-shaw",
+      "problemCount": 118
+    },
+    {
+      "name": "paypal",
+      "problemCount": 112
+    },
+    {
+      "name": "snapchat",
+      "problemCount": 109
+    },
+    {
+      "name": "infosys",
+      "problemCount": 107
+    },
+    {
+      "name": "citadel",
+      "problemCount": 107
+    },
+    {
+      "name": "phonepe",
+      "problemCount": 88
+    },
+    {
+      "name": "doordash",
+      "problemCount": 86
+    },
+    {
+      "name": "servicenow",
+      "problemCount": 85
+    }
+  ],
+  "topTags": [
+    {
+      "name": "Array",
+      "problemCount": 1738
+    },
+    {
+      "name": "String",
+      "problemCount": 712
+    },
+    {
+      "name": "Hash Table",
+      "problemCount": 635
+    },
+    {
+      "name": "Dynamic Programming",
+      "problemCount": 523
+    },
+    {
+      "name": "Math",
+      "problemCount": 506
+    },
+    {
+      "name": "Sorting",
+      "problemCount": 421
+    },
+    {
+      "name": "Greedy",
+      "problemCount": 379
+    },
+    {
+      "name": "Depth-First Search",
+      "problemCount": 301
+    },
+    {
+      "name": "Binary Search",
+      "problemCount": 284
+    },
+    {
+      "name": "Matrix",
+      "problemCount": 234
+    },
+    {
+      "name": "Breadth-First Search",
+      "problemCount": 233
+    },
+    {
+      "name": "Tree",
+      "problemCount": 227
+    },
+    {
+      "name": "Bit Manipulation",
+      "problemCount": 218
+    },
+    {
+      "name": "Two Pointers",
+      "problemCount": 202
+    },
+    {
+      "name": "Database",
+      "problemCount": 191
+    },
+    {
+      "name": "Prefix Sum",
+      "problemCount": 179
+    },
+    {
+      "name": "Heap (Priority Queue)",
+      "problemCount": 178
+    },
+    {
+      "name": "Binary Tree",
+      "problemCount": 169
+    },
+    {
+      "name": "Simulation",
+      "problemCount": 166
+    },
+    {
+      "name": "Stack",
+      "problemCount": 162
+    },
+    {
+      "name": "Graph",
+      "problemCount": 150
+    },
+    {
+      "name": "Counting",
+      "problemCount": 146
+    },
+    {
+      "name": "Sliding Window",
+      "problemCount": 136
+    },
+    {
+      "name": "Design",
+      "problemCount": 125
+    },
+    {
+      "name": "Backtracking",
+      "problemCount": 105
+    },
+    {
+      "name": "Enumeration",
+      "problemCount": 98
+    },
+    {
+      "name": "Union Find",
+      "problemCount": 83
+    },
+    {
+      "name": "Linked List",
+      "problemCount": 74
+    },
+    {
+      "name": "Ordered Set",
+      "problemCount": 65
+    },
+    {
+      "name": "Monotonic Stack",
+      "problemCount": 62
+    },
+    {
+      "name": "Number Theory",
+      "problemCount": 58
+    },
+    {
+      "name": "Segment Tree",
+      "problemCount": 55
+    },
+    {
+      "name": "Trie",
+      "problemCount": 53
+    },
+    {
+      "name": "Queue",
+      "problemCount": 46
+    },
+    {
+      "name": "Recursion",
+      "problemCount": 45
+    },
+    {
+      "name": "Bitmask",
+      "problemCount": 45
+    },
+    {
+      "name": "Combinatorics",
+      "problemCount": 44
+    },
+    {
+      "name": "Divide and Conquer",
+      "problemCount": 43
+    },
+    {
+      "name": "Memoization",
+      "problemCount": 41
+    },
+    {
+      "name": "Binary Search Tree",
+      "problemCount": 39
+    },
+    {
+      "name": "Binary Indexed Tree",
+      "problemCount": 38
+    },
+    {
+      "name": "Geometry",
+      "problemCount": 38
+    },
+    {
+      "name": "Topological Sort",
+      "problemCount": 35
+    },
+    {
+      "name": "Hash Function",
+      "problemCount": 35
+    },
+    {
+      "name": "String Matching",
+      "problemCount": 34
+    },
+    {
+      "name": "Shortest Path",
+      "problemCount": 31
+    },
+    {
+      "name": "Rolling Hash",
+      "problemCount": 26
+    },
+    {
+      "name": "Game Theory",
+      "problemCount": 23
+    },
+    {
+      "name": "Data Stream",
+      "problemCount": 21
+    },
+    {
+      "name": "Interactive",
+      "problemCount": 21
+    }
+  ],
+  "difficultyDistribution": {
+    "easy": 769,
+    "medium": 1662,
+    "hard": 693
+  },
+  "frequencyDistribution": {
+    "very-high": 1445,
+    "high": 349,
+    "medium": 329,
+    "low": 822,
+    "very-low": 179
+  },
+  "paidOnlyDistribution": {
+    "free": 2605,
+    "paid": 519
+  }
+}
