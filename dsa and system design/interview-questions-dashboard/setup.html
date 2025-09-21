@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,10 +13,12 @@
             padding: 20px;
             line-height: 1.6;
         }
+
         .header {
             text-align: center;
             margin-bottom: 40px;
         }
+
         .method {
             background: #f8f9fa;
             border-radius: 8px;
@@ -23,6 +26,7 @@
             margin: 20px 0;
             border-left: 4px solid #007bff;
         }
+
         .command {
             background: #2d3748;
             color: #e2e8f0;
@@ -32,6 +36,7 @@
             margin: 10px 0;
             overflow-x: auto;
         }
+
         .download-btn {
             display: inline-block;
             background: #007bff;
@@ -41,19 +46,34 @@
             border-radius: 6px;
             margin: 10px 5px;
         }
+
         .download-btn:hover {
             background: #0056b3;
         }
+
         .status {
             padding: 10px;
             border-radius: 6px;
             margin: 10px 0;
         }
-        .error { background: #f8d7da; color: #721c24; }
-        .success { background: #d4edda; color: #155724; }
-        .warning { background: #fff3cd; color: #856404; }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .warning {
+            background: #fff3cd;
+            color: #856404;
+        }
     </style>
 </head>
+
 <body>
     <div class="header">
         <h1>🎯 Interview Questions Dashboard</h1>
@@ -61,13 +81,16 @@
     </div>
 
     <div class="status error">
-        <strong>⚠️ GitHub Pages Issue:</strong> The dashboard links aren't working due to folder names with spaces. Use the methods below for guaranteed access.
+        <strong>⚠️ GitHub Pages Issue:</strong> The dashboard links aren't working due to folder names with spaces. Use
+        the methods below for guaranteed access.
     </div>
 
     <div class="method">
         <h3>🚀 Method 1: Quick Start Script (Recommended)</h3>
         <p>One command to download dashboard + all data files and run locally:</p>
-        <div class="command">curl -s "https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/main/dsa%20and%20system%20design/interview-questions-dashboard/quick-start.sh" | bash</div>
+        <div class="command">curl -s
+            "https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/main/dsa%20and%20system%20design/interview-questions-dashboard/quick-start.sh"
+            | bash</div>
         <p><strong>✅ This downloads everything needed:</strong> Dashboard + all JSON data files</p>
         <p>Opens at <code>http://localhost:8080/dashboard.html</code> with full functionality</p>
     </div>
@@ -75,7 +98,8 @@
     <div class="method">
         <h3>📥 Method 2: Manual Download</h3>
         <p>Download the dashboard file and run locally:</p>
-        <a href="https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/main/dsa%20and%20system%20design/interview-questions-dashboard/dashboard.html" class="download-btn" download="dashboard.html">Download Dashboard</a>
+        <a href="https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/main/dsa%20and%20system%20design/interview-questions-dashboard/dashboard.html"
+            class="download-btn" download="dashboard.html">Download Dashboard</a>
         <p>After downloading:</p>
         <div class="command">python3 -m http.server 8080</div>
         <p>Then open <code>http://localhost:8080/dashboard.html</code></p>
@@ -85,8 +109,8 @@
         <h3>📁 Method 3: Clone Repository</h3>
         <p>For full access with all data files:</p>
         <div class="command">git clone https://github.com/sahanurmondal/log-analytics-platform.git
-cd "log-analytics-platform/dsa and system design/interview-questions-dashboard"
-python3 -m http.server 8080</div>
+            cd "log-analytics-platform/dsa and system design/interview-questions-dashboard"
+            python3 -m http.server 8080</div>
     </div>
 
     <div class="status success">
@@ -100,7 +124,10 @@ python3 -m http.server 8080</div>
     </div>
 
     <div class="status warning">
-        <strong>💡 Why Local Server?</strong> The dashboard uses JavaScript to load JSON data files. Running locally with a server ensures all features work correctly, including the enhanced filtering and premium problem indicators.
+        <strong>💡 Why Local Server?</strong> The dashboard uses JavaScript to load JSON data files. Running locally
+        with a server ensures all features work correctly, including the enhanced filtering and premium problem
+        indicators.
     </div>
 </body>
+
 </html>
