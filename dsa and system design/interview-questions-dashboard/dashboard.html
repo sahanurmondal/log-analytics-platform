@@ -726,6 +726,9 @@
         async function loadCompanyData() {
             try {
                 const response = await fetch('./src/company/webscraper/leetcode_company_wise/leetcode_enhanced_complete.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
                 return await response.json();
             } catch (error) {
                 console.error('Error loading company data:', error);
@@ -736,6 +739,9 @@
         async function loadProblemsData() {
             try {
                 const response = await fetch('./src/company/webscraper/leetcode_problem_solution/leetcode_ca_search_enhanced.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
                 return await response.json();
             } catch (error) {
                 console.error('Error loading problems data:', error);
@@ -746,6 +752,9 @@
         async function loadInterviewPrepData() {
             try {
                 const response = await fetch('./src/company/webscraper/enginebogie/enginebogie_answer.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
                 return await response.json();
             } catch (error) {
                 console.error('Error loading interview prep data:', error);
@@ -778,12 +787,17 @@
                         loadInterviewPrepData()
                     ]);
 
+                    // Check if at least one dataset loaded successfully
+                    if (!companyDataResult && !problemsDataResult && !interviewPrepDataResult) {
+                        throw new Error('No data files could be loaded. This usually means:\n\n1. You opened the HTML file directly without a server\n2. Data files are missing from the src/ directory\n\nSolutions:\n• Use the quick-start script: curl -s "https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/main/dsa%20and%20system%20design/interview-questions-dashboard/quick-start.sh" | bash\n• Or download the complete package and run: python3 -m http.server 8080');
+                    }
+
                     setCompanyData(companyDataResult);
                     setProblemsData(problemsDataResult);
                     setInterviewPrepData(interviewPrepDataResult);
                     setLoading(false);
                 } catch (err) {
-                    setError('Failed to load data: ' + err.message);
+                    setError(err.message);
                     setLoading(false);
                 }
             };

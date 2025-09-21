@@ -1,6 +1,6 @@
 # 🎯 Enhanced Interview Questions Dashboard
 
-**Live Dashboard**: [View Here](https://sahanurmondal.github.io/log-analytics-platform/dsa%20and%20system%20design/interview-questions-dashboard/)
+**Live Dashboard**: [View Here](https://sahanurmondal.github.io/log-analytics-platform/dsa%20and%20system%20design/interview-questions-dashboard/dashboard.html)
 
 ## 📊 Overview
 Comprehensive interview preparation dashboard with **1,509 questions** (1,299 DSA + 210 System Design) featuring enhanced answers, optimal solutions, and modern UI.
@@ -15,16 +15,29 @@ Comprehensive interview preparation dashboard with **1,509 questions** (1,299 DS
 - 📚 **Learning Resources**: Curated educational content and references
 
 ### 🚀 Quick Start
-1. **View Online**: [Enhanced Dashboard](https://sahanurmondal.github.io/log-analytics-platform/dsa%20and%20system%20design/interview-questions-dashboard/)
-2. **Download**: Right-click `dashboard.html` → Save As
-3. **Local Server**: `python3 -m http.server 8080` for best experience
+**Option 1: One-Command Setup** (Recommended)
+```bash
+# Downloads dashboard + all data files and starts server
+curl -s "https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/main/dsa%20and%20system%20design/interview-questions-dashboard/quick-start.sh" | bash
+```
+⭐ **This fixes the "Error loading questions data" issue by downloading all required files**
+
+**Option 2: Manual Setup**
+1. **Download**: [dashboard.html](https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/main/dsa%20and%20system%20design/interview-questions-dashboard/dashboard.html) (Right-click → Save As)
+2. **⚠️ Important**: Also download the data files or you'll get loading errors
+3. **Run Server**: `python3 -m http.server 8080` in the same folder
+4. **Open**: `http://localhost:8080/dashboard.html`
+
+**Option 3: Try GitHub Pages** (May not work due to folder spaces)
+- [Enhanced Dashboard](https://sahanurmondal.github.io/log-analytics-platform/dsa%20and%20system%20design/interview-questions-dashboard/dashboard.html)
 
 ### 📱 Access Methods
-- **GitHub Pages (Auto)**: `https://sahanurmondal.github.io/log-analytics-platform/dsa%20and%20system%20design/interview-questions-dashboard/`
-- **GitHub Pages (Direct)**: `https://sahanurmondal.github.io/log-analytics-platform/dsa%20and%20system%20design/interview-questions-dashboard/dashboard.html`
-- **Direct File**: Double-click `dashboard.html` (some features may be limited)
-- **Raw Download**: [Download Enhanced Dashboard](https://github.com/sahanurmondal/log-analytics-platform/raw/main/dsa%20and%20system%20design/interview-questions-dashboard/dashboard.html)
-- **Mobile Browser**: Works perfectly on mobile with responsive design
+- **Setup Page**: [Interactive Setup Guide](https://sahanurmondal.github.io/log-analytics-platform/dsa%20and%20system%20design/interview-questions-dashboard/setup.html)
+- **Quick Script**: `curl -s "https://raw.githubusercontent.com/[...]/quick-start.sh" | bash`
+- **Direct Download**: [dashboard.html](https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/main/dsa%20and%20system%20design/interview-questions-dashboard/dashboard.html)
+- **GitHub Pages (May Not Work)**: [dashboard.html](https://sahanurmondal.github.io/log-analytics-platform/dsa%20and%20system%20design/interview-questions-dashboard/dashboard.html)
+- **Local File**: Double-click downloaded `dashboard.html` (limited functionality)
+- **Mobile Browser**: Works perfectly with local server setup
 
 ### 🛠️ Technical Details
 - **Enhanced Content**: 818 coding questions with optimal solutions and detailed explanations
@@ -33,6 +46,44 @@ Comprehensive interview preparation dashboard with **1,509 questions** (1,299 DS
 - **Data Sources**: JSON files with comprehensive answers and problem-specific tips
 - **Performance**: Optimized for both local and GitHub Pages deployment
 - **Compatibility**: Works across all modern browsers and devices
+
+### 🔧 Troubleshooting GitHub Pages
+**⚠️ If GitHub Pages links aren't working:**
+
+#### **🚀 Immediate Solutions:**
+1. **Download & Run Locally** (Recommended):
+   ```bash
+   # Downloads dashboard + all data files automatically
+   curl -s "https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/main/dsa%20and%20system%20design/interview-questions-dashboard/quick-start.sh" | bash
+   ```
+
+2. **Direct File Download**: 
+   - [Download dashboard.html](https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/main/dsa%20and%20system%20design/interview-questions-dashboard/dashboard.html)
+   - Right-click → Save As → Open in browser
+
+3. **Clone Repository**:
+   ```bash
+   git clone https://github.com/sahanurmondal/log-analytics-platform.git
+   cd "log-analytics-platform/dsa and system design/interview-questions-dashboard"
+   python3 -m http.server 8080
+   ```
+
+#### **❌ "Error loading questions data" Fix:**
+This error occurs when data files are missing. Solutions:
+- **Use Quick Start Script** (downloads everything automatically)
+- **Run with Server** (not just double-clicking HTML file)
+- **Check File Structure** (src/company/webscraper/ folders must exist)
+
+#### **🔍 Why GitHub Pages May Not Work:**
+- Folder names with spaces can cause GitHub Pages routing issues
+- URL encoding problems with special characters
+- GitHub Pages caching delays
+
+#### **✅ Verified Working Method:**
+**Local Server** (100% reliable):
+1. Use the quick-start script above, or
+2. Download dashboard.html + data files and run `python3 -m http.server 8080`
+3. Open `http://localhost:8080/dashboard.html`
 
 ### 📊 Question Database
 - **Total Questions**: 1,509 (1,299 DSA + 210 System Design)
