@@ -4,7 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard</title>
+    <title>LeetCode Interview Dashboard</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         * {
             margin: 0;
@@ -50,51 +53,66 @@
             font-size: 1.1em;
         }
 
-        .stats {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        .tabs {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             margin-bottom: 25px;
         }
 
-        .stat-card {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: #f8f9fa;
+            color: #495057;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
             text-align: center;
-            transition: transform 0.3s ease;
         }
 
-        .stat-card:hover {
-            transform: translateY(-5px);
+        .tab-button:hover {
+            border-color: #667eea;
+            background: #e3f2fd;
         }
 
-        .stat-number {
-            font-size: 2.5em;
-            font-weight: 700;
-            color: #667eea;
-            margin-bottom: 10px;
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
         }
 
-        .stat-label {
-            color: #7f8c8d;
-            font-size: 1.1em;
-            font-weight: 500;
+        .tab-button.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .tab-content {
+            min-height: 400px;
         }
 
         .filters {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            margin-bottom: 25px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
         }
 
         .filters h3 {
             color: #2c3e50;
-            margin-bottom: 20px;
-            font-size: 1.5em;
+            margin-bottom: 15px;
+            font-size: 1.3em;
         }
 
         .filter-grid {
@@ -111,15 +129,16 @@
 
         .filter-group label {
             font-weight: 600;
-            margin-bottom: 8px;
+            margin-bottom: 5px;
             color: #34495e;
+            font-size: 0.9em;
         }
 
         .filter-group input,
         .filter-group select {
-            padding: 12px;
+            padding: 10px;
             border: 2px solid #e9ecef;
-            border-radius: 8px;
+            border-radius: 6px;
             font-size: 14px;
             transition: border-color 0.3s ease;
         }
@@ -130,480 +149,167 @@
             border-color: #667eea;
         }
 
-        .range-filters {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
         }
 
-        .content {
-            background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
         }
 
         .results-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             flex-wrap: wrap;
             gap: 15px;
         }
 
         .results-info {
-            font-size: 1.2em;
+            font-size: 1.1em;
             color: #2c3e50;
             font-weight: 600;
         }
 
-        .pagination-info {
-            font-size: 1em;
-            color: #7f8c8d;
-        }
-
-        .questions-list {
-            max-height: none;
-            overflow-y: visible;
-            border: none;
-            border-radius: 0;
-            padding: 0;
-            background: transparent;
-        }
-
-        .question-card {
-            background: #f8f9fa;
-            border-radius: 15px;
-            padding: 25px;
-            margin-bottom: 25px;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
-            transition: all 0.3s ease;
-            border: 1px solid #e9ecef;
-            position: relative;
-            overflow: hidden;
-            min-height: auto;
-            display: block;
-            clear: both;
-        }
-
-        .question-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-            border-color: #667eea;
-        }
-
-        .question-header {
+        .sort-controls {
             display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-bottom: 20px;
-            gap: 20px;
-            flex-wrap: wrap;
-        }
-
-        .question-number {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 10px 16px;
-            border-radius: 25px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            white-space: nowrap;
-            box-shadow: 0 3px 10px rgba(102, 126, 234, 0.3);
-            flex-shrink: 0;
-        }
-
-        .question-title {
-            flex: 1;
-            min-width: 0;
-        }
-
-        .question-title h3 {
-            color: #2c3e50;
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            line-height: 1.4;
-            word-wrap: break-word;
-            overflow-wrap: break-word;
-        }
-
-        .question-meta {
-            display: flex;
-            flex-wrap: wrap;
             gap: 10px;
             align-items: center;
-            margin-top: 5px;
         }
 
-        .meta-tag {
-            padding: 4px 10px;
-            border-radius: 15px;
-            font-size: 0.8rem;
+        .sort-controls select {
+            padding: 8px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .results-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .table th {
+            background: #f8f9fa;
             font-weight: 600;
-            text-transform: uppercase;
+            color: #2c3e50;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .table tr:hover {
+            background: #f8f9fa;
         }
 
         .difficulty-easy {
             background: #d4edda;
             color: #155724;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
         }
 
         .difficulty-medium {
             background: #fff3cd;
             color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
         }
 
         .difficulty-hard {
             background: #f8d7da;
             color: #721c24;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
         }
 
-        .category {
-            background: #e3f2fd;
-            color: #0d47a1;
-        }
-
-        .company {
-            background: #f3e5f5;
-            color: #4a148c;
-        }
-
-        .question-description {
-            color: #495057;
-            line-height: 1.6;
-            margin-bottom: 15px;
-            font-size: 0.95rem;
-        }
-
-        .question-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-bottom: 15px;
+        .frequency-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
         }
 
         .tag {
-            background: #f8f9fa;
-            color: #495057;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            border: 1px solid #dee2e6;
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            margin: 1px;
+            display: inline-block;
         }
 
-        .question-actions {
+        .tags-container {
             display: flex;
-            gap: 10px;
+            flex-wrap: wrap;
+            gap: 2px;
+            max-width: 200px;
         }
 
-        .view-original {
-            background: #007bff;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
+        .link {
+            color: #667eea;
             text-decoration: none;
-            font-size: 0.9rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .view-original:hover {
-            background: #0056b3;
-        }
-
-        .view-original.disabled {
-            background: #6c757d;
-            color: #fff;
-            cursor: not-allowed;
-            opacity: 0.5;
-        }
-
-        .view-answer {
-            background: #28a745;
-            color: white;
-            padding: 8px 16px;
-            border-radius: 6px;
-            border: none;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-        }
-
-        .view-answer:hover {
-            background: #218838;
-        }
-
-        .view-answer:disabled {
-            background: #6c757d;
-            cursor: not-allowed;
-        }
-
-        .answer-indicator {
-            background: #28a745;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .no-answer-indicator {
-            background: #6c757d;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: 600;
-        }
-
-        .answer-section {
-            margin-top: 20px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-radius: 8px;
-            border-left: 4px solid #28a745;
-            display: none;
-        }
-
-        .answer-section.show {
-            display: block;
-        }
-
-        .answer-header {
-            display: flex;
-            justify-content: between;
-            align-items: center;
-            margin-bottom: 15px;
-        }
-
-        .answer-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: #28a745;
-            margin: 0;
-        }
-
-        .close-answer {
-            background: #dc3545;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 0.8rem;
-        }
-
-        .close-answer:hover {
-            background: #c82333;
-        }
-
-        .answer-content {
-            color: #495057;
-            line-height: 1.6;
-        }
-
-        .answer-section h4 {
-            color: #2c3e50;
-            margin: 15px 0 8px 0;
-            font-size: 1rem;
-            border-bottom: 1px solid #dee2e6;
-            padding-bottom: 5px;
-        }
-
-        .answer-section p {
-            margin-bottom: 10px;
-        }
-
-        .answer-section ul {
-            margin: 8px 0;
-            padding-left: 20px;
-        }
-
-        .answer-section li {
-            margin-bottom: 5px;
-        }
-
-        .approach-item {
-            background: white;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 6px;
-            border: 1px solid #dee2e6;
-        }
-
-        .approach-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 10px;
-        }
-
-        .approach-name {
-            font-weight: 600;
-            color: #2c3e50;
-        }
-
-        .complexity {
-            display: flex;
-            gap: 10px;
-        }
-
-        .complexity-item {
-            background: #e9ecef;
-            padding: 3px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
             font-weight: 500;
         }
 
-        .time-complexity {
-            background: #d4edda;
-            color: #155724;
-        }
-
-        .space-complexity {
-            background: #d1ecf1;
-            color: #0c5460;
-        }
-
-        .code-block {
-            background: #1e1e1e;
-            color: #d4d4d4;
-            padding: 15px;
-            border-radius: 6px;
-            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
-            font-size: 13px;
-            line-height: 1.5;
-            overflow-x: auto;
-            overflow-y: visible;
-            margin: 10px 0;
-            border: 1px solid #3c3c3c;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-            max-height: none;
-            min-height: auto;
-            position: relative;
-        }
-
-        .solution-section {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 10px;
-            padding: 20px;
-            margin: 15px 0;
-            max-height: none;
-            overflow: visible;
-        }
-
-        .answer-section {
-            max-height: none;
-            overflow: visible;
-            margin-top: 20px;
-            padding: 20px;
-            background: #ffffff;
-            border: 1px solid #e9ecef;
-            border-radius: 10px;
-        }
-
-        .approach-item {
-            background: #f8f9fa;
-            border: 1px solid #e9ecef;
-            border-radius: 8px;
-            padding: 20px;
-            margin: 15px 0;
-            transition: all 0.3s ease;
-        }
-
-        .approach-item:hover {
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
-        .references-section {
-            margin-top: 15px;
-            padding-top: 15px;
-            border-top: 1px solid #dee2e6;
-        }
-
-        .reference-links {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-            margin-top: 8px;
-        }
-
-        .reference-link {
-            background: #007bff;
-            color: white;
-            padding: 4px 8px;
-            border-radius: 4px;
-            text-decoration: none;
-            font-size: 0.8rem;
-            transition: background-color 0.3s ease;
-        }
-
-        .reference-link:hover {
-            background: #0056b3;
-        }
-
-        .local-solution {
-            background: #17a2b8;
-        }
-
-        .local-solution:hover {
-            background: #138496;
-        }
-
-        .local-solution:not([href]) {
-            background: #6c757d;
-            cursor: default;
-            opacity: 0.8;
-        }
-
-        .local-solution:not([href]):hover {
-            background: #6c757d;
-        }
-
-        .pagination {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .page-btn {
-            padding: 10px 15px;
-            border: 1px solid #dee2e6;
-            background: white;
-            color: #495057;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-size: 0.9rem;
-        }
-
-        .page-btn:hover:not(:disabled) {
-            background: #e9ecef;
-        }
-
-        .page-btn.active {
-            background: #007bff;
-            color: white;
-            border-color: #007bff;
-        }
-
-        .page-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
+        .link:hover {
+            text-decoration: underline;
         }
 
         .loading {
             text-align: center;
             padding: 40px;
-            color: #6c757d;
-            font-size: 1.1rem;
+            color: #7f8c8d;
+            font-size: 1.1em;
         }
 
         .error {
@@ -611,998 +317,2076 @@
             color: #721c24;
             padding: 15px;
             border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
             margin-bottom: 20px;
-            border: 1px solid #f5c6cb;
         }
 
-        .system-design-link {
-            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
-            border: 2px solid #667eea;
-            border-radius: 12px;
+        .stat-card {
+            background: white;
+            border-radius: 10px;
             padding: 20px;
-            margin: 15px 0;
             text-align: center;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
         }
 
-        .system-design-link h4 {
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
             color: #667eea;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 20px;
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid #e9ecef;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover {
+            background: #e3f2fd;
+            border-color: #667eea;
+        }
+
+        .page-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
 
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .stats {
-                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-                padding: 20px;
-            }
-
             .filter-grid {
                 grid-template-columns: 1fr;
             }
 
-            .question-header {
+            .tab-buttons {
                 flex-direction: column;
-                align-items: flex-start;
+            }
+
+            .tab-button {
+                min-width: auto;
             }
 
             .results-header {
                 flex-direction: column;
-                align-items: flex-start;
+                align-items: stretch;
             }
+
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+
+        /* Custom Solution Status Styles */
+        .custom-solution-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .status-pending {
+            background: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+        }
+
+        .status-in_progress {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-free {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-premium {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .premium-lock {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-left: 6px;
+        }
+
+        .btn-xs {
+            padding: 2px 6px;
+            font-size: 0.75em;
+            line-height: 1.2;
+        }
+
+        /* Solution Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 1.25em;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .code-editor {
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        /* Searchable Select Styles */
+        .searchable-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .select-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .select-trigger:hover {
+            border-color: #aaa;
+        }
+
+        .select-arrow {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 200px;
+            overflow: hidden;
+        }
+
+        .select-search {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .select-options {
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .select-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .select-option:hover {
+            background: #f8f9fa;
+        }
+
+        .select-option.selected {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .select-option.disabled {
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .select-option.disabled:hover {
+            background: white;
+        }
+
+        /* Question title styling for Interview Prep */
+        .question-title {
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.4;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🚀 Interview Questions Dashboard</h1>
-            <p>Comprehensive collection of technical interview questions from top companies</p>
-        </div>
+    <div id="root"></div>
 
-        <div class="stats">
-            <div class="stat-card">
-                <div class="stat-number" id="total-count">0</div>
-                <div class="stat-label">Total Questions</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="answered-count">0</div>
-                <div class="stat-label">With Answers</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="total-companies">0</div>
-                <div class="stat-label">Companies</div>
-            </div>
-            <div class="stat-card">
-                <div class="stat-number" id="total-categories">0</div>
-                <div class="stat-label">Categories</div>
-            </div>
-        </div>
+    <script type="text/babel">
+        const { useState, useEffect, useMemo, useRef } = React;
 
-        <div class="filters">
-            <h3>🔍 Filter Questions</h3>
-            <div class="filter-grid">
-                <div class="filter-group">
-                    <label for="search">Search</label>
-                    <input type="text" id="search" placeholder="Search by title, description, company, or category...">
-                </div>
-                <div class="filter-group">
-                    <label for="company">Company</label>
-                    <select id="company">
-                        <option value="">All Companies</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="category">Category</label>
-                    <select id="category">
-                        <option value="">All Categories</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="difficulty">Difficulty</label>
-                    <select id="difficulty">
-                        <option value="">All Difficulties</option>
-                        <option value="Easy">Easy</option>
-                        <option value="Medium">Medium</option>
-                        <option value="Hard">Hard</option>
-                    </select>
-                </div>
-                <div class="filter-group">
-                    <label for="hasAnswer">Answer Availability</label>
-                    <select id="hasAnswer">
-                        <option value="">All Questions</option>
-                        <option value="true">With Answers</option>
-                        <option value="false">Without Answers</option>
-                    </select>
-                </div>
-            </div>
-            <div class="range-filters">
-                <div class="filter-group">
-                    <label for="minQuestion">Min Question Number</label>
-                    <input type="number" id="minQuestion" placeholder="1">
-                </div>
-                <div class="filter-group">
-                    <label for="maxQuestion">Max Question Number</label>
-                    <input type="number" id="maxQuestion" placeholder="1000">
-                </div>
-            </div>
-        </div>
+        // SearchableSelect Component
+        function SearchableSelect({ value, onChange, options, placeholder, className = "" }) {
+            const [isOpen, setIsOpen] = useState(false);
+            const [searchTerm, setSearchTerm] = useState('');
+            const dropdownRef = useRef(null);
 
-        <div class="content">
-            <div class="results-header">
-                <div class="results-info">
-                    📋 Interview Questions <span id="total-questions">0</span>
-                </div>
-                <div class="pagination-info" id="page-info">Loading...</div>
-            </div>
-
-            <div class="questions-list" id="questions-list">
-                <div class="loading">Loading questions...</div>
-            </div>
-
-            <div class="pagination" id="pagination"></div>
-        </div>
-    </div>
-
-    <script>
-        let questionsData = [];
-        let answersData = [];
-        let filteredQuestions = [];
-        let currentPage = 1;
-        const questionsPerPage = 20;
-
-        async function loadQuestionsData() {
-            try {
-                // Load both datasets
-                const [questionsResponse, answersResponse] = await Promise.all([
-                    fetch('./src/company/webscraper/multithreaded_extraction/complete_questions_dataset.json'),
-                    fetch('./src/company/webscraper/multithreaded_extraction/comprehensive_answers.json')
-                ]);
-
-                if (!questionsResponse.ok) {
-                    throw new Error(`Failed to load questions dataset: ${questionsResponse.status}`);
-                }
-                if (!answersResponse.ok) {
-                    throw new Error(`Failed to load answers dataset: ${answersResponse.status}`);
-                }
-
-                const questionsData = await questionsResponse.json();
-                const answersData = await answersResponse.json();
-
-                // Create a map of answers by question number for quick lookup
-                const answersMap = new Map();
-                answersData.forEach(item => {
-                    if (item.question_number) {
-                        answersMap.set(item.question_number, item);
+            // Close dropdown when clicking outside
+            useEffect(() => {
+                const handleClickOutside = (event) => {
+                    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                        setIsOpen(false);
+                        setSearchTerm('');
                     }
-                });
-
-                // Create a mapping for system design answers
-                const systemDesignAnswers = {
-                    42: 'q001_collaborative_document_editing.md',
-                    46: 'q002_crypto_exchange_design.md',
-                    52: 'q003_e_commerce_portal_design.md',
-                    54: 'q004_stock_price_system_design.md',
-                    55: 'q005_library_management_system.md',
-                    57: 'q006_optimal_storage_strategy.md',
-                    66: 'q007_facebook_messenger_design.md',
-                    69: 'q008_cdn_design.md',
-                    84: 'q009_social_platform_design.md'
                 };
 
-                // Process and enhance questions data by merging both datasets
-                const mergedData = await Promise.all(questionsData.map(async (question) => {
-                    // Get corresponding answer data
-                    const answerData = answersMap.get(question.question_number) || {};
+                document.addEventListener('mousedown', handleClickOutside);
+                return () => {
+                    document.removeEventListener('mousedown', handleClickOutside);
+                };
+            }, []);
 
-                    const enhanced = {
-                        question_number: question.question_number,
-                        title: question.title,
-                        difficulty: question.difficulty || 'Unknown',
-                        category: question.category || 'Other',
-                        question_type: 'coding', // Most questions in the dataset are coding
-                        company: question.company || 'Various',
-                        answer: answerData.answer || {},
-                        references: answerData.references || {},
-                        tags: question.tags || [],
-                        url: question.url || answerData.references?.leetcode || '#'
-                    };
+            const filteredOptions = useMemo(() => {
+                if (!searchTerm) return options;
+                return options.filter(option =>
+                    option.label.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }, [options, searchTerm]);
 
-                    // Debug logging for first few questions
-                    if (question.question_number <= 10) {
-                        console.log(`Question ${question.question_number}:`, {
-                            questionUrl: question.url,
-                            leetcodeUrl: answerData.references?.leetcode,
-                            finalUrl: enhanced.url
-                        });
-                    }
-
-                    // Use the complete dataset description which is more detailed
-                    enhanced.description = question.description || extractDescription(enhanced);
-                    enhanced.hasAnswer = hasValidAnswer(enhanced);
-
-                    // Add system design answer path if available
-                    if (question.category === 'System Design' && systemDesignAnswers[question.question_number]) {
-                        enhanced.systemDesignAnswerPath = `./src/company/webscraper/multithreaded_extraction/system-design/answers/${systemDesignAnswers[question.question_number]}`;
-                    }
-
-                    // Enhance with local solution if available
-                    const enhancedWithLocal = await enhanceQuestionWithLocalSolution(enhanced);
-
-                    return enhancedWithLocal;
-                }));
-
-                console.log(`Successfully loaded ${mergedData.length} questions`);
-                return mergedData;
-            } catch (error) {
-                console.error('Error loading questions:', error);
-                document.getElementById('questions-list').innerHTML =
-                    '<div class="error">Error loading questions data. Please check the file path and try again.</div>';
-                return [];
-            }
-        }
-
-        function correctLocalSolutionPath(originalPath) {
-            if (!originalPath || originalPath.trim() === '') return null;
-
-            // Original paths are like "../solutions/arrays/RotateArray.java"
-            // They should be "../dsa/arrays/easy/RotateArray.java" (or medium/hard)
-
-            // Extract category and filename
-            const pathParts = originalPath.split('/');
-            if (pathParts.length < 3) return null;
-
-            const category = pathParts[pathParts.length - 2]; // e.g., "arrays"
-            const filename = pathParts[pathParts.length - 1]; // e.g., "RotateArray.java"
-
-            // Try different difficulty levels
-            const difficulties = ['easy', 'medium', 'hard'];
-
-            // Return the corrected base path structure
-            return {
-                category: category,
-                filename: filename,
-                possiblePaths: difficulties.map(diff => `../dsa/${category}/${diff}/${filename}`)
+            const handleSelect = (optionValue) => {
+                onChange(optionValue);
+                setIsOpen(false);
+                setSearchTerm('');
             };
+
+            const selectedOption = options.find(opt => opt.value === value);
+
+            return (
+                <div className={`searchable-select ${className}`} ref={dropdownRef}>
+                    <div
+                        className="select-trigger"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        <span>{selectedOption ? selectedOption.label : placeholder}</span>
+                        <span className="select-arrow">{isOpen ? '▲' : '▼'}</span>
+                    </div>
+
+                    {isOpen && (
+                        <div className="select-dropdown">
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="select-search"
+                                onClick={(e) => e.stopPropagation()}
+                            />
+                            <div className="select-options">
+                                {filteredOptions.map(option => (
+                                    <div
+                                        key={option.value}
+                                        className={`select-option ${value === option.value ? 'selected' : ''}`}
+                                        onClick={() => handleSelect(option.value)}
+                                    >
+                                        {option.label}
+                                    </div>
+                                ))}
+                                {filteredOptions.length === 0 && (
+                                    <div className="select-option disabled">No options found</div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
         }
 
-        async function extractOptimalSolutionFromFile(filePath) {
+        // Data loading functions
+        async function loadCompanyData() {
             try {
-                const response = await fetch(filePath);
-                if (!response.ok) return null;
-
-                const fileContent = await response.text();
-
-                // Find the optimal solution method (usually marked with "optimal" in comments)
-                const lines = fileContent.split('\n');
-                let optimalMethod = '';
-                let inOptimalMethod = false;
-                let braceCount = 0;
-                let methodStarted = false;
-
-                for (let i = 0; i < lines.length; i++) {
-                    const line = lines[i];
-
-                    // Look for optimal solution indicators
-                    if (!inOptimalMethod && (
-                        line.includes('optimal') ||
-                        line.includes('Optimal') ||
-                        line.includes('O(1)') ||
-                        line.includes('reverse') ||
-                        line.includes('Time: O(n), Space: O(1)')
-                    )) {
-                        // Look for the next method declaration
-                        for (let j = i; j < lines.length; j++) {
-                            if (lines[j].includes('public ') && lines[j].includes('(')) {
-                                inOptimalMethod = true;
-                                i = j - 1; // Will be incremented in next iteration
-                                break;
-                            }
-                        }
-                        continue;
-                    }
-
-                    if (inOptimalMethod) {
-                        if (line.includes('public ') && line.includes('(')) {
-                            methodStarted = true;
-                        }
-
-                        if (methodStarted) {
-                            // Skip Javadoc comments and single line comments
-                            const trimmedLine = line.trim();
-                            if (trimmedLine.startsWith('/**') ||
-                                trimmedLine.startsWith('*') ||
-                                trimmedLine.startsWith('*/') ||
-                                trimmedLine.startsWith('//')) {
-                                continue;
-                            }
-
-                            // Clean up the line - remove inline comments
-                            let cleanLine = line;
-                            const commentIndex = cleanLine.indexOf('//');
-                            if (commentIndex !== -1) {
-                                cleanLine = cleanLine.substring(0, commentIndex).trimEnd();
-                            }
-
-                            if (cleanLine.trim()) { // Only add non-empty lines
-                                optimalMethod += cleanLine + '\n';
-                            }
-
-                            // Count braces to find method end
-                            for (let char of cleanLine) {
-                                if (char === '{') braceCount++;
-                                if (char === '}') braceCount--;
-                            }
-
-                            // Method is complete when braces are balanced
-                            if (braceCount === 0 && cleanLine.includes('}')) {
-                                break;
-                            }
-                        }
-                    }
-                }
-
-                // If no optimal method found, try to extract the main public method
-                if (!optimalMethod.trim()) {
-                    optimalMethod = extractMainMethod(fileContent);
-                }
-
-                return optimalMethod.trim();
-
+                const response = await fetch('./src/company/webscraper/leetcode_company_wise/leetcode_enhanced_complete.json');
+                return await response.json();
             } catch (error) {
-                console.error('Error loading file:', filePath, error);
+                console.error('Error loading company data:', error);
                 return null;
             }
         }
 
-        function extractMainMethod(fileContent) {
-            const lines = fileContent.split('\n');
-            let method = '';
-            let inMethod = false;
-            let braceCount = 0;
+        async function loadProblemsData() {
+            try {
+                const response = await fetch('./src/company/webscraper/leetcode_problem_solution/leetcode_ca_search_enhanced.json');
+                return await response.json();
+            } catch (error) {
+                console.error('Error loading problems data:', error);
+                return null;
+            }
+        }
 
-            for (let i = 0; i < lines.length; i++) {
-                const line = lines[i];
-                const trimmedLine = line.trim();
+        async function loadInterviewPrepData() {
+            try {
+                const response = await fetch('./src/company/webscraper/enginebogie/enginebogie_answer.json');
+                return await response.json();
+            } catch (error) {
+                console.error('Error loading interview prep data:', error);
+                return null;
+            }
+        }
 
-                // Skip class declaration and imports
-                if (trimmedLine.startsWith('import ') ||
-                    trimmedLine.startsWith('package ') ||
-                    trimmedLine.startsWith('class ') ||
-                    trimmedLine.startsWith('public class ')) {
-                    continue;
+        // Main App Component
+        function App() {
+            const [activeTab, setActiveTab] = useState('company-problems');
+            const [companyData, setCompanyData] = useState(null);
+            const [problemsData, setProblemsData] = useState(null);
+            const [interviewPrepData, setInterviewPrepData] = useState(null);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState(null);
+
+            // Load data on component mount
+            useEffect(() => {
+                loadData();
+            }, []);
+
+            const loadData = async () => {
+                setLoading(true);
+                setError(null);
+
+                try {
+                    const [companyDataResult, problemsDataResult, interviewPrepDataResult] = await Promise.all([
+                        loadCompanyData(),
+                        loadProblemsData(),
+                        loadInterviewPrepData()
+                    ]);
+
+                    setCompanyData(companyDataResult);
+                    setProblemsData(problemsDataResult);
+                    setInterviewPrepData(interviewPrepDataResult);
+                    setLoading(false);
+                } catch (err) {
+                    setError('Failed to load data: ' + err.message);
+                    setLoading(false);
                 }
+            };
 
-                // Look for public method
-                if (!inMethod && line.includes('public ') && line.includes('(') && !line.includes('class ')) {
-                    inMethod = true;
-                }
+            const tabs = [
+                { id: 'company-problems', label: 'Company Problems', icon: '🏢' },
+                { id: 'problem-explorer', label: 'Problem Explorer', icon: '🔍' },
+                { id: 'interview-prep', label: 'Interview Prep', icon: '💼', disabled: false }
+            ];
 
-                if (inMethod) {
-                    // Skip Javadoc and comments
-                    if (trimmedLine.startsWith('/**') ||
-                        trimmedLine.startsWith('*') ||
-                        trimmedLine.startsWith('*/') ||
-                        trimmedLine.startsWith('//')) {
-                        continue;
-                    }
-
-                    // Clean up the line
-                    let cleanLine = line;
-                    const commentIndex = cleanLine.indexOf('//');
-                    if (commentIndex !== -1) {
-                        cleanLine = cleanLine.substring(0, commentIndex).trimEnd();
-                    }
-
-                    if (cleanLine.trim()) {
-                        method += cleanLine + '\n';
-                    }
-
-                    // Count braces
-                    for (let char of cleanLine) {
-                        if (char === '{') braceCount++;
-                        if (char === '}') braceCount--;
-                    }
-
-                    // Method is complete
-                    if (braceCount === 0 && cleanLine.includes('}')) {
-                        break;
-                    }
-                }
-            }
-
-            return method.trim();
-        }
-
-        async function enhanceQuestionWithLocalSolution(question) {
-            if (!question.references || !question.references.local_solution) {
-                return question;
-            }
-
-            const correctedPath = correctLocalSolutionPath(question.references.local_solution);
-            if (!correctedPath) return question;
-
-            // Try each possible path until we find the file
-            for (const path of correctedPath.possiblePaths) {
-                const optimalCode = await extractOptimalSolutionFromFile(path);
-                if (optimalCode) {
-                    // Update the reference path to the correct one
-                    question.references.local_solution = path;
-                    break;
-                }
-            }
-
-            return question;
-        }
-
-        function extractDescription(question) {
-            // Try to extract description from the first approach's description
-            if (question.answer && question.answer.approaches && question.answer.approaches.length > 0) {
-                const firstApproachDesc = question.answer.approaches[0].description;
-                if (firstApproachDesc && firstApproachDesc.length > 30) {
-                    let desc = firstApproachDesc;
-
-                    // Remove LeetCode URL and clean up formatting
-                    desc = desc.replace(/https:\/\/leetcode\.com\/[^\s]+\s*/g, '');
-                    desc = desc.replace(/^LeetCode \d+:\s*[^A-Z]*([A-Z])/g, '$1');
-
-                    // Extract content before Follow-ups, Examples, or code sections
-                    const stopPatterns = ['Follow-ups:', 'Example:', 'Examples:', 'Time:', 'Space:', '```', 'public class', 'class Solution'];
-                    let minIndex = desc.length;
-
-                    for (const pattern of stopPatterns) {
-                        const index = desc.indexOf(pattern);
-                        if (index > 50 && index < minIndex) {
-                            minIndex = index;
-                        }
-                    }
-
-                    if (minIndex < desc.length) {
-                        desc = desc.substring(0, minIndex).trim();
-                    }
-
-                    // Clean up extra whitespace and return reasonable length
-                    desc = desc.replace(/\s+/g, ' ').trim();
-                    if (desc && desc.length > 20) {
-                        return desc.length > 300 ? desc.substring(0, 300) + '...' : desc;
-                    }
-                }
-            }
-
-            // For system design questions, create description from title
-            if (question.category === 'System Design') {
-                const cleanTitle = question.title.replace(/^\d+\.\s*/, '');
-                return `Design and discuss the architecture for: ${cleanTitle}`;
-            }
-
-            // For other questions, try to use title as basis for description
-            if (question.title) {
-                const cleanTitle = question.title.replace(/^\d+\.\s*/, '');
-                return `Solve the problem: ${cleanTitle}`;
-            }
-
-            return null; // Return null instead of fallback text to hide empty descriptions
-        }
-
-        function hasValidAnswer(question) {
-            if (!question.answer) return false;
-
-            // Check for coding questions
-            if (question.question_type === 'coding') {
-                const answer = question.answer;
-
-                // Check approaches quality
-                const hasQualityApproaches = answer.approaches && answer.approaches.length > 0 &&
-                    answer.approaches.some(approach =>
-                        approach.description &&
-                        approach.description.length > 30 &&
-                        !approach.description.toLowerCase().includes('simple brute force') &&
-                        !approach.description.toLowerCase().includes('basic approach') &&
-                        approach.description !== 'No description available'
-                    );
-
-                // Check interview tips quality
-                const hasQualityTips = answer.interview_tips &&
-                    answer.interview_tips.length > 0 &&
-                    answer.interview_tips.some(tip => tip && tip.length > 20 &&
-                        !tip.includes('Generic') && !tip.includes('placeholder'));
-
-                // Require at least 2 quality components
-                const qualityComponents = [hasQualityApproaches, hasQualityTips]
-                    .filter(Boolean).length;
-
-                return qualityComponents >= 1;
-            }
-
-            // Check for system design questions
-            if (question.category === 'System Design') {
-                return question.answer.functional_requirements ||
-                    question.answer.high_level_design ||
-                    question.answer.detailed_design ||
-                    question.systemDesignAnswerPath;
-            }
-
-            // Check for database questions
-            if (question.category === 'Databases') {
-                return question.answer.sql_examples ||
-                    question.answer.concept_explanation;
-            }
-
-            return Object.keys(question.answer).length > 0;
-        }
-
-        function extractTags(question) {
-            const tags = [];
-            if (question.difficulty) tags.push(question.difficulty);
-            if (question.category) tags.push(question.category);
-            if (question.question_type) tags.push(question.question_type);
-            return tags;
-        }
-
-        async function initializeDashboard() {
-            questionsData = await loadQuestionsData();
-            if (questionsData.length === 0) return;
-
-            filteredQuestions = [...questionsData];
-            updateStats();
-            populateFilters();
-            addEventListeners();
-            displayQuestions();
-        }
-
-        function updateStats() {
-            const totalQuestions = questionsData.length;
-            const questionsWithAnswers = questionsData.filter(q => q.hasAnswer).length;
-            const companies = new Set(questionsData.map(q => q.company).filter(Boolean));
-            const categories = new Set(questionsData.map(q => q.category).filter(Boolean));
-
-            document.getElementById('total-count').textContent = totalQuestions.toLocaleString();
-            document.getElementById('answered-count').textContent = questionsWithAnswers.toLocaleString();
-            document.getElementById('total-companies').textContent = companies.size;
-            document.getElementById('total-categories').textContent = categories.size;
-        }
-
-        function populateFilters() {
-            // Extract unique companies from the questions data
-            const companies = [...new Set(questionsData.map(q => q.company).filter(company => company && company !== 'Various' && company !== 'Unknown'))].sort();
-            const categories = [...new Set(questionsData.map(q => q.category).filter(Boolean))].sort();
-
-            const companySelect = document.getElementById('company');
-            // Clear existing options (keep the "All Companies" option)
-            companySelect.innerHTML = '<option value="">All Companies</option>';
-
-            companies.forEach(company => {
-                const option = document.createElement('option');
-                option.value = company;
-                option.textContent = company;
-                companySelect.appendChild(option);
-            });
-
-            const categorySelect = document.getElementById('category');
-            // Clear existing options (keep the "All Categories" option)
-            categorySelect.innerHTML = '<option value="">All Categories</option>';
-
-            categories.forEach(category => {
-                const option = document.createElement('option');
-                option.value = category;
-                option.textContent = category;
-                categorySelect.appendChild(option);
-            });
-        }
-
-        function addEventListeners() {
-            document.getElementById('search').addEventListener('input', applyFilters);
-            document.getElementById('company').addEventListener('change', applyFilters);
-            document.getElementById('category').addEventListener('change', applyFilters);
-            document.getElementById('difficulty').addEventListener('change', applyFilters);
-            document.getElementById('hasAnswer').addEventListener('change', applyFilters);
-            document.getElementById('minQuestion').addEventListener('input', applyFilters);
-            document.getElementById('maxQuestion').addEventListener('input', applyFilters);
-        }
-
-        function applyFilters() {
-            const search = document.getElementById('search').value.toLowerCase();
-            const company = document.getElementById('company').value;
-            const category = document.getElementById('category').value;
-            const difficulty = document.getElementById('difficulty').value;
-            const hasAnswer = document.getElementById('hasAnswer').value;
-            const minQuestion = parseInt(document.getElementById('minQuestion').value) || 0;
-            const maxQuestion = parseInt(document.getElementById('maxQuestion').value) || Infinity;
-
-            filteredQuestions = questionsData.filter(question => {
-                const matchesSearch = !search ||
-                    question.title.toLowerCase().includes(search) ||
-                    (question.description && question.description.toLowerCase().includes(search)) ||
-                    (question.company && question.company.toLowerCase().includes(search)) ||
-                    (question.category && question.category.toLowerCase().includes(search));
-
-                const matchesCompany = !company || question.company === company;
-                const matchesCategory = !category || question.category === category;
-                const matchesDifficulty = !difficulty || question.difficulty === difficulty;
-                const matchesAnswerFilter = !hasAnswer ||
-                    (hasAnswer === 'true' && question.hasAnswer) ||
-                    (hasAnswer === 'false' && !question.hasAnswer);
-                const matchesQuestionRange = question.question_number >= minQuestion &&
-                    question.question_number <= maxQuestion;
-
-                return matchesSearch && matchesCompany && matchesCategory &&
-                    matchesDifficulty && matchesAnswerFilter && matchesQuestionRange;
-            });
-
-            currentPage = 1;
-            displayQuestions();
-        }
-
-        function displayQuestions() {
-            const start = (currentPage - 1) * questionsPerPage;
-            const end = start + questionsPerPage;
-            const pageQuestions = filteredQuestions.slice(start, end);
-
-            const questionsListEl = document.getElementById('questions-list');
-
-            if (pageQuestions.length === 0) {
-                questionsListEl.innerHTML = '<div class="loading">No questions match your filters.</div>';
-            } else {
-                questionsListEl.innerHTML = pageQuestions.map(question => `
-                    <div class="question-card">
-                        <div class="question-header">
-                            <div class="question-number">Q${question.question_number}</div>
-                            <div class="question-title">
-                                <h3>${question.title}</h3>
-                                <div class="question-meta">
-                                    ${question.difficulty ? `<span class="meta-tag difficulty-${question.difficulty.toLowerCase()}">${question.difficulty.toUpperCase()}</span>` : ''}
-                                    ${question.category ? `<span class="meta-tag category">${question.category}</span>` : ''}
-                                    ${question.company ? `<span class="meta-tag company">${question.company}</span>` : ''}
-                                    ${question.hasAnswer ?
-                        `<span class="answer-indicator">✅ Answer Available</span>` :
-                        `<span class="no-answer-indicator">❌ No Answer</span>`
-                    }
-                                </div>
-                            </div>
-                        </div>
-                        ${question.description && question.description !== 'Technical interview question - click to view details' ? `<div class="question-description">${question.description.replace(/\n/g, '<br>')}</div>` : ''}
-                        ${question.tags && question.tags.length > 0 ? `
-                            <div class="question-tags">
-                                ${question.tags.slice(0, 5).map(tag => `<span class="tag">${tag}</span>`).join('')}
-                                ${question.tags.length > 5 ? `<span class="tag">+${question.tags.length - 5} more</span>` : ''}
-                            </div>
-                        ` : ''}
-                        <div class="question-actions">
-                            ${question.url && question.url !== '#' ?
-                        `<a href="${question.url}" target="_blank" class="view-original">View Original</a>` :
-                        `<span class="view-original disabled">View Original</span>`
-                    }
-                            ${question.hasAnswer ?
-                        `<button class="view-answer" onclick="toggleAnswer(${question.question_number})">View Answer</button>` :
-                        `<button class="view-answer" disabled title="Answer not available">No Answer</button>`
-                    }
-                        </div>
-                        ${question.hasAnswer ? renderAnswer(question) : ''}
+            return (
+                <div className="container">
+                    <div className="header">
+                        <h1>🚀 LeetCode Interview Dashboard</h1>
+                        <p>Comprehensive platform for coding interview preparation</p>
                     </div>
-                `).join('');
-            }
 
-            updatePagination();
-            updateCounters();
-        }
-
-        function updateCounters() {
-            document.getElementById('filtered-count').textContent = `${filteredQuestions.length.toLocaleString()}`;
-
-            const totalPages = Math.ceil(filteredQuestions.length / questionsPerPage);
-            document.getElementById('page-info').textContent = `Page ${currentPage} of ${totalPages}`;
-        }
-
-        function updatePagination() {
-            const totalPages = Math.ceil(filteredQuestions.length / questionsPerPage);
-            const paginationEl = document.getElementById('pagination');
-
-            if (totalPages <= 1) {
-                paginationEl.innerHTML = '';
-                return;
-            }
-
-            let paginationHTML = '';
-
-            // Previous button
-            paginationHTML += `<button class="page-btn" ${currentPage === 1 ? 'disabled' : ''} onclick="changePage(${currentPage - 1})">← Prev</button>`;
-
-            // Page numbers
-            const showPages = 5;
-            let startPage = Math.max(1, currentPage - Math.floor(showPages / 2));
-            let endPage = Math.min(totalPages, startPage + showPages - 1);
-
-            if (endPage - startPage < showPages - 1) {
-                startPage = Math.max(1, endPage - showPages + 1);
-            }
-
-            if (startPage > 1) {
-                paginationHTML += `<button class="page-btn" onclick="changePage(1)">1</button>`;
-                if (startPage > 2) {
-                    paginationHTML += `<span class="page-btn" style="cursor: default;">...</span>`;
-                }
-            }
-
-            for (let i = startPage; i <= endPage; i++) {
-                paginationHTML += `<button class="page-btn ${i === currentPage ? 'active' : ''}" onclick="changePage(${i})">${i}</button>`;
-            }
-
-            if (endPage < totalPages) {
-                if (endPage < totalPages - 1) {
-                    paginationHTML += `<span class="page-btn" style="cursor: default;">...</span>`;
-                }
-                paginationHTML += `<button class="page-btn" onclick="changePage(${totalPages})">${totalPages}</button>`;
-            }
-
-            // Next button
-            paginationHTML += `<button class="page-btn" ${currentPage === totalPages ? 'disabled' : ''} onclick="changePage(${currentPage + 1})">Next →</button>`;
-
-            paginationEl.innerHTML = paginationHTML;
-        }
-
-        function changePage(page) {
-            const totalPages = Math.ceil(filteredQuestions.length / questionsPerPage);
-            if (page >= 1 && page <= totalPages) {
-                currentPage = page;
-                displayQuestions();
-                document.querySelector('.questions-list').scrollTop = 0;
-            }
-        }
-
-        function toggleAnswer(questionNumber) {
-            const answerSection = document.getElementById(`answer-${questionNumber}`);
-            const button = document.querySelector(`[onclick="toggleAnswer(${questionNumber})"]`);
-
-            if (answerSection.classList.contains('show')) {
-                answerSection.classList.remove('show');
-                button.textContent = 'View Answer';
-                button.style.background = '#28a745';
-            } else {
-                answerSection.classList.add('show');
-                button.textContent = 'Hide Answer';
-                button.style.background = '#dc3545';
-            }
-        }
-
-        function renderAnswer(question) {
-            if (!question.answer) return '';
-
-            const answer = question.answer;
-            let html = `
-                <div class="answer-section" id="answer-${question.question_number}">
-                    <div class="answer-header">
-                        <h3 class="answer-title">💡 Comprehensive Answer</h3>
-                        <button class="close-answer" onclick="toggleAnswer(${question.question_number})">✕ Close</button>
-                    </div>
-                    <div class="answer-content">
-            `;
-
-            // Problem Understanding
-            const problemDesc = extractDescription(question);
-            if (problemDesc && problemDesc !== 'Technical interview question - click to view details') {
-                html += `
-                    <h4>🎯 Problem Understanding</h4>
-                    <p>${problemDesc}</p>
-                `;
-            } else if (question.category === 'System Design') {
-                // For system design questions without problem_understanding, show title as problem
-                html += `
-                    <h4>🎯 System Design Problem</h4>
-                    <p>Design and discuss the architecture for: <strong>${question.title.replace(/^\d+\.\s*/, '')}</strong></p>
-                `;
-            }
-
-            // System Design specific sections
-            if (question.category === 'System Design') {
-                if (question.systemDesignAnswerPath) {
-                    html += `
-                        <div class="system-design-link">
-                            <h4>📋 Complete System Design Answer</h4>
-                            <a href="${question.systemDesignAnswerPath}" target="_blank" class="reference-link" style="display: inline-block; padding: 10px 20px; margin: 10px 0; background: linear-gradient(135deg, #667eea, #764ba2); color: white; text-decoration: none; border-radius: 8px; font-weight: 600;">
-                                📖 View Full System Design Solution
-                            </a>
+                    <div className="tabs">
+                        <div className="tab-buttons">
+                            {tabs.map(tab => (
+                                <button
+                                    key={tab.id}
+                                    className={`tab-button ${activeTab === tab.id ? 'active' : ''} ${tab.disabled ? 'disabled' : ''}`}
+                                    onClick={() => !tab.disabled && setActiveTab(tab.id)}
+                                    disabled={tab.disabled}
+                                >
+                                    {tab.icon} {tab.label}
+                                    {tab.disabled && ' (Coming Soon)'}
+                                </button>
+                            ))}
                         </div>
-                    `;
-                }
 
-                if (answer.functional_requirements) {
-                    html += `
-                        <h4>📋 Functional Requirements</h4>
-                        ${Array.isArray(answer.functional_requirements) ?
-                            `<ul>${answer.functional_requirements.map(req => `<li>${req}</li>`).join('')}</ul>` :
-                            `<p>${answer.functional_requirements}</p>`
-                        }
-                    `;
-                }
+                        <div className="tab-content">
+                            {loading && <div className="loading">Loading data...</div>}
+                            {error && <div className="error">{error}</div>}
 
-                if (answer.non_functional_requirements) {
-                    html += `
-                        <h4>⚡ Non-Functional Requirements</h4>
-                        ${Array.isArray(answer.non_functional_requirements) ?
-                            `<ul>${answer.non_functional_requirements.map(req => `<li>${req}</li>`).join('')}</ul>` :
-                            `<p>${answer.non_functional_requirements}</p>`
-                        }
-                    `;
-                }
+                            {!loading && !error && (
+                                <>
+                                    {activeTab === 'company-problems' && (
+                                        <CompanyProblemsTab data={companyData} />
+                                    )}
+                                    {activeTab === 'problem-explorer' && (
+                                        <ProblemExplorerTab data={problemsData} />
+                                    )}
+                                    {activeTab === 'interview-prep' && (
+                                        <InterviewPrepTab data={interviewPrepData} />
+                                    )}
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
 
-                if (answer.high_level_design) {
-                    html += `
-                        <h4>🏗️ High Level Design</h4>
-                        <p>${answer.high_level_design}</p>
-                    `;
-                }
+        // Company Problems Tab Component
+        function CompanyProblemsTab({ data }) {
+            const [filters, setFilters] = useState({
+                company: '',
+                search: '',
+                timePeriod: 'all',
+                difficulty: '',
+                tag: '',
+                minFrequency: '',
+                maxFrequency: ''
+            });
+            const [sortBy, setSortBy] = useState('title');
+            const [sortOrder, setSortOrder] = useState('asc');
+            const [currentPage, setCurrentPage] = useState(1);
+            const [itemsPerPage, setItemsPerPage] = useState(20);
 
-                if (answer.detailed_design) {
-                    html += `
-                        <h4>🔧 Detailed Design</h4>
-                        <p>${answer.detailed_design}</p>
-                    `;
-                }
+            // Reset to first page when items per page changes
+            useEffect(() => {
+                setCurrentPage(1);
+            }, [itemsPerPage]);
 
-                if (answer.scalability_considerations) {
-                    html += `
-                        <h4>📈 Scalability Considerations</h4>
-                        ${Array.isArray(answer.scalability_considerations) ?
-                            `<ul>${answer.scalability_considerations.map(consideration => `<li>${consideration}</li>`).join('')}</ul>` :
-                            `<p>${answer.scalability_considerations}</p>`
-                        }
-                    `;
-                }
-            }
+            const companies = useMemo(() => {
+                if (!data?.problems) return [];
+                const companySet = new Set();
+                data.problems.forEach(problem => {
+                    Object.keys(problem.companies || {}).forEach(company => {
+                        companySet.add(company);
+                    });
+                });
+                return Array.from(companySet).sort();
+            }, [data]);
 
-            // Key Insights
-            if (answer.key_insights && answer.key_insights.length > 0) {
-                html += `
-                    <h4>💡 Key Insights</h4>
-                    <ul>
-                        ${answer.key_insights.map(insight => `<li>${insight}</li>`).join('')}
-                    </ul>
-                `;
-            }
+            const companyOptions = useMemo(() => [
+                { value: '', label: 'All Companies' },
+                ...companies.map(company => ({
+                    value: company,
+                    label: company.charAt(0).toUpperCase() + company.slice(1)
+                }))
+            ], [companies]);
 
-            // Approaches
-            if (answer.approaches && answer.approaches.length > 0) {
-                html += `<h4>🚀 Solution Approaches</h4>`;
-                answer.approaches.forEach((approach, index) => {
-                    // Clean up description - no longer truncate to allow full content
-                    let cleanDescription = approach.description || 'No description available';
+            const tags = useMemo(() => {
+                if (!data?.problems) return [];
+                const tagSet = new Set();
+                data.problems.forEach(problem => {
+                    (problem.tags || []).forEach(tag => tagSet.add(tag));
+                });
+                return Array.from(tagSet).sort();
+            }, [data]);
 
-                    // Only limit extremely long descriptions (over 1000 chars)
-                    if (cleanDescription.length > 1000) {
-                        cleanDescription = cleanDescription.substring(0, 1000) + '...';
+            const tagOptions = useMemo(() => [
+                { value: '', label: 'All Tags' },
+                ...tags.map(tag => ({ value: tag, label: tag }))
+            ], [tags]);
+
+            const difficultyOptions = [
+                { value: '', label: 'All Difficulties' },
+                { value: '1', label: 'Easy' },
+                { value: '2', label: 'Medium' },
+                { value: '3', label: 'Hard' }
+            ];
+
+            const filteredData = useMemo(() => {
+                if (!data?.problems) return [];
+
+                return data.problems.filter(problem => {
+                    // Search filter
+                    if (filters.search && !problem.title.toLowerCase().includes(filters.search.toLowerCase())) {
+                        return false;
                     }
 
-                    // Clean up code formatting and filter out placeholders
-                    let cleanCode = approach.code || '';
-                    if (cleanCode) {
-                        // Check if this is placeholder code
-                        const isPlaceholder = cleanCode.includes('Implement optimized solution here') ||
-                            cleanCode.includes('Consider edge cases and constraints') ||
-                            cleanCode.includes('Aim for O(n) time and O(1) space when possible') ||
-                            cleanCode.trim().split('\n').every(line => line.trim().startsWith('//'));
+                    // Company filter
+                    if (filters.company && !problem.companies?.[filters.company]) {
+                        return false;
+                    }
 
-                        if (isPlaceholder) {
-                            cleanCode = ''; // Hide placeholder code
+                    // Time Period filter - apply after company filter if company is selected
+                    if (filters.timePeriod && filters.timePeriod !== 'all') {
+                        if (filters.company) {
+                            // Check if the selected company has data for this time period
+                            const companyData = problem.companies?.[filters.company];
+                            if (!companyData?.frequencies?.[filters.timePeriod]) {
+                                return false;
+                            }
                         } else {
-                            // Remove comment blocks and clean up real code
-                            cleanCode = cleanCode
-                                .replace(/\/\*[\s\S]*?\*\//g, '') // Remove /* */ comments
-                                .replace(/\/\/.*$/gm, '') // Remove // comments
-                                .replace(/^\s*\n/gm, '') // Remove empty lines
-                                .trim();
+                            // If no company selected, check if problem appears in ANY company for this time period
+                            const hasDataInTimePeriod = Object.values(problem.companies || {}).some(company =>
+                                company.frequencies?.[filters.timePeriod]
+                            );
+                            if (!hasDataInTimePeriod) {
+                                return false;
+                            }
                         }
                     }
 
-                    html += `
-                        <div class="approach-item">
-                            <div class="approach-header">
-                                <div class="approach-name">${approach.name}</div>
-                                <div class="complexity">
-                                    <span class="complexity-item time-complexity">Time: ${approach.time_complexity}</span>
-                                    <span class="complexity-item space-complexity">Space: ${approach.space_complexity}</span>
-                                </div>
-                            </div>
-                            <p>${cleanDescription}</p>
-                            ${cleanCode && cleanCode.length > 10 ? `<div class="code-block">${cleanCode}</div>` : ''}
-                        </div>
-                    `;
-                });
-            }
-
-            // Examples (for certain question types)
-            if (answer.examples && answer.examples.length > 0) {
-                html += `
-                    <h4>📝 Examples</h4>
-                `;
-                answer.examples.forEach((example, index) => {
-                    html += `
-                        <div class="approach-item">
-                            <strong>Example ${index + 1}:</strong><br>
-                            ${example.input ? `<strong>Input:</strong> ${example.input}<br>` : ''}
-                            ${example.output ? `<strong>Output:</strong> ${example.output}<br>` : ''}
-                            ${example.explanation ? `<strong>Explanation:</strong> ${example.explanation}` : ''}
-                        </div>
-                    `;
-                });
-            }
-
-            // Interview Tips
-            if (answer.interview_tips && answer.interview_tips.length > 0) {
-                html += `
-                    <h4>🎤 Interview Tips</h4>
-                    <ul>
-                        ${answer.interview_tips.map(tip => `<li>${tip}</li>`).join('')}
-                    </ul>
-                `;
-            }
-
-            // Common Mistakes
-            if (answer.common_mistakes && answer.common_mistakes.length > 0) {
-                html += `
-                    <h4>⚠️ Common Mistakes</h4>
-                    <ul>
-                        ${answer.common_mistakes.map(mistake => `<li>${mistake}</li>`).join('')}
-                    </ul>
-                `;
-            }
-
-            // Follow-up Questions
-            if (answer.follow_up_questions && answer.follow_up_questions.length > 0) {
-                html += `
-                    <h4>🔄 Follow-up Questions</h4>
-                    <ul>
-                        ${answer.follow_up_questions.map(question => `<li>${question}</li>`).join('')}
-                    </ul>
-                `;
-            }
-
-            // References
-            if (question.references) {
-                html += `
-                    <div class="references-section">
-                        <h4>🔗 References & Resources</h4>
-                        <div class="reference-links">
-                `;
-
-                if (question.references.local_solution && question.references.local_solution.trim()) {
-                    // Check if it's a relative path and convert it properly
-                    let localPath = question.references.local_solution;
-                    if (localPath.startsWith('../solutions/')) {
-                        // Convert relative path to a proper link or show as information
-                        const fileName = localPath.split('/').pop();
-                        html += `<span class="reference-link local-solution" title="${localPath}">📁 Local: ${fileName}</span>`;
-                    } else {
-                        html += `<a href="${localPath}" target="_blank" class="reference-link local-solution">📁 Local Solution</a>`;
+                    // Difficulty filter
+                    if (filters.difficulty && problem.difficulty !== parseInt(filters.difficulty)) {
+                        return false;
                     }
-                }
 
-                if (question.references.leetcode) {
-                    html += `<a href="${question.references.leetcode}" target="_blank" class="reference-link">🔗 LeetCode</a>`;
-                }
+                    // Tag filter
+                    if (filters.tag && !problem.tags?.includes(filters.tag)) {
+                        return false;
+                    }
 
-                // Similar Problems
-                if (question.references.similar_problems && question.references.similar_problems.length > 0) {
-                    html += `</div>
-                        <h5 style="margin-top: 15px; color: #667eea;">🔄 Similar Problems</h5>
-                        <ul style="margin-top: 8px;">
-                            ${question.references.similar_problems.map(problem => `<li>${problem}</li>`).join('')}
-                        </ul>
-                    `;
+                    // Frequency filter
+                    if (filters.company && (filters.minFrequency || filters.maxFrequency)) {
+                        const companyData = problem.companies?.[filters.company];
+                        let frequency = 0;
+
+                        // Use frequency from selected time period, or default to maxFrequency
+                        if (filters.timePeriod && filters.timePeriod !== 'all') {
+                            frequency = companyData?.frequencies?.[filters.timePeriod] || 0;
+                        } else {
+                            frequency = companyData?.maxFrequency || 0;
+                        }
+
+                        if (filters.minFrequency && frequency < parseInt(filters.minFrequency)) return false;
+                        if (filters.maxFrequency && frequency > parseInt(filters.maxFrequency)) return false;
+                    }
+
+                    return true;
+                });
+            }, [data, filters]);
+
+            const sortedData = useMemo(() => {
+                const sorted = [...filteredData].sort((a, b) => {
+                    let aValue, bValue;
+
+                    switch (sortBy) {
+                        case 'difficulty':
+                            aValue = a.difficulty;
+                            bValue = b.difficulty;
+                            break;
+                        case 'frequency':
+                            aValue = filters.company ? (a.companies?.[filters.company]?.maxFrequency || 0) : 0;
+                            bValue = filters.company ? (b.companies?.[filters.company]?.maxFrequency || 0) : 0;
+                            break;
+                        default:
+                            aValue = a.title.toLowerCase();
+                            bValue = b.title.toLowerCase();
+                    }
+
+                    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+                    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+                return sorted;
+            }, [filteredData, sortBy, sortOrder, filters.company]);
+
+            const paginatedData = useMemo(() => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                return sortedData.slice(startIndex, startIndex + itemsPerPage);
+            }, [sortedData, currentPage, itemsPerPage]);
+
+            const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+
+            const handleFilterChange = (key, value) => {
+                setFilters(prev => ({ ...prev, [key]: value }));
+                setCurrentPage(1);
+            };
+
+            const handleSort = (field) => {
+                if (sortBy === field) {
+                    setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
                 } else {
-                    html += `</div>`;
+                    setSortBy(field);
+                    setSortOrder('asc');
                 }
+            };
 
-                html += `</div>`;
-            } html += `</div></div>`;
-            return html;
+            const clearFilters = () => {
+                setFilters({
+                    company: '',
+                    search: '',
+                    timePeriod: 'all',
+                    difficulty: '',
+                    tag: '',
+                    minFrequency: '',
+                    maxFrequency: ''
+                });
+                setCurrentPage(1);
+            };
+
+            const getDifficultyBadge = (difficulty) => {
+                const difficultyMap = { 1: 'Easy', 2: 'Medium', 3: 'Hard' };
+                const label = difficultyMap[difficulty] || 'Unknown';
+                const className = `difficulty-${label.toLowerCase()}`;
+                return <span className={className}>{label}</span>;
+            };
+
+            const getFrequencyForCompany = (problem, company) => {
+                return problem.companies?.[company]?.maxFrequency || 0;
+            };
+
+            if (!data) {
+                return <div className="loading">No data available</div>;
+            }
+
+            return (
+                <div>
+                    <div className="stats">
+                        <div className="stat-card">
+                            <div className="stat-number">{data?.metadata?.totalProblems || 0}</div>
+                            <div className="stat-label">Total Problems</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{companies.length}</div>
+                            <div className="stat-label">Companies</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{filteredData.length}</div>
+                            <div className="stat-label">Filtered Results</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{tags.length}</div>
+                            <div className="stat-label">Unique Tags</div>
+                        </div>
+                    </div>
+
+                    <div className="filters">
+                        <h3>🔍 Search & Filter</h3>
+                        <div className="filter-grid">
+                            <div className="filter-group">
+                                <label>Company</label>
+                                <SearchableSelect
+                                    value={filters.company}
+                                    onChange={(value) => handleFilterChange('company', value)}
+                                    options={companyOptions}
+                                    placeholder="All Companies"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Problem Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Search by name..."
+                                    value={filters.search}
+                                    onChange={(e) => handleFilterChange('search', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Difficulty</label>
+                                <SearchableSelect
+                                    value={filters.difficulty}
+                                    onChange={(value) => handleFilterChange('difficulty', value)}
+                                    options={difficultyOptions}
+                                    placeholder="All Difficulties"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Time Period</label>
+                                <select
+                                    value={filters.timePeriod}
+                                    onChange={(e) => handleFilterChange('timePeriod', e.target.value)}
+                                >
+                                    <option value="all">All Time</option>
+                                    <option value="thirty-days">Last 30 Days</option>
+                                    <option value="three-months">Last 3 Months</option>
+                                    <option value="six-months">Last 6 Months</option>
+                                    <option value="more-than-six-months">6+ Months</option>
+                                </select>
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Tag</label>
+                                <SearchableSelect
+                                    value={filters.tag}
+                                    onChange={(value) => handleFilterChange('tag', value)}
+                                    options={tagOptions}
+                                    placeholder="All Tags"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Min Frequency</label>
+                                <input
+                                    type="number"
+                                    placeholder="0"
+                                    min="0"
+                                    max="100"
+                                    value={filters.minFrequency}
+                                    onChange={(e) => handleFilterChange('minFrequency', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Max Frequency</label>
+                                <input
+                                    type="number"
+                                    placeholder="100"
+                                    min="0"
+                                    max="100"
+                                    value={filters.maxFrequency}
+                                    onChange={(e) => handleFilterChange('maxFrequency', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Page Size</label>
+                                <select
+                                    value={itemsPerPage}
+                                    onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                                >
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="filter-actions">
+                            <button className="btn btn-secondary" onClick={clearFilters}>
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="results-header">
+                        <div className="results-info">
+                            Showing {paginatedData.length} of {sortedData.length} problems
+                        </div>
+                        <div className="sort-controls">
+                            <label>Sort by:</label>
+                            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                                <option value="title">Name</option>
+                                <option value="difficulty">Difficulty</option>
+                                {filters.company && <option value="frequency">Frequency</option>}
+                            </select>
+                            <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="results-table table-responsive">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th onClick={() => handleSort('title')} style={{ cursor: 'pointer' }}>
+                                        Name {sortBy === 'title' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('difficulty')} style={{ cursor: 'pointer' }}>
+                                        Difficulty {sortBy === 'difficulty' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    {filters.company && (
+                                        <th onClick={() => handleSort('frequency')} style={{ cursor: 'pointer' }}>
+                                            Frequency {sortBy === 'frequency' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                        </th>
+                                    )}
+                                    <th>Tags</th>
+                                    <th>Links</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {paginatedData.map(problem => (
+                                    <tr key={problem.title_slug}>
+                                        <td>{problem.title}</td>
+                                        <td>{getDifficultyBadge(problem.difficulty)}</td>
+                                        {filters.company && (
+                                            <td>
+                                                <span className="frequency-badge">
+                                                    {getFrequencyForCompany(problem, filters.company)}%
+                                                </span>
+                                            </td>
+                                        )}
+                                        <td>
+                                            <div className="tags-container">
+                                                {(problem.tags || []).slice(0, 3).map(tag => (
+                                                    <span key={tag} className="tag">{tag}</span>
+                                                ))}
+                                                {problem.tags?.length > 3 && (
+                                                    <span className="tag">+{problem.tags.length - 3}</span>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href={problem.leetcode_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                LeetCode
+                                            </a>
+                                            {problem.solution_url && (
+                                                <>
+                                                    {' | '}
+                                                    <a href={problem.solution_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                        Solution
+                                                    </a>
+                                                </>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {totalPages > 1 && (
+                        <div className="pagination">
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
+
+                            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                                const page = i + Math.max(1, currentPage - 2);
+                                if (page > totalPages) return null;
+                                return (
+                                    <button
+                                        key={page}
+                                        className={`page-btn ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => setCurrentPage(page)}
+                                    >
+                                        {page}
+                                    </button>
+                                );
+                            })}
+
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
         }
 
-        // Initialize dashboard when DOM is loaded
-        document.addEventListener('DOMContentLoaded', initializeDashboard);
+        // Problem Explorer Tab Component
+        function ProblemExplorerTab({ data }) {
+            const [filters, setFilters] = useState({
+                search: '',
+                problemNo: '',
+                difficulty: '',
+                premium: ''
+            });
+            const [sortBy, setSortBy] = useState('leetcode_problem_no');
+            const [sortOrder, setSortOrder] = useState('desc');
+            const [currentPage, setCurrentPage] = useState(1);
+            const [itemsPerPage, setItemsPerPage] = useState(25);
+            const [solutionModal, setSolutionModal] = useState({
+                isOpen: false,
+                problem: null,
+                formData: {}
+            });
+
+            const difficultyOptions = [
+                { value: '', label: 'All Difficulties' },
+                { value: 'Easy', label: 'Easy' },
+                { value: 'Medium', label: 'Medium' },
+                { value: 'Hard', label: 'Hard' }
+            ];
+
+            const premiumOptions = [
+                { value: '', label: 'All Problems' },
+                { value: 'free', label: 'Free Only' },
+                { value: 'premium', label: 'Premium Only' }
+            ];
+
+            // Reset to first page when items per page changes
+            useEffect(() => {
+                setCurrentPage(1);
+            }, [itemsPerPage]);
+
+            const filteredData = useMemo(() => {
+                if (!data) return [];
+
+                return data.filter(problem => {
+                    // Search filter
+                    if (filters.search && !problem.problem_name.toLowerCase().includes(filters.search.toLowerCase())) {
+                        return false;
+                    }
+
+                    // Problem number filter
+                    if (filters.problemNo && !problem.leetcode_problem_no.toString().includes(filters.problemNo)) {
+                        return false;
+                    }
+
+                    // Difficulty filter
+                    if (filters.difficulty && problem.difficulty !== filters.difficulty) {
+                        return false;
+                    }
+
+                    // Premium filter
+                    if (filters.premium) {
+                        if (filters.premium === 'premium' && !problem.paid_only) {
+                            return false;
+                        }
+                        if (filters.premium === 'free' && problem.paid_only) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                });
+            }, [data, filters]);
+
+            const sortedData = useMemo(() => {
+                return [...filteredData].sort((a, b) => {
+                    let aValue, bValue;
+
+                    switch (sortBy) {
+                        case 'difficulty':
+                            // Use difficulty_numeric for proper sorting
+                            aValue = a.difficulty_numeric || 0;
+                            bValue = b.difficulty_numeric || 0;
+                            break;
+                        case 'leetcode_problem_no':
+                            aValue = parseInt(a.leetcode_problem_no) || 0;
+                            bValue = parseInt(b.leetcode_problem_no) || 0;
+                            break;
+                        case 'problem_name':
+                            aValue = a.problem_name.toLowerCase();
+                            bValue = b.problem_name.toLowerCase();
+                            break;
+                        default:
+                            // Default to problem name sorting
+                            aValue = a.problem_name.toLowerCase();
+                            bValue = b.problem_name.toLowerCase();
+                    }
+
+                    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+                    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+            }, [filteredData, sortBy, sortOrder]);
+
+            const paginatedData = useMemo(() => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                return sortedData.slice(startIndex, startIndex + itemsPerPage);
+            }, [sortedData, currentPage, itemsPerPage]);
+
+            const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+
+            const handleFilterChange = (key, value) => {
+                setFilters(prev => ({ ...prev, [key]: value }));
+                setCurrentPage(1);
+            };
+
+            const handleSort = (field) => {
+                if (sortBy === field) {
+                    setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+                } else {
+                    setSortBy(field);
+                    setSortOrder('asc');
+                }
+            };
+
+            const clearFilters = () => {
+                setFilters({
+                    search: '',
+                    problemNo: '',
+                    difficulty: '',
+                    premium: ''
+                });
+                setCurrentPage(1);
+            };
+
+            const openSolutionModal = (problem) => {
+                setSolutionModal({
+                    isOpen: true,
+                    problem: problem,
+                    formData: {
+                        status: problem.custom_solution?.status || 'pending',
+                        solution_code: problem.custom_solution?.solution_code || '',
+                        solution_language: problem.custom_solution?.solution_language || 'python',
+                        explanation: problem.custom_solution?.explanation || '',
+                        time_complexity: problem.custom_solution?.time_complexity || '',
+                        space_complexity: problem.custom_solution?.space_complexity || '',
+                        notes: problem.custom_solution?.notes || ''
+                    }
+                });
+            };
+
+            const closeSolutionModal = () => {
+                setSolutionModal({
+                    isOpen: false,
+                    problem: null,
+                    formData: {}
+                });
+            };
+
+            const handleSolutionFormChange = (field, value) => {
+                setSolutionModal(prev => ({
+                    ...prev,
+                    formData: {
+                        ...prev.formData,
+                        [field]: value
+                    }
+                }));
+            };
+
+            const saveSolution = () => {
+                // For now, just update the local data
+                // In a real app, this would save to backend
+                const updatedFormData = {
+                    ...solutionModal.formData,
+                    last_updated: new Date().toISOString(),
+                    updated_by: 'user'
+                };
+
+                // Update the problem's custom_solution
+                if (solutionModal.problem) {
+                    solutionModal.problem.custom_solution = updatedFormData;
+                }
+
+                alert('Solution saved successfully! (Note: This is a demo - changes are not persisted)');
+                closeSolutionModal();
+            };
+
+            const getDifficultyBadge = (difficulty) => {
+                const className = `difficulty-${difficulty.toLowerCase()}`;
+                return <span className={className}>{difficulty}</span>;
+            };
+
+            if (!data) {
+                return <div className="loading">No data available</div>;
+            }
+
+            return (
+                <div>
+                    <div className="stats">
+                        <div className="stat-card">
+                            <div className="stat-number">{data?.length || 0}</div>
+                            <div className="stat-label">Total Problems</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{filteredData.length}</div>
+                            <div className="stat-label">Filtered Results</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">
+                                {data?.filter(p => p.difficulty === 'Easy').length || 0}
+                            </div>
+                            <div className="stat-label">Easy Problems</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">
+                                {data?.filter(p => p.difficulty === 'Hard').length || 0}
+                            </div>
+                            <div className="stat-label">Hard Problems</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">
+                                {data?.filter(p => p.paid_only === true).length || 0}
+                            </div>
+                            <div className="stat-label">Premium Problems</div>
+                        </div>
+                    </div>
+
+                    <div className="filters">
+                        <h3>🔍 Search & Filter</h3>
+                        <div className="filter-grid">
+                            <div className="filter-group">
+                                <label>Problem Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Search by name..."
+                                    value={filters.search}
+                                    onChange={(e) => handleFilterChange('search', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Problem Number</label>
+                                <input
+                                    type="text"
+                                    placeholder="e.g., 1, 189, 3686..."
+                                    value={filters.problemNo}
+                                    onChange={(e) => handleFilterChange('problemNo', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Difficulty</label>
+                                <SearchableSelect
+                                    value={filters.difficulty}
+                                    onChange={(value) => handleFilterChange('difficulty', value)}
+                                    options={difficultyOptions}
+                                    placeholder="All Difficulties"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Problem Type</label>
+                                <SearchableSelect
+                                    value={filters.premium}
+                                    onChange={(value) => handleFilterChange('premium', value)}
+                                    options={premiumOptions}
+                                    placeholder="All Problems"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Page Size</label>
+                                <select
+                                    value={itemsPerPage}
+                                    onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                                >
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="filter-actions">
+                            <button className="btn btn-secondary" onClick={clearFilters}>
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="results-header">
+                        <div className="results-info">
+                            Showing {paginatedData.length} of {sortedData.length} problems
+                        </div>
+                        <div className="sort-controls">
+                            <label>Sort by:</label>
+                            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                                <option value="problem_name">Name</option>
+                                <option value="leetcode_problem_no">Problem Number</option>
+                                <option value="difficulty">Difficulty</option>
+                            </select>
+                            <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="results-table table-responsive">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th onClick={() => handleSort('leetcode_problem_no')} style={{ cursor: 'pointer' }}>
+                                        # {sortBy === 'leetcode_problem_no' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('problem_name')} style={{ cursor: 'pointer' }}>
+                                        Title {sortBy === 'problem_name' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('difficulty')} style={{ cursor: 'pointer' }}>
+                                        Difficulty {sortBy === 'difficulty' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th>Custom Solution</th>
+                                    <th>Links</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {paginatedData.map(problem => (
+                                    <tr key={problem.leetcode_problem_no}>
+                                        <td>{problem.leetcode_problem_no}</td>
+                                        <td>
+                                            <div style={{ display: 'flex', alignItems: 'center' }}>
+                                                {problem.problem_name}
+                                                {problem.paid_only && (
+                                                    <span className="premium-lock" title="Premium Only">
+                                                        🔒
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td>{getDifficultyBadge(problem.difficulty)}</td>
+                                        <td>
+                                            <div className="custom-solution-status">
+                                                <span className={`status-badge status-${problem.custom_solution?.status || 'pending'}`}>
+                                                    {problem.custom_solution?.status || 'pending'}
+                                                </span>
+                                                {problem.custom_solution?.solution_code && (
+                                                    <button
+                                                        className="btn btn-xs btn-secondary"
+                                                        title="View/Edit Solution"
+                                                        onClick={() => openSolutionModal(problem)}
+                                                    >
+                                                        View
+                                                    </button>
+                                                )}
+                                                {!problem.custom_solution?.solution_code && (
+                                                    <button
+                                                        className="btn btn-xs btn-primary"
+                                                        title="Add Solution"
+                                                        onClick={() => openSolutionModal(problem)}
+                                                    >
+                                                        Add
+                                                    </button>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href={problem.leetcode_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                LeetCode
+                                            </a>
+                                            {problem.solution_url && (
+                                                <>
+                                                    {' | '}
+                                                    <a href={problem.solution_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                        Solution
+                                                    </a>
+                                                </>
+                                            )}
+                                            {problem.answer && (
+                                                <>
+                                                    {' | '}
+                                                    <button
+                                                        className="btn btn-xs btn-secondary"
+                                                        title="View Copilot Analysis"
+                                                        onClick={() => openSolutionModal(problem)}
+                                                    >
+                                                        Analysis
+                                                    </button>
+                                                </>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {totalPages > 1 && (
+                        <div className="pagination">
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
+
+                            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                                const page = i + Math.max(1, currentPage - 2);
+                                if (page > totalPages) return null;
+                                return (
+                                    <button
+                                        key={page}
+                                        className={`page-btn ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => setCurrentPage(page)}
+                                    >
+                                        {page}
+                                    </button>
+                                );
+                            })}
+
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Solution Modal */}
+                    {solutionModal.isOpen && (
+                        <div className="modal-overlay" onClick={closeSolutionModal}>
+                            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                                <div className="modal-header">
+                                    <h3>
+                                        {solutionModal.problem?.custom_solution?.solution_code ? 'Edit Solution' : 'Add Solution'} - {solutionModal.problem?.problem_name}
+                                    </h3>
+                                    <button className="close-btn" onClick={closeSolutionModal}>×</button>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="form-group">
+                                        <label>Status</label>
+                                        <select
+                                            value={solutionModal.formData.status}
+                                            onChange={(e) => handleSolutionFormChange('status', e.target.value)}
+                                        >
+                                            <option value="pending">Pending</option>
+                                            <option value="in_progress">In Progress</option>
+                                            <option value="completed">Completed</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Programming Language</label>
+                                        <select
+                                            value={solutionModal.formData.solution_language}
+                                            onChange={(e) => handleSolutionFormChange('solution_language', e.target.value)}
+                                        >
+                                            <option value="python">Python</option>
+                                            <option value="java">Java</option>
+                                            <option value="javascript">JavaScript</option>
+                                            <option value="cpp">C++</option>
+                                            <option value="c">C</option>
+                                            <option value="go">Go</option>
+                                            <option value="rust">Rust</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Solution Code</label>
+                                        <textarea
+                                            rows="10"
+                                            placeholder="Write your solution here..."
+                                            value={solutionModal.formData.solution_code}
+                                            onChange={(e) => handleSolutionFormChange('solution_code', e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Explanation</label>
+                                        <textarea
+                                            rows="4"
+                                            placeholder="Explain your approach..."
+                                            value={solutionModal.formData.explanation}
+                                            onChange={(e) => handleSolutionFormChange('explanation', e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Time Complexity</label>
+                                        <input
+                                            type="text"
+                                            placeholder="e.g., O(n), O(log n)..."
+                                            value={solutionModal.formData.time_complexity}
+                                            onChange={(e) => handleSolutionFormChange('time_complexity', e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Space Complexity</label>
+                                        <input
+                                            type="text"
+                                            placeholder="e.g., O(1), O(n)..."
+                                            value={solutionModal.formData.space_complexity}
+                                            onChange={(e) => handleSolutionFormChange('space_complexity', e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Notes</label>
+                                        <textarea
+                                            rows="3"
+                                            placeholder="Additional notes or insights..."
+                                            value={solutionModal.formData.notes}
+                                            onChange={(e) => handleSolutionFormChange('notes', e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button className="btn btn-secondary" onClick={closeSolutionModal}>
+                                        Cancel
+                                    </button>
+                                    <button className="btn btn-primary" onClick={saveSolution}>
+                                        Save Solution
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Interview Prep Tab Component
+        function InterviewPrepTab({ data }) {
+            const [filters, setFilters] = useState({
+                search: '',
+                company: '',
+                difficulty: '',
+                category: '',
+                questionType: ''
+            });
+            const [sortBy, setSortBy] = useState('question_number');
+            const [sortOrder, setSortOrder] = useState('asc');
+            const [currentPage, setCurrentPage] = useState(1);
+            const [itemsPerPage, setItemsPerPage] = useState(20);
+            const [solutionModal, setSolutionModal] = useState({
+                isOpen: false,
+                problem: null,
+                formData: {}
+            });
+
+            // Reset to first page when items per page changes
+            useEffect(() => {
+                setCurrentPage(1);
+            }, [itemsPerPage]);
+
+            const companies = useMemo(() => {
+                if (!data) return [];
+                const companySet = new Set();
+                data.forEach(problem => {
+                    if (problem.company) companySet.add(problem.company);
+                });
+                return Array.from(companySet).sort();
+            }, [data]);
+
+            const categories = useMemo(() => {
+                if (!data) return [];
+                const categorySet = new Set();
+                data.forEach(problem => {
+                    if (problem.category) categorySet.add(problem.category);
+                });
+                return Array.from(categorySet).sort();
+            }, [data]);
+
+            const questionTypes = useMemo(() => {
+                if (!data) return [];
+                const typeSet = new Set();
+                data.forEach(problem => {
+                    if (problem.question_type) typeSet.add(problem.question_type);
+                });
+                return Array.from(typeSet).sort();
+            }, [data]);
+
+            const companyOptions = useMemo(() => [
+                { value: '', label: 'All Companies' },
+                ...companies.map(company => ({ value: company, label: company }))
+            ], [companies]);
+
+            const categoryOptions = useMemo(() => [
+                { value: '', label: 'All Categories' },
+                ...categories.map(category => ({ value: category, label: category }))
+            ], [categories]);
+
+            const questionTypeOptions = useMemo(() => [
+                { value: '', label: 'All Types' },
+                ...questionTypes.map(type => ({ value: type, label: type }))
+            ], [questionTypes]);
+
+            const difficultyOptions = [
+                { value: '', label: 'All Difficulties' },
+                { value: 'Easy', label: 'Easy' },
+                { value: 'Medium', label: 'Medium' },
+                { value: 'Hard', label: 'Hard' }
+            ];
+
+            const filteredData = useMemo(() => {
+                if (!data) return [];
+
+                return data.filter(problem => {
+                    if (filters.search && !problem.title.toLowerCase().includes(filters.search.toLowerCase()) &&
+                        !problem.problem_name?.toLowerCase().includes(filters.search.toLowerCase())) {
+                        return false;
+                    }
+                    if (filters.company && problem.company !== filters.company) {
+                        return false;
+                    }
+                    if (filters.difficulty && problem.difficulty !== filters.difficulty) {
+                        return false;
+                    }
+                    if (filters.category && problem.category !== filters.category) {
+                        return false;
+                    }
+                    if (filters.questionType && problem.question_type !== filters.questionType) {
+                        return false;
+                    }
+                    return true;
+                });
+            }, [data, filters]);
+
+            const sortedData = useMemo(() => {
+                return [...filteredData].sort((a, b) => {
+                    let aValue, bValue;
+
+                    switch (sortBy) {
+                        case 'difficulty':
+                            const difficultyOrder = { 'Easy': 1, 'Medium': 2, 'Hard': 3 };
+                            aValue = difficultyOrder[a.difficulty] || 0;
+                            bValue = difficultyOrder[b.difficulty] || 0;
+                            break;
+                        case 'question_number':
+                            aValue = parseInt(a.question_number) || 0;
+                            bValue = parseInt(b.question_number) || 0;
+                            break;
+                        case 'company':
+                            aValue = a.company?.toLowerCase() || '';
+                            bValue = b.company?.toLowerCase() || '';
+                            break;
+                        default:
+                            aValue = a.title?.toLowerCase() || '';
+                            bValue = b.title?.toLowerCase() || '';
+                    }
+
+                    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+                    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+            }, [filteredData, sortBy, sortOrder]);
+
+            const paginatedData = useMemo(() => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                return sortedData.slice(startIndex, startIndex + itemsPerPage);
+            }, [sortedData, currentPage, itemsPerPage]);
+
+            const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+
+            const handleFilterChange = (key, value) => {
+                setFilters(prev => ({
+                    ...prev,
+                    [key]: value
+                }));
+                setCurrentPage(1);
+            };
+
+            const clearFilters = () => {
+                setFilters({
+                    search: '',
+                    company: '',
+                    difficulty: '',
+                    category: '',
+                    questionType: ''
+                });
+                setCurrentPage(1);
+            };
+
+            const handleSort = (field) => {
+                if (sortBy === field) {
+                    setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+                } else {
+                    setSortBy(field);
+                    setSortOrder('asc');
+                }
+            };
+
+            const getDifficultyBadge = (difficulty) => {
+                const className = `difficulty-${difficulty?.toLowerCase()}`;
+                return <span className={className}>{difficulty}</span>;
+            };
+
+            const getCleanTitle = (title) => {
+                // Remove question number pattern like "7. " from the beginning
+                return title ? title.replace(/^\d+\.\s+/, '') : '';
+            };
+
+            const [expandedRow, setExpandedRow] = useState(null);
+
+            const toggleRowExpansion = (questionNumber) => {
+                setExpandedRow(prev => prev === questionNumber ? null : questionNumber);
+            };
+
+            const openSolutionModal = (problem) => {
+                setSolutionModal({
+                    isOpen: true,
+                    problem: problem,
+                    formData: {
+                        status: problem.custom_solution?.status || 'pending',
+                        solution_code: problem.custom_solution?.solution_code || '',
+                        solution_language: problem.custom_solution?.solution_language || 'python',
+                        explanation: problem.custom_solution?.explanation || '',
+                        time_complexity: problem.custom_solution?.time_complexity || '',
+                        space_complexity: problem.custom_solution?.space_complexity || '',
+                        notes: problem.custom_solution?.notes || ''
+                    }
+                });
+            };
+
+            const closeSolutionModal = () => {
+                setSolutionModal({
+                    isOpen: false,
+                    problem: null,
+                    formData: {}
+                });
+            };
+
+            const handleSolutionFormChange = (field, value) => {
+                setSolutionModal(prev => ({
+                    ...prev,
+                    formData: {
+                        ...prev.formData,
+                        [field]: value
+                    }
+                }));
+            };
+
+            const saveSolution = () => {
+                // For now, just update the local data
+                const updatedFormData = {
+                    ...solutionModal.formData,
+                    last_updated: new Date().toISOString(),
+                    updated_by: 'user'
+                };
+
+                if (solutionModal.problem) {
+                    solutionModal.problem.custom_solution = updatedFormData;
+                }
+
+                alert('Solution saved successfully! (Note: This is a demo - changes are not persisted)');
+                closeSolutionModal();
+            };
+
+            if (!data) {
+                return <div className="loading">Loading interview prep data...</div>;
+            }
+
+            return (
+                <div className="tab-content">
+                    <div className="stats">
+                        <div className="stat-card">
+                            <div className="stat-number">{data.length}</div>
+                            <div className="stat-label">Total Questions</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{companies.length}</div>
+                            <div className="stat-label">Companies</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{filteredData.length}</div>
+                            <div className="stat-label">Filtered Results</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{categories.length}</div>
+                            <div className="stat-label">Categories</div>
+                        </div>
+                    </div>
+
+                    <div className="filters">
+                        <h3>🔍 Search & Filter</h3>
+                        <div className="filter-grid">
+                            <div className="filter-group">
+                                <label>Search</label>
+                                <input
+                                    type="text"
+                                    placeholder="Search questions..."
+                                    value={filters.search}
+                                    onChange={(e) => handleFilterChange('search', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Company</label>
+                                <SearchableSelect
+                                    value={filters.company}
+                                    onChange={(value) => handleFilterChange('company', value)}
+                                    options={companyOptions}
+                                    placeholder="All Companies"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Difficulty</label>
+                                <SearchableSelect
+                                    value={filters.difficulty}
+                                    onChange={(value) => handleFilterChange('difficulty', value)}
+                                    options={difficultyOptions}
+                                    placeholder="All Difficulties"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Category</label>
+                                <SearchableSelect
+                                    value={filters.category}
+                                    onChange={(value) => handleFilterChange('category', value)}
+                                    options={categoryOptions}
+                                    placeholder="All Categories"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Question Type</label>
+                                <SearchableSelect
+                                    value={filters.questionType}
+                                    onChange={(value) => handleFilterChange('questionType', value)}
+                                    options={questionTypeOptions}
+                                    placeholder="All Types"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Page Size</label>
+                                <select
+                                    value={itemsPerPage}
+                                    onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                                >
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="filter-actions">
+                            <button className="btn btn-secondary" onClick={clearFilters}>
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="results-header">
+                        <div className="results-info">
+                            Showing {paginatedData.length} of {sortedData.length} questions
+                        </div>
+                        <div className="sort-controls">
+                            <label>Sort by:</label>
+                            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                                <option value="question_number">Question Number</option>
+                                <option value="title">Title</option>
+                                <option value="difficulty">Difficulty</option>
+                                <option value="company">Company</option>
+                            </select>
+                            <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="results-table table-responsive">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th onClick={() => handleSort('question_number')} style={{ cursor: 'pointer' }}>
+                                        Q# {sortBy === 'question_number' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('title')} style={{ cursor: 'pointer' }}>
+                                        Title {sortBy === 'title' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('company')} style={{ cursor: 'pointer' }}>
+                                        Company {sortBy === 'company' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('difficulty')} style={{ cursor: 'pointer' }}>
+                                        Difficulty {sortBy === 'difficulty' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th>Category</th>
+                                    <th>Type</th>
+                                    <th>Custom Solution</th>
+                                    <th>Links</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {paginatedData.map(question => (
+                                    <React.Fragment key={question.question_number}>
+                                        <tr>
+                                            <td>{question.question_number}</td>
+                                            <td style={{ maxWidth: '300px' }}>
+                                                <div
+                                                    className="question-title"
+                                                    style={{ cursor: 'pointer', color: '#667eea' }}
+                                                    onClick={() => toggleRowExpansion(question.question_number)}
+                                                    title="Click to view description"
+                                                >
+                                                    {getCleanTitle(question.title)}
+                                                </div>
+                                            </td>
+                                            <td>{question.company}</td>
+                                            <td>{getDifficultyBadge(question.difficulty)}</td>
+                                            <td>{question.category}</td>
+                                            <td>{question.question_type}</td>
+                                            <td>
+                                                <div className="custom-solution-status">
+                                                    <span className={`status-badge status-${question.custom_solution?.status || 'pending'}`}>
+                                                        {question.custom_solution?.status || 'pending'}
+                                                    </span>
+                                                    <button
+                                                        className="btn btn-xs btn-primary"
+                                                        title="View/Edit Solution"
+                                                        onClick={() => openSolutionModal(question)}
+                                                    >
+                                                        {question.custom_solution?.solution_code ? 'View' : 'Add'}
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {question.leetcode_url && (
+                                                    <a href={question.leetcode_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                        LeetCode
+                                                    </a>
+                                                )}
+                                                {question.solution_url && (
+                                                    <>
+                                                        {question.leetcode_url && ' | '}
+                                                        <a href={question.solution_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                            Solution
+                                                        </a>
+                                                    </>
+                                                )}
+                                                {question.question_number && (
+                                                    <>
+                                                        {(question.leetcode_url || question.solution_url) && ' | '}
+                                                        <a
+                                                            href={`https://enginebogie.com/public/question/${question.title_slug || 'question'}/${question.question_number}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="link"
+                                                        >
+                                                            Enginebogie
+                                                        </a>
+                                                    </>
+                                                )}
+                                            </td>
+                                        </tr>
+                                        {expandedRow === question.question_number && (
+                                            <tr>
+                                                <td colSpan="8" style={{ backgroundColor: '#f8f9fa', padding: '15px' }}>
+                                                    <div style={{ maxWidth: '100%', lineHeight: '1.6' }}>
+                                                        <h4 style={{ marginBottom: '10px', color: '#2c3e50' }}>Problem Description:</h4>
+                                                        <div style={{ whiteSpace: 'pre-wrap', fontSize: '14px', color: '#495057' }}>
+                                                            {question.description || 'No description available'}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </React.Fragment>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {totalPages > 1 && (
+                        <div className="pagination">
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
+
+                            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                                const page = i + Math.max(1, currentPage - 2);
+                                if (page > totalPages) return null;
+                                return (
+                                    <button
+                                        key={page}
+                                        className={`page-btn ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => setCurrentPage(page)}
+                                    >
+                                        {page}
+                                    </button>
+                                );
+                            })}
+
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Solution Modal */}
+                    {solutionModal.isOpen && (
+                        <div className="modal-overlay">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h3 className="modal-title">
+                                        {solutionModal.problem?.custom_solution?.solution_code ? 'Edit Solution' : 'Add Solution'} - {getCleanTitle(solutionModal.problem?.title)}
+                                    </h3>
+                                    <button className="close-btn" onClick={closeSolutionModal}>×</button>
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Status</label>
+                                    <select
+                                        value={solutionModal.formData.status}
+                                        onChange={(e) => handleSolutionFormChange('status', e.target.value)}
+                                    >
+                                        <option value="pending">Pending</option>
+                                        <option value="in_progress">In Progress</option>
+                                        <option value="completed">Completed</option>
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Programming Language</label>
+                                    <select
+                                        value={solutionModal.formData.solution_language}
+                                        onChange={(e) => handleSolutionFormChange('solution_language', e.target.value)}
+                                    >
+                                        <option value="python">Python</option>
+                                        <option value="javascript">JavaScript</option>
+                                        <option value="java">Java</option>
+                                        <option value="cpp">C++</option>
+                                        <option value="c">C</option>
+                                        <option value="go">Go</option>
+                                        <option value="rust">Rust</option>
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Solution Code</label>
+                                    <textarea
+                                        className="code-editor"
+                                        value={solutionModal.formData.solution_code}
+                                        onChange={(e) => handleSolutionFormChange('solution_code', e.target.value)}
+                                        placeholder="Enter your solution code here..."
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Explanation</label>
+                                    <textarea
+                                        value={solutionModal.formData.explanation}
+                                        onChange={(e) => handleSolutionFormChange('explanation', e.target.value)}
+                                        placeholder="Explain your approach and logic..."
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Time Complexity</label>
+                                    <input
+                                        type="text"
+                                        value={solutionModal.formData.time_complexity}
+                                        onChange={(e) => handleSolutionFormChange('time_complexity', e.target.value)}
+                                        placeholder="e.g., O(n log n)"
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Space Complexity</label>
+                                    <input
+                                        type="text"
+                                        value={solutionModal.formData.space_complexity}
+                                        onChange={(e) => handleSolutionFormChange('space_complexity', e.target.value)}
+                                        placeholder="e.g., O(1)"
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Additional Notes</label>
+                                    <textarea
+                                        value={solutionModal.formData.notes}
+                                        onChange={(e) => handleSolutionFormChange('notes', e.target.value)}
+                                        placeholder="Any additional notes or insights..."
+                                    />
+                                </div>
+
+                                <div className="modal-footer">
+                                    <button className="btn btn-secondary" onClick={closeSolutionModal}>
+                                        Cancel
+                                    </button>
+                                    <button className="btn btn-primary" onClick={saveSolution}>
+                                        Save Solution
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('root'));
     </script>
 </body>
 
