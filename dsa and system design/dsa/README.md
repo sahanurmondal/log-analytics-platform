@@ -98,7 +98,7 @@ A comprehensive collection of **1000+ LeetCode problems** organized by Data Stru
 47. [Food Ratings (2353)](design/medium/FoodRatings.java) - [LeetCode](https://leetcode.com/problems/food-ratings/) - `Amazon` `Microsoft` `Google`
 48. [Front Middle Back Queue (1670)](design/medium/FrontMiddleBackQueue.java) - [LeetCode](https://leetcode.com/problems/front-middle-back-queue/) - `Amazon` `Microsoft` `Google`
 49. [Hit Counter (362)](design/medium/HitCounter.java) - [LeetCode](https://leetcode.com/problems/hit-counter/) - `Amazon` `Microsoft` `Google`
-50. [LRUCache (146)](design/medium/LRUCache.java) - [LeetCode](https://leetcode.com/problems/lrucache/) - `Amazon` `Microsoft` `Google`
+50. [LRUCache (146)](design/medium/LRUCache.java) - [LeetCode](https://leetcode.com/problems/lru-cache/) - `Amazon` `Microsoft` `Google`
 51. [Leaderboard (1244)](design/medium/Leaderboard.java) - [LeetCode](https://leetcode.com/problems/leaderboard/) - `Amazon` `Microsoft` `Google`
 52. [My Circular Deque (641)](design/medium/MyCircularDeque.java) - [LeetCode](https://leetcode.com/problems/my-circular-deque/) - `Amazon` `Microsoft` `Google`
 53. [My Circular Queue (622)](design/medium/MyCircularQueue.java) - [LeetCode](https://leetcode.com/problems/my-circular-queue/) - `Amazon` `Microsoft` `Google`
