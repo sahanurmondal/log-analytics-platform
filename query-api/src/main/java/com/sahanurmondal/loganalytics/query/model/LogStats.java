@@ -19,3 +19,4 @@ public class LogStats {
     private List<LevelLogCount> logsByLevel;
     private TimeRange timeRange;
 }
+
