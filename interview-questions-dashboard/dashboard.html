@@ -1,0 +1,2610 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode Interview Dashboard</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+            text-align: center;
+        }
+
+        .header h1 {
+            color: #2c3e50;
+            font-size: 2.5em;
+            font-weight: 700;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            background-clip: text;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .tabs {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            margin-bottom: 25px;
+        }
+
+        .tab-buttons {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+
+        .tab-button {
+            padding: 12px 24px;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            background: #f8f9fa;
+            color: #495057;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            flex: 1;
+            min-width: 200px;
+            text-align: center;
+        }
+
+        .tab-button:hover {
+            border-color: #667eea;
+            background: #e3f2fd;
+        }
+
+        .tab-button.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: #667eea;
+        }
+
+        .tab-button.disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .tab-content {
+            min-height: 400px;
+        }
+
+        .filters {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .filters h3 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+
+        .filter-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-group label {
+            font-weight: 600;
+            margin-bottom: 5px;
+            color: #34495e;
+            font-size: 0.9em;
+        }
+
+        .filter-group input,
+        .filter-group select {
+            padding: 10px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: border-color 0.3s ease;
+        }
+
+        .filter-group input:focus,
+        .filter-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .filter-actions {
+            display: flex;
+            gap: 10px;
+            margin-top: 15px;
+        }
+
+        .btn {
+            padding: 10px 20px;
+            border-radius: 6px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background: #5a6fd8;
+        }
+
+        .btn-secondary {
+            background: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background: #5a6268;
+        }
+
+        .results-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .results-info {
+            font-size: 1.1em;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .sort-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .sort-controls select {
+            padding: 8px 12px;
+            border: 2px solid #e9ecef;
+            border-radius: 6px;
+            font-size: 14px;
+        }
+
+        .results-table {
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .table th,
+        .table td {
+            padding: 15px;
+            text-align: left;
+            border-bottom: 1px solid #e9ecef;
+        }
+
+        .table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #2c3e50;
+            position: sticky;
+            top: 0;
+            z-index: 10;
+        }
+
+        .table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .difficulty-easy {
+            background: #d4edda;
+            color: #155724;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .difficulty-medium {
+            background: #fff3cd;
+            color: #856404;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .difficulty-hard {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .frequency-badge {
+            background: #667eea;
+            color: white;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: 600;
+        }
+
+        .tag {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-size: 0.75em;
+            margin: 1px;
+            display: inline-block;
+        }
+
+        .tags-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2px;
+            max-width: 200px;
+        }
+
+        .link {
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .link:hover {
+            text-decoration: underline;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #7f8c8d;
+            font-size: 1.1em;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .stat-card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .stat-number {
+            font-size: 2em;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 5px;
+        }
+
+        .stat-label {
+            color: #7f8c8d;
+            font-size: 0.9em;
+            font-weight: 500;
+        }
+
+        .pagination {
+            display: flex;
+            justify-content: center;
+            gap: 5px;
+            margin-top: 20px;
+        }
+
+        .page-btn {
+            padding: 8px 12px;
+            border: 1px solid #e9ecef;
+            background: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .page-btn:hover {
+            background: #e3f2fd;
+            border-color: #667eea;
+        }
+
+        .page-btn.active {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .page-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        @media (max-width: 768px) {
+            .filter-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .tab-buttons {
+                flex-direction: column;
+            }
+
+            .tab-button {
+                min-width: auto;
+            }
+
+            .results-header {
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .table-responsive {
+                overflow-x: auto;
+            }
+        }
+
+        /* Custom Solution Status Styles */
+        .custom-solution-status {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .status-badge {
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.75em;
+            font-weight: 600;
+            text-transform: capitalize;
+        }
+
+        .status-pending {
+            background: #f8f9fa;
+            color: #6c757d;
+            border: 1px solid #dee2e6;
+        }
+
+        .status-in_progress {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .status-completed {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-free {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .status-premium {
+            background: #fff3cd;
+            color: #856404;
+            border: 1px solid #ffeaa7;
+        }
+
+        .premium-lock {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-left: 6px;
+        }
+
+        .btn-xs {
+            padding: 2px 6px;
+            font-size: 0.75em;
+            line-height: 1.2;
+        }
+
+        /* Solution Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90%;
+            overflow-y: auto;
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #dee2e6;
+            padding-bottom: 10px;
+        }
+
+        .modal-title {
+            margin: 0;
+            font-size: 1.25em;
+        }
+
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 1.5em;
+            cursor: pointer;
+            color: #6c757d;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+        }
+
+        .form-group select,
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .code-editor {
+            min-height: 200px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+            margin-top: 20px;
+            padding-top: 15px;
+            border-top: 1px solid #dee2e6;
+        }
+
+        /* Searchable Select Styles */
+        .searchable-select {
+            position: relative;
+            width: 100%;
+        }
+
+        .select-trigger {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .select-trigger:hover {
+            border-color: #aaa;
+        }
+
+        .select-arrow {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .select-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 1px solid #ddd;
+            border-top: none;
+            border-radius: 0 0 4px 4px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            max-height: 200px;
+            overflow: hidden;
+        }
+
+        .select-search {
+            width: 100%;
+            padding: 8px 12px;
+            border: none;
+            border-bottom: 1px solid #eee;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .select-options {
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        .select-option {
+            padding: 8px 12px;
+            cursor: pointer;
+            font-size: 14px;
+            border-bottom: 1px solid #f5f5f5;
+        }
+
+        .select-option:hover {
+            background: #f8f9fa;
+        }
+
+        .select-option.selected {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .select-option.disabled {
+            color: #999;
+            cursor: not-allowed;
+        }
+
+        .select-option.disabled:hover {
+            background: white;
+        }
+
+        /* Question title styling for Interview Prep */
+        .question-title {
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        /* Clickable title styling for Problem Explorer */
+        .clickable-title {
+            color: #007bff;
+            cursor: pointer;
+            text-decoration: underline;
+            font-weight: 500;
+            word-wrap: break-word;
+            font-size: 14px;
+            line-height: 1.4;
+        }
+
+        .clickable-title:hover {
+            color: #0056b3;
+            text-decoration: none;
+            background-color: #f8f9fa;
+        }
+
+        /* Ensure the entire cell is clickable */
+        td.clickable-title {
+            transition: background-color 0.2s ease;
+        }
+
+        td.clickable-title:hover {
+            background-color: #e3f2fd !important;
+        }
+
+        /* Problem description styling for better HTML readability */
+        .problem-description {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .problem-description p {
+            margin-bottom: 12px;
+            line-height: 1.5;
+        }
+
+        .problem-description code {
+            background-color: #f1f3f4;
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Monaco', 'Consolas', 'Ubuntu Mono', monospace;
+            font-size: 13px;
+            color: #d73a49;
+        }
+
+        .problem-description pre {
+            background-color: #f6f8fa;
+            padding: 12px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 12px 0;
+            border: 1px solid #e1e4e8;
+        }
+
+        .problem-description ul,
+        .problem-description ol {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+
+        .problem-description li {
+            margin-bottom: 4px;
+        }
+
+        .problem-description strong {
+            font-weight: 600;
+        }
+
+        .problem-description .example-block {
+            background-color: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 4px;
+            padding: 12px;
+            margin: 12px 0;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState, useEffect, useMemo, useRef } = React;
+
+        // SearchableSelect Component
+        function SearchableSelect({ value, onChange, options, placeholder, className = "" }) {
+            const [isOpen, setIsOpen] = useState(false);
+            const [searchTerm, setSearchTerm] = useState('');
+            const dropdownRef = useRef(null);
+
+            // Close dropdown when clicking outside
+            useEffect(() => {
+                const handleClickOutside = (event) => {
+                    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+                        setIsOpen(false);
+                        setSearchTerm('');
+                    }
+                };
+
+                document.addEventListener('mousedown', handleClickOutside);
+                return () => {
+                    document.removeEventListener('mousedown', handleClickOutside);
+                };
+            }, []);
+
+            const filteredOptions = useMemo(() => {
+                if (!searchTerm) return options;
+                return options.filter(option =>
+                    option.label.toLowerCase().includes(searchTerm.toLowerCase())
+                );
+            }, [options, searchTerm]);
+
+            const handleSelect = (optionValue) => {
+                onChange(optionValue);
+                setIsOpen(false);
+                setSearchTerm('');
+            };
+
+            const selectedOption = options.find(opt => opt.value === value);
+
+            return (
+                <div className={`searchable-select ${className}`} ref={dropdownRef}>
+                    <div
+                        className="select-trigger"
+                        onClick={() => setIsOpen(!isOpen)}
+                    >
+                        <span>{selectedOption ? selectedOption.label : placeholder}</span>
+                        <span className="select-arrow">{isOpen ? '▲' : '▼'}</span>
+                    </div>
+
+                    {isOpen && (
+                        <div className="select-dropdown">
+                            <input
+                                type="text"
+                                placeholder="Search..."
+                                value={searchTerm}
+                                onChange={(e) => setSearchTerm(e.target.value)}
+                                className="select-search"
+                                onClick={(e) => e.stopPropagation()}
+                            />
+                            <div className="select-options">
+                                {filteredOptions.map(option => (
+                                    <div
+                                        key={option.value}
+                                        className={`select-option ${value === option.value ? 'selected' : ''}`}
+                                        onClick={() => handleSelect(option.value)}
+                                    >
+                                        {option.label}
+                                    </div>
+                                ))}
+                                {filteredOptions.length === 0 && (
+                                    <div className="select-option disabled">No options found</div>
+                                )}
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Data loading functions
+        async function loadCompanyData() {
+            try {
+                const response = await fetch('./src/company/webscraper/leetcode_company_wise/leetcode_enhanced_complete.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error loading company data:', error);
+                return null;
+            }
+        }
+
+        async function loadProblemsData() {
+            try {
+                const response = await fetch('./src/company/webscraper/leetcode_problem_solution/leetcode_ca_search_enhanced.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error loading problems data:', error);
+                return null;
+            }
+        }
+
+        async function loadInterviewPrepData() {
+            try {
+                const response = await fetch('./src/company/webscraper/enginebogie/enginebogie_answer.json');
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                return await response.json();
+            } catch (error) {
+                console.error('Error loading interview prep data:', error);
+                return null;
+            }
+        }
+
+        // Main App Component
+        function App() {
+            const [activeTab, setActiveTab] = useState('company-problems');
+            const [companyData, setCompanyData] = useState(null);
+            const [problemsData, setProblemsData] = useState(null);
+            const [interviewPrepData, setInterviewPrepData] = useState(null);
+            const [loading, setLoading] = useState(false);
+            const [error, setError] = useState(null);
+
+            // Load data on component mount
+            useEffect(() => {
+                loadData();
+            }, []);
+
+            const loadData = async () => {
+                setLoading(true);
+                setError(null);
+
+                try {
+                    const [companyDataResult, problemsDataResult, interviewPrepDataResult] = await Promise.all([
+                        loadCompanyData(),
+                        loadProblemsData(),
+                        loadInterviewPrepData()
+                    ]);
+
+                    // Check if at least one dataset loaded successfully
+                    if (!companyDataResult && !problemsDataResult && !interviewPrepDataResult) {
+                        throw new Error('No data files could be loaded. This usually means:\n\n1. You opened the HTML file directly without a server\n2. Data files are missing from the src/ directory\n\nSolutions:\n• Use the quick-start script: curl -s "https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/main/dsa%20and%20system%20design/interview-questions-dashboard/quick-start.sh" | bash\n• Or download the complete package and run: python3 -m http.server 8080');
+                    }
+
+                    setCompanyData(companyDataResult);
+                    setProblemsData(problemsDataResult);
+                    setInterviewPrepData(interviewPrepDataResult);
+                    setLoading(false);
+                } catch (err) {
+                    setError(err.message);
+                    setLoading(false);
+                }
+            };
+
+            const tabs = [
+                { id: 'company-problems', label: 'Company Problems', icon: '🏢' },
+                { id: 'problem-explorer', label: 'Problem Explorer', icon: '🔍' },
+                { id: 'interview-prep', label: 'Interview Prep', icon: '💼', disabled: false }
+            ];
+
+            return (
+                <div className="container">
+                    <div className="header">
+                        <h1>🚀 LeetCode Interview Dashboard</h1>
+                        <p>Comprehensive platform for coding interview preparation</p>
+                    </div>
+
+                    <div className="tabs">
+                        <div className="tab-buttons">
+                            {tabs.map(tab => (
+                                <button
+                                    key={tab.id}
+                                    className={`tab-button ${activeTab === tab.id ? 'active' : ''} ${tab.disabled ? 'disabled' : ''}`}
+                                    onClick={() => !tab.disabled && setActiveTab(tab.id)}
+                                    disabled={tab.disabled}
+                                >
+                                    {tab.icon} {tab.label}
+                                    {tab.disabled && ' (Coming Soon)'}
+                                </button>
+                            ))}
+                        </div>
+
+                        <div className="tab-content">
+                            {loading && <div className="loading">Loading data...</div>}
+                            {error && <div className="error">{error}</div>}
+
+                            {!loading && !error && (
+                                <>
+                                    {activeTab === 'company-problems' && (
+                                        <CompanyProblemsTab data={companyData} />
+                                    )}
+                                    {activeTab === 'problem-explorer' && (
+                                        <ProblemExplorerTab data={problemsData} />
+                                    )}
+                                    {activeTab === 'interview-prep' && (
+                                        <InterviewPrepTab data={interviewPrepData} />
+                                    )}
+                                </>
+                            )}
+                        </div>
+                    </div>
+                </div>
+            );
+        }
+
+        // Company Problems Tab Component
+        function CompanyProblemsTab({ data }) {
+            const [filters, setFilters] = useState({
+                company: '',
+                search: '',
+                timePeriod: 'all',
+                difficulty: '',
+                tag: '',
+                minFrequency: '',
+                maxFrequency: ''
+            });
+            const [sortBy, setSortBy] = useState('title');
+            const [sortOrder, setSortOrder] = useState('asc');
+            const [currentPage, setCurrentPage] = useState(1);
+            const [itemsPerPage, setItemsPerPage] = useState(20);
+
+            // Reset to first page when items per page changes
+            useEffect(() => {
+                setCurrentPage(1);
+            }, [itemsPerPage]);
+
+            const companies = useMemo(() => {
+                if (!data?.problems) return [];
+                const companySet = new Set();
+                data.problems.forEach(problem => {
+                    Object.keys(problem.companies || {}).forEach(company => {
+                        companySet.add(company);
+                    });
+                });
+                return Array.from(companySet).sort();
+            }, [data]);
+
+            const companyOptions = useMemo(() => [
+                { value: '', label: 'All Companies' },
+                ...companies.map(company => ({
+                    value: company,
+                    label: company.charAt(0).toUpperCase() + company.slice(1)
+                }))
+            ], [companies]);
+
+            const tags = useMemo(() => {
+                if (!data?.problems) return [];
+                const tagSet = new Set();
+                data.problems.forEach(problem => {
+                    (problem.tags || []).forEach(tag => tagSet.add(tag));
+                });
+                return Array.from(tagSet).sort();
+            }, [data]);
+
+            const tagOptions = useMemo(() => [
+                { value: '', label: 'All Tags' },
+                ...tags.map(tag => ({ value: tag, label: tag }))
+            ], [tags]);
+
+            const difficultyOptions = [
+                { value: '', label: 'All Difficulties' },
+                { value: '1', label: 'Easy' },
+                { value: '2', label: 'Medium' },
+                { value: '3', label: 'Hard' }
+            ];
+
+            const filteredData = useMemo(() => {
+                if (!data?.problems) return [];
+
+                return data.problems.filter(problem => {
+                    // Search filter
+                    if (filters.search && !problem.title.toLowerCase().includes(filters.search.toLowerCase())) {
+                        return false;
+                    }
+
+                    // Company filter
+                    if (filters.company && !problem.companies?.[filters.company]) {
+                        return false;
+                    }
+
+                    // Time Period filter - apply after company filter if company is selected
+                    if (filters.timePeriod && filters.timePeriod !== 'all') {
+                        if (filters.company) {
+                            // Check if the selected company has data for this time period
+                            const companyData = problem.companies?.[filters.company];
+                            if (!companyData?.frequencies?.[filters.timePeriod]) {
+                                return false;
+                            }
+                        } else {
+                            // If no company selected, check if problem appears in ANY company for this time period
+                            const hasDataInTimePeriod = Object.values(problem.companies || {}).some(company =>
+                                company.frequencies?.[filters.timePeriod]
+                            );
+                            if (!hasDataInTimePeriod) {
+                                return false;
+                            }
+                        }
+                    }
+
+                    // Difficulty filter
+                    if (filters.difficulty && problem.difficulty !== parseInt(filters.difficulty)) {
+                        return false;
+                    }
+
+                    // Tag filter
+                    if (filters.tag && !problem.tags?.includes(filters.tag)) {
+                        return false;
+                    }
+
+                    // Frequency filter
+                    if (filters.company && (filters.minFrequency || filters.maxFrequency)) {
+                        const companyData = problem.companies?.[filters.company];
+                        let frequency = 0;
+
+                        // Use frequency from selected time period, or default to maxFrequency
+                        if (filters.timePeriod && filters.timePeriod !== 'all') {
+                            frequency = companyData?.frequencies?.[filters.timePeriod] || 0;
+                        } else {
+                            frequency = companyData?.maxFrequency || 0;
+                        }
+
+                        if (filters.minFrequency && frequency < parseInt(filters.minFrequency)) return false;
+                        if (filters.maxFrequency && frequency > parseInt(filters.maxFrequency)) return false;
+                    }
+
+                    return true;
+                });
+            }, [data, filters]);
+
+            const sortedData = useMemo(() => {
+                const sorted = [...filteredData].sort((a, b) => {
+                    let aValue, bValue;
+
+                    switch (sortBy) {
+                        case 'difficulty':
+                            aValue = a.difficulty;
+                            bValue = b.difficulty;
+                            break;
+                        case 'frequency':
+                            aValue = filters.company ? (a.companies?.[filters.company]?.maxFrequency || 0) : 0;
+                            bValue = filters.company ? (b.companies?.[filters.company]?.maxFrequency || 0) : 0;
+                            break;
+                        default:
+                            aValue = a.title.toLowerCase();
+                            bValue = b.title.toLowerCase();
+                    }
+
+                    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+                    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+                return sorted;
+            }, [filteredData, sortBy, sortOrder, filters.company]);
+
+            const paginatedData = useMemo(() => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                return sortedData.slice(startIndex, startIndex + itemsPerPage);
+            }, [sortedData, currentPage, itemsPerPage]);
+
+            const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+
+            const handleFilterChange = (key, value) => {
+                setFilters(prev => ({ ...prev, [key]: value }));
+                setCurrentPage(1);
+            };
+
+            const handleSort = (field) => {
+                if (sortBy === field) {
+                    setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+                } else {
+                    setSortBy(field);
+                    setSortOrder('asc');
+                }
+            };
+
+            const clearFilters = () => {
+                setFilters({
+                    company: '',
+                    search: '',
+                    timePeriod: 'all',
+                    difficulty: '',
+                    tag: '',
+                    minFrequency: '',
+                    maxFrequency: ''
+                });
+                setCurrentPage(1);
+            };
+
+            const getDifficultyBadge = (difficulty) => {
+                const difficultyMap = { 1: 'Easy', 2: 'Medium', 3: 'Hard' };
+                const label = difficultyMap[difficulty] || 'Unknown';
+                const className = `difficulty-${label.toLowerCase()}`;
+                return <span className={className}>{label}</span>;
+            };
+
+            const getFrequencyForCompany = (problem, company) => {
+                return problem.companies?.[company]?.maxFrequency || 0;
+            };
+
+            if (!data) {
+                return <div className="loading">No data available</div>;
+            }
+
+            return (
+                <div>
+                    <div className="stats">
+                        <div className="stat-card">
+                            <div className="stat-number">{data?.metadata?.totalProblems || 0}</div>
+                            <div className="stat-label">Total Problems</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{companies.length}</div>
+                            <div className="stat-label">Companies</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{filteredData.length}</div>
+                            <div className="stat-label">Filtered Results</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{tags.length}</div>
+                            <div className="stat-label">Unique Tags</div>
+                        </div>
+                    </div>
+
+                    <div className="filters">
+                        <h3>🔍 Search & Filter</h3>
+                        <div className="filter-grid">
+                            <div className="filter-group">
+                                <label>Company</label>
+                                <SearchableSelect
+                                    value={filters.company}
+                                    onChange={(value) => handleFilterChange('company', value)}
+                                    options={companyOptions}
+                                    placeholder="All Companies"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Problem Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Search by name..."
+                                    value={filters.search}
+                                    onChange={(e) => handleFilterChange('search', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Difficulty</label>
+                                <SearchableSelect
+                                    value={filters.difficulty}
+                                    onChange={(value) => handleFilterChange('difficulty', value)}
+                                    options={difficultyOptions}
+                                    placeholder="All Difficulties"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Time Period</label>
+                                <select
+                                    value={filters.timePeriod}
+                                    onChange={(e) => handleFilterChange('timePeriod', e.target.value)}
+                                >
+                                    <option value="all">All Time</option>
+                                    <option value="thirty-days">Last 30 Days</option>
+                                    <option value="three-months">Last 3 Months</option>
+                                    <option value="six-months">Last 6 Months</option>
+                                    <option value="more-than-six-months">6+ Months</option>
+                                </select>
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Tag</label>
+                                <SearchableSelect
+                                    value={filters.tag}
+                                    onChange={(value) => handleFilterChange('tag', value)}
+                                    options={tagOptions}
+                                    placeholder="All Tags"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Min Frequency</label>
+                                <input
+                                    type="number"
+                                    placeholder="0"
+                                    min="0"
+                                    max="100"
+                                    value={filters.minFrequency}
+                                    onChange={(e) => handleFilterChange('minFrequency', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Max Frequency</label>
+                                <input
+                                    type="number"
+                                    placeholder="100"
+                                    min="0"
+                                    max="100"
+                                    value={filters.maxFrequency}
+                                    onChange={(e) => handleFilterChange('maxFrequency', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Page Size</label>
+                                <select
+                                    value={itemsPerPage}
+                                    onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                                >
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="filter-actions">
+                            <button className="btn btn-secondary" onClick={clearFilters}>
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="results-header">
+                        <div className="results-info">
+                            Showing {paginatedData.length} of {sortedData.length} problems
+                        </div>
+                        <div className="sort-controls">
+                            <label>Sort by:</label>
+                            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                                <option value="title">Name</option>
+                                <option value="difficulty">Difficulty</option>
+                                {filters.company && <option value="frequency">Frequency</option>}
+                            </select>
+                            <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="results-table table-responsive">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th onClick={() => handleSort('title')} style={{ cursor: 'pointer' }}>
+                                        Name {sortBy === 'title' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('difficulty')} style={{ cursor: 'pointer' }}>
+                                        Difficulty {sortBy === 'difficulty' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    {filters.company && (
+                                        <th onClick={() => handleSort('frequency')} style={{ cursor: 'pointer' }}>
+                                            Frequency {sortBy === 'frequency' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                        </th>
+                                    )}
+                                    <th>Tags</th>
+                                    <th>Links</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {paginatedData.map(problem => (
+                                    <tr key={problem.title_slug}>
+                                        <td>{problem.title}</td>
+                                        <td>{getDifficultyBadge(problem.difficulty)}</td>
+                                        {filters.company && (
+                                            <td>
+                                                <span className="frequency-badge">
+                                                    {getFrequencyForCompany(problem, filters.company)}%
+                                                </span>
+                                            </td>
+                                        )}
+                                        <td>
+                                            <div className="tags-container">
+                                                {(problem.tags || []).slice(0, 3).map(tag => (
+                                                    <span key={tag} className="tag">{tag}</span>
+                                                ))}
+                                                {problem.tags?.length > 3 && (
+                                                    <span className="tag">+{problem.tags.length - 3}</span>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <a href={problem.leetcode_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                LeetCode
+                                            </a>
+                                            {problem.solution_url && (
+                                                <>
+                                                    {' | '}
+                                                    <a href={problem.solution_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                        Solution
+                                                    </a>
+                                                </>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {totalPages > 1 && (
+                        <div className="pagination">
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
+
+                            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                                const page = i + Math.max(1, currentPage - 2);
+                                if (page > totalPages) return null;
+                                return (
+                                    <button
+                                        key={page}
+                                        className={`page-btn ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => setCurrentPage(page)}
+                                    >
+                                        {page}
+                                    </button>
+                                );
+                            })}
+
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Problem Explorer Tab Component
+        function ProblemExplorerTab({ data }) {
+            const [filters, setFilters] = useState({
+                search: '',
+                problemNo: '',
+                difficulty: '',
+                premium: ''
+            });
+            const [sortBy, setSortBy] = useState('leetcode_problem_no');
+            const [sortOrder, setSortOrder] = useState('desc');
+            const [currentPage, setCurrentPage] = useState(1);
+            const [itemsPerPage, setItemsPerPage] = useState(25);
+            const [expandedRow, setExpandedRow] = useState(null);
+            const [solutionModal, setSolutionModal] = useState({
+                isOpen: false,
+                problem: null,
+                formData: {}
+            });
+
+            const difficultyOptions = [
+                { value: '', label: 'All Difficulties' },
+                { value: 'Easy', label: 'Easy' },
+                { value: 'Medium', label: 'Medium' },
+                { value: 'Hard', label: 'Hard' }
+            ];
+
+            const premiumOptions = [
+                { value: '', label: 'All Problems' },
+                { value: 'free', label: 'Free Only' },
+                { value: 'premium', label: 'Premium Only' }
+            ];
+
+            // Reset to first page when items per page changes
+            useEffect(() => {
+                setCurrentPage(1);
+            }, [itemsPerPage]);
+
+            const filteredData = useMemo(() => {
+                if (!data) return [];
+
+                return data.filter(problem => {
+                    // Search filter
+                    if (filters.search && !problem.problem_name.toLowerCase().includes(filters.search.toLowerCase())) {
+                        return false;
+                    }
+
+                    // Problem number filter
+                    if (filters.problemNo && !problem.leetcode_problem_no.toString().includes(filters.problemNo)) {
+                        return false;
+                    }
+
+                    // Difficulty filter
+                    if (filters.difficulty && problem.difficulty !== filters.difficulty) {
+                        return false;
+                    }
+
+                    // Premium filter
+                    if (filters.premium) {
+                        if (filters.premium === 'premium' && !problem.paid_only) {
+                            return false;
+                        }
+                        if (filters.premium === 'free' && problem.paid_only) {
+                            return false;
+                        }
+                    }
+
+                    return true;
+                });
+            }, [data, filters]);
+
+            const sortedData = useMemo(() => {
+                return [...filteredData].sort((a, b) => {
+                    let aValue, bValue;
+
+                    switch (sortBy) {
+                        case 'difficulty':
+                            // Use difficulty_numeric for proper sorting
+                            aValue = a.difficulty_numeric || 0;
+                            bValue = b.difficulty_numeric || 0;
+                            break;
+                        case 'leetcode_problem_no':
+                            aValue = parseInt(a.leetcode_problem_no) || 0;
+                            bValue = parseInt(b.leetcode_problem_no) || 0;
+                            break;
+                        case 'problem_name':
+                            aValue = a.problem_name.toLowerCase();
+                            bValue = b.problem_name.toLowerCase();
+                            break;
+                        default:
+                            // Default to problem name sorting
+                            aValue = a.problem_name.toLowerCase();
+                            bValue = b.problem_name.toLowerCase();
+                    }
+
+                    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+                    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+            }, [filteredData, sortBy, sortOrder]);
+
+            const paginatedData = useMemo(() => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                return sortedData.slice(startIndex, startIndex + itemsPerPage);
+            }, [sortedData, currentPage, itemsPerPage]);
+
+            const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+
+            const handleFilterChange = (key, value) => {
+                setFilters(prev => ({ ...prev, [key]: value }));
+                setCurrentPage(1);
+            };
+
+            const handleSort = (field) => {
+                if (sortBy === field) {
+                    setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+                } else {
+                    setSortBy(field);
+                    setSortOrder('asc');
+                }
+            };
+
+            const clearFilters = () => {
+                setFilters({
+                    search: '',
+                    problemNo: '',
+                    difficulty: '',
+                    premium: ''
+                });
+                setCurrentPage(1);
+            };
+
+            const openSolutionModal = (problem) => {
+                setSolutionModal({
+                    isOpen: true,
+                    problem: problem,
+                    formData: {
+                        status: problem.custom_solution?.status || 'pending',
+                        solution_code: problem.custom_solution?.solution_code || '',
+                        solution_language: problem.custom_solution?.solution_language || 'python',
+                        explanation: problem.custom_solution?.explanation || '',
+                        time_complexity: problem.custom_solution?.time_complexity || '',
+                        space_complexity: problem.custom_solution?.space_complexity || '',
+                        notes: problem.custom_solution?.notes || ''
+                    }
+                });
+            };
+
+            const closeSolutionModal = () => {
+                setSolutionModal({
+                    isOpen: false,
+                    problem: null,
+                    formData: {}
+                });
+            };
+
+            const handleSolutionFormChange = (field, value) => {
+                setSolutionModal(prev => ({
+                    ...prev,
+                    formData: {
+                        ...prev.formData,
+                        [field]: value
+                    }
+                }));
+            };
+
+            const saveSolution = () => {
+                // For now, just update the local data
+                // In a real app, this would save to backend
+                const updatedFormData = {
+                    ...solutionModal.formData,
+                    last_updated: new Date().toISOString(),
+                    updated_by: 'user'
+                };
+
+                // Update the problem's custom_solution
+                if (solutionModal.problem) {
+                    solutionModal.problem.custom_solution = updatedFormData;
+                }
+
+                alert('Solution saved successfully! (Note: This is a demo - changes are not persisted)');
+                closeSolutionModal();
+            };
+
+            const getDifficultyBadge = (difficulty) => {
+                const className = `difficulty-${difficulty.toLowerCase()}`;
+                return <span className={className}>{difficulty}</span>;
+            };
+
+            if (!data) {
+                return <div className="loading">No data available</div>;
+            }
+
+            return (
+                <div>
+                    <div className="stats">
+                        <div className="stat-card">
+                            <div className="stat-number">{data?.length || 0}</div>
+                            <div className="stat-label">Total Problems</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{filteredData.length}</div>
+                            <div className="stat-label">Filtered Results</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">
+                                {data?.filter(p => p.difficulty === 'Easy').length || 0}
+                            </div>
+                            <div className="stat-label">Easy Problems</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">
+                                {data?.filter(p => p.difficulty === 'Hard').length || 0}
+                            </div>
+                            <div className="stat-label">Hard Problems</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">
+                                {data?.filter(p => p.paid_only === true).length || 0}
+                            </div>
+                            <div className="stat-label">Premium Problems</div>
+                        </div>
+                    </div>
+
+                    <div className="filters">
+                        <h3>🔍 Search & Filter</h3>
+                        <div className="filter-grid">
+                            <div className="filter-group">
+                                <label>Problem Name</label>
+                                <input
+                                    type="text"
+                                    placeholder="Search by name..."
+                                    value={filters.search}
+                                    onChange={(e) => handleFilterChange('search', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Problem Number</label>
+                                <input
+                                    type="text"
+                                    placeholder="e.g., 1, 189, 3686..."
+                                    value={filters.problemNo}
+                                    onChange={(e) => handleFilterChange('problemNo', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Difficulty</label>
+                                <SearchableSelect
+                                    value={filters.difficulty}
+                                    onChange={(value) => handleFilterChange('difficulty', value)}
+                                    options={difficultyOptions}
+                                    placeholder="All Difficulties"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Problem Type</label>
+                                <SearchableSelect
+                                    value={filters.premium}
+                                    onChange={(value) => handleFilterChange('premium', value)}
+                                    options={premiumOptions}
+                                    placeholder="All Problems"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Page Size</label>
+                                <select
+                                    value={itemsPerPage}
+                                    onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                                >
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="filter-actions">
+                            <button className="btn btn-secondary" onClick={clearFilters}>
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="results-header">
+                        <div className="results-info">
+                            Showing {paginatedData.length} of {sortedData.length} problems
+                        </div>
+                        <div className="sort-controls">
+                            <label>Sort by:</label>
+                            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                                <option value="problem_name">Name</option>
+                                <option value="leetcode_problem_no">Problem Number</option>
+                                <option value="difficulty">Difficulty</option>
+                            </select>
+                            <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="results-table table-responsive">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th onClick={() => handleSort('leetcode_problem_no')} style={{ cursor: 'pointer' }}>
+                                        # {sortBy === 'leetcode_problem_no' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('problem_name')} style={{ cursor: 'pointer' }}>
+                                        Title {sortBy === 'problem_name' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('difficulty')} style={{ cursor: 'pointer' }}>
+                                        Difficulty {sortBy === 'difficulty' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th>Custom Solution</th>
+                                    <th>Links</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {paginatedData.map(problem => (
+                                    <React.Fragment key={problem.leetcode_problem_no}>
+                                        <tr>
+                                            <td>{problem.leetcode_problem_no}</td>
+                                            <td
+                                                className="clickable-title"
+                                                onClick={() => setExpandedRow(expandedRow === problem.leetcode_problem_no ? null : problem.leetcode_problem_no)}
+                                                title="Click to view description"
+                                                style={{ cursor: 'pointer', padding: '8px 12px' }}
+                                            >
+                                                <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                                                    <span style={{ flex: 1 }}>
+                                                        {problem.problem_name}
+                                                        {problem.ai_provider_used && (
+                                                            <span style={{
+                                                                backgroundColor: problem.ai_provider_used === 'dual_ai' ? '#4CAF50' :
+                                                                    problem.ai_provider_used === 'gemini' ? '#FF9800' : '#2196F3',
+                                                                color: 'white',
+                                                                padding: '2px 6px',
+                                                                borderRadius: '10px',
+                                                                fontSize: '10px',
+                                                                marginLeft: '8px'
+                                                            }}>
+                                                                {problem.ai_provider_used === 'dual_ai' ? '🤖' :
+                                                                    problem.ai_provider_used === 'gemini' ? '💎' : '🧠'}
+                                                            </span>
+                                                        )}
+                                                    </span>
+                                                    {problem.paid_only && (
+                                                        <span className="premium-lock" title="Premium Only">
+                                                            🔒
+                                                        </span>
+                                                    )}
+                                                </div>
+                                            </td>
+                                            <td>{getDifficultyBadge(problem.difficulty)}</td>
+                                            <td>
+                                                <div className="custom-solution-status">
+                                                    <span className={`status-badge status-${problem.custom_solution?.status || 'pending'}`}>
+                                                        {problem.custom_solution?.status || 'pending'}
+                                                    </span>
+                                                    {problem.custom_solution?.solution_code && (
+                                                        <button
+                                                            className="btn btn-xs btn-secondary"
+                                                            title="View/Edit Solution"
+                                                            onClick={() => openSolutionModal(problem)}
+                                                        >
+                                                            View
+                                                        </button>
+                                                    )}
+                                                    {!problem.custom_solution?.solution_code && (
+                                                        <button
+                                                            className="btn btn-xs btn-primary"
+                                                            title="Add Solution"
+                                                            onClick={() => openSolutionModal(problem)}
+                                                        >
+                                                            Add
+                                                        </button>
+                                                    )}
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <a href={problem.leetcode_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                    LeetCode
+                                                </a>
+                                                {problem.solution_url && (
+                                                    <>
+                                                        {' | '}
+                                                        <a href={problem.solution_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                            Solution
+                                                        </a>
+                                                    </>
+                                                )}
+                                                {problem.answer && (
+                                                    <>
+                                                        {' | '}
+                                                        <button
+                                                            className="btn btn-xs btn-secondary"
+                                                            title={problem.ai_provider_used ? `View ${problem.ai_provider_used.toUpperCase()} Solution` : "View Solution"}
+                                                            onClick={() => openSolutionModal(problem)}
+                                                        >
+                                                            {problem.ai_provider_used === 'dual_ai' ? '🤖 AI Solution' :
+                                                                problem.ai_provider_used === 'gemini' ? '💎 Gemini' :
+                                                                    problem.ai_provider_used ? '🧠 AI Solution' : 'Solution'}
+                                                        </button>
+                                                    </>
+                                                )}
+                                            </td>
+                                        </tr>
+                                        {expandedRow === problem.leetcode_problem_no && (
+                                            <tr>
+                                                <td colSpan="5" style={{ backgroundColor: '#f8f9fa', padding: '15px' }}>
+                                                    <div style={{ maxWidth: '100%', lineHeight: '1.6' }}>
+                                                        <h4 style={{ marginBottom: '10px', color: '#2c3e50' }}>Problem Description:</h4>
+                                                        <div className="problem-description" style={{ fontSize: '14px', color: '#495057' }}>
+                                                            {problem.description ? (
+                                                                <div dangerouslySetInnerHTML={{ __html: problem.description }} />
+                                                            ) : problem.description_text ? (
+                                                                <div style={{ whiteSpace: 'pre-wrap' }}>
+                                                                    {problem.description_text}
+                                                                </div>
+                                                            ) : (
+                                                                'No description available'
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </React.Fragment>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {totalPages > 1 && (
+                        <div className="pagination">
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
+
+                            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                                const page = i + Math.max(1, currentPage - 2);
+                                if (page > totalPages) return null;
+                                return (
+                                    <button
+                                        key={page}
+                                        className={`page-btn ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => setCurrentPage(page)}
+                                    >
+                                        {page}
+                                    </button>
+                                );
+                            })}
+
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Solution Modal */}
+                    {solutionModal.isOpen && (
+                        <div className="modal-overlay" onClick={closeSolutionModal}>
+                            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                                <div className="modal-header">
+                                    <h3>
+                                        {solutionModal.problem?.custom_solution?.solution_code ? 'Edit Solution' : 'Add Solution'} - {solutionModal.problem?.problem_name}
+                                    </h3>
+                                    <button className="close-btn" onClick={closeSolutionModal}>×</button>
+                                </div>
+                                <div className="modal-body">
+                                    <div className="form-group">
+                                        <label>Status</label>
+                                        <select
+                                            value={solutionModal.formData.status}
+                                            onChange={(e) => handleSolutionFormChange('status', e.target.value)}
+                                        >
+                                            <option value="pending">Pending</option>
+                                            <option value="in_progress">In Progress</option>
+                                            <option value="completed">Completed</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Programming Language</label>
+                                        <select
+                                            value={solutionModal.formData.solution_language}
+                                            onChange={(e) => handleSolutionFormChange('solution_language', e.target.value)}
+                                        >
+                                            <option value="python">Python</option>
+                                            <option value="java">Java</option>
+                                            <option value="javascript">JavaScript</option>
+                                            <option value="cpp">C++</option>
+                                            <option value="c">C</option>
+                                            <option value="go">Go</option>
+                                            <option value="rust">Rust</option>
+                                        </select>
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Solution Code</label>
+                                        <textarea
+                                            rows="10"
+                                            placeholder="Write your solution here..."
+                                            value={solutionModal.formData.solution_code}
+                                            onChange={(e) => handleSolutionFormChange('solution_code', e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Explanation</label>
+                                        <textarea
+                                            rows="4"
+                                            placeholder="Explain your approach..."
+                                            value={solutionModal.formData.explanation}
+                                            onChange={(e) => handleSolutionFormChange('explanation', e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Time Complexity</label>
+                                        <input
+                                            type="text"
+                                            placeholder="e.g., O(n), O(log n)..."
+                                            value={solutionModal.formData.time_complexity}
+                                            onChange={(e) => handleSolutionFormChange('time_complexity', e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Space Complexity</label>
+                                        <input
+                                            type="text"
+                                            placeholder="e.g., O(1), O(n)..."
+                                            value={solutionModal.formData.space_complexity}
+                                            onChange={(e) => handleSolutionFormChange('space_complexity', e.target.value)}
+                                        />
+                                    </div>
+                                    <div className="form-group">
+                                        <label>Notes</label>
+                                        <textarea
+                                            rows="3"
+                                            placeholder="Additional notes or insights..."
+                                            value={solutionModal.formData.notes}
+                                            onChange={(e) => handleSolutionFormChange('notes', e.target.value)}
+                                        />
+                                    </div>
+                                </div>
+                                <div className="modal-footer">
+                                    <button className="btn btn-secondary" onClick={closeSolutionModal}>
+                                        Cancel
+                                    </button>
+                                    <button className="btn btn-primary" onClick={saveSolution}>
+                                        Save Solution
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Interview Prep Tab Component
+        function InterviewPrepTab({ data }) {
+            const [filters, setFilters] = useState({
+                search: '',
+                company: '',
+                difficulty: '',
+                category: '',
+                questionType: '',
+                hasLeetcodeLink: ''
+            });
+            const [sortBy, setSortBy] = useState('question_number');
+            const [sortOrder, setSortOrder] = useState('asc');
+            const [currentPage, setCurrentPage] = useState(1);
+            const [itemsPerPage, setItemsPerPage] = useState(20);
+            const [solutionModal, setSolutionModal] = useState({
+                isOpen: false,
+                problem: null,
+                formData: {}
+            });
+
+            // Reset to first page when items per page changes
+            useEffect(() => {
+                setCurrentPage(1);
+            }, [itemsPerPage]);
+
+            const companies = useMemo(() => {
+                if (!data) return [];
+                const companySet = new Set();
+                data.forEach(problem => {
+                    if (problem.company) companySet.add(problem.company);
+                });
+                return Array.from(companySet).sort();
+            }, [data]);
+
+            const categories = useMemo(() => {
+                if (!data) return [];
+                const categorySet = new Set();
+                data.forEach(problem => {
+                    if (problem.category) categorySet.add(problem.category);
+                });
+                return Array.from(categorySet).sort();
+            }, [data]);
+
+            const questionTypes = useMemo(() => {
+                if (!data) return [];
+                const typeSet = new Set();
+                data.forEach(problem => {
+                    if (problem.question_type) typeSet.add(problem.question_type);
+                });
+                return Array.from(typeSet).sort();
+            }, [data]);
+
+            const companyOptions = useMemo(() => [
+                { value: '', label: 'All Companies' },
+                ...companies.map(company => ({ value: company, label: company }))
+            ], [companies]);
+
+            const categoryOptions = useMemo(() => [
+                { value: '', label: 'All Categories' },
+                ...categories.map(category => ({ value: category, label: category }))
+            ], [categories]);
+
+            const questionTypeOptions = useMemo(() => [
+                { value: '', label: 'All Types' },
+                ...questionTypes.map(type => ({ value: type, label: type }))
+            ], [questionTypes]);
+
+            const difficultyOptions = [
+                { value: '', label: 'All Difficulties' },
+                { value: 'Easy', label: 'Easy' },
+                { value: 'Medium', label: 'Medium' },
+                { value: 'Hard', label: 'Hard' }
+            ];
+
+            const leetcodeLinkOptions = [
+                { value: '', label: 'All Problems' },
+                { value: 'yes', label: 'With LeetCode Link' },
+                { value: 'no', label: 'Without LeetCode Link' }
+            ];
+
+            const filteredData = useMemo(() => {
+                if (!data) return [];
+
+                return data.filter(problem => {
+                    if (filters.search && !problem.title.toLowerCase().includes(filters.search.toLowerCase()) &&
+                        !problem.problem_name?.toLowerCase().includes(filters.search.toLowerCase())) {
+                        return false;
+                    }
+                    if (filters.company && problem.company !== filters.company) {
+                        return false;
+                    }
+                    if (filters.difficulty && problem.difficulty !== filters.difficulty) {
+                        return false;
+                    }
+                    if (filters.category && problem.category !== filters.category) {
+                        return false;
+                    }
+                    if (filters.questionType && problem.question_type !== filters.questionType) {
+                        return false;
+                    }
+                    if (filters.hasLeetcodeLink === 'yes' && !problem.leetcode_url) {
+                        return false;
+                    }
+                    if (filters.hasLeetcodeLink === 'no' && problem.leetcode_url) {
+                        return false;
+                    }
+                    return true;
+                });
+            }, [data, filters]);
+
+            const sortedData = useMemo(() => {
+                return [...filteredData].sort((a, b) => {
+                    let aValue, bValue;
+
+                    switch (sortBy) {
+                        case 'difficulty':
+                            const difficultyOrder = { 'Easy': 1, 'Medium': 2, 'Hard': 3 };
+                            aValue = difficultyOrder[a.difficulty] || 0;
+                            bValue = difficultyOrder[b.difficulty] || 0;
+                            break;
+                        case 'question_number':
+                            aValue = parseInt(a.question_number) || 0;
+                            bValue = parseInt(b.question_number) || 0;
+                            break;
+                        case 'company':
+                            aValue = a.company?.toLowerCase() || '';
+                            bValue = b.company?.toLowerCase() || '';
+                            break;
+                        default:
+                            aValue = a.title?.toLowerCase() || '';
+                            bValue = b.title?.toLowerCase() || '';
+                    }
+
+                    if (aValue < bValue) return sortOrder === 'asc' ? -1 : 1;
+                    if (aValue > bValue) return sortOrder === 'asc' ? 1 : -1;
+                    return 0;
+                });
+            }, [filteredData, sortBy, sortOrder]);
+
+            const paginatedData = useMemo(() => {
+                const startIndex = (currentPage - 1) * itemsPerPage;
+                return sortedData.slice(startIndex, startIndex + itemsPerPage);
+            }, [sortedData, currentPage, itemsPerPage]);
+
+            const totalPages = Math.ceil(sortedData.length / itemsPerPage);
+
+            const handleFilterChange = (key, value) => {
+                setFilters(prev => ({
+                    ...prev,
+                    [key]: value
+                }));
+                setCurrentPage(1);
+            };
+
+            const clearFilters = () => {
+                setFilters({
+                    search: '',
+                    company: '',
+                    difficulty: '',
+                    category: '',
+                    questionType: '',
+                    hasLeetcodeLink: ''
+                });
+                setCurrentPage(1);
+            };
+
+            const handleSort = (field) => {
+                if (sortBy === field) {
+                    setSortOrder(prev => prev === 'asc' ? 'desc' : 'asc');
+                } else {
+                    setSortBy(field);
+                    setSortOrder('asc');
+                }
+            };
+
+            const getDifficultyBadge = (difficulty) => {
+                const className = `difficulty-${difficulty?.toLowerCase()}`;
+                return <span className={className}>{difficulty}</span>;
+            };
+
+            const getCleanTitle = (title) => {
+                // Remove question number pattern like "7. " from the beginning
+                return title ? title.replace(/^\d+\.\s+/, '') : '';
+            };
+
+            const [expandedRow, setExpandedRow] = useState(null);
+
+            const toggleRowExpansion = (questionNumber) => {
+                setExpandedRow(prev => prev === questionNumber ? null : questionNumber);
+            };
+
+            const openSolutionModal = (problem) => {
+                setSolutionModal({
+                    isOpen: true,
+                    problem: problem,
+                    formData: {
+                        status: problem.custom_solution?.status || 'pending',
+                        solution_code: problem.custom_solution?.solution_code || '',
+                        solution_language: problem.custom_solution?.solution_language || 'python',
+                        explanation: problem.custom_solution?.explanation || '',
+                        time_complexity: problem.custom_solution?.time_complexity || '',
+                        space_complexity: problem.custom_solution?.space_complexity || '',
+                        notes: problem.custom_solution?.notes || ''
+                    }
+                });
+            };
+
+            const closeSolutionModal = () => {
+                setSolutionModal({
+                    isOpen: false,
+                    problem: null,
+                    formData: {}
+                });
+            };
+
+            const handleSolutionFormChange = (field, value) => {
+                setSolutionModal(prev => ({
+                    ...prev,
+                    formData: {
+                        ...prev.formData,
+                        [field]: value
+                    }
+                }));
+            };
+
+            const saveSolution = () => {
+                // For now, just update the local data
+                const updatedFormData = {
+                    ...solutionModal.formData,
+                    last_updated: new Date().toISOString(),
+                    updated_by: 'user'
+                };
+
+                if (solutionModal.problem) {
+                    solutionModal.problem.custom_solution = updatedFormData;
+                }
+
+                alert('Solution saved successfully! (Note: This is a demo - changes are not persisted)');
+                closeSolutionModal();
+            };
+
+            if (!data) {
+                return <div className="loading">Loading interview prep data...</div>;
+            }
+
+            return (
+                <div className="tab-content">
+                    <div className="stats">
+                        <div className="stat-card">
+                            <div className="stat-number">{data.length}</div>
+                            <div className="stat-label">Total Questions</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{companies.length}</div>
+                            <div className="stat-label">Companies</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{filteredData.length}</div>
+                            <div className="stat-label">Filtered Results</div>
+                        </div>
+                        <div className="stat-card">
+                            <div className="stat-number">{categories.length}</div>
+                            <div className="stat-label">Categories</div>
+                        </div>
+                    </div>
+
+                    <div className="filters">
+                        <h3>🔍 Search & Filter</h3>
+                        <div className="filter-grid">
+                            <div className="filter-group">
+                                <label>Search</label>
+                                <input
+                                    type="text"
+                                    placeholder="Search questions..."
+                                    value={filters.search}
+                                    onChange={(e) => handleFilterChange('search', e.target.value)}
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Company</label>
+                                <SearchableSelect
+                                    value={filters.company}
+                                    onChange={(value) => handleFilterChange('company', value)}
+                                    options={companyOptions}
+                                    placeholder="All Companies"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Difficulty</label>
+                                <SearchableSelect
+                                    value={filters.difficulty}
+                                    onChange={(value) => handleFilterChange('difficulty', value)}
+                                    options={difficultyOptions}
+                                    placeholder="All Difficulties"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Category</label>
+                                <SearchableSelect
+                                    value={filters.category}
+                                    onChange={(value) => handleFilterChange('category', value)}
+                                    options={categoryOptions}
+                                    placeholder="All Categories"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Question Type</label>
+                                <SearchableSelect
+                                    value={filters.questionType}
+                                    onChange={(value) => handleFilterChange('questionType', value)}
+                                    options={questionTypeOptions}
+                                    placeholder="All Types"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>LeetCode Link</label>
+                                <SearchableSelect
+                                    value={filters.hasLeetcodeLink}
+                                    onChange={(value) => handleFilterChange('hasLeetcodeLink', value)}
+                                    options={leetcodeLinkOptions}
+                                    placeholder="All Problems"
+                                />
+                            </div>
+
+                            <div className="filter-group">
+                                <label>Page Size</label>
+                                <select
+                                    value={itemsPerPage}
+                                    onChange={(e) => setItemsPerPage(parseInt(e.target.value))}
+                                >
+                                    <option value="10">10</option>
+                                    <option value="20">20</option>
+                                    <option value="25">25</option>
+                                    <option value="50">50</option>
+                                    <option value="100">100</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div className="filter-actions">
+                            <button className="btn btn-secondary" onClick={clearFilters}>
+                                Clear Filters
+                            </button>
+                        </div>
+                    </div>
+
+                    <div className="results-header">
+                        <div className="results-info">
+                            Showing {paginatedData.length} of {sortedData.length} questions
+                        </div>
+                        <div className="sort-controls">
+                            <label>Sort by:</label>
+                            <select value={sortBy} onChange={(e) => setSortBy(e.target.value)}>
+                                <option value="question_number">Question Number</option>
+                                <option value="title">Title</option>
+                                <option value="difficulty">Difficulty</option>
+                                <option value="company">Company</option>
+                            </select>
+                            <select value={sortOrder} onChange={(e) => setSortOrder(e.target.value)}>
+                                <option value="asc">Ascending</option>
+                                <option value="desc">Descending</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="results-table table-responsive">
+                        <table className="table">
+                            <thead>
+                                <tr>
+                                    <th onClick={() => handleSort('question_number')} style={{ cursor: 'pointer' }}>
+                                        Q# {sortBy === 'question_number' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('title')} style={{ cursor: 'pointer' }}>
+                                        Title {sortBy === 'title' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('company')} style={{ cursor: 'pointer' }}>
+                                        Company {sortBy === 'company' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th onClick={() => handleSort('difficulty')} style={{ cursor: 'pointer' }}>
+                                        Difficulty {sortBy === 'difficulty' && (sortOrder === 'asc' ? '↑' : '↓')}
+                                    </th>
+                                    <th>Category</th>
+                                    <th>Type</th>
+                                    <th>Custom Solution</th>
+                                    <th>Links</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {paginatedData.map(question => (
+                                    <React.Fragment key={question.question_number}>
+                                        <tr>
+                                            <td>{question.question_number}</td>
+                                            <td style={{ maxWidth: '300px' }}>
+                                                <div
+                                                    className="question-title"
+                                                    style={{ cursor: 'pointer', color: '#667eea' }}
+                                                    onClick={() => toggleRowExpansion(question.question_number)}
+                                                    title="Click to view description"
+                                                >
+                                                    {getCleanTitle(question.title)}
+                                                </div>
+                                            </td>
+                                            <td>{question.company}</td>
+                                            <td>{getDifficultyBadge(question.difficulty)}</td>
+                                            <td>{question.category}</td>
+                                            <td>{question.question_type}</td>
+                                            <td>
+                                                <div className="custom-solution-status">
+                                                    <span className={`status-badge status-${question.custom_solution?.status || 'pending'}`}>
+                                                        {question.custom_solution?.status || 'pending'}
+                                                    </span>
+                                                    <button
+                                                        className="btn btn-xs btn-primary"
+                                                        title="View/Edit Solution"
+                                                        onClick={() => openSolutionModal(question)}
+                                                    >
+                                                        {question.custom_solution?.solution_code ? 'View' : 'Add'}
+                                                    </button>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                {question.leetcode_url && (
+                                                    <a href={question.leetcode_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                        LeetCode
+                                                    </a>
+                                                )}
+                                                {question.solution_url && (
+                                                    <>
+                                                        {question.leetcode_url && ' | '}
+                                                        <a href={question.solution_url} target="_blank" rel="noopener noreferrer" className="link">
+                                                            Solution
+                                                        </a>
+                                                    </>
+                                                )}
+                                                {question.question_number && (
+                                                    <>
+                                                        {(question.leetcode_url || question.solution_url) && ' | '}
+                                                        <a
+                                                            href={`https://enginebogie.com/public/question/${question.title_slug || 'question'}/${question.question_number}`}
+                                                            target="_blank"
+                                                            rel="noopener noreferrer"
+                                                            className="link"
+                                                        >
+                                                            Enginebogie
+                                                        </a>
+                                                    </>
+                                                )}
+                                            </td>
+                                        </tr>
+                                        {expandedRow === question.question_number && (
+                                            <tr>
+                                                <td colSpan="8" style={{ backgroundColor: '#f8f9fa', padding: '15px' }}>
+                                                    <div style={{ maxWidth: '100%', lineHeight: '1.6' }}>
+                                                        <h4 style={{ marginBottom: '10px', color: '#2c3e50' }}>Problem Description:</h4>
+                                                        <div style={{ whiteSpace: 'pre-wrap', fontSize: '14px', color: '#495057', marginBottom: '15px' }}>
+                                                            {question.description || 'No description available'}
+                                                        </div>
+
+                                                        {question.answer && question.answer.trim() && question.answer !== "" && (
+                                                            <div style={{ marginTop: '15px' }}>
+                                                                <div style={{ display: 'flex', alignItems: 'center', marginBottom: '10px' }}>
+                                                                    <h4 style={{ color: '#2c3e50', marginRight: '10px' }}>Solution:</h4>
+                                                                    {question.ai_provider_used && (
+                                                                        <span style={{
+                                                                            backgroundColor: question.ai_provider_used === 'dual_ai' ? '#4CAF50' :
+                                                                                question.ai_provider_used === 'gemini' ? '#FF9800' : '#2196F3',
+                                                                            color: 'white',
+                                                                            padding: '4px 8px',
+                                                                            borderRadius: '12px',
+                                                                            fontSize: '12px',
+                                                                            marginRight: '10px'
+                                                                        }}>
+                                                                            {question.ai_provider_used === 'dual_ai' ? '🤖 Dual AI' :
+                                                                                question.ai_provider_used === 'gemini' ? '💎 Gemini' : '🧠 AI'}
+                                                                        </span>
+                                                                    )}
+                                                                    <button
+                                                                        onClick={() => navigator.clipboard.writeText(question.answer)}
+                                                                        style={{
+                                                                            backgroundColor: '#6c757d',
+                                                                            color: 'white',
+                                                                            border: 'none',
+                                                                            padding: '4px 8px',
+                                                                            borderRadius: '4px',
+                                                                            fontSize: '12px',
+                                                                            cursor: 'pointer'
+                                                                        }}
+                                                                        title="Copy solution to clipboard"
+                                                                    >
+                                                                        📋 Copy
+                                                                    </button>
+                                                                </div>
+                                                                <div style={{
+                                                                    whiteSpace: 'pre-wrap',
+                                                                    fontSize: '14px',
+                                                                    color: '#495057',
+                                                                    backgroundColor: '#f8f9fa',
+                                                                    border: '1px solid #dee2e6',
+                                                                    padding: '15px',
+                                                                    borderRadius: '8px',
+                                                                    fontFamily: 'Monaco, Consolas, "Courier New", monospace',
+                                                                    lineHeight: '1.5',
+                                                                    maxHeight: '400px',
+                                                                    overflowY: 'auto'
+                                                                }}>
+                                                                    {question.answer}
+                                                                </div>
+                                                                {question.ai_generation_timestamp && (
+                                                                    <div style={{ fontSize: '12px', color: '#6c757d', marginTop: '8px' }}>
+                                                                        Generated: {new Date(question.ai_generation_timestamp).toLocaleString()}
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </React.Fragment>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    {totalPages > 1 && (
+                        <div className="pagination">
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.max(1, prev - 1))}
+                                disabled={currentPage === 1}
+                            >
+                                Previous
+                            </button>
+
+                            {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+                                const page = i + Math.max(1, currentPage - 2);
+                                if (page > totalPages) return null;
+                                return (
+                                    <button
+                                        key={page}
+                                        className={`page-btn ${currentPage === page ? 'active' : ''}`}
+                                        onClick={() => setCurrentPage(page)}
+                                    >
+                                        {page}
+                                    </button>
+                                );
+                            })}
+
+                            <button
+                                className="page-btn"
+                                onClick={() => setCurrentPage(prev => Math.min(totalPages, prev + 1))}
+                                disabled={currentPage === totalPages}
+                            >
+                                Next
+                            </button>
+                        </div>
+                    )}
+
+                    {/* Solution Modal */}
+                    {solutionModal.isOpen && (
+                        <div className="modal-overlay">
+                            <div className="modal-content">
+                                <div className="modal-header">
+                                    <h3 className="modal-title">
+                                        {solutionModal.problem?.custom_solution?.solution_code ? 'Edit Solution' : 'Add Solution'} - {getCleanTitle(solutionModal.problem?.title)}
+                                    </h3>
+                                    <button className="close-btn" onClick={closeSolutionModal}>×</button>
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Status</label>
+                                    <select
+                                        value={solutionModal.formData.status}
+                                        onChange={(e) => handleSolutionFormChange('status', e.target.value)}
+                                    >
+                                        <option value="pending">Pending</option>
+                                        <option value="in_progress">In Progress</option>
+                                        <option value="completed">Completed</option>
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Programming Language</label>
+                                    <select
+                                        value={solutionModal.formData.solution_language}
+                                        onChange={(e) => handleSolutionFormChange('solution_language', e.target.value)}
+                                    >
+                                        <option value="python">Python</option>
+                                        <option value="javascript">JavaScript</option>
+                                        <option value="java">Java</option>
+                                        <option value="cpp">C++</option>
+                                        <option value="c">C</option>
+                                        <option value="go">Go</option>
+                                        <option value="rust">Rust</option>
+                                    </select>
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Solution Code</label>
+                                    <textarea
+                                        className="code-editor"
+                                        value={solutionModal.formData.solution_code}
+                                        onChange={(e) => handleSolutionFormChange('solution_code', e.target.value)}
+                                        placeholder="Enter your solution code here..."
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Explanation</label>
+                                    <textarea
+                                        value={solutionModal.formData.explanation}
+                                        onChange={(e) => handleSolutionFormChange('explanation', e.target.value)}
+                                        placeholder="Explain your approach and logic..."
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Time Complexity</label>
+                                    <input
+                                        type="text"
+                                        value={solutionModal.formData.time_complexity}
+                                        onChange={(e) => handleSolutionFormChange('time_complexity', e.target.value)}
+                                        placeholder="e.g., O(n log n)"
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Space Complexity</label>
+                                    <input
+                                        type="text"
+                                        value={solutionModal.formData.space_complexity}
+                                        onChange={(e) => handleSolutionFormChange('space_complexity', e.target.value)}
+                                        placeholder="e.g., O(1)"
+                                    />
+                                </div>
+
+                                <div className="form-group">
+                                    <label>Additional Notes</label>
+                                    <textarea
+                                        value={solutionModal.formData.notes}
+                                        onChange={(e) => handleSolutionFormChange('notes', e.target.value)}
+                                        placeholder="Any additional notes or insights..."
+                                    />
+                                </div>
+
+                                <div className="modal-footer">
+                                    <button className="btn btn-secondary" onClick={closeSolutionModal}>
+                                        Cancel
+                                    </button>
+                                    <button className="btn btn-primary" onClick={saveSolution}>
+                                        Save Solution
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    )}
+                </div>
+            );
+        }
+
+        // Render the app
+        ReactDOM.render(<App />, document.getElementById('root'));
+    </script>
+</body>
+
+</html>
