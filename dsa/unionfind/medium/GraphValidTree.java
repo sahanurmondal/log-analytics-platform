@@ -1,5 +1,7 @@
 package unionfind.medium;
 
+import unionfind.UnionFind;
+
 /**
  * LeetCode 261: Graph Valid Tree
  * https://leetcode.com/problems/graph-valid-tree/
@@ -21,53 +23,6 @@ package unionfind.medium;
  * - There are no self-loops or repeated edges
  */
 public class GraphValidTree {
-
-    class UnionFind {
-        private int[] parent;
-        private int[] rank;
-        private int components;
-
-        public UnionFind(int n) {
-            parent = new int[n];
-            rank = new int[n];
-            components = n;
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-
-        public boolean union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX == rootY) {
-                return false; // Cycle detected
-            }
-
-            if (rank[rootX] < rank[rootY]) {
-                parent[rootX] = rootY;
-            } else if (rank[rootX] > rank[rootY]) {
-                parent[rootY] = rootX;
-            } else {
-                parent[rootY] = rootX;
-                rank[rootX]++;
-            }
-
-            components--;
-            return true;
-        }
-
-        public int getComponents() {
-            return components;
-        }
-    }
 
     public boolean validTree(int n, int[][] edges) {
         // A tree must have exactly n-1 edges

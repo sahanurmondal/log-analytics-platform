@@ -7,7 +7,7 @@ Union-Find (Disjoint Set) data structure problems including connectivity, groupi
 ### Easy
 | Problem Name | LeetCode Link | Code Link |
 |--------------|--------------|-----------|
-| Find If Path Exists | [LeetCode Problem](https://leetcode.com/problems/find-if-path-exists/) | [FindIfPathExists.java](./easy/FindIfPathExists.java) |
+| Find If Path Exists | [LeetCode Problem](https://leetcode.com/problems/find-if-path-exists-in-graph/) | [FindIfPathExists.java](./easy/FindIfPathExists.java) |
 | Number Of Connected Components | [LeetCode Problem](https://leetcode.com/problems/number-of-connected-components/) | [NumberOfConnectedComponents.java](./easy/NumberOfConnectedComponents.java) |
 
 ### Medium

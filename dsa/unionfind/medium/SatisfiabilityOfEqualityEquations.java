@@ -1,5 +1,10 @@
 package unionfind.medium;
 
+import unionfind.UnionFind;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * LeetCode 990: Satisfiability of Equality Equations
  * https://leetcode.com/problems/satisfiability-of-equality-equations/
@@ -35,62 +40,24 @@ package unionfind.medium;
  */
 public class SatisfiabilityOfEqualityEquations {
 
-    class UnionFind {
-        private int[] parent;
-
-        public UnionFind(int n) {
-            parent = new int[n];
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-
-        public void union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX != rootY) {
-                parent[rootX] = rootY;
-            }
-        }
-
-        public boolean connected(int x, int y) {
-            return find(x) == find(y);
-        }
-    }
-
     public boolean equationsPossible(String[] equations) {
-        UnionFind uf = new UnionFind(26); // 26 lowercase letters
-
-        // First pass: union all variables that should be equal
+        UnionFind uf = new UnionFind(26);
+        List<int[]> inequalities = new ArrayList<>();
         for (String eq : equations) {
+            int x = eq.charAt(0) - 'a';
+            int y = eq.charAt(3) - 'a';
             if (eq.charAt(1) == '=') {
-                int x = eq.charAt(0) - 'a';
-                int y = eq.charAt(3) - 'a';
                 uf.union(x, y);
+            } else {
+                inequalities.add(new int[]{x, y});
             }
         }
-
-        // Second pass: check if any inequality is violated
-        for (String eq : equations) {
-            if (eq.charAt(1) == '!') {
-                int x = eq.charAt(0) - 'a';
-                int y = eq.charAt(3) - 'a';
-                if (uf.connected(x, y)) {
-                    return false; // Contradiction found
-                }
-            }
+        for (int[] ineq : inequalities) {
+            if (uf.connected(ineq[0], ineq[1])) return false;
         }
-
         return true;
     }
+
 
     public static void main(String[] args) {
         SatisfiabilityOfEqualityEquations solution = new SatisfiabilityOfEqualityEquations();

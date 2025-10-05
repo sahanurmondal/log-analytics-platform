@@ -1,5 +1,7 @@
 package unionfind.hard;
 
+import unionfind.UnionFind;
+
 import java.util.*;
 
 /**
@@ -48,7 +50,7 @@ public class ConnectingCitiesWithMinimumCost {
         }
 
         // Sort edges by cost
-        Arrays.sort(connections, (a, b) -> Integer.compare(a[2], b[2]));
+        Arrays.sort(connections, Comparator.comparingInt(a -> a[2]));
 
         UnionFind uf = new UnionFind(n + 1); // 1-indexed
         int totalCost = 0;
@@ -124,37 +126,6 @@ public class ConnectingCitiesWithMinimumCost {
         return visited.size() == n ? totalCost : -1;
     }
 
-    // Approach 3: Optimized Kruskal with path compression and union by rank
-    public static int minimumCostOptimized(int n, int[][] connections) {
-        if (connections.length < n - 1) {
-            return -1;
-        }
-
-        // Sort edges by cost
-        Arrays.sort(connections, Comparator.comparingInt(a -> a[2]));
-
-        OptimizedUnionFind uf = new OptimizedUnionFind(n + 1);
-        int totalCost = 0;
-        int components = n; // Initially n components
-
-        for (int[] connection : connections) {
-            int city1 = connection[0];
-            int city2 = connection[1];
-            int cost = connection[2];
-
-            if (uf.union(city1, city2)) {
-                totalCost += cost;
-                components--;
-
-                if (components == 1) {
-                    break; // All cities connected
-                }
-            }
-        }
-
-        return components == 1 ? totalCost : -1;
-    }
-
     // Approach 4: Modified Prim's with indexed priority queue
     public static int minimumCostIndexedPrim(int n, int[][] connections) {
         // Build adjacency list
@@ -209,117 +180,6 @@ public class ConnectingCitiesWithMinimumCost {
         }
 
         return totalCost;
-    }
-
-    // Basic Union-Find implementation
-    public static class UnionFind {
-        private int[] parent;
-        private int[] rank;
-
-        public UnionFind(int n) {
-            parent = new int[n];
-            rank = new int[n];
-
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-                rank[i] = 1;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]); // Path compression
-            }
-            return parent[x];
-        }
-
-        public boolean union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX == rootY) {
-                return false; // Already connected
-            }
-
-            // Union by rank
-            if (rank[rootX] < rank[rootY]) {
-                parent[rootX] = rootY;
-            } else if (rank[rootX] > rank[rootY]) {
-                parent[rootY] = rootX;
-            } else {
-                parent[rootY] = rootX;
-                rank[rootX]++;
-            }
-
-            return true;
-        }
-
-        public boolean connected(int x, int y) {
-            return find(x) == find(y);
-        }
-
-        public int getComponents() {
-            Set<Integer> roots = new HashSet<>();
-            for (int i = 0; i < parent.length; i++) {
-                roots.add(find(i));
-            }
-            return roots.size();
-        }
-    }
-
-    // Optimized Union-Find with additional methods
-    public static class OptimizedUnionFind {
-        private int[] parent;
-        private int[] rank;
-        private int components;
-
-        public OptimizedUnionFind(int n) {
-            parent = new int[n];
-            rank = new int[n];
-            components = n - 1; // Excluding index 0
-
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-                rank[i] = 1;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]); // Path compression
-            }
-            return parent[x];
-        }
-
-        public boolean union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX == rootY) {
-                return false;
-            }
-
-            // Union by rank
-            if (rank[rootX] < rank[rootY]) {
-                parent[rootX] = rootY;
-            } else if (rank[rootX] > rank[rootY]) {
-                parent[rootY] = rootX;
-            } else {
-                parent[rootY] = rootX;
-                rank[rootX]++;
-            }
-
-            components--;
-            return true;
-        }
-
-        public int getComponents() {
-            return components;
-        }
-
-        public boolean isConnected() {
-            return components == 1;
-        }
     }
 
     // Follow-up 1: Second minimum spanning tree
@@ -712,19 +572,13 @@ public class ConnectingCitiesWithMinimumCost {
         end = System.nanoTime();
         System.out.println("Prim's: " + prims + " (Time: " + (end - start) / 1_000_000 + " ms)");
 
-        // Optimized Kruskal's
-        start = System.nanoTime();
-        int optimized = minimumCostOptimized(n, connections);
-        end = System.nanoTime();
-        System.out.println("Optimized: " + optimized + " (Time: " + (end - start) / 1_000_000 + " ms)");
-
         // Indexed Prim's
         start = System.nanoTime();
         int indexed = minimumCostIndexedPrim(n, connections);
         end = System.nanoTime();
         System.out.println("Indexed Prim's: " + indexed + " (Time: " + (end - start) / 1_000_000 + " ms)");
 
-        System.out.println("All results match: " + (kruskals == prims && prims == optimized && optimized == indexed));
+        System.out.println("All results match: " + (kruskals == prims && prims == indexed));
         System.out.println();
     }
 

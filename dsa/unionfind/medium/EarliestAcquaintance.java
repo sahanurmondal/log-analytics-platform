@@ -1,5 +1,7 @@
 package unionfind.medium;
 
+import unionfind.UnionFind;
+
 import java.util.*;
 
 /**
@@ -26,53 +28,8 @@ import java.util.*;
  */
 public class EarliestAcquaintance {
 
-    class UnionFind {
-        private int[] parent;
-        private int[] rank;
-        private int components;
-
-        public UnionFind(int n) {
-            parent = new int[n];
-            rank = new int[n];
-            components = n;
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-
-        public boolean union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX != rootY) {
-                if (rank[rootX] < rank[rootY]) {
-                    parent[rootX] = rootY;
-                } else if (rank[rootX] > rank[rootY]) {
-                    parent[rootY] = rootX;
-                } else {
-                    parent[rootY] = rootX;
-                    rank[rootX]++;
-                }
-                components--;
-                return true;
-            }
-            return false;
-        }
-
-        public int getComponents() {
-            return components;
-        }
-    }
-
     public int earliestAcq(int[][] logs, int n) {
-        Arrays.sort(logs, (a, b) -> Integer.compare(a[0], b[0]));
+        Arrays.sort(logs, Comparator.comparingInt(a -> a[0]));
 
         UnionFind uf = new UnionFind(n);
 

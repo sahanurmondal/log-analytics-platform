@@ -1,5 +1,7 @@
 package unionfind.easy;
 
+import unionfind.UnionFind;
+
 /**
  * LeetCode 1971: Find if Path Exists in Graph
  * https://leetcode.com/problems/find-if-path-exists-in-graph/
@@ -34,46 +36,6 @@ package unionfind.easy;
  * - What if edges are added dynamically?
  */
 public class FindIfPathExists {
-
-    class UnionFind {
-        private int[] parent;
-        private int[] rank;
-
-        public UnionFind(int n) {
-            parent = new int[n];
-            rank = new int[n];
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-
-        public void union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX != rootY) {
-                if (rank[rootX] < rank[rootY]) {
-                    parent[rootX] = rootY;
-                } else if (rank[rootX] > rank[rootY]) {
-                    parent[rootY] = rootX;
-                } else {
-                    parent[rootY] = rootX;
-                    rank[rootX]++;
-                }
-            }
-        }
-
-        public boolean connected(int x, int y) {
-            return find(x) == find(y);
-        }
-    }
 
     public boolean validPath(int n, int[][] edges, int source, int destination) {
         UnionFind uf = new UnionFind(n);

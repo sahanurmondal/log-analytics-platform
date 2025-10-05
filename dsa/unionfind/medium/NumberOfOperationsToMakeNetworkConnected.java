@@ -1,5 +1,7 @@
 package unionfind.medium;
 
+import unionfind.UnionFind;
+
 /**
  * LeetCode 1319: Number of Operations to Make Network Connected
  * https://leetcode.com/problems/number-of-operations-to-make-network-connected/
@@ -44,53 +46,6 @@ package unionfind.medium;
  */
 public class NumberOfOperationsToMakeNetworkConnected {
 
-    class UnionFind {
-        private int[] parent;
-        private int[] rank;
-        private int components;
-
-        public UnionFind(int n) {
-            parent = new int[n];
-            rank = new int[n];
-            components = n;
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-
-        public boolean union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX == rootY) {
-                return false; // Already connected - redundant cable
-            }
-
-            if (rank[rootX] < rank[rootY]) {
-                parent[rootX] = rootY;
-            } else if (rank[rootX] > rank[rootY]) {
-                parent[rootY] = rootX;
-            } else {
-                parent[rootY] = rootX;
-                rank[rootX]++;
-            }
-
-            components--;
-            return true;
-        }
-
-        public int getComponents() {
-            return components;
-        }
-    }
-
     public int makeConnected(int n, int[][] connections) {
         // Need at least n-1 cables to connect n computers
         if (connections.length < n - 1) {
@@ -105,11 +60,8 @@ public class NumberOfOperationsToMakeNetworkConnected {
                 redundantCables++;
             }
         }
-
-        int components = uf.getComponents();
-
         // Need (components - 1) operations to connect all components
-        return components - 1;
+        return uf.getComponents() - 1;
     }
 
     public static void main(String[] args) {

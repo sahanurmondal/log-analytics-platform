@@ -1,5 +1,7 @@
 package unionfind.medium;
 
+import unionfind.UnionFind;
+
 /**
  * LeetCode 959: Regions Cut By Slashes
  * https://leetcode.com/problems/regions-cut-by-slashes/
@@ -17,49 +19,6 @@ package unionfind.medium;
  */
 public class RegionsCutBySlashes {
 
-    class UnionFind {
-        private int[] parent;
-        private int[] rank;
-        private int regions;
-
-        public UnionFind(int n) {
-            parent = new int[n];
-            rank = new int[n];
-            regions = n;
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-
-        public void union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX != rootY) {
-                if (rank[rootX] < rank[rootY]) {
-                    parent[rootX] = rootY;
-                } else if (rank[rootX] > rank[rootY]) {
-                    parent[rootY] = rootX;
-                } else {
-                    parent[rootY] = rootX;
-                    rank[rootX]++;
-                }
-                regions--;
-            }
-        }
-
-        public int getRegions() {
-            return regions;
-        }
-    }
-
     public int regionsBySlashes(String[] grid) {
         int n = grid.length;
         UnionFind uf = new UnionFind(4 * n * n);
@@ -69,27 +28,35 @@ public class RegionsCutBySlashes {
                 int root = 4 * (i * n + j);
                 char c = grid[i].charAt(j);
 
-                // Connect triangles within the same cell
-                if (c != '\\') {
-                    uf.union(root + 0, root + 1); // top-right
-                    uf.union(root + 2, root + 3); // bottom-left
-                }
-                if (c != '/') {
-                    uf.union(root + 0, root + 3); // top-left
-                    uf.union(root + 1, root + 2); // bottom-right
+                // Connect triangles within the same cell based on the character
+                if (c == ' ') {
+                    // Space: connect all 4 triangles
+                    uf.union(root + 0, root + 1);
+                    uf.union(root + 1, root + 2);
+                    uf.union(root + 2, root + 3);
+                } else if (c == '/') {
+                    // Forward slash: connect top with left, right with bottom
+                    uf.union(root + 0, root + 3);
+                    uf.union(root + 1, root + 2);
+                } else if (c == '\\') {
+                    // Backslash: connect top with right, left with bottom
+                    uf.union(root + 0, root + 1);
+                    uf.union(root + 2, root + 3);
                 }
 
-                // Connect with adjacent cells
-                if (i + 1 < n) {
-                    uf.union(root + 2, 4 * ((i + 1) * n + j) + 0);
-                }
+                // Connect with adjacent cells (right and bottom)
                 if (j + 1 < n) {
+                    // Connect right side (1) to left side of next cell (3)
                     uf.union(root + 1, 4 * (i * n + j + 1) + 3);
+                }
+                if (i + 1 < n) {
+                    // Connect bottom side (2) to top side of next cell (0)
+                    uf.union(root + 2, 4 * ((i + 1) * n + j) + 0);
                 }
             }
         }
 
-        return uf.getRegions();
+        return uf.getComponents();
     }
 
     public static void main(String[] args) {

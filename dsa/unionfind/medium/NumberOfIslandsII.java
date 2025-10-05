@@ -1,5 +1,8 @@
 package unionfind.medium;
 
+import unionfind.UnionFind;
+import unionfind.UnionFind2D;
+
 import java.util.*;
 
 /**
@@ -41,72 +44,24 @@ import java.util.*;
  */
 public class NumberOfIslandsII {
 
-    class UnionFind {
-        private int[] parent;
-        private int[] rank;
-        private int count;
-
-        public UnionFind(int n) {
-            parent = new int[n];
-            rank = new int[n];
-            count = 0;
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-
-        public void union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX != rootY) {
-                if (rank[rootX] < rank[rootY]) {
-                    parent[rootX] = rootY;
-                } else if (rank[rootX] > rank[rootY]) {
-                    parent[rootY] = rootX;
-                } else {
-                    parent[rootY] = rootX;
-                    rank[rootX]++;
-                }
-                count--;
-            }
-        }
-
-        public void addIsland() {
-            count++;
-        }
-
-        public int getCount() {
-            return count;
-        }
-    }
-
     public List<Integer> numIslandsAfterEachAddLand(int m, int n, int[][] positions) {
         List<Integer> result = new ArrayList<>();
-        UnionFind uf = new UnionFind(m * n);
+        UnionFind uf = new UnionFind(m * n, true); // Use dynamic constructor
         boolean[][] grid = new boolean[m][n];
         int[][] directions = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
 
         for (int[] pos : positions) {
             int row = pos[0];
             int col = pos[1];
+            int id = row * n + col;
 
             if (grid[row][col]) {
-                result.add(uf.getCount());
+                result.add(uf.getComponents());
                 continue;
             }
 
             grid[row][col] = true;
-            uf.addIsland();
-
-            int id = row * n + col;
+            uf.addComponent(id);
 
             // Check all 4 directions
             for (int[] dir : directions) {
@@ -119,9 +74,83 @@ public class NumberOfIslandsII {
                 }
             }
 
-            result.add(uf.getCount());
+            result.add(uf.getComponents());
         }
 
+        return result;
+    }
+
+    // True DFS solution for Number of Islands II
+    public List<Integer> numIslandsAfterEachAddLandDFS(int m, int n, int[][] positions) {
+        List<Integer> result = new ArrayList<>();
+        boolean[][] grid = new boolean[m][n];
+        int[][] directions = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+
+        for (int[] pos : positions) {
+            int row = pos[0], col = pos[1];
+
+            if (grid[row][col]) {
+                // Already land, count existing islands
+                result.add(countIslandsDFS(grid, m, n));
+                continue;
+            }
+
+            grid[row][col] = true;
+            // Count islands after adding this land
+            result.add(countIslandsDFS(grid, m, n));
+        }
+        return result;
+    }
+
+    private int countIslandsDFS(boolean[][] grid, int m, int n) {
+        boolean[][] visited = new boolean[m][n];
+        int count = 0;
+
+        for (int i = 0; i < m; i++) {
+            for (int j = 0; j < n; j++) {
+                if (grid[i][j] && !visited[i][j]) {
+                    dfs(grid, visited, i, j, m, n);
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+
+    private void dfs(boolean[][] grid, boolean[][] visited, int i, int j, int m, int n) {
+        if (i < 0 || i >= m || j < 0 || j >= n || !grid[i][j] || visited[i][j]) {
+            return;
+        }
+
+        visited[i][j] = true;
+
+        // Visit all 4 neighbors
+        dfs(grid, visited, i + 1, j, m, n);
+        dfs(grid, visited, i - 1, j, m, n);
+        dfs(grid, visited, i, j + 1, m, n);
+        dfs(grid, visited, i, j - 1, m, n);
+    }
+
+    // 2D Union-Find solution for Number of Islands II
+    public List<Integer> numIslandsAfterEachAddLand2DUF(int m, int n, int[][] positions) {
+        List<Integer> result = new ArrayList<>();
+        UnionFind2D uf = new UnionFind2D(m, n);
+        int[][] directions = { { 0, 1 }, { 1, 0 }, { 0, -1 }, { -1, 0 } };
+        for (int[] pos : positions) {
+            int r = pos[0], c = pos[1];
+            if (uf.isActive(r, c)) {
+                result.add(uf.getComponentCount());
+                continue;
+            }
+            uf.activate(r, c);
+            for (int[] d : directions) {
+                int nr = r + d[0], nc = c + d[1];
+                if (nr >= 0 && nr < m && nc >= 0 && nc < n && uf.isActive(nr, nc)) {
+                    uf.union(r, c, nr, nc);
+                }
+            }
+            result.add(uf.getComponentCount());
+        }
         return result;
     }
 
@@ -131,17 +160,33 @@ public class NumberOfIslandsII {
         // Test case 1: Basic example
         System.out.println(solution.numIslandsAfterEachAddLand(3, 3,
                 new int[][] { { 0, 0 }, { 0, 1 }, { 1, 2 }, { 2, 1 } })); // [1,1,2,3]
+        System.out.println(solution.numIslandsAfterEachAddLandDFS(3, 3,
+                new int[][] { { 0, 0 }, { 0, 1 }, { 1, 2 }, { 2, 1 } })); // [1,1,2,3]
+        System.out.println(solution.numIslandsAfterEachAddLand2DUF(3, 3,
+                new int[][] { { 0, 0 }, { 0, 1 }, { 1, 2 }, { 2, 1 } })); // 2D UF: [1,1,2,3]
 
         // Test case 2: All positions form one island
         System.out.println(solution.numIslandsAfterEachAddLand(1, 1,
                 new int[][] { { 0, 0 } })); // [1]
+        System.out.println(solution.numIslandsAfterEachAddLandDFS(1, 1,
+                new int[][] { { 0, 0 } })); // [1]
+        System.out.println(solution.numIslandsAfterEachAddLand2DUF(1, 1,
+                new int[][] { { 0, 0 } })); // 2D UF: [1]
 
         // Test case 3: Merging islands
         System.out.println(solution.numIslandsAfterEachAddLand(3, 3,
                 new int[][] { { 0, 0 }, { 0, 2 }, { 1, 1 }, { 0, 1 } })); // [1,2,3,2]
+        System.out.println(solution.numIslandsAfterEachAddLandDFS(3, 3,
+                new int[][] { { 0, 0 }, { 0, 2 }, { 1, 1 }, { 0, 1 } })); // [1,2,3,2]
+        System.out.println(solution.numIslandsAfterEachAddLand2DUF(3, 3,
+                new int[][] { { 0, 0 }, { 0, 2 }, { 1, 1 }, { 0, 1 } })); // 2D UF: [1,2,3,2]
 
         // Test case 4: Duplicate positions
         System.out.println(solution.numIslandsAfterEachAddLand(2, 2,
                 new int[][] { { 0, 0 }, { 0, 0 }, { 1, 1 } })); // [1,1,2]
+        System.out.println(solution.numIslandsAfterEachAddLandDFS(2, 2,
+                new int[][] { { 0, 0 }, { 0, 0 }, { 1, 1 } })); // [1,1,2]
+        System.out.println(solution.numIslandsAfterEachAddLand2DUF(2, 2,
+                new int[][] { { 0, 0 }, { 0, 0 }, { 1, 1 } })); // 2D UF: [1,1,2]
     }
 }

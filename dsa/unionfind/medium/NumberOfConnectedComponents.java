@@ -1,5 +1,7 @@
 package unionfind.medium;
 
+import unionfind.UnionFind;
+
 /**
  * LeetCode 323: Number of Connected Components in an Undirected Graph
  * https://leetcode.com/problems/number-of-connected-components-in-an-undirected-graph/
@@ -20,49 +22,6 @@ package unionfind.medium;
  * - There are no repeated edges
  */
 public class NumberOfConnectedComponents {
-
-    class UnionFind {
-        private int[] parent;
-        private int[] rank;
-        private int components;
-
-        public UnionFind(int n) {
-            parent = new int[n];
-            rank = new int[n];
-            components = n;
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-
-        public void union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX != rootY) {
-                if (rank[rootX] < rank[rootY]) {
-                    parent[rootX] = rootY;
-                } else if (rank[rootX] > rank[rootY]) {
-                    parent[rootY] = rootX;
-                } else {
-                    parent[rootY] = rootX;
-                    rank[rootX]++;
-                }
-                components--;
-            }
-        }
-
-        public int getComponents() {
-            return components;
-        }
-    }
 
     public int countComponents(int n, int[][] edges) {
         UnionFind uf = new UnionFind(n);

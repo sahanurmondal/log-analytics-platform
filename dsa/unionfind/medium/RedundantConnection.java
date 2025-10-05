@@ -1,5 +1,7 @@
 package unionfind.medium;
 
+import unionfind.UnionFind;
+
 /**
  * LeetCode 684: Redundant Connection
  * https://leetcode.com/problems/redundant-connection/
@@ -33,46 +35,6 @@ package unionfind.medium;
  * - Can you solve it using DFS cycle detection?
  */
 public class RedundantConnection {
-
-    class UnionFind {
-        private int[] parent;
-        private int[] rank;
-
-        public UnionFind(int n) {
-            parent = new int[n + 1];
-            rank = new int[n + 1];
-            for (int i = 1; i <= n; i++) {
-                parent[i] = i;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-
-        public boolean union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX == rootY) {
-                return false; // Already connected - this edge creates a cycle
-            }
-
-            if (rank[rootX] < rank[rootY]) {
-                parent[rootX] = rootY;
-            } else if (rank[rootX] > rank[rootY]) {
-                parent[rootY] = rootX;
-            } else {
-                parent[rootY] = rootX;
-                rank[rootX]++;
-            }
-
-            return true;
-        }
-    }
 
     public int[] findRedundantConnection(int[][] edges) {
         UnionFind uf = new UnionFind(edges.length);

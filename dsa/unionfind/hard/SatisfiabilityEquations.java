@@ -1,5 +1,10 @@
 package unionfind.hard;
 
+import unionfind.UnionFind;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * LeetCode 990: Satisfiability of Equality Equations
  * https://leetcode.com/problems/satisfiability-of-equality-equations/
@@ -26,67 +31,22 @@ package unionfind.hard;
  */
 public class SatisfiabilityEquations {
 
-    class UnionFind {
-        private int[] parent;
-        private int[] rank;
-
-        public UnionFind(int n) {
-            parent = new int[n];
-            rank = new int[n];
-            for (int i = 0; i < n; i++) {
-                parent[i] = i;
-            }
-        }
-
-        public int find(int x) {
-            if (parent[x] != x) {
-                parent[x] = find(parent[x]);
-            }
-            return parent[x];
-        }
-
-        public void union(int x, int y) {
-            int rootX = find(x);
-            int rootY = find(y);
-
-            if (rootX != rootY) {
-                if (rank[rootX] < rank[rootY]) {
-                    parent[rootX] = rootY;
-                } else if (rank[rootX] > rank[rootY]) {
-                    parent[rootY] = rootX;
-                } else {
-                    parent[rootY] = rootX;
-                    rank[rootX]++;
-                }
-            }
-        }
-
-        public boolean connected(int x, int y) {
-            return find(x) == find(y);
-        }
-    }
-
     public boolean equationsPossible(String[] equations) {
         UnionFind uf = new UnionFind(26);
-
+        List<int[]> inequalities = new ArrayList<>();
         // Process equality equations first
         for (String eq : equations) {
+            int x = eq.charAt(0) - 'a';
+            int y = eq.charAt(3) - 'a';
             if (eq.charAt(1) == '=') {
-                int x = eq.charAt(0) - 'a';
-                int y = eq.charAt(3) - 'a';
                 uf.union(x, y);
+            }else{
+                inequalities.add(new int[]{x,y});
             }
         }
 
-        // Check inequality equations
-        for (String eq : equations) {
-            if (eq.charAt(1) == '!') {
-                int x = eq.charAt(0) - 'a';
-                int y = eq.charAt(3) - 'a';
-                if (uf.connected(x, y)) {
-                    return false;
-                }
-            }
+        for (int[] ineq : inequalities) {
+            if (uf.connected(ineq[0], ineq[1])) return false;
         }
 
         return true;
