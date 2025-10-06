@@ -1,0 +1,9 @@
+google-generativeai>=0.3.0
+requests>=2.31.0
+pathlib2>=2.3.7; python_version < '3.4'
+
+# Optional: For enhanced JSON handling
+jsonschema>=4.17.0
+
+# Optional: For better progress tracking
+tqdm>=4.65.0
