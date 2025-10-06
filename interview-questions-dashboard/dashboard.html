@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
     <title>LeetCode Interview Dashboard</title>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -827,7 +830,9 @@
 
         async function loadInterviewPrepData() {
             try {
-                const response = await fetch('./src/company/webscraper/enginebogie/enginebogie_answer.json');
+                // Add cache-busting timestamp to force fresh data load
+                const timestamp = new Date().getTime();
+                const response = await fetch(`./src/company/webscraper/enginebogie/enginebogie_answer.json?t=${timestamp}`);
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
@@ -2437,15 +2442,16 @@
                                                                 <div style={{
                                                                     whiteSpace: 'pre-wrap',
                                                                     fontSize: '14px',
-                                                                    color: '#495057',
-                                                                    backgroundColor: '#f8f9fa',
-                                                                    border: '1px solid #dee2e6',
-                                                                    padding: '15px',
+                                                                    color: '#1a1a1a',
+                                                                    backgroundColor: '#ffffff',
+                                                                    border: '2px solid #dee2e6',
+                                                                    padding: '20px',
                                                                     borderRadius: '8px',
                                                                     fontFamily: 'Monaco, Consolas, "Courier New", monospace',
-                                                                    lineHeight: '1.5',
-                                                                    maxHeight: '400px',
-                                                                    overflowY: 'auto'
+                                                                    lineHeight: '1.6',
+                                                                    maxHeight: '600px',
+                                                                    overflowY: 'auto',
+                                                                    boxShadow: '0 2px 8px rgba(0,0,0,0.1)'
                                                                 }}>
                                                                     {question.answer}
                                                                 </div>
