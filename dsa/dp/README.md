@@ -2,6 +2,755 @@
 
 This directory contains dynamic programming problems from LeetCode, organized by pattern-based categories for educational progression.
 
+## 📚 DP Patterns & Algorithms Guide
+
+### 🎯 When to Use Dynamic Programming
+Use DP when:
+- Problem has **optimal substructure** (optimal solution uses optimal solutions of subproblems)
+- Problem has **overlapping subproblems** (same subproblems computed multiple times)
+- Need to find **optimal value** (min/max) or **count ways**
+- Problem involves **choices** at each step
+
+### 🔑 DP Patterns & Time Complexities
+
+#### 1️⃣ **Linear DP** - O(n)
+**When to use**: Sequential decision-making on 1D array
+- **Fibonacci Pattern**: f(n) = f(n-1) + f(n-2)
+- **House Robber Pattern**: Can't take adjacent elements
+- **Kadane's Algorithm**: Maximum subarray sum
+- **Use cases**: Climbing stairs, cost optimization, subsequences
+- **Space optimization**: Often reducible to O(1) using variables
+
+#### 2️⃣ **Grid DP** - O(m×n)
+**When to use**: 2D matrix with path-based problems
+- **Path Counting**: Count unique paths in grid
+- **Path Optimization**: Find min/max cost path
+- **Use cases**: Robot paths, minimum path sum, triangle
+- **Space optimization**: Can reduce to O(n) using rolling array
+
+#### 3️⃣ **Knapsack DP** - O(n×capacity)
+**When to use**: Selection problems with constraints
+- **0/1 Knapsack**: Each item used once or not at all
+- **Unbounded Knapsack**: Infinite supply of items
+- **Bounded Knapsack**: Limited quantity per item
+- **Use cases**: Subset sum, coin change, partition problems
+- **Variants**: Target sum, last stone weight
+
+#### 4️⃣ **String DP** - O(n×m) or O(n²)
+**When to use**: Sequence comparison or transformation
+- **LCS Pattern**: Longest Common Subsequence - O(n×m)
+- **Edit Distance**: Transform one string to another - O(n×m)
+- **Palindrome DP**: Check/count palindromic substrings - O(n²)
+- **Use cases**: Text diff, spell checker, regex matching
+
+#### 5️⃣ **Interval DP** - O(n³)
+**When to use**: Problems on contiguous segments
+- **Matrix Chain Multiplication**: Optimal parenthesization
+- **Burst Balloons**: Optimal order to burst
+- **Palindrome Partitioning**: Minimum cuts needed
+- **Use cases**: Breaking problems, merging problems
+
+#### 6️⃣ **Stock Trading DP** - O(n×k)
+**When to use**: Buy/sell optimization problems
+- **State Machine DP**: Track buy/sell/cooldown states
+- **Transaction Limits**: At most k transactions
+- **Use cases**: Stock trading with various constraints
+
+#### 7️⃣ **State Machine DP** - O(n×states)
+**When to use**: Problems with distinct states and transitions
+- **Finite States**: Define possible states at each step
+- **Transitions**: Rules for moving between states
+- **Use cases**: Paint house, best time to buy/sell stock
+
+#### 8️⃣ **Game Theory DP** - O(n) to O(n³)
+**When to use**: Two-player optimal strategy games
+- **Minimax**: Maximize own score, minimize opponent's
+- **Nim Game**: Take-turns strategy
+- **Use cases**: Stone game, predict winner
+
+#### 9️⃣ **Mathematical DP** - Varies
+**When to use**: Number theory and combinatorics
+- **Counting Problems**: Ways to achieve result
+- **Number Factorization**: Breaking numbers optimally
+- **Use cases**: Integer break, perfect squares
+
+#### 🔟 **Advanced DP** - O(n²) to O(2ⁿ×n)
+**When to use**: Complex optimization problems
+- **Bitmask DP**: Track visited states - O(2ⁿ×n)
+- **Digit DP**: Count numbers with constraints
+- **Tree DP**: Optimization on tree structures
+- **Use cases**: TSP, subset problems, tree diameter
+
+### 🎨 DP Implementation Approaches
+
+#### **Top-Down (Memoization)**
+```java
+// Recursive with cache
+Map<String, Integer> memo = new HashMap<>();
+int dp(int i) {
+    if (memo.containsKey(i)) return memo.get(i);
+    int result = /* compute */;
+    memo.put(i, result);
+    return result;
+}
+```
+**Pros**: Intuitive, only computes needed states
+**Cons**: Recursion overhead, stack space
+
+#### **Bottom-Up (Tabulation)**
+```java
+// Iterative with array
+int[] dp = new int[n];
+dp[0] = base;
+for (int i = 1; i < n; i++) {
+    dp[i] = /* compute from dp[i-1], etc. */;
+}
+```
+**Pros**: No recursion, better cache locality
+**Cons**: May compute unnecessary states
+
+#### **Space-Optimized**
+```java
+// Use variables instead of array (when possible)
+int prev2 = base1, prev1 = base2;
+for (int i = 2; i < n; i++) {
+    int curr = prev1 + prev2;
+    prev2 = prev1;
+    prev1 = curr;
+}
+```
+**Pros**: O(1) space, very efficient
+**Cons**: Only works for certain patterns
+
+### 🚀 DP Problem-Solving Steps
+1. **Identify**: Does problem have optimal substructure?
+2. **Define State**: What variables uniquely identify a subproblem?
+3. **Recurrence**: How to compute dp[i] from smaller subproblems?
+4. **Base Cases**: What are the simplest subproblems?
+5. **Compute Order**: Which direction to fill the DP table?
+6. **Optimize Space**: Can we reduce memory usage?
+
+### ⚡ Common DP Optimizations
+- **Rolling Array**: For 2D DP, use only 2 rows instead of full matrix
+- **State Compression**: Use bitmask instead of arrays for small sets
+- **Monotonic Queue**: Optimize range queries (sliding window maximum)
+- **Matrix Exponentiation**: For large n with linear recurrence - O(k³ log n)
+
+---
+
+## 🎯 Complete DP Algorithms with Pseudocode
+
+### 1. **Kadane's Algorithm** (Maximum Subarray Sum)
+**Time Complexity**: O(n) | **Space Complexity**: O(1)
+
+**Problem**: Find maximum sum of contiguous subarray
+
+**Pseudocode**:
+```
+function maxSubarraySum(arr, n):
+    maxEndingHere = arr[0]
+    maxSoFar = arr[0]
+    
+    for i from 1 to n-1:
+        maxEndingHere = max(arr[i], maxEndingHere + arr[i])
+        maxSoFar = max(maxSoFar, maxEndingHere)
+    
+    return maxSoFar
+```
+
+**Recurrence**: `dp[i] = max(arr[i], dp[i-1] + arr[i])`
+
+---
+
+### 2. **Longest Increasing Subsequence (LIS)**
+**Time Complexity**: O(n²) DP, O(n log n) Binary Search | **Space Complexity**: O(n)
+
+**Problem**: Find length of longest increasing subsequence
+
+**Pseudocode** (DP Approach):
+```
+function LIS(arr, n):
+    dp[n] = {1, 1, 1, ..., 1}  // Initialize all to 1
+    
+    for i from 1 to n-1:
+        for j from 0 to i-1:
+            if arr[j] < arr[i]:
+                dp[i] = max(dp[i], dp[j] + 1)
+    
+    return max(dp)
+```
+
+**Pseudocode** (Binary Search - Optimal):
+```
+function LIS_Optimized(arr, n):
+    tails = []  // stores smallest tail of all increasing subsequences
+    
+    for num in arr:
+        pos = binarySearch(tails, num)  // Find insertion position
+        if pos == len(tails):
+            tails.append(num)
+        else:
+            tails[pos] = num
+    
+    return len(tails)
+```
+
+**Recurrence**: `dp[i] = max(dp[j] + 1)` for all `j < i` where `arr[j] < arr[i]`
+
+---
+
+### 3. **Longest Common Subsequence (LCS)**
+**Time Complexity**: O(m × n) | **Space Complexity**: O(m × n), can be optimized to O(min(m,n))
+
+**Problem**: Find length of longest common subsequence between two strings
+
+**Pseudocode**:
+```
+function LCS(str1, str2, m, n):
+    dp[m+1][n+1]  // Initialize to 0
+    
+    for i from 1 to m:
+        for j from 1 to n:
+            if str1[i-1] == str2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    
+    return dp[m][n]
+```
+
+**Recurrence**:
+```
+dp[i][j] = dp[i-1][j-1] + 1                    if str1[i] == str2[j]
+         = max(dp[i-1][j], dp[i][j-1])         otherwise
+```
+
+---
+
+### 4. **Edit Distance (Levenshtein Distance)**
+**Time Complexity**: O(m × n) | **Space Complexity**: O(m × n), can be optimized to O(min(m,n))
+
+**Problem**: Minimum operations (insert/delete/replace) to convert str1 to str2
+
+**Pseudocode**:
+```
+function editDistance(str1, str2, m, n):
+    dp[m+1][n+1]
+    
+    // Base cases
+    for i from 0 to m: dp[i][0] = i
+    for j from 0 to n: dp[0][j] = j
+    
+    for i from 1 to m:
+        for j from 1 to n:
+            if str1[i-1] == str2[j-1]:
+                dp[i][j] = dp[i-1][j-1]  // No operation needed
+            else:
+                dp[i][j] = 1 + min(
+                    dp[i-1][j],      // Delete
+                    dp[i][j-1],      // Insert
+                    dp[i-1][j-1]     // Replace
+                )
+    
+    return dp[m][n]
+```
+
+**Recurrence**:
+```
+dp[i][j] = dp[i-1][j-1]                                if str1[i] == str2[j]
+         = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])   otherwise
+```
+
+---
+
+### 5. **0/1 Knapsack Problem**
+**Time Complexity**: O(n × W) | **Space Complexity**: O(n × W), can be optimized to O(W)
+
+**Problem**: Maximize value with weight constraint (each item used once)
+
+**Pseudocode**:
+```
+function knapsack(weights, values, n, W):
+    dp[n+1][W+1]  // Initialize to 0
+    
+    for i from 1 to n:
+        for w from 0 to W:
+            if weights[i-1] <= w:
+                dp[i][w] = max(
+                    values[i-1] + dp[i-1][w - weights[i-1]],  // Include item
+                    dp[i-1][w]                                 // Exclude item
+                )
+            else:
+                dp[i][w] = dp[i-1][w]
+    
+    return dp[n][W]
+```
+
+**Recurrence**:
+```
+dp[i][w] = max(values[i] + dp[i-1][w-weights[i]], dp[i-1][w])  if weights[i] <= w
+         = dp[i-1][w]                                            otherwise
+```
+
+**Space-Optimized (1D array)**:
+```
+function knapsack_optimized(weights, values, n, W):
+    dp[W+1] = {0, 0, ..., 0}
+    
+    for i from 0 to n-1:
+        for w from W down to weights[i]:  // Reverse iteration!
+            dp[w] = max(dp[w], values[i] + dp[w - weights[i]])
+    
+    return dp[W]
+```
+
+---
+
+### 6. **Unbounded Knapsack**
+**Time Complexity**: O(n × W) | **Space Complexity**: O(W)
+
+**Problem**: Same as 0/1 but each item can be used unlimited times
+
+**Pseudocode**:
+```
+function unboundedKnapsack(weights, values, n, W):
+    dp[W+1] = {0, 0, ..., 0}
+    
+    for w from 1 to W:
+        for i from 0 to n-1:
+            if weights[i] <= w:
+                dp[w] = max(dp[w], values[i] + dp[w - weights[i]])
+    
+    return dp[W]
+```
+
+**Note**: Forward iteration (unlike 0/1 knapsack) allows reusing items
+
+---
+
+### 7. **Coin Change (Minimum Coins)**
+**Time Complexity**: O(n × amount) | **Space Complexity**: O(amount)
+
+**Problem**: Minimum coins needed to make amount
+
+**Pseudocode**:
+```
+function coinChange(coins, amount):
+    dp[amount+1] = {0, ∞, ∞, ..., ∞}
+    
+    for a from 1 to amount:
+        for coin in coins:
+            if coin <= a:
+                dp[a] = min(dp[a], 1 + dp[a - coin])
+    
+    return dp[amount] if dp[amount] != ∞ else -1
+```
+
+**Recurrence**: `dp[amount] = min(1 + dp[amount - coin])` for all valid coins
+
+---
+
+### 8. **Coin Change II (Count Ways)**
+**Time Complexity**: O(n × amount) | **Space Complexity**: O(amount)
+
+**Problem**: Count number of ways to make amount
+
+**Pseudocode**:
+```
+function coinChangeWays(coins, amount):
+    dp[amount+1] = {1, 0, 0, ..., 0}  // dp[0] = 1
+    
+    for coin in coins:
+        for a from coin to amount:
+            dp[a] += dp[a - coin]
+    
+    return dp[amount]
+```
+
+**Key Difference**: Iterate coins in outer loop to avoid counting permutations
+
+---
+
+### 9. **Matrix Chain Multiplication**
+**Time Complexity**: O(n³) | **Space Complexity**: O(n²)
+
+**Problem**: Find minimum scalar multiplications needed
+
+**Pseudocode**:
+```
+function matrixChainOrder(dims, n):
+    dp[n][n]  // Initialize to 0
+    
+    // L is chain length
+    for L from 2 to n:
+        for i from 1 to n-L+1:
+            j = i + L - 1
+            dp[i][j] = ∞
+            
+            for k from i to j-1:
+                cost = dp[i][k] + dp[k+1][j] + dims[i-1] * dims[k] * dims[j]
+                dp[i][j] = min(dp[i][j], cost)
+    
+    return dp[1][n-1]
+```
+
+**Recurrence**: `dp[i][j] = min(dp[i][k] + dp[k+1][j] + cost)` for all `i ≤ k < j`
+
+---
+
+### 10. **Longest Palindromic Substring**
+**Time Complexity**: O(n²) | **Space Complexity**: O(n²), can be O(1) with expand-around-center
+
+**Problem**: Find longest palindromic substring
+
+**Pseudocode** (DP Approach):
+```
+function longestPalindrome(s, n):
+    dp[n][n] = false  // Initialize
+    maxLen = 1
+    start = 0
+    
+    // All single characters are palindromes
+    for i from 0 to n-1:
+        dp[i][i] = true
+    
+    // Check for length 2
+    for i from 0 to n-2:
+        if s[i] == s[i+1]:
+            dp[i][i+1] = true
+            start = i
+            maxLen = 2
+    
+    // Check for lengths 3 and above
+    for length from 3 to n:
+        for i from 0 to n-length:
+            j = i + length - 1
+            
+            if s[i] == s[j] and dp[i+1][j-1]:
+                dp[i][j] = true
+                start = i
+                maxLen = length
+    
+    return s.substring(start, start + maxLen)
+```
+
+**Recurrence**: `dp[i][j] = (s[i] == s[j]) AND dp[i+1][j-1]`
+
+---
+
+### 11. **Partition Equal Subset Sum**
+**Time Complexity**: O(n × sum) | **Space Complexity**: O(sum)
+
+**Problem**: Can array be partitioned into two equal sum subsets?
+
+**Pseudocode**:
+```
+function canPartition(nums):
+    totalSum = sum(nums)
+    if totalSum % 2 != 0: return false
+    
+    target = totalSum / 2
+    dp[target+1] = {true, false, false, ..., false}
+    
+    for num in nums:
+        for s from target down to num:
+            dp[s] = dp[s] OR dp[s - num]
+    
+    return dp[target]
+```
+
+**Recurrence**: `dp[s] = dp[s] OR dp[s-num]` (subset sum variation)
+
+---
+
+### 12. **Word Break**
+**Time Complexity**: O(n² × m) where m is avg word length | **Space Complexity**: O(n)
+
+**Problem**: Can string be segmented into dictionary words?
+
+**Pseudocode**:
+```
+function wordBreak(s, wordDict):
+    n = len(s)
+    dp[n+1] = {true, false, false, ..., false}
+    
+    for i from 1 to n:
+        for j from 0 to i-1:
+            if dp[j] and s[j:i] in wordDict:
+                dp[i] = true
+                break
+    
+    return dp[n]
+```
+
+**Recurrence**: `dp[i] = true` if exists `j < i` such that `dp[j] = true` and `s[j:i]` is in dictionary
+
+---
+
+### 13. **House Robber**
+**Time Complexity**: O(n) | **Space Complexity**: O(1)
+
+**Problem**: Maximize robbery amount without robbing adjacent houses
+
+**Pseudocode**:
+```
+function rob(nums):
+    if len(nums) == 0: return 0
+    if len(nums) == 1: return nums[0]
+    
+    prev2 = nums[0]
+    prev1 = max(nums[0], nums[1])
+    
+    for i from 2 to n-1:
+        current = max(prev1, nums[i] + prev2)
+        prev2 = prev1
+        prev1 = current
+    
+    return prev1
+```
+
+**Recurrence**: `dp[i] = max(dp[i-1], nums[i] + dp[i-2])`
+
+---
+
+### 14. **Climbing Stairs with Variable Steps**
+**Time Complexity**: O(n × k) where k is max steps | **Space Complexity**: O(n)
+
+**Problem**: Count ways to reach top with k-step variations
+
+**Pseudocode**:
+```
+function climbStairs(n, k):
+    dp[n+1] = {1, 0, 0, ..., 0}
+    
+    for i from 1 to n:
+        for j from 1 to min(i, k):
+            dp[i] += dp[i-j]
+    
+    return dp[n]
+```
+
+**Recurrence**: `dp[i] = sum(dp[i-j])` for `j = 1 to k`
+
+---
+
+### 15. **Minimum Path Sum in Grid**
+**Time Complexity**: O(m × n) | **Space Complexity**: O(n)
+
+**Problem**: Find path from top-left to bottom-right with minimum sum
+
+**Pseudocode**:
+```
+function minPathSum(grid, m, n):
+    dp[m][n]
+    dp[0][0] = grid[0][0]
+    
+    // Initialize first row
+    for j from 1 to n-1:
+        dp[0][j] = dp[0][j-1] + grid[0][j]
+    
+    // Initialize first column
+    for i from 1 to m-1:
+        dp[i][0] = dp[i-1][0] + grid[i][0]
+    
+    for i from 1 to m-1:
+        for j from 1 to n-1:
+            dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1])
+    
+    return dp[m-1][n-1]
+```
+
+**Recurrence**: `dp[i][j] = grid[i][j] + min(dp[i-1][j], dp[i][j-1])`
+
+---
+
+### 16. **Longest Palindromic Subsequence**
+**Time Complexity**: O(n²) | **Space Complexity**: O(n²)
+
+**Problem**: Find length of longest palindromic subsequence
+
+**Pseudocode**:
+```
+function longestPalindromeSubseq(s):
+    n = len(s)
+    dp[n][n]
+    
+    // Every single character is a palindrome
+    for i from 0 to n-1:
+        dp[i][i] = 1
+    
+    // Build table
+    for length from 2 to n:
+        for i from 0 to n-length:
+            j = i + length - 1
+            
+            if s[i] == s[j]:
+                dp[i][j] = dp[i+1][j-1] + 2
+            else:
+                dp[i][j] = max(dp[i+1][j], dp[i][j-1])
+    
+    return dp[0][n-1]
+```
+
+**Recurrence**:
+```
+dp[i][j] = dp[i+1][j-1] + 2              if s[i] == s[j]
+         = max(dp[i+1][j], dp[i][j-1])   otherwise
+```
+
+---
+
+### 17. **Egg Drop Problem**
+**Time Complexity**: O(k × n²) | **Space Complexity**: O(k × n)
+
+**Problem**: Minimum trials needed in worst case with k eggs and n floors
+
+**Pseudocode**:
+```
+function eggDrop(k, n):
+    dp[k+1][n+1]
+    
+    // Base cases
+    for i from 1 to k: dp[i][1] = 1  // 1 floor needs 1 trial
+    for j from 1 to n: dp[1][j] = j  // 1 egg needs j trials for j floors
+    
+    for eggs from 2 to k:
+        for floors from 2 to n:
+            dp[eggs][floors] = ∞
+            
+            for x from 1 to floors:
+                // Egg breaks: dp[eggs-1][x-1]
+                // Egg doesn't break: dp[eggs][floors-x]
+                trials = 1 + max(dp[eggs-1][x-1], dp[eggs][floors-x])
+                dp[eggs][floors] = min(dp[eggs][floors], trials)
+    
+    return dp[k][n]
+```
+
+**Optimized**: O(k × n × log n) using binary search
+
+---
+
+### 18. **Burst Balloons**
+**Time Complexity**: O(n³) | **Space Complexity**: O(n²)
+
+**Problem**: Maximize coins collected by bursting balloons optimally
+
+**Pseudocode**:
+```
+function maxCoins(nums):
+    n = len(nums)
+    balloons = [1] + nums + [1]  // Add boundary balloons
+    dp[n+2][n+2]  // Initialize to 0
+    
+    for length from 1 to n:
+        for left from 1 to n-length+1:
+            right = left + length - 1
+            
+            for i from left to right:
+                // Burst balloon i last in range [left, right]
+                coins = balloons[left-1] * balloons[i] * balloons[right+1]
+                coins += dp[left][i-1] + dp[i+1][right]
+                dp[left][right] = max(dp[left][right], coins)
+    
+    return dp[1][n]
+```
+
+**Key Insight**: Think of which balloon to burst **last** in each range
+
+---
+
+### 19. **Regular Expression Matching**
+**Time Complexity**: O(m × n) | **Space Complexity**: O(m × n)
+
+**Problem**: Match string with pattern containing '.' and '*'
+
+**Pseudocode**:
+```
+function isMatch(s, p):
+    m, n = len(s), len(p)
+    dp[m+1][n+1] = false
+    dp[0][0] = true
+    
+    // Handle patterns like a*, a*b*, a*b*c*
+    for j from 2 to n:
+        if p[j-1] == '*':
+            dp[0][j] = dp[0][j-2]
+    
+    for i from 1 to m:
+        for j from 1 to n:
+            if p[j-1] == '*':
+                // Two cases: use * or ignore pattern
+                dp[i][j] = dp[i][j-2]  // Don't use *
+                
+                if p[j-2] == s[i-1] or p[j-2] == '.':
+                    dp[i][j] = dp[i][j] OR dp[i-1][j]  // Use *
+            else:
+                if p[j-1] == s[i-1] or p[j-1] == '.':
+                    dp[i][j] = dp[i-1][j-1]
+    
+    return dp[m][n]
+```
+
+---
+
+### 20. **Traveling Salesman Problem (TSP) - Bitmask DP**
+**Time Complexity**: O(n² × 2ⁿ) | **Space Complexity**: O(n × 2ⁿ)
+
+**Problem**: Find shortest path visiting all cities exactly once
+
+**Pseudocode**:
+```
+function tsp(dist, n):
+    dp[1 << n][n]  // Initialize to ∞
+    dp[1][0] = 0   // Start at city 0
+    
+    for mask from 1 to (1 << n) - 1:
+        for u from 0 to n-1:
+            if not (mask & (1 << u)): continue
+            
+            for v from 0 to n-1:
+                if mask & (1 << v): continue
+                
+                newMask = mask | (1 << v)
+                dp[newMask][v] = min(dp[newMask][v], dp[mask][u] + dist[u][v])
+    
+    // Find minimum cost to return to start
+    result = ∞
+    for i from 1 to n-1:
+        result = min(result, dp[(1<<n)-1][i] + dist[i][0])
+    
+    return result
+```
+
+**Recurrence**: `dp[mask][i] = min(dp[mask^(1<<i)][j] + dist[j][i])` for all `j` in `mask`
+
+---
+
+## 🔬 Advanced DP Techniques
+
+### **Convex Hull Trick** - O(n log n) or O(n)
+Used for optimizing DP with linear functions. Maintains convex hull of lines to answer queries efficiently.
+
+**Use Case**: When recurrence involves `min/max` over linear functions
+
+### **Divide and Conquer Optimization** - O(n² log n) → O(n log n)
+When DP recurrence satisfies monotonicity condition: `opt[i][j] ≤ opt[i][j+1]`
+
+**Use Case**: 2D DP problems with monotonic optimal split point
+
+### **Knuth Optimization** - O(n³) → O(n²)
+When quadrangle inequality holds: `cost[a][c] + cost[b][d] ≤ cost[a][d] + cost[b][c]`
+
+**Use Case**: Problems like optimal binary search tree
+
+### **Monotonic Queue Optimization** - O(nk) → O(n)
+Maintain deque of candidate optimal values within sliding window
+
+**Use Case**: Sliding window maximum/minimum in DP transitions
+
+---
+
 ## Problems List
 
 ### Linear DP - Basic
@@ -10,7 +759,7 @@ This directory contains dynamic programming problems from LeetCode, organized by
 | Fibonacci Number | [LeetCode 509](https://leetcode.com/problems/fibonacci-number/) | [FibonacciNumber.java](./linear/basic/FibonacciNumber.java) |
 | Climbing Stairs | [LeetCode 70](https://leetcode.com/problems/climbing-stairs/) | [ClimbingStairs.java](./linear/basic/ClimbingStairs.java) |
 | N-th Tribonacci Number | [LeetCode 1137](https://leetcode.com/problems/n-th-tribonacci-number/) | [NthTribonacciNumber.java](./linear/basic/NthTribonacciNumber.java) |
-
+`
 ### Linear DP - Optimization
 | Problem Name | LeetCode Link | Code Link |
 |--------------|--------------|-----------|

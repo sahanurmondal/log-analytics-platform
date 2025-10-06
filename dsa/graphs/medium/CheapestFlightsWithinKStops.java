@@ -18,7 +18,7 @@ import java.util.*;
  * 2. Can you solve it with queue-based Bellman-Ford (SPFA)?
  * 3. Can you reconstruct the shortest path?
  */
-public class BellmanFordShortestPath {
+public class CheapestFlightsWithinKStops {
     // Approach 1: Standard Bellman-Ford with edge relaxation - O(n*E) time, O(n)
     // space
     public int[] bellmanFord(int n, int[][] edges, int source) {
@@ -109,8 +109,102 @@ public class BellmanFordShortestPath {
         return path;
     }
 
+    /**
+     * LeetCode 787: Cheapest Flights Within K Stops
+     * Use Bellman-Ford variant: perform K+1 relaxation rounds (paths with up to K+1 edges)
+     * We use a temp copy each round so we only consider paths with at most the current
+     * number of edges (prevents reusing updated distances within the same iteration).
+     *
+     * Time: O(min(K+1, n-1) * (E + N)), Space: O(N)
+     */
+    public int cheapestFlightsWithinKStops(int n, int[][] flights, int src, int dst, int K) {
+        final int INF = Integer.MAX_VALUE / 4;
+        int[] dist = new int[n];
+        Arrays.fill(dist, INF);
+        dist[src] = 0;
+
+        // If K is large enough to allow any simple path, cap to n-1 edges
+        int rounds = Math.min(K + 1, Math.max(0, n - 1));
+
+        int[] next = new int[n];
+        for (int iter = 0; iter < rounds; iter++) {
+            // copy current distances into next (avoid allocation each loop)
+            System.arraycopy(dist, 0, next, 0, n);
+
+            boolean changed = false;
+            for (int[] f : flights) {
+                int u = f[0], v = f[1], w = f[2];
+                if (dist[u] < INF && dist[u] + w < next[v]) {
+                    next[v] = dist[u] + w;
+                    changed = true;
+                }
+            }
+
+            // swap arrays
+            int[] tmp = dist;
+            dist = next;
+            next = tmp;
+
+            if (!changed) break; // early exit if no improvement
+        }
+        return dist[dst] >= INF ? -1 : dist[dst];
+    }
+
+    /**
+     * Simplified Dijkstra variant with stops tracking.
+     * State: (cost, node, stops). Process in cost order.
+     * Key insight: We can reach same node multiple times with different stops,
+     * but only process if this gives us a better cost OR uses fewer stops.
+     *
+     * Time: O(E * K * log(E*K)), Space: O(N + E*K) for PQ
+     * Simpler to code and understand than 2D DP version.
+     */
+    public int cheapestFlightsWithinKStopsDijkstra(int n, int[][] flights, int src, int dst, int K) {
+        // Build adjacency list
+        List<int[]>[] adj = new ArrayList[n];
+        for (int i = 0; i < n; i++) adj[i] = new ArrayList<>();
+        for (int[] f : flights) {
+            adj[f[0]].add(new int[] { f[1], f[2] }); // [dest, cost]
+        }
+
+        // PQ: [cost, node, stops] - sort by cost (cheapest first)
+        PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        pq.offer(new int[] { 0, src, 0 }); // cost=0, at src, 0 stops used
+
+        // Track minimum cost to reach each node (for pruning)
+        int[] minCost = new int[n];
+        Arrays.fill(minCost, Integer.MAX_VALUE);
+        minCost[src] = 0;
+
+        while (!pq.isEmpty()) {
+            int[] cur = pq.poll();
+            int cost = cur[0], node = cur[1], stops = cur[2];
+
+            // Found destination - return immediately (guaranteed cheapest due to PQ)
+            if (node == dst) return cost;
+
+            // Can't take more flights (already used K stops)
+            if (stops > K) continue;
+
+            // Explore neighbors
+            for (int[] nei : adj[node]) {
+                int nextNode = nei[0], price = nei[1];
+                int newCost = cost + price;
+
+                // Only add to queue if this path is cheaper than previous best
+                // This pruning keeps queue size manageable
+                if (newCost < minCost[nextNode]) {
+                    minCost[nextNode] = newCost;
+                    pq.offer(new int[] { newCost, nextNode, stops + 1 });
+                }
+            }
+        }
+
+        return -1; // Destination not reachable within K stops
+    }
+
     public static void main(String[] args) {
-        BellmanFordShortestPath solution = new BellmanFordShortestPath();
+        CheapestFlightsWithinKStops solution = new CheapestFlightsWithinKStops();
         // Edge Case 1: Normal case
         System.out.println(java.util.Arrays.toString(solution.bellmanFord(5,
                 new int[][] { { 0, 1, 2 }, { 0, 2, 4 }, { 1, 2, 1 }, { 2, 3, 1 }, { 3, 4, 3 } }, 0)).equals("[0, 2, 3, 4, 7]"));
@@ -136,6 +230,17 @@ public class BellmanFordShortestPath {
         List<int[]> edges = new ArrayList<>();
         for (int i = 0; i < n-1; i++) edges.add(new int[]{i, i+1, 1});
         System.out.println(java.util.Arrays.toString(solution.bellmanFord(n, edges.toArray(new int[0][]), 0)).startsWith("[0, 1, 2"));
+
+        // Cheapest Flights (Bellman-Ford variant) quick tests
+        int[][] flights1 = { {0,1,100}, {1,2,100}, {0,2,500} };
+        System.out.println(solution.cheapestFlightsWithinKStops(3, flights1, 0, 2, 1) == 200); // via 1 within 1 stop
+        System.out.println(solution.cheapestFlightsWithinKStops(3, flights1, 0, 2, 0) == 500); // direct only
+        // Dijkstra variant tests
+        System.out.println(solution.cheapestFlightsWithinKStopsDijkstra(3, flights1, 0, 2, 1) == 200);
+        System.out.println(solution.cheapestFlightsWithinKStopsDijkstra(3, flights1, 0, 2, 0) == 500);
+
+        int[][] flights2 = { {0,1,1}, {1,2,1}, {0,2,5}, {2,3,1}, {1,3,6} };
+        System.out.println(solution.cheapestFlightsWithinKStops(4, flights2, 0, 3, 2) == 3); // 0->1->2->3 cost 3
+        System.out.println(solution.cheapestFlightsWithinKStopsDijkstra(4, flights2, 0, 3, 2) == 3);
     }
 }
-

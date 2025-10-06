@@ -2,6 +2,536 @@
 
 Binary tree problems including traversal, construction, manipulation, and tree-based algorithms.
 
+---
+
+## 🎯 When to Use Tree Algorithms
+
+Tree algorithms are fundamental for hierarchical data structures and are essential for solving problems involving:
+- **Hierarchical Relationships**: File systems, organizational structures, XML/HTML DOM
+- **Searching**: Binary search trees for efficient lookup, insertion, deletion
+- **Expression Evaluation**: Parse trees, abstract syntax trees
+- **Decision Making**: Decision trees, game trees (minimax)
+- **Network Routing**: Spanning trees in networks
+- **Database Indexing**: B-trees, B+ trees
+- **Compression**: Huffman coding trees
+- **Range Queries**: Segment trees, Fenwick trees
+
+---
+
+## 🔑 Tree Algorithms & Their Use Cases
+
+### 1. **Depth-First Search (DFS) - Inorder, Preorder, Postorder**
+**When to Use**: Need to visit all nodes, process tree structure, serialize/deserialize trees  
+**Time Complexity**: O(n)  
+**Space Complexity**: O(h) for recursion stack, where h is tree height  
+
+**Inorder (Left → Root → Right)**:
+- **Use Case**: Get sorted sequence from BST
+- **Applications**: BST validation, finding kth smallest element
+```java
+void inorder(TreeNode root, List<Integer> result) {
+    if (root == null) return;
+    inorder(root.left, result);
+    result.add(root.val);
+    inorder(root.right, result);
+}
+```
+
+**Preorder (Root → Left → Right)**:
+- **Use Case**: Tree serialization, creating copy of tree
+- **Applications**: Prefix expressions, tree cloning
+```java
+void preorder(TreeNode root, List<Integer> result) {
+    if (root == null) return;
+    result.add(root.val);
+    preorder(root.left, result);
+    preorder(root.right, result);
+}
+```
+
+**Postorder (Left → Right → Root)**:
+- **Use Case**: Deletion of tree, calculating tree properties
+- **Applications**: Postfix expressions, tree deletion, calculating subtree sums
+```java
+void postorder(TreeNode root, List<Integer> result) {
+    if (root == null) return;
+    postorder(root.left, result);
+    postorder(root.right, result);
+    result.add(root.val);
+}
+```
+
+### 2. **Breadth-First Search (BFS) - Level Order Traversal**
+**When to Use**: Need to process tree level by level, find shortest path in unweighted tree  
+**Time Complexity**: O(n)  
+**Space Complexity**: O(w) where w is maximum width of tree  
+
+**Use Cases**:
+- Level order traversal
+- Finding minimum depth
+- Zigzag traversal
+- Right/left side view of tree
+- Level-wise processing
+
+```java
+List<List<Integer>> levelOrder(TreeNode root) {
+    List<List<Integer>> result = new ArrayList<>();
+    if (root == null) return result;
+    
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.offer(root);
+    
+    while (!queue.isEmpty()) {
+        int levelSize = queue.size();
+        List<Integer> level = new ArrayList<>();
+        
+        for (int i = 0; i < levelSize; i++) {
+            TreeNode node = queue.poll();
+            level.add(node.val);
+            if (node.left != null) queue.offer(node.left);
+            if (node.right != null) queue.offer(node.right);
+        }
+        result.add(level);
+    }
+    return result;
+}
+```
+
+### 3. **Binary Search Tree (BST) Operations**
+**When to Use**: Need efficient searching, insertion, deletion with ordered data  
+**Time Complexity**: O(log n) average, O(n) worst case for unbalanced tree  
+**Space Complexity**: O(h) for recursion  
+
+**Operations**:
+- **Search**: O(log n) average
+- **Insert**: O(log n) average
+- **Delete**: O(log n) average
+- **Min/Max**: O(h)
+- **Inorder Successor/Predecessor**: O(h)
+
+```java
+// BST Search
+TreeNode search(TreeNode root, int val) {
+    if (root == null || root.val == val) return root;
+    return val < root.val ? search(root.left, val) : search(root.right, val);
+}
+
+// BST Insert
+TreeNode insert(TreeNode root, int val) {
+    if (root == null) return new TreeNode(val);
+    if (val < root.val) root.left = insert(root.left, val);
+    else if (val > root.val) root.right = insert(root.right, val);
+    return root;
+}
+
+// BST Validation
+boolean isValidBST(TreeNode root, long min, long max) {
+    if (root == null) return true;
+    if (root.val <= min || root.val >= max) return false;
+    return isValidBST(root.left, min, root.val) && 
+           isValidBST(root.right, root.val, max);
+}
+```
+
+### 4. **Tree Dynamic Programming**
+**When to Use**: Problems involving optimal subtree selection, path sums, tree properties  
+**Time Complexity**: O(n)  
+**Space Complexity**: O(h) for recursion  
+
+**Common Patterns**:
+- **Maximum Path Sum**: Track max through each node
+- **House Robber III**: Choose optimal nodes (non-adjacent)
+- **Diameter of Tree**: Longest path between any two nodes
+- **Height Balanced Check**: Check balance at each node
+
+```java
+// Maximum Path Sum
+int maxPathSum = Integer.MIN_VALUE;
+
+int maxPathSumHelper(TreeNode root) {
+    if (root == null) return 0;
+    
+    int left = Math.max(0, maxPathSumHelper(root.left));
+    int right = Math.max(0, maxPathSumHelper(root.right));
+    
+    maxPathSum = Math.max(maxPathSum, root.val + left + right);
+    return root.val + Math.max(left, right);
+}
+
+// House Robber III (Rob or Skip)
+int[] robHelper(TreeNode root) {
+    if (root == null) return new int[]{0, 0};
+    
+    int[] left = robHelper(root.left);
+    int[] right = robHelper(root.right);
+    
+    int rob = root.val + left[1] + right[1];  // Rob this node
+    int skip = Math.max(left[0], left[1]) + Math.max(right[0], right[1]);
+    
+    return new int[]{rob, skip};
+}
+```
+
+### 5. **Lowest Common Ancestor (LCA)**
+**When to Use**: Find common ancestor of two nodes  
+**Time Complexity**: O(n) for binary tree, O(log n) for BST  
+**Space Complexity**: O(h)  
+
+**Binary Tree LCA**:
+```java
+TreeNode lowestCommonAncestor(TreeNode root, TreeNode p, TreeNode q) {
+    if (root == null || root == p || root == q) return root;
+    
+    TreeNode left = lowestCommonAncestor(root.left, p, q);
+    TreeNode right = lowestCommonAncestor(root.right, p, q);
+    
+    if (left != null && right != null) return root;
+    return left != null ? left : right;
+}
+```
+
+**BST LCA** (More efficient):
+```java
+TreeNode lowestCommonAncestorBST(TreeNode root, TreeNode p, TreeNode q) {
+    if (p.val < root.val && q.val < root.val) 
+        return lowestCommonAncestorBST(root.left, p, q);
+    if (p.val > root.val && q.val > root.val) 
+        return lowestCommonAncestorBST(root.right, p, q);
+    return root;
+}
+```
+
+### 6. **Tree Construction from Traversals**
+**When to Use**: Rebuild tree from serialized format or traversal arrays  
+**Time Complexity**: O(n)  
+**Space Complexity**: O(n)  
+
+**From Inorder + Preorder**:
+```java
+Map<Integer, Integer> inorderMap = new HashMap<>();
+int preIndex = 0;
+
+TreeNode buildTree(int[] preorder, int[] inorder) {
+    for (int i = 0; i < inorder.length; i++) {
+        inorderMap.put(inorder[i], i);
+    }
+    return build(preorder, 0, inorder.length - 1);
+}
+
+TreeNode build(int[] preorder, int inStart, int inEnd) {
+    if (inStart > inEnd) return null;
+    
+    int rootVal = preorder[preIndex++];
+    TreeNode root = new TreeNode(rootVal);
+    
+    int inIndex = inorderMap.get(rootVal);
+    root.left = build(preorder, inStart, inIndex - 1);
+    root.right = build(preorder, inIndex + 1, inEnd);
+    
+    return root;
+}
+```
+
+### 7. **Morris Traversal (Constant Space)**
+**When to Use**: Need O(1) space traversal (no recursion/stack)  
+**Time Complexity**: O(n)  
+**Space Complexity**: O(1)  
+
+**Inorder Morris Traversal**:
+```java
+List<Integer> morrisInorder(TreeNode root) {
+    List<Integer> result = new ArrayList<>();
+    TreeNode current = root;
+    
+    while (current != null) {
+        if (current.left == null) {
+            result.add(current.val);
+            current = current.right;
+        } else {
+            TreeNode predecessor = current.left;
+            while (predecessor.right != null && predecessor.right != current) {
+                predecessor = predecessor.right;
+            }
+            
+            if (predecessor.right == null) {
+                predecessor.right = current;
+                current = current.left;
+            } else {
+                predecessor.right = null;
+                result.add(current.val);
+                current = current.right;
+            }
+        }
+    }
+    return result;
+}
+```
+
+### 8. **Tree Serialization & Deserialization**
+**When to Use**: Save tree to disk, transmit over network, deep copy  
+**Time Complexity**: O(n)  
+**Space Complexity**: O(n)  
+
+```java
+// Serialize using preorder
+String serialize(TreeNode root) {
+    if (root == null) return "null,";
+    return root.val + "," + serialize(root.left) + serialize(root.right);
+}
+
+// Deserialize
+TreeNode deserialize(String data) {
+    Queue<String> queue = new LinkedList<>(Arrays.asList(data.split(",")));
+    return deserializeHelper(queue);
+}
+
+TreeNode deserializeHelper(Queue<String> queue) {
+    String val = queue.poll();
+    if (val.equals("null")) return null;
+    TreeNode root = new TreeNode(Integer.parseInt(val));
+    root.left = deserializeHelper(queue);
+    root.right = deserializeHelper(queue);
+    return root;
+}
+```
+
+### 9. **Path Problems (Root to Leaf, Any Path)**
+**When to Use**: Find paths with specific sum, maximum path, all paths  
+**Time Complexity**: O(n)  
+**Space Complexity**: O(h) for path tracking  
+
+**Path Sum II (All Root-to-Leaf Paths)**:
+```java
+List<List<Integer>> pathSum(TreeNode root, int targetSum) {
+    List<List<Integer>> result = new ArrayList<>();
+    findPaths(root, targetSum, new ArrayList<>(), result);
+    return result;
+}
+
+void findPaths(TreeNode node, int remaining, List<Integer> path, 
+               List<List<Integer>> result) {
+    if (node == null) return;
+    
+    path.add(node.val);
+    
+    if (node.left == null && node.right == null && remaining == node.val) {
+        result.add(new ArrayList<>(path));
+    }
+    
+    findPaths(node.left, remaining - node.val, path, result);
+    findPaths(node.right, remaining - node.val, path, result);
+    
+    path.remove(path.size() - 1);  // Backtrack
+}
+```
+
+### 10. **Tree Views (Top, Bottom, Left, Right Side)**
+**When to Use**: Get boundary view, side views of tree  
+**Time Complexity**: O(n)  
+**Space Complexity**: O(w) for queue, O(n) for result  
+
+**Right Side View** (BFS approach):
+```java
+List<Integer> rightSideView(TreeNode root) {
+    List<Integer> result = new ArrayList<>();
+    if (root == null) return result;
+    
+    Queue<TreeNode> queue = new LinkedList<>();
+    queue.offer(root);
+    
+    while (!queue.isEmpty()) {
+        int levelSize = queue.size();
+        for (int i = 0; i < levelSize; i++) {
+            TreeNode node = queue.poll();
+            if (i == levelSize - 1) result.add(node.val);  // Rightmost
+            if (node.left != null) queue.offer(node.left);
+            if (node.right != null) queue.offer(node.right);
+        }
+    }
+    return result;
+}
+```
+
+### 11. **Tree Balancing & Rotations**
+**When to Use**: Self-balancing trees (AVL, Red-Black), maintain O(log n) operations  
+**Time Complexity**: O(log n) per operation  
+**Space Complexity**: O(log n)  
+
+**AVL Tree Rotations**:
+```java
+// Right Rotation (LL case)
+TreeNode rotateRight(TreeNode y) {
+    TreeNode x = y.left;
+    TreeNode T2 = x.right;
+    x.right = y;
+    y.left = T2;
+    updateHeight(y);
+    updateHeight(x);
+    return x;
+}
+
+// Left Rotation (RR case)
+TreeNode rotateLeft(TreeNode x) {
+    TreeNode y = x.right;
+    TreeNode T2 = y.left;
+    y.left = x;
+    x.right = T2;
+    updateHeight(x);
+    updateHeight(y);
+    return y;
+}
+
+int getBalance(TreeNode node) {
+    return node == null ? 0 : height(node.left) - height(node.right);
+}
+```
+
+### 12. **Vertical Order Traversal**
+**When to Use**: Print tree nodes column-wise  
+**Time Complexity**: O(n log n) due to sorting  
+**Space Complexity**: O(n)  
+
+```java
+List<List<Integer>> verticalOrder(TreeNode root) {
+    List<List<Integer>> result = new ArrayList<>();
+    if (root == null) return result;
+    
+    Map<Integer, List<Integer>> map = new TreeMap<>();
+    Queue<Pair<TreeNode, Integer>> queue = new LinkedList<>();
+    queue.offer(new Pair<>(root, 0));
+    
+    while (!queue.isEmpty()) {
+        Pair<TreeNode, Integer> pair = queue.poll();
+        TreeNode node = pair.getKey();
+        int col = pair.getValue();
+        
+        map.computeIfAbsent(col, k -> new ArrayList<>()).add(node.val);
+        
+        if (node.left != null) queue.offer(new Pair<>(node.left, col - 1));
+        if (node.right != null) queue.offer(new Pair<>(node.right, col + 1));
+    }
+    
+    result.addAll(map.values());
+    return result;
+}
+```
+
+---
+
+## 📋 Common Tree Problem Patterns
+
+### Pattern 1: Tree Traversal Variations
+- **Problems**: Inorder/Preorder/Postorder, Level Order, Zigzag, Spiral
+- **Approach**: Choose DFS (recursion/stack) or BFS (queue)
+- **Key**: Understand when to use each traversal type
+
+### Pattern 2: Tree Properties & Validation
+- **Problems**: Height, Diameter, Balanced Check, BST Validation
+- **Approach**: Post-order DFS, return properties from subtrees
+- **Key**: Combine information from left and right subtrees
+
+### Pattern 3: Path Finding
+- **Problems**: Path Sum, All Paths, Maximum Path Sum, Diameter
+- **Approach**: DFS with backtracking or return values
+- **Key**: Track path during traversal, backtrack when needed
+
+### Pattern 4: Tree Construction
+- **Problems**: Build from traversals, Clone, Serialize/Deserialize
+- **Approach**: Use HashMap for index lookup, recursion
+- **Key**: Identify root position, divide and conquer
+
+### Pattern 5: Lowest Common Ancestor
+- **Problems**: LCA in Binary Tree, LCA in BST
+- **Approach**: Recursive search, check both subtrees
+- **Key**: Different approaches for BST vs general tree
+
+### Pattern 6: Tree Modification
+- **Problems**: Flatten to Linked List, Invert, Prune
+- **Approach**: Post-order traversal, modify after children
+- **Key**: Process children before parent
+
+### Pattern 7: Tree Views
+- **Problems**: Right View, Left View, Top View, Bottom View
+- **Approach**: BFS with level tracking or DFS with depth tracking
+- **Key**: Track first/last node at each level/column
+
+### Pattern 8: Subtree Problems
+- **Problems**: Subtree of Another Tree, Duplicate Subtrees, Maximum BST Subtree
+- **Approach**: Serialize subtrees, use hashing
+- **Key**: Convert tree to comparable format
+
+### Pattern 9: Distance & Nearest Problems
+- **Problems**: Nodes at Distance K, Nearest Leaf, Cousins
+- **Approach**: BFS for shortest path, DFS with distance tracking
+- **Key**: Convert tree to graph if needed
+
+### Pattern 10: Tree DP Optimization
+- **Problems**: House Robber III, Binary Tree Cameras, Sum of Distances
+- **Approach**: Return multiple values (rob/skip, covered/not covered)
+- **Key**: Memoize subtree results
+
+---
+
+## 🎓 Problem-Solving Steps for Tree Problems
+
+1. **Identify Tree Type**
+   - Binary tree vs BST vs N-ary tree
+   - Complete vs balanced vs skewed
+
+2. **Choose Traversal Method**
+   - DFS (Inorder/Preorder/Postorder) for depth-first
+   - BFS (Level Order) for level-wise
+   - Morris for constant space
+
+3. **Determine Information Flow**
+   - Top-down: Pass information from parent to children
+   - Bottom-up: Gather information from children to parent
+   - Both: Combination (e.g., LCA)
+
+4. **Handle Edge Cases**
+   - Empty tree (root == null)
+   - Single node tree
+   - Skewed tree (all left or all right)
+   - Duplicate values
+
+5. **Optimize Space**
+   - Use iteration instead of recursion if stack space is concern
+   - Morris traversal for O(1) space
+   - Process nodes level by level for BFS
+
+---
+
+## 🚀 Optimization Techniques
+
+1. **Memoization**: Cache subtree results for repeated computations
+2. **Early Termination**: Stop when answer found (e.g., path exists)
+3. **Parent Pointers**: Add parent reference for upward traversal
+4. **Level Tracking**: Track depth/level to avoid redundant calculations
+5. **Morris Traversal**: O(1) space alternative to recursive traversal
+
+---
+
+## 🔍 Algorithm Selection Guide
+
+| Problem Type | Best Algorithm | Time | Space |
+|-------------|---------------|------|-------|
+| Sorted sequence from BST | Inorder DFS | O(n) | O(h) |
+| Level-wise processing | BFS | O(n) | O(w) |
+| Tree cloning/serialization | Preorder DFS | O(n) | O(h) |
+| Subtree deletion | Postorder DFS | O(n) | O(h) |
+| Shortest path/min depth | BFS | O(n) | O(w) |
+| BST search/insert/delete | BST Operations | O(log n) avg | O(h) |
+| Maximum path sum | Tree DP | O(n) | O(h) |
+| Find ancestor | LCA | O(n) | O(h) |
+| Rebuild tree | Construction | O(n) | O(n) |
+| Constant space traversal | Morris Traversal | O(n) | O(1) |
+| Side views | BFS + Level Tracking | O(n) | O(w) |
+| Tree balancing | AVL/Red-Black Rotations | O(log n) | O(log n) |
+
+**Legend**: n = nodes, h = height, w = max width
+
+---
+
 ## Problem List (Grouped by Difficulty)
 
 ### Easy

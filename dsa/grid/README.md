@@ -2,6 +2,248 @@
 
 Problems involving 2D grids/matrices with path finding, traversal, and manipulation algorithms.
 
+## 📚 Grid Algorithms Guide
+
+### 🎯 When to Use Grid Algorithms
+Use grid algorithms when:
+- Problem involves **2D matrix/grid** structure
+- Need to find **paths**, **patterns**, or **regions** in a grid
+- Problem involves **spreading**, **expansion**, or **traversal** in 2D space
+- Dealing with **islands**, **mazes**, **games**, or **boards**
+
+### 🔑 Grid Algorithms & Time Complexities
+
+#### 1️⃣ **DFS on Grid** - O(m × n)
+**When to use**:
+- Find **connected regions** (islands, components)
+- Explore all possible paths
+- Fill/color regions
+- Count areas/perimeters
+
+**Implementation**: 4-directional or 8-directional recursion
+```java
+int[][] dirs = {{0,1}, {1,0}, {0,-1}, {-1,0}}; // 4 directions
+void dfs(int[][] grid, int i, int j) {
+    if (out of bounds || visited) return;
+    // mark visited
+    for (int[] dir : dirs) {
+        dfs(grid, i + dir[0], j + dir[1]);
+    }
+}
+```
+**Use cases**: Number of islands, flood fill, word search
+**Space**: O(m × n) for recursion stack in worst case
+
+#### 2️⃣ **BFS on Grid** - O(m × n)
+**When to use**:
+- Find **shortest path** in grid
+- Level-by-level expansion (spreading problems)
+- Multi-source BFS (from multiple starting points)
+
+**Implementation**: Queue with coordinates
+```java
+Queue<int[]> queue = new LinkedList<>();
+queue.offer(new int[]{startRow, startCol});
+while (!queue.isEmpty()) {
+    int[] curr = queue.poll();
+    // explore 4 directions
+}
+```
+**Use cases**: Shortest path in maze, rotting oranges, walls and gates
+**Space**: O(m × n) for queue
+
+#### 3️⃣ **Multi-Source BFS** - O(m × n)
+**When to use**:
+- Expand from **multiple sources** simultaneously
+- Find distance to nearest source
+- Spreading/propagation problems
+
+**Implementation**: Add all sources to queue initially
+```java
+Queue<int[]> queue = new LinkedList<>();
+for (all sources) queue.offer(source);
+// BFS from all sources simultaneously
+```
+**Use cases**: Rotting oranges, 01 matrix, walls and gates
+**Space**: O(m × n)
+
+#### 4️⃣ **Dynamic Programming on Grid** - O(m × n)
+**When to use**:
+- Count **number of paths**
+- Find **minimum/maximum path sum**
+- Optimization problems on grid
+
+**Implementation**: Bottom-up or top-down DP
+```java
+int[][] dp = new int[m][n];
+dp[0][0] = grid[0][0];
+for (int i = 0; i < m; i++) {
+    for (int j = 0; j < n; j++) {
+        dp[i][j] = /* combine from dp[i-1][j] and dp[i][j-1] */;
+    }
+}
+```
+**Use cases**: Unique paths, minimum path sum, dungeon game
+**Space**: O(m × n), can optimize to O(n)
+
+#### 5️⃣ **Backtracking on Grid** - O(4^(m×n)) worst case
+**When to use**:
+- Find **all possible paths/solutions**
+- Constraint satisfaction problems
+- Puzzle solving (Sudoku, N-Queens)
+
+**Implementation**: DFS with state restoration
+```java
+boolean backtrack(int[][] grid, int i, int j) {
+    if (goal) return true;
+    // try all options
+    for (option : options) {
+        // make choice
+        if (backtrack(grid, newI, newJ)) return true;
+        // undo choice (backtrack)
+    }
+    return false;
+}
+```
+**Use cases**: Word search, N-Queens, Sudoku solver
+**Space**: O(m × n) for recursion
+
+#### 6️⃣ **Dijkstra on Grid** - O(m × n × log(m × n))
+**When to use**:
+- Shortest path with **different costs** for cells
+- Weighted grid problems
+
+**Implementation**: Priority Queue with (cost, row, col)
+```java
+PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+pq.offer(new int[]{0, startRow, startCol}); // {cost, row, col}
+```
+**Use cases**: Path with minimum effort, swim in rising water
+**Space**: O(m × n)
+
+#### 7️⃣ **Binary Search on Grid** - O(log(max-min) × m × n)
+**When to use**:
+- **Minimize/maximize** some value on grid
+- "Can we achieve X?" type questions
+
+**Implementation**: Binary search + BFS/DFS validation
+```java
+int left = min, right = max;
+while (left < right) {
+    int mid = left + (right - left) / 2;
+    if (canAchieve(grid, mid)) right = mid;
+    else left = mid + 1;
+}
+```
+**Use cases**: Path with minimum effort, swim in rising water
+**Space**: O(m × n)
+
+#### 8️⃣ **Union-Find on Grid** - O(m × n × α(m×n))
+**When to use**:
+- Find **connected components** dynamically
+- Check connectivity
+- Merge regions
+
+**Implementation**: Convert 2D to 1D index
+```java
+int getIndex(int i, int j, int cols) {
+    return i * cols + j;
+}
+// Use Union-Find operations
+```
+**Use cases**: Number of islands II (dynamic), surrounded regions
+**Space**: O(m × n)
+
+#### 9️⃣ **Spiral/Diagonal Traversal** - O(m × n)
+**When to use**:
+- Traverse grid in **specific pattern**
+- Matrix manipulation
+
+**Implementation**: Direction vectors with boundaries
+```java
+int[][] dirs = {{0,1}, {1,0}, {0,-1}, {-1,0}}; // right, down, left, up
+int dir = 0;
+while (elements remain) {
+    // move in current direction
+    // change direction when hitting boundary
+}
+```
+**Use cases**: Spiral matrix, diagonal traverse
+**Space**: O(1) for traversal, O(m × n) for result
+
+#### 🔟 **Prefix Sum on Grid** - O(m × n) preprocessing, O(1) query
+**When to use**:
+- Answer **range sum queries** efficiently
+- Matrix region sums
+
+**Implementation**: 2D prefix sum array
+```java
+int[][] prefix = new int[m+1][n+1];
+for (int i = 1; i <= m; i++) {
+    for (int j = 1; j <= n; j++) {
+        prefix[i][j] = grid[i-1][j-1] 
+            + prefix[i-1][j] + prefix[i][j-1] 
+            - prefix[i-1][j-1];
+    }
+}
+// Range sum: prefix[r2][c2] - prefix[r1-1][c2] 
+//            - prefix[r2][c1-1] + prefix[r1-1][c1-1]
+```
+**Use cases**: Matrix block sum, range sum query 2D
+**Space**: O(m × n)
+
+### 🎨 Common Grid Patterns
+
+#### **4-Directional Movement**
+```java
+int[][] dirs = {{0,1}, {1,0}, {0,-1}, {-1,0}}; // right, down, left, up
+for (int[] dir : dirs) {
+    int newRow = row + dir[0];
+    int newCol = col + dir[1];
+}
+```
+
+#### **8-Directional Movement**
+```java
+int[][] dirs = {{0,1}, {1,0}, {0,-1}, {-1,0}, 
+                {1,1}, {1,-1}, {-1,1}, {-1,-1}};
+```
+
+#### **Knight Moves (Chess)**
+```java
+int[][] dirs = {{-2,-1}, {-2,1}, {-1,-2}, {-1,2},
+                {1,-2}, {1,2}, {2,-1}, {2,1}};
+```
+
+#### **Boundary Check**
+```java
+boolean isValid(int i, int j, int m, int n) {
+    return i >= 0 && i < m && j >= 0 && j < n;
+}
+```
+
+### 🚀 Grid Problem-Solving Strategies
+
+1. **Count Islands/Components**: DFS or BFS or Union-Find
+2. **Shortest Path (Unweighted)**: BFS
+3. **Shortest Path (Weighted)**: Dijkstra or Binary Search
+4. **All Paths**: DFS with backtracking
+5. **Fill Region**: DFS (flood fill)
+6. **Multi-Source Expansion**: Multi-source BFS
+7. **Path Counting**: DP (bottom-up)
+8. **Path Optimization**: DP or Binary Search + BFS
+9. **Pattern Search**: DFS with backtracking
+10. **Matrix Manipulation**: Simulation with direction vectors
+
+### ⚡ Common Optimizations
+
+- **In-place marking**: Modify grid to mark visited (save space)
+- **Bidirectional BFS**: Meet in middle for shortest path
+- **Early termination**: Stop when target found
+- **Space-optimized DP**: Use 1D array instead of 2D for DP
+- **Visited set vs array**: Use set for sparse grids, array for dense
+- **Direction arrays**: Cleaner code, easier to extend
+
 ## Problem List (Grouped by Difficulty)
 
 ### Medium

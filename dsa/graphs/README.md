@@ -1,5 +1,254 @@
 # Graph Problems
 
+## 📚 Graph Algorithms Guide
+
+### 🎯 When to Use Graph Algorithms
+Use graphs when:
+- Problem involves **relationships** or **connections** between entities
+- Need to find **paths**, **cycles**, or **connected components**
+- Problem involves **networks**, **dependencies**, or **social connections**
+- Data can be represented as **nodes (vertices)** and **edges**
+
+### 🔑 Graph Algorithms & Time Complexities
+
+#### 1️⃣ **Depth-First Search (DFS)** - O(V + E)
+**When to use**: 
+- Explore all paths, detect cycles, topological sort
+- Find connected components
+- Path existence problems
+
+**Implementation**: Recursion or Stack
+```java
+void dfs(int node, boolean[] visited) {
+    visited[node] = true;
+    for (int neighbor : graph[node]) {
+        if (!visited[neighbor]) dfs(neighbor, visited);
+    }
+}
+```
+**Use cases**: Islands, cycle detection, path finding
+**Space**: O(V) for recursion stack
+
+#### 2️⃣ **Breadth-First Search (BFS)** - O(V + E)
+**When to use**:
+- Find **shortest path** in unweighted graphs
+- Level-order traversal
+- Minimum steps/distance problems
+
+**Implementation**: Queue
+```java
+void bfs(int start) {
+    Queue<Integer> queue = new LinkedList<>();
+    queue.offer(start);
+    while (!queue.isEmpty()) {
+        int node = queue.poll();
+        for (int neighbor : graph[node]) {
+            queue.offer(neighbor);
+        }
+    }
+}
+```
+**Use cases**: Shortest path, level order, spreading problems
+**Space**: O(V) for queue
+
+#### 3️⃣ **Dijkstra's Algorithm** - O((V + E) log V)
+**When to use**:
+- Shortest path in **weighted graph** with **non-negative weights**
+- Single source to all destinations
+
+**Implementation**: Priority Queue (Min Heap)
+```java
+PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+// pq stores [node, distance]
+```
+**Use cases**: Network routing, GPS navigation, flight paths
+**Space**: O(V)
+**Note**: Fails with negative edge weights
+
+#### 4️⃣ **Bellman-Ford Algorithm** - O(V × E)
+**When to use**:
+- Shortest path with **negative edge weights**
+- Detect **negative cycles**
+- Single source to all destinations
+
+**Implementation**: Relax all edges V-1 times
+```java
+for (int i = 0; i < V - 1; i++) {
+    for (Edge edge : edges) {
+        relax(edge);
+    }
+}
+```
+**Use cases**: Currency arbitrage, graphs with negative weights
+**Space**: O(V)
+
+#### 5️⃣ **Floyd-Warshall Algorithm** - O(V³)
+**When to use**:
+- **All-pairs shortest paths**
+- Dense graphs
+- Transitive closure
+
+**Implementation**: 3 nested loops (k, i, j)
+```java
+for (int k = 0; k < n; k++)
+    for (int i = 0; i < n; i++)
+        for (int j = 0; j < n; j++)
+            dist[i][j] = min(dist[i][j], dist[i][k] + dist[k][j]);
+```
+**Use cases**: All pairs distances, transitive closure
+**Space**: O(V²)
+
+#### 6️⃣ **Topological Sort** - O(V + E)
+**When to use**:
+- Order tasks with dependencies (DAG only)
+- Course scheduling
+- Build systems
+
+**Implementation**: DFS or Kahn's Algorithm (BFS with indegree)
+```java
+// Kahn's Algorithm
+Queue<Integer> queue = new LinkedList<>();
+for (int i = 0; i < V; i++)
+    if (indegree[i] == 0) queue.offer(i);
+```
+**Use cases**: Task scheduling, compilation order, prerequisite chains
+**Space**: O(V)
+**Note**: Only works on Directed Acyclic Graphs (DAG)
+
+#### 7️⃣ **Union-Find (Disjoint Set)** - O(α(n)) ≈ O(1)
+**When to use**:
+- Find **connected components**
+- Check if two nodes are connected
+- Dynamic connectivity
+
+**Implementation**: Path compression + Union by rank
+```java
+int find(int x) {
+    if (parent[x] != x) parent[x] = find(parent[x]); // path compression
+    return parent[x];
+}
+void union(int x, int y) {
+    int rootX = find(x), rootY = find(y);
+    if (rank[rootX] > rank[rootY]) parent[rootY] = rootX;
+    else parent[rootX] = rootY;
+}
+```
+**Use cases**: Network connectivity, Kruskal's MST, redundant connections
+**Space**: O(V)
+
+#### 8️⃣ **Kruskal's Algorithm (MST)** - O(E log E)
+**When to use**:
+- Find **Minimum Spanning Tree**
+- Connect all nodes with minimum total edge weight
+- Sparse graphs
+
+**Implementation**: Sort edges + Union-Find
+```java
+Arrays.sort(edges, (a, b) -> a[2] - b[2]); // sort by weight
+for (int[] edge : edges) {
+    if (find(edge[0]) != find(edge[1])) {
+        union(edge[0], edge[1]);
+        mst.add(edge);
+    }
+}
+```
+**Use cases**: Network design, clustering
+**Space**: O(V + E)
+
+#### 9️⃣ **Prim's Algorithm (MST)** - O(E log V)
+**When to use**:
+- Find **Minimum Spanning Tree**
+- Dense graphs
+- Connected graph required
+
+**Implementation**: Priority Queue
+```java
+PriorityQueue<int[]> pq = new PriorityQueue<>((a, b) -> a[1] - b[1]);
+// Start from any node, keep adding minimum weight edge
+```
+**Use cases**: Network design, cable laying
+**Space**: O(V)
+
+#### 🔟 **A\* Search Algorithm** - O(E) with good heuristic
+**When to use**:
+- Shortest path with **heuristic** (informed search)
+- Game pathfinding
+- GPS navigation
+
+**Implementation**: Priority Queue with f(n) = g(n) + h(n)
+```java
+// g(n) = cost from start, h(n) = heuristic to goal
+PriorityQueue<Node> pq = new PriorityQueue<>((a, b) -> 
+    (a.g + a.h) - (b.g + b.h));
+```
+**Use cases**: Game AI, robotics, navigation
+**Space**: O(V)
+
+#### 1️⃣1️⃣ **Tarjan's Algorithm** - O(V + E)
+**When to use**:
+- Find **Strongly Connected Components** (SCC)
+- Find **bridges** and **articulation points**
+- Critical connections
+
+**Implementation**: DFS with low-link values
+**Use cases**: Network resilience, social network analysis
+**Space**: O(V)
+
+#### 1️⃣2️⃣ **Kosaraju's Algorithm** - O(V + E)
+**When to use**:
+- Find **Strongly Connected Components** (SCC)
+- Simpler than Tarjan's
+
+**Implementation**: Two DFS passes (original + transposed graph)
+**Use cases**: Web crawling, dependency analysis
+**Space**: O(V)
+
+### 🎨 Graph Representations
+
+#### **Adjacency List** - O(V + E) space
+```java
+List<List<Integer>> graph = new ArrayList<>();
+// Efficient for sparse graphs
+```
+**Best for**: Most problems, sparse graphs
+**DFS/BFS**: O(V + E)
+
+#### **Adjacency Matrix** - O(V²) space
+```java
+int[][] graph = new int[V][V];
+// graph[i][j] = 1 if edge exists
+```
+**Best for**: Dense graphs, quick edge lookup O(1)
+**DFS/BFS**: O(V²)
+
+#### **Edge List** - O(E) space
+```java
+List<int[]> edges = new ArrayList<>();
+// Each int[] = {from, to, weight}
+```
+**Best for**: Kruskal's MST, sorting edges
+**Less efficient** for traversal
+
+### 🚀 Graph Problem-Solving Patterns
+
+1. **Connected Components**: Use DFS/BFS or Union-Find
+2. **Shortest Path (Unweighted)**: BFS
+3. **Shortest Path (Weighted, No Negative)**: Dijkstra
+4. **Shortest Path (Negative Weights)**: Bellman-Ford
+5. **All Pairs Shortest Path**: Floyd-Warshall
+6. **Minimum Spanning Tree**: Kruskal's or Prim's
+7. **Cycle Detection**: DFS (with recursion stack) or Union-Find
+8. **Topological Sort**: DFS or Kahn's (only for DAG)
+9. **Strongly Connected Components**: Tarjan's or Kosaraju's
+10. **Bipartite Check**: BFS/DFS with 2-coloring
+
+### ⚡ Common Optimizations
+- **Bidirectional BFS**: Meet in the middle - O(b^(d/2))
+- **0-1 BFS**: Use deque for graphs with 0/1 weights
+- **Multi-source BFS**: Start from multiple sources simultaneously
+- **Early termination**: Stop when target found
+- **Visited array**: Avoid revisiting nodes
+
 ## Problem List (Grouped by Pattern/Algorithm)
 
 ### Traversal (DFS/BFS)
