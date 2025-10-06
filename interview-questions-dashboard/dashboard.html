@@ -1367,7 +1367,15 @@
         // Data loading functions
         async function loadCompanyData() {
             try {
-                const response = await fetch('./src/company/webscraper/leetcode_company_wise/leetcode_enhanced_complete.json');
+                // Cache-busting for fresh data
+                const cacheBuster = `v=${new Date().getTime()}&r=${Math.random().toString(36).substring(7)}`;
+                const response = await fetch(`./src/company/webscraper/leetcode_company_wise/leetcode_enhanced_complete.json?${cacheBuster}`, {
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    }
+                });
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
@@ -1380,7 +1388,15 @@
 
         async function loadProblemsData() {
             try {
-                const response = await fetch('./src/company/webscraper/leetcode_problem_solution/leetcode_ca_search_enhanced.json');
+                // Cache-busting for fresh data
+                const cacheBuster = `v=${new Date().getTime()}&r=${Math.random().toString(36).substring(7)}`;
+                const response = await fetch(`./src/company/webscraper/leetcode_problem_solution/leetcode_ca_search_enhanced.json?${cacheBuster}`, {
+                    cache: 'no-store',
+                    headers: {
+                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Pragma': 'no-cache'
+                    }
+                });
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
@@ -1393,22 +1409,41 @@
 
         async function loadInterviewPrepData() {
             try {
-                // Add cache-busting timestamp to force fresh data load
+                // AGGRESSIVE cache-busting for GitHub Pages
+                // Combine timestamp + random number to bypass ALL caching layers
                 const timestamp = new Date().getTime();
-                const response = await fetch(`./src/company/webscraper/enginebogie/enginebogie_answer.json?t=${timestamp}`, {
+                const random = Math.random().toString(36).substring(7);
+                const cacheBuster = `v=${timestamp}&r=${random}`;
+                
+                const response = await fetch(`./src/company/webscraper/enginebogie/enginebogie_answer.json?${cacheBuster}`, {
+                    method: 'GET',
                     cache: 'no-store',
                     headers: {
-                        'Cache-Control': 'no-cache, no-store, must-revalidate',
+                        'Cache-Control': 'no-cache, no-store, must-revalidate, max-age=0',
                         'Pragma': 'no-cache',
-                        'Expires': '0'
+                        'Expires': '0',
+                        'If-Modified-Since': '0'
                     }
                 });
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
                 const data = await response.json();
+                
+                // Log detailed stats to verify fresh data
+                const withAnswers = data.filter(p => p.answer && p.answer.trim());
                 console.log('✅ Loaded interview prep data:', data.length, 'problems');
-                console.log('📊 Sample with answer:', data.find(p => p.answer)?.problem_name || 'None');
+                console.log('📊 Problems with AI answers:', withAnswers.length, `(${(withAnswers.length/data.length*100).toFixed(1)}%)`);
+                console.log('🔄 Cache buster:', cacheBuster);
+                
+                // Show latest AI-generated solution timestamp
+                const latestAI = data
+                    .filter(p => p.ai_generation_timestamp)
+                    .sort((a, b) => new Date(b.ai_generation_timestamp) - new Date(a.ai_generation_timestamp))[0];
+                if (latestAI) {
+                    console.log('⏰ Latest AI solution:', new Date(latestAI.ai_generation_timestamp).toLocaleString());
+                }
+                
                 return data;
             } catch (error) {
                 console.error('Error loading interview prep data:', error);
