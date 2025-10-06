@@ -1414,7 +1414,7 @@
                 const timestamp = new Date().getTime();
                 const random = Math.random().toString(36).substring(7);
                 const cacheBuster = `v=${timestamp}&r=${random}`;
-                
+
                 const response = await fetch(`./src/company/webscraper/enginebogie/enginebogie_answer.json?${cacheBuster}`, {
                     method: 'GET',
                     cache: 'no-store',
@@ -1429,13 +1429,13 @@
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
                 const data = await response.json();
-                
+
                 // Log detailed stats to verify fresh data
                 const withAnswers = data.filter(p => p.answer && p.answer.trim());
                 console.log('✅ Loaded interview prep data:', data.length, 'problems');
-                console.log('📊 Problems with AI answers:', withAnswers.length, `(${(withAnswers.length/data.length*100).toFixed(1)}%)`);
+                console.log('📊 Problems with AI answers:', withAnswers.length, `(${(withAnswers.length / data.length * 100).toFixed(1)}%)`);
                 console.log('🔄 Cache buster:', cacheBuster);
-                
+
                 // Show latest AI-generated solution timestamp
                 const latestAI = data
                     .filter(p => p.ai_generation_timestamp)
@@ -1443,7 +1443,7 @@
                 if (latestAI) {
                     console.log('⏰ Latest AI solution:', new Date(latestAI.ai_generation_timestamp).toLocaleString());
                 }
-                
+
                 return data;
             } catch (error) {
                 console.error('Error loading interview prep data:', error);
