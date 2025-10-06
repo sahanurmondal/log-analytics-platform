@@ -3,16 +3,17 @@
 **Live Dashboard**: [View Here](https://sahanurmondal.github.io/log-analytics-platform/interview-questions-dashboard/dashboard.html)
 
 ## 📊 Overview
-Comprehensive interview preparation dashboard with **1,509 questions** (1,299 DSA + 210 System Design) featuring enhanced answers, optimal solutions, and modern UI.
+Comprehensive interview preparation dashboard with **1,299 DSA questions** featuring AI-generated solutions with syntax highlighting and code execution simulation.
 
 ### ✨ Enhanced Features
-- 🎯 **818 Enhanced Coding Questions** with optimal solutions and problem-specific tips
-- 🏗️ **10 Complete System Design Solutions** with detailed markdown files
-- 🔍 **Advanced Filtering**: Company, category, difficulty, answer quality, question type
+- 🤖 **193 AI-Generated Solutions** (14.9% coverage) powered by Google Gemini 2.0 Flash
+- 💻 **IDE-Like Code Editor** with VS Code dark theme and Prism.js syntax highlighting
+- ▶️ **Code Execution Simulation** - Run Java code with test case parsing and output display
+- 🔍 **Advanced Filtering**: Company, category, difficulty, AI solution status, question type
 - 📱 **Modern Responsive Design**: Clean, professional interface on all devices
-- ⚡ **Smart Answer Validation**: Shows only quality-reviewed content
-- 💡 **Optimal Solutions Highlighted**: Best approaches with time/space complexity
-- 📚 **Learning Resources**: Curated educational content and references
+- 🎨 **Professional UI**: Dark theme, scrollable code blocks, copy-to-clipboard
+- � **Smart Cache-Busting**: Always loads fresh data (no stale cache issues)
+- � **Real-time Stats**: Track problems with/without AI solutions
 
 ### 🚀 Quick Start
 **Option 1: One-Command Setup** (Recommended)
@@ -47,8 +48,50 @@ curl -s "https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/
 - **Performance**: Optimized for both local and GitHub Pages deployment
 - **Compatibility**: Works across all modern browsers and devices
 
-### 🔧 Troubleshooting GitHub Pages
-**⚠️ If GitHub Pages links aren't working:**
+### 🔧 Troubleshooting
+
+#### **🔄 GitHub Pages Shows Old Data (Cached JSON)**
+**Problem**: Browser/CDN caching causes old JSON data to load even after updates.
+
+**Solution - Force Fresh Data** (Already implemented in dashboard):
+```javascript
+// Dashboard uses aggressive cache-busting:
+// - Timestamp + Random string on every load
+// - No-cache HTTP headers
+// - Unique URL: file.json?v=1759727XXX&r=abc123
+```
+
+**How to Verify Fresh Data:**
+1. Open DevTools Console (F12)
+2. Look for these logs:
+   ```
+   ✅ Loaded interview prep data: 1299 problems
+   📊 Problems with AI answers: 193 (14.9%)
+   🔄 Cache buster: v=1759727XXX&r=abc123  ← Should change on each reload
+   ⏰ Latest AI solution: 10/6/2025, 10:30:45 AM
+   ```
+3. **Each page refresh** should show a DIFFERENT cache buster value
+
+**If Still Seeing Old Data:**
+- **Hard Refresh**: `Ctrl+Shift+R` (Windows) or `Cmd+Shift+R` (Mac)
+- **Incognito Mode**: Test in private/incognito window
+- **Wait 10-15 min**: GitHub Pages CDN needs time to propagate
+- **Clear All Cache**: DevTools → Network tab → Disable cache checkbox
+
+#### **⚠️ Console Warnings (Safe to Ignore)**
+You may see these development warnings - they're **harmless**:
+```
+❌ runtime.lastError: The message port closed
+   → Browser extension interference (safe to ignore)
+
+⚠️  ReactDOM.render is no longer supported in React 18
+   → Development warning only (app works fine)
+
+⚠️  You are using in-browser Babel transformer
+   → Expected for single-file HTML app
+```
+
+**To Hide These Warnings**: Just close the Console tab - they don't affect functionality.
 
 #### **🚀 Immediate Solutions:**
 1. **Download & Run Locally** (Recommended):
@@ -74,11 +117,6 @@ This error occurs when data files are missing. Solutions:
 - **Run with Server** (not just double-clicking HTML file)
 - **Check File Structure** (src/company/webscraper/ folders must exist)
 
-#### **🔍 Troubleshooting Tips:**
-- Clear browser cache if pages don't load
-- Use a local server for best results (`python3 -m http.server 8080`)
-- GitHub Pages may take a few minutes to update after pushing changes
-
 #### **✅ Verified Working Method:**
 **Local Server** (100% reliable):
 1. Use the quick-start script above, or
@@ -86,11 +124,13 @@ This error occurs when data files are missing. Solutions:
 3. Open `http://localhost:8080/dashboard.html`
 
 ### 📊 Question Database
-- **Total Questions**: 1,509 (1,299 DSA + 210 System Design)
-- **Enhanced Answers**: 818+ coding questions with quality validation
-- **Companies**: 62 top tech companies (Google, Meta, Amazon, Microsoft, etc.)
-- **Categories**: Arrays, Trees, DP, System Design, Databases, and more
-- **System Design Solutions**: Complete markdown files with implementation guides
+- **Total DSA Questions**: 1,299 from EngineBogie platform
+- **AI Solutions**: 193 complete solutions (14.9% coverage, growing!)
+- **AI Provider**: Google Gemini 2.0 Flash API
+- **Solution Quality**: Production-ready code with explanations, complexity analysis, and examples
+- **Companies**: Top tech companies (Google, Meta, Amazon, Microsoft, Netflix, etc.)
+- **Categories**: Arrays, Trees, DP, Graphs, Strings, System Design, and more
+- **Features**: Syntax highlighting, code execution simulation, test case parsing
 
 ---
 *Enhanced dashboard with comprehensive interview preparation resources*
