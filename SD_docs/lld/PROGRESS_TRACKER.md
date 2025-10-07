@@ -91,5 +91,57 @@
 
 ---
 
+---
+
+## Batch 8: Game Engines & Interactive Systems (Problems 76-85)
+
+### ✅ Completed Problems
+
+| # | Problem | File | Status | Key Patterns |
+|---|---------|------|--------|--------------|
+| 76 | **Chess Engine Skeleton** | Problem_76_Chess_Engine_Skeleton.md / ChessEngine.java | ✅ NEW | Strategy, Factory, Command |
+| 77 | **TicTacToe Engine** | TicTacToeEngine.java | ✅ NEW | State, Strategy, Template Method |
+| 78 | **Snake Game Engine** | SnakeGameEngine.java | ✅ NEW | State, Command, Observer |
+| 79 | **Minesweeper Engine** | MinesweeperEngine.java | ✅ NEW | State, Strategy, Observer, Flyweight |
+| 80 | **Quiz/Exam Engine** | QuizEngine.java | ✅ NEW | Strategy, Factory, State, Template Method |
+| 81 | **Quiz Adaptive Difficulty** | QuizEngine.java | ✅ NEW | Strategy (Adaptive), Observer |
+| 82 | **Text Editor Undo/Redo** | TextEditorUndoRedo.java | ✅ NEW | Command, Memento, Composite |
+| 83 | **Game State Persistence** | GameStatePersistence.java | ✅ NEW | Memento, Strategy, Template Method, Prototype |
+| 84 | **Media Streaming Buffer** | MediaStreamingBufferController.java | ✅ NEW | Strategy, Observer, State |
+| 85 | **Game Session Manager** | GameSessionStateManager.java | ✅ NEW | State, Strategy, Observer, Singleton |
+
+**Batch 8 Status: 100% Complete (10/10) ✅**
+
+### Key Algorithms & Techniques
+
+#### Game Logic
+- **Move Generation**: O(N) piece-based strategies
+- **Win Detection**: O(N) for board scanning
+- **Collision Detection**: O(N) self-collision, O(1) boundary
+- **Cascade Reveal**: BFS/DFS for Minesweeper
+
+#### State Management
+- **Undo/Redo**: Command pattern with memento snapshots
+- **Session Lifecycle**: Timeout detection, pause/resume
+- **Persistence**: Serialization strategies, compression
+
+#### Adaptive Systems
+- **Difficulty Adjustment**: Sliding window performance analysis
+- **Bitrate Adaptation**: Network-aware quality selection
+- **Buffer Management**: Dynamic target sizing
+
+#### Real-Time Systems
+- **Media Buffering**: Adaptive streaming (ABR)
+- **Timeout Management**: Scheduled background checks
+- **Event Notifications**: Observer pattern for loose coupling
+
+---
+
+## Summary Statistics
+
+**Total Problems Completed:** 25/100 (25%)
+- Batch 1: 10/10 ✅
+- Batch 2: 5/20 (partial)
+- Batch 8: 10/10 ✅
+
 **Last Updated:** October 7, 2025
-**Batch 1 Status:** 8/10 Complete (80%)
