@@ -10,6 +10,21 @@ import java.util.*;
  * Given an array of integers nums and an integer k, return the total number of
  * continuous subarrays whose sum equals to k.
  *
+ * Input:
+ * - nums: int[] (array of integers)
+ * - k: int (target sum)
+ *
+ * Output:
+ * - int (total number of continuous subarrays whose sum equals k)
+ *
+ * Example 1:
+ * Input: nums = [1,1,1], k = 2
+ * Output: 2
+ *
+ * Example 2:
+ * Input: nums = [1,2,3], k = 3
+ * Output: 2
+ *
  * Constraints:
  * - 1 <= nums.length <= 2 * 10^4
  * - -1000 <= nums[i] <= 1000
@@ -18,6 +33,21 @@ import java.util.*;
  * Follow-up:
  * - Can you solve it in O(n) time?
  * - How would you handle very large arrays?
+ *
+ * Mathematical Proof & Explanation:
+ * ------------------------------------------------------------
+ * Let prefixSum[i] be the sum of nums[0] to nums[i].
+ * For any subarray nums[i..j], its sum is:
+ *   sum(nums[i..j]) = prefixSum[j] - prefixSum[i-1]
+ * We want sum(nums[i..j]) == k, so:
+ *   prefixSum[j] - prefixSum[i-1] == k
+ *   => prefixSum[i-1] == prefixSum[j] - k
+ * Thus, for each position j, if we have seen prefixSum[j] - k before,
+ * it means there exists an i such that nums[i..j] sums to k.
+ * By counting the number of times prefixSum[j] - k has occurred,
+ * we count all valid subarrays ending at j.
+ * This is why we use a hashmap to store frequencies of prefix sums.
+ * ------------------------------------------------------------
  */
 public class SubarraySumEqualsK {
     public int subarraySum(int[] nums, int k) {

@@ -1,24 +1,20 @@
-package lld;
-
-import java.util.*;
-
 /**
- * LLD #82: Text Editor Undo/Redo with Command + Memento Pattern
- * 
- * Design Patterns:
- * 1. Command Pattern - Encapsulate edit operations
- * 2. Memento Pattern - Store document state snapshots
- * 3. Composite Pattern - Complex commands from simple ones
- * 
- * Supports: Insert, Delete, Replace with full undo/redo
- */
+* LLD #82: Text Editor Undo/Redo with Command + Memento Pattern
+*
+* Design Patterns:
+* 1. Command Pattern - Encapsulate edit operations
+* 2. Memento Pattern - Store document state snapshots
+* 3. Composite Pattern - Complex commands from simple ones
+*
+* Supports: Insert, Delete, Replace with full undo/redo
+  */
 
 // Memento Pattern - Stores state snapshot
 class EditorMemento {
-    private final String content;
-    private final int cursorPosition;
-    private final long timestamp;
-    
+private final String content;
+private final int cursorPosition;
+private final long timestamp;
+
     public EditorMemento(String content, int cursorPosition) {
         this.content = content;
         this.cursorPosition = cursorPosition;
@@ -32,17 +28,17 @@ class EditorMemento {
 
 // Command Pattern - Edit operations
 interface EditorCommand {
-    void execute();
-    void undo();
-    String getDescription();
+void execute();
+void undo();
+String getDescription();
 }
 
 class InsertCommand implements EditorCommand {
-    private TextEditor editor;
-    private String text;
-    private int position;
-    private EditorMemento beforeState;
-    
+private TextEditor editor;
+private String text;
+private int position;
+private EditorMemento beforeState;
+
     public InsertCommand(TextEditor editor, String text, int position) {
         this.editor = editor;
         this.text = text;
@@ -69,11 +65,11 @@ class InsertCommand implements EditorCommand {
 }
 
 class DeleteCommand implements EditorCommand {
-    private TextEditor editor;
-    private int start;
-    private int end;
-    private EditorMemento beforeState;
-    
+private TextEditor editor;
+private int start;
+private int end;
+private EditorMemento beforeState;
+
     public DeleteCommand(TextEditor editor, int start, int end) {
         this.editor = editor;
         this.start = start;
@@ -100,12 +96,12 @@ class DeleteCommand implements EditorCommand {
 }
 
 class ReplaceCommand implements EditorCommand {
-    private TextEditor editor;
-    private int start;
-    private int end;
-    private String newText;
-    private EditorMemento beforeState;
-    
+private TextEditor editor;
+private int start;
+private int end;
+private String newText;
+private EditorMemento beforeState;
+
     public ReplaceCommand(TextEditor editor, int start, int end, String newText) {
         this.editor = editor;
         this.start = start;
@@ -134,9 +130,9 @@ class ReplaceCommand implements EditorCommand {
 
 // Composite Pattern - Macro command
 class MacroCommand implements EditorCommand {
-    private List<EditorCommand> commands;
-    private String description;
-    
+private List<EditorCommand> commands;
+private String description;
+
     public MacroCommand(String description) {
         this.commands = new ArrayList<>();
         this.description = description;
@@ -168,12 +164,12 @@ class MacroCommand implements EditorCommand {
 }
 
 class TextEditor {
-    private StringBuilder content;
-    private int cursorPosition;
-    private Stack<EditorCommand> undoStack;
-    private Stack<EditorCommand> redoStack;
-    private static final int MAX_UNDO_SIZE = 100;
-    
+private StringBuilder content;
+private int cursorPosition;
+private Stack<EditorCommand> undoStack;
+private Stack<EditorCommand> redoStack;
+private static final int MAX_UNDO_SIZE = 100;
+
     public TextEditor() {
         this.content = new StringBuilder();
         this.cursorPosition = 0;
@@ -283,7 +279,7 @@ class TextEditor {
 }
 
 public class TextEditorUndoRedo {
-    
+
     public static void main(String[] args) {
         TextEditor editor = new TextEditor();
         
@@ -340,75 +336,75 @@ public class TextEditorUndoRedo {
 }
 
 /*
- * INTERVIEW QUESTIONS & ANSWERS:
- * 
- * Q1: Why use both Command and Memento patterns?
- * A: Command encapsulates operations (what was done).
- *    Memento captures state (what it was before).
- *    Together: Command for undo logic, Memento for state restoration.
- *    Trade-off: Memento uses more memory but simpler undo logic.
- * 
- * Q2: How to optimize memory for large documents?
- * A: Instead of storing full content in Memento, store only:
- *    - Delta changes (what was inserted/deleted)
- *    - Use diff algorithms (Myers diff)
- *    - Compress old mementos
- *    - Limit undo stack size
- *    - Use rope data structure for efficient edits
- * 
- * Q3: How would you implement undo/redo groups (transactions)?
- * A: Use Composite/Macro command pattern. Group related operations:
- *    - Start transaction → create MacroCommand
- *    - Add commands to macro
- *    - End transaction → execute macro
- *    - Undo: reverses entire group atomically
- * 
- * Q4: How to handle concurrent edits in collaborative editing?
- * A: Operational Transformation (OT) or CRDTs:
- *    - Transform operations based on concurrent edits
- *    - Resolve conflicts automatically
- *    - Each user has local undo/redo stack
- *    - Broadcast operations to other users
- * 
- * Q5: What's the time/space complexity?
- * A: Time: O(1) for undo/redo (stack operations)
- *         O(N) for command execution where N = text length
- *    Space: O(M * N) where M = undo stack size, N = content size
- *    Optimization: Use delta storage → O(M * D) where D = delta size
- * 
- * Q6: How would you implement selective undo (undo specific operation)?
- * A: More complex! Need to:
- *    - Identify target operation in history
- *    - Reverse it while preserving later operations
- *    - Use transformation to adjust positions
- *    - Or rebuild state by replaying non-undone operations
- * 
- * Q7: How to implement undo/redo for complex objects (images, tables)?
- * A: Use Memento for entire object state, or:
- *    - Custom command for each edit type
- *    - Store object-specific diffs
- *    - Use serialization/cloning for state capture
- *    - Separate undo stack per object type
- * 
- * Q8: How would you persist undo/redo across sessions?
- * A: Serialize command history to file/database:
- *    - Store command type and parameters
- *    - Reconstruct commands on load
- *    - Replay commands to restore state
- *    - Consider size limits (don't persist all history)
- * 
- * Q9: How to implement time-travel debugging with undo/redo?
- * A: Enhanced memento with timestamps:
- *    - Store timestamp with each memento
- *    - Allow jumping to specific time point
- *    - Visualize state at any point in history
- *    - Useful for debugging, version comparison
- * 
- * Q10: How would you optimize for mobile devices (limited memory)?
- * A: Aggressive optimizations:
- *    - Smaller undo stack (10-20 operations)
- *    - Compress mementos
- *    - Use delta-based approach
- *    - Discard old history automatically
- *    - Lazy memento creation (only on significant edits)
- */
+* INTERVIEW QUESTIONS & ANSWERS:
+*
+* Q1: Why use both Command and Memento patterns?
+* A: Command encapsulates operations (what was done).
+*    Memento captures state (what it was before).
+*    Together: Command for undo logic, Memento for state restoration.
+*    Trade-off: Memento uses more memory but simpler undo logic.
+*
+* Q2: How to optimize memory for large documents?
+* A: Instead of storing full content in Memento, store only:
+*    - Delta changes (what was inserted/deleted)
+*    - Use diff algorithms (Myers diff)
+*    - Compress old mementos
+*    - Limit undo stack size
+*    - Use rope data structure for efficient edits
+*
+* Q3: How would you implement undo/redo groups (transactions)?
+* A: Use Composite/Macro command pattern. Group related operations:
+*    - Start transaction → create MacroCommand
+*    - Add commands to macro
+*    - End transaction → execute macro
+*    - Undo: reverses entire group atomically
+*
+* Q4: How to handle concurrent edits in collaborative editing?
+* A: Operational Transformation (OT) or CRDTs:
+*    - Transform operations based on concurrent edits
+*    - Resolve conflicts automatically
+*    - Each user has local undo/redo stack
+*    - Broadcast operations to other users
+*
+* Q5: What's the time/space complexity?
+* A: Time: O(1) for undo/redo (stack operations)
+*         O(N) for command execution where N = text length
+*    Space: O(M * N) where M = undo stack size, N = content size
+*    Optimization: Use delta storage → O(M * D) where D = delta size
+*
+* Q6: How would you implement selective undo (undo specific operation)?
+* A: More complex! Need to:
+*    - Identify target operation in history
+*    - Reverse it while preserving later operations
+*    - Use transformation to adjust positions
+*    - Or rebuild state by replaying non-undone operations
+*
+* Q7: How to implement undo/redo for complex objects (images, tables)?
+* A: Use Memento for entire object state, or:
+*    - Custom command for each edit type
+*    - Store object-specific diffs
+*    - Use serialization/cloning for state capture
+*    - Separate undo stack per object type
+*
+* Q8: How would you persist undo/redo across sessions?
+* A: Serialize command history to file/database:
+*    - Store command type and parameters
+*    - Reconstruct commands on load
+*    - Replay commands to restore state
+*    - Consider size limits (don't persist all history)
+*
+* Q9: How to implement time-travel debugging with undo/redo?
+* A: Enhanced memento with timestamps:
+*    - Store timestamp with each memento
+*    - Allow jumping to specific time point
+*    - Visualize state at any point in history
+*    - Useful for debugging, version comparison
+*
+* Q10: How would you optimize for mobile devices (limited memory)?
+* A: Aggressive optimizations:
+*    - Smaller undo stack (10-20 operations)
+*    - Compress mementos
+*    - Use delta-based approach
+*    - Discard old history automatically
+*    - Lazy memento creation (only on significant edits)
+       */

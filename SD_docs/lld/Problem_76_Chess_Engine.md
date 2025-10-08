@@ -1,7 +1,3 @@
-package lld;
-
-import java.util.*;
-
 /**
  * LLD #76: Chess Engine Skeleton
  * 

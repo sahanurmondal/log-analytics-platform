@@ -25,23 +25,28 @@ package arrays.medium;
  * 2. Second pass: Calculate right products and multiply with left products
  */
 public class ProductOfArrayExceptSelf {
+    /**
+     * Follow-up solution: O(1) extra space (excluding output array)
+     * This method does not use any additional arrays or collections.
+     * Only a single variable is used for right products.
+     */
     public int[] productExceptSelf(int[] nums) {
         int n = nums.length;
-        int[] result = new int[n];
+        int[] result = new int[n]; // Output array is not counted as extra space per problem statement
 
-        // First pass: calculate left products
+        // First pass: calculate left products in result array
         result[0] = 1;
         for (int i = 1; i < n; i++) {
             result[i] = result[i - 1] * nums[i - 1];
         }
 
-        // Second pass: calculate right products and multiply with left products
+        // Second pass: calculate right products in-place using a single variable
         int rightProduct = 1;
         for (int i = n - 1; i >= 0; i--) {
             result[i] *= rightProduct;
             rightProduct *= nums[i];
         }
-
+        // This approach uses only O(1) extra space (excluding output array)
         return result;
     }
 

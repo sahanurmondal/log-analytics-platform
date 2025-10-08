@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -12,25 +13,48 @@
             padding: 20px;
             background: #f5f5f5;
         }
+
         .test-card {
             background: white;
             border-radius: 8px;
             padding: 20px;
             margin-bottom: 20px;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
         }
-        h1 { color: #333; }
-        h2 { color: #666; border-bottom: 2px solid #667eea; padding-bottom: 10px; }
-        .status { 
+
+        h1 {
+            color: #333;
+        }
+
+        h2 {
+            color: #666;
+            border-bottom: 2px solid #667eea;
+            padding-bottom: 10px;
+        }
+
+        .status {
             display: inline-block;
             padding: 4px 12px;
             border-radius: 4px;
             font-weight: bold;
             margin-left: 10px;
         }
-        .success { background: #d4edda; color: #155724; }
-        .error { background: #f8d7da; color: #721c24; }
-        .loading { background: #fff3cd; color: #856404; }
+
+        .success {
+            background: #d4edda;
+            color: #155724;
+        }
+
+        .error {
+            background: #f8d7da;
+            color: #721c24;
+        }
+
+        .loading {
+            background: #fff3cd;
+            color: #856404;
+        }
+
         pre {
             background: #f8f9fa;
             padding: 15px;
@@ -38,17 +62,23 @@
             overflow-x: auto;
             border-left: 4px solid #667eea;
         }
+
         .stat {
             display: inline-block;
             margin: 10px 20px 10px 0;
             font-size: 1.1em;
         }
-        .stat-label { color: #666; }
-        .stat-value { 
-            font-weight: bold; 
-            color: #667eea; 
+
+        .stat-label {
+            color: #666;
+        }
+
+        .stat-value {
+            font-weight: bold;
+            color: #667eea;
             font-size: 1.3em;
         }
+
         button {
             background: #667eea;
             color: white;
@@ -59,8 +89,12 @@
             font-size: 16px;
             margin: 5px;
         }
-        button:hover { background: #5a6fd8; }
-        .code { 
+
+        button:hover {
+            background: #5a6fd8;
+        }
+
+        .code {
             font-family: 'Courier New', monospace;
             background: #f1f3f4;
             padding: 2px 6px;
@@ -69,6 +103,7 @@
         }
     </style>
 </head>
+
 <body>
     <h1>🧪 Dashboard Data Loading Test</h1>
     <p>This page tests if the JSON data files are loading correctly with cache-busting.</p>
@@ -90,7 +125,8 @@
 
     <div class="test-card">
         <h2>🔍 Cache-Busting Verification</h2>
-        <p>Each test should show a DIFFERENT cache buster value. If values are the same, your browser is caching the HTML file.</p>
+        <p>Each test should show a DIFFERENT cache buster value. If values are the same, your browser is caching the
+            HTML file.</p>
         <button onclick="location.reload()">🔄 Reload Test</button>
         <button onclick="location.reload(true)">⚡ Hard Reload (Ctrl+Shift+R)</button>
     </div>
@@ -99,13 +135,13 @@
         async function testLoad(url, label, resultId, statusId) {
             const resultDiv = document.getElementById(resultId);
             const statusSpan = document.getElementById(statusId);
-            
+
             try {
                 // Use same cache-busting as dashboard
                 const timestamp = new Date().getTime();
                 const random = Math.random().toString(36).substring(7);
                 const cacheBuster = `v=${timestamp}&r=${random}`;
-                
+
                 const startTime = performance.now();
                 const response = await fetch(`${url}?${cacheBuster}`, {
                     method: 'GET',
@@ -118,13 +154,13 @@
                     }
                 });
                 const loadTime = (performance.now() - startTime).toFixed(2);
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
-                
+
                 const data = await response.json();
-                
+
                 // Analyze data based on type
                 let stats = '';
                 if (label.includes('Interview Prep')) {
@@ -133,7 +169,7 @@
                     const latest = data
                         .filter(p => p.ai_generation_timestamp)
                         .sort((a, b) => new Date(b.ai_generation_timestamp) - new Date(a.ai_generation_timestamp))[0];
-                    
+
                     stats = `
                         <div class="stat">
                             <span class="stat-label">Total Problems:</span>
@@ -142,7 +178,7 @@
                         <div class="stat">
                             <span class="stat-label">With Answers:</span>
                             <span class="stat-value">${withAnswers.length}</span>
-                            <span class="stat-label">(${(withAnswers.length/data.length*100).toFixed(1)}%)</span>
+                            <span class="stat-label">(${(withAnswers.length / data.length * 100).toFixed(1)}%)</span>
                         </div>
                         <div class="stat">
                             <span class="stat-label">AI Generated:</span>
@@ -163,7 +199,7 @@
                         </div>
                     `;
                 }
-                
+
                 resultDiv.innerHTML = `
                     <div style="margin: 10px 0;">
                         ✅ <strong>Successfully Loaded</strong>
@@ -179,10 +215,10 @@
                         <pre>${JSON.stringify(Array.isArray(data) ? data.slice(0, 2) : data, null, 2)}</pre>
                     </details>
                 `;
-                
+
                 statusSpan.className = 'status success';
                 statusSpan.textContent = '✅ Success';
-                
+
             } catch (error) {
                 resultDiv.innerHTML = `
                     <div style="color: #721c24; margin: 10px 0;">
@@ -197,19 +233,19 @@
 3. CORS issue (unlikely with local server)
 4. Path mismatch</pre>
                 `;
-                
+
                 statusSpan.className = 'status error';
                 statusSpan.textContent = '❌ Failed';
             }
         }
 
         // Run tests
-        testLoad('./src/company/webscraper/enginebogie/enginebogie_answer.json', 
-                'Interview Prep', 'result1', 'status1');
-        testLoad('./src/company/webscraper/leetcode_company_wise/leetcode_enhanced_complete.json', 
-                'Company Problems', 'result2', 'status2');
-        testLoad('./src/company/webscraper/leetcode_problem_solution/leetcode_ca_search_enhanced.json', 
-                'Problem Explorer', 'result3', 'status3');
+        testLoad('./src/company/webscraper/enginebogie/enginebogie_answer.json',
+            'Interview Prep', 'result1', 'status1');
+        testLoad('./src/company/webscraper/leetcode_company_wise/leetcode_enhanced_complete.json',
+            'Company Problems', 'result2', 'status2');
+        testLoad('./src/company/webscraper/leetcode_problem_solution/leetcode_ca_search_enhanced.json',
+            'Problem Explorer', 'result3', 'status3');
 
         // Log page load time
         console.log('%c🧪 Data Loading Test Page', 'font-size: 16px; font-weight: bold; color: #667eea;');
@@ -217,4 +253,5 @@
         console.log('Cache buster changes on each reload - check the values above');
     </script>
 </body>
+
 </html>

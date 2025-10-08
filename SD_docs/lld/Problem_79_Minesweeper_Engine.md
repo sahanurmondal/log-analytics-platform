@@ -1,30 +1,26 @@
-package lld;
-
-import java.util.*;
-
 /**
- * LLD #79: Minesweeper Engine
- * 
- * Design Patterns Used:
- * 1. State Pattern - Cell states (Hidden, Revealed, Flagged)
- * 2. Strategy Pattern - Different difficulty levels
- * 3. Observer Pattern - Game event notifications
- * 4. Flyweight Pattern - Share immutable mine/number data
- * 
- * Why These Patterns?
- * - State: Clean cell state transitions
- * - Strategy: Different board configurations for Easy/Medium/Hard
- * - Observer: Notify UI of game events
- * - Flyweight: Memory efficiency for large boards
- */
+* LLD #79: Minesweeper Engine
+*
+* Design Patterns Used:
+* 1. State Pattern - Cell states (Hidden, Revealed, Flagged)
+* 2. Strategy Pattern - Different difficulty levels
+* 3. Observer Pattern - Game event notifications
+* 4. Flyweight Pattern - Share immutable mine/number data
+*
+* Why These Patterns?
+* - State: Clean cell state transitions
+* - Strategy: Different board configurations for Easy/Medium/Hard
+* - Observer: Notify UI of game events
+* - Flyweight: Memory efficiency for large boards
+    */
 
 enum CellStatus { HIDDEN, REVEALED, FLAGGED }
 
 enum Difficulty {
-    EASY(9, 9, 10),
-    MEDIUM(16, 16, 40),
-    HARD(30, 16, 99);
-    
+EASY(9, 9, 10),
+MEDIUM(16, 16, 40),
+HARD(30, 16, 99);
+
     int rows, cols, mines;
     
     Difficulty(int rows, int cols, int mines) {
@@ -35,10 +31,10 @@ enum Difficulty {
 }
 
 class Cell {
-    private boolean isMine;
-    private int adjacentMines;
-    private CellStatus status;
-    
+private boolean isMine;
+private int adjacentMines;
+private CellStatus status;
+
     public Cell() {
         this.isMine = false;
         this.adjacentMines = 0;
@@ -55,22 +51,22 @@ class Cell {
 }
 
 interface MinesweeperObserver {
-    void onCellRevealed(int row, int col, int adjacentMines);
-    void onMineExploded(int row, int col);
-    void onGameWon(long timeElapsed);
-    void onFlagToggled(int row, int col, boolean flagged);
+void onCellRevealed(int row, int col, int adjacentMines);
+void onMineExploded(int row, int col);
+void onGameWon(long timeElapsed);
+void onFlagToggled(int row, int col, boolean flagged);
 }
 
 public class MinesweeperEngine {
-    private Cell[][] board;
-    private int rows, cols, totalMines;
-    private int revealedCells;
-    private boolean gameOver;
-    private boolean gameWon;
-    private boolean firstMove;
-    private long startTime;
-    private List<MinesweeperObserver> observers;
-    
+private Cell[][] board;
+private int rows, cols, totalMines;
+private int revealedCells;
+private boolean gameOver;
+private boolean gameWon;
+private boolean firstMove;
+private long startTime;
+private List<MinesweeperObserver> observers;
+
     private static final int[][] DIRECTIONS = {
         {-1,-1}, {-1,0}, {-1,1},
         {0,-1},          {0,1},
@@ -347,48 +343,48 @@ public class MinesweeperEngine {
 }
 
 /*
- * INTERVIEW QUESTIONS & ANSWERS:
- * 
- * Q1: How do you implement the cascade reveal for empty cells?
- * A: Use BFS or DFS. When revealing a cell with 0 adjacent mines, recursively
- *    reveal all 8 neighbors. Use visited check to avoid infinite loops.
- *    Time: O(N) where N = cells revealed. Space: O(N) for recursion stack.
- * 
- * Q2: How do you ensure first click never hits a mine?
- * A: Delay mine placement until after first click. Place mines avoiding the
- *    clicked cell (and optionally its neighbors for easier start).
- * 
- * Q3: How to optimize for very large boards (100x100)?
- * A: Use lazy evaluation. Only calculate adjacent mines when cells are revealed.
- *    Use spatial data structures (quadtree) for large sparse boards.
- * 
- * Q4: How would you implement "chord" feature (reveal neighbors when enough flags)?
- * A: When clicking revealed number, count adjacent flags. If count equals the
- *    number, reveal all unflagged neighbors. Risky if flags are wrong!
- * 
- * Q5: How to detect when game is won?
- * A: Track revealed cells. Win when: revealedCells == totalCells - totalMines.
- *    Alternative: Track flagged mines count == totalMines AND all correct.
- * 
- * Q6: How would you implement different difficulty levels?
- * A: Use Strategy pattern. Each difficulty has board size and mine count.
- *    Easy: 9x9 with 10 mines, Medium: 16x16 with 40, Hard: 30x16 with 99.
- * 
- * Q7: How to implement undo feature?
- * A: Store game state snapshots (Command pattern). Each action creates snapshot.
- *    Challenging: Random mine placement makes undo non-deterministic.
- *    Solution: Store RNG seed with first move.
- * 
- * Q8: How would you implement custom board shapes (hexagonal)?
- * A: Abstract coordinate system. Use strategy for neighbor calculation.
- *    Hexagonal: 6 neighbors instead of 8. Use cube coordinates for hex grids.
- * 
- * Q9: How to generate interesting/solvable boards?
- * A: Check if board is solvable without guessing. Use constraint satisfaction.
- *    Reject boards requiring probability-based guessing. Very computationally expensive.
- * 
- * Q10: How to implement multiplayer competitive minesweeper?
- * A: Shared board, players take turns or real-time. Track who reveals each cell.
- *    Scoring: Points for revealing cells, penalty for hitting mines.
- *    First to reveal most cells wins.
- */
+* INTERVIEW QUESTIONS & ANSWERS:
+*
+* Q1: How do you implement the cascade reveal for empty cells?
+* A: Use BFS or DFS. When revealing a cell with 0 adjacent mines, recursively
+*    reveal all 8 neighbors. Use visited check to avoid infinite loops.
+*    Time: O(N) where N = cells revealed. Space: O(N) for recursion stack.
+*
+* Q2: How do you ensure first click never hits a mine?
+* A: Delay mine placement until after first click. Place mines avoiding the
+*    clicked cell (and optionally its neighbors for easier start).
+*
+* Q3: How to optimize for very large boards (100x100)?
+* A: Use lazy evaluation. Only calculate adjacent mines when cells are revealed.
+*    Use spatial data structures (quadtree) for large sparse boards.
+*
+* Q4: How would you implement "chord" feature (reveal neighbors when enough flags)?
+* A: When clicking revealed number, count adjacent flags. If count equals the
+*    number, reveal all unflagged neighbors. Risky if flags are wrong!
+*
+* Q5: How to detect when game is won?
+* A: Track revealed cells. Win when: revealedCells == totalCells - totalMines.
+*    Alternative: Track flagged mines count == totalMines AND all correct.
+*
+* Q6: How would you implement different difficulty levels?
+* A: Use Strategy pattern. Each difficulty has board size and mine count.
+*    Easy: 9x9 with 10 mines, Medium: 16x16 with 40, Hard: 30x16 with 99.
+*
+* Q7: How to implement undo feature?
+* A: Store game state snapshots (Command pattern). Each action creates snapshot.
+*    Challenging: Random mine placement makes undo non-deterministic.
+*    Solution: Store RNG seed with first move.
+*
+* Q8: How would you implement custom board shapes (hexagonal)?
+* A: Abstract coordinate system. Use strategy for neighbor calculation.
+*    Hexagonal: 6 neighbors instead of 8. Use cube coordinates for hex grids.
+*
+* Q9: How to generate interesting/solvable boards?
+* A: Check if board is solvable without guessing. Use constraint satisfaction.
+*    Reject boards requiring probability-based guessing. Very computationally expensive.
+*
+* Q10: How to implement multiplayer competitive minesweeper?
+* A: Shared board, players take turns or real-time. Track who reveals each cell.
+*    Scoring: Points for revealing cells, penalty for hitting mines.
+*    First to reveal most cells wins.
+     */

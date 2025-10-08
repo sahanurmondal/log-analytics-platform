@@ -1,33 +1,29 @@
-package lld;
-
-import java.util.*;
-
 /**
- * LLD #78: Snake Game Engine
- * 
- * Design Patterns Used:
- * 1. State Pattern - Game states (Playing, GameOver, Paused)
- * 2. Command Pattern - Direction commands
- * 3. Observer Pattern - Score and game event notifications
- * 
- * Why These Patterns?
- * - State: Clean state transitions and behavior
- * - Command: Encapsulate direction changes as commands
- * - Observer: Decouple game logic from UI updates
- * 
- * Key Components:
- * - Grid: Game board representation
- * - Snake: Linked list of body segments
- * - Food: Random food placement
- * - CollisionDetector: Wall and self-collision detection
- * 
- * Time Complexity: O(N) for collision detection where N is snake length
- * Space Complexity: O(W*H) for grid where W=width, H=height
- */
+* LLD #78: Snake Game Engine
+*
+* Design Patterns Used:
+* 1. State Pattern - Game states (Playing, GameOver, Paused)
+* 2. Command Pattern - Direction commands
+* 3. Observer Pattern - Score and game event notifications
+*
+* Why These Patterns?
+* - State: Clean state transitions and behavior
+* - Command: Encapsulate direction changes as commands
+* - Observer: Decouple game logic from UI updates
+*
+* Key Components:
+* - Grid: Game board representation
+* - Snake: Linked list of body segments
+* - Food: Random food placement
+* - CollisionDetector: Wall and self-collision detection
+*
+* Time Complexity: O(N) for collision detection where N is snake length
+* Space Complexity: O(W*H) for grid where W=width, H=height
+  */
 
 class Point {
-    int x, y;
-    
+int x, y;
+
     public Point(int x, int y) {
         this.x = x;
         this.y = y;
@@ -47,8 +43,8 @@ class Point {
 }
 
 enum Direction {
-    UP(0, -1), DOWN(0, 1), LEFT(-1, 0), RIGHT(1, 0);
-    
+UP(0, -1), DOWN(0, 1), LEFT(-1, 0), RIGHT(1, 0);
+
     int dx, dy;
     
     Direction(int dx, int dy) {
@@ -68,20 +64,20 @@ enum Direction {
 }
 
 enum SnakeGameState {
-    PLAYING, PAUSED, GAME_OVER
+PLAYING, PAUSED, GAME_OVER
 }
 
 // Observer Pattern
 interface GameObserver {
-    void onScoreUpdate(int score);
-    void onGameOver(int finalScore);
-    void onFoodEaten(Point position);
+void onScoreUpdate(int score);
+void onGameOver(int finalScore);
+void onFoodEaten(Point position);
 }
 
 class Snake {
-    private Deque<Point> body;
-    private Direction currentDirection;
-    
+private Deque<Point> body;
+private Direction currentDirection;
+
     public Snake(Point startPosition) {
         body = new LinkedList<>();
         body.add(startPosition);
@@ -143,10 +139,10 @@ class Snake {
 }
 
 class GameGrid {
-    private int width;
-    private int height;
-    private Set<Point> obstacles;
-    
+private int width;
+private int height;
+private Set<Point> obstacles;
+
     public GameGrid(int width, int height) {
         this.width = width;
         this.height = height;
@@ -170,9 +166,9 @@ class GameGrid {
 }
 
 class Food {
-    private Point position;
-    private Random random;
-    
+private Point position;
+private Random random;
+
     public Food() {
         random = new Random();
     }
@@ -202,10 +198,10 @@ class Food {
 }
 
 class CollisionDetector {
-    public boolean checkWallCollision(Point head, GameGrid grid) {
-        return !grid.isWithinBounds(head);
-    }
-    
+public boolean checkWallCollision(Point head, GameGrid grid) {
+return !grid.isWithinBounds(head);
+}
+
     public boolean checkSelfCollision(Snake snake) {
         return snake.checkSelfCollision();
     }
@@ -216,15 +212,15 @@ class CollisionDetector {
 }
 
 public class SnakeGameEngine {
-    private GameGrid grid;
-    private Snake snake;
-    private Food food;
-    private CollisionDetector collisionDetector;
-    private SnakeGameState state;
-    private int score;
-    private List<GameObserver> observers;
-    private long moveDelay; // milliseconds
-    
+private GameGrid grid;
+private Snake snake;
+private Food food;
+private CollisionDetector collisionDetector;
+private SnakeGameState state;
+private int score;
+private List<GameObserver> observers;
+private long moveDelay; // milliseconds
+
     public SnakeGameEngine(int width, int height) {
         this.grid = new GameGrid(width, height);
         this.snake = new Snake(new Point(width / 2, height / 2));
@@ -392,46 +388,46 @@ public class SnakeGameEngine {
 }
 
 /*
- * IMPORTANT INTERVIEW QUESTIONS & ANSWERS:
- * 
- * Q1: How do you represent the snake efficiently?
- * A: Use Deque (double-ended queue). Add new head at front, remove tail from back.
- *    This gives O(1) for both operations. LinkedList provides this functionality.
- * 
- * Q2: How do you detect self-collision?
- * A: Check if new head position already exists in snake body.
- *    Optimization: Use HashSet to store body positions for O(1) lookup instead of O(N).
- * 
- * Q3: How do you prevent the snake from reversing direction instantly?
- * A: Check if new direction is opposite of current direction. If yes, ignore the input.
- *    This prevents the snake from immediately colliding with itself.
- * 
- * Q4: How do you spawn food randomly without overlapping snake?
- * A: Generate list of all unoccupied positions, then pick randomly from this list.
- *    Time: O(W*H) worst case, but ensures valid placement.
- * 
- * Q5: How would you implement progressive difficulty?
- * A: Increase snake speed as score increases (reduce moveDelay).
- *    Alternative: Add obstacles, increase board size, add multiple food items.
- * 
- * Q6: How to handle input buffering for smooth control?
- * A: Use queue to buffer direction changes. Process one direction per game tick.
- *    This prevents losing inputs when multiple keys pressed quickly.
- * 
- * Q7: How would you implement multiplayer snake?
- * A: Each player has separate Snake object. Check collisions between snakes.
- *    If heads collide: both die. If head hits other's body: attacker dies.
- *    Share same food or have separate food for each player.
- * 
- * Q8: How to implement obstacles/walls?
- * A: Store obstacles as Set<Point> in GameGrid. Check collision with obstacles
- *    same as wall collision. Can add obstacles dynamically as difficulty increases.
- * 
- * Q9: How would you implement power-ups?
- * A: Create PowerUp class similar to Food. Types: speed boost, slow down, shrink,
- *    invincibility. Use Strategy pattern for different power-up effects.
- * 
- * Q10: How to optimize rendering for large grids?
- * A: Only render changed cells (diff from previous frame). Use dirty rectangles.
- *    For web: use Canvas API with requestAnimationFrame for smooth rendering.
- */
+* IMPORTANT INTERVIEW QUESTIONS & ANSWERS:
+*
+* Q1: How do you represent the snake efficiently?
+* A: Use Deque (double-ended queue). Add new head at front, remove tail from back.
+*    This gives O(1) for both operations. LinkedList provides this functionality.
+*
+* Q2: How do you detect self-collision?
+* A: Check if new head position already exists in snake body.
+*    Optimization: Use HashSet to store body positions for O(1) lookup instead of O(N).
+*
+* Q3: How do you prevent the snake from reversing direction instantly?
+* A: Check if new direction is opposite of current direction. If yes, ignore the input.
+*    This prevents the snake from immediately colliding with itself.
+*
+* Q4: How do you spawn food randomly without overlapping snake?
+* A: Generate list of all unoccupied positions, then pick randomly from this list.
+*    Time: O(W*H) worst case, but ensures valid placement.
+*
+* Q5: How would you implement progressive difficulty?
+* A: Increase snake speed as score increases (reduce moveDelay).
+*    Alternative: Add obstacles, increase board size, add multiple food items.
+*
+* Q6: How to handle input buffering for smooth control?
+* A: Use queue to buffer direction changes. Process one direction per game tick.
+*    This prevents losing inputs when multiple keys pressed quickly.
+*
+* Q7: How would you implement multiplayer snake?
+* A: Each player has separate Snake object. Check collisions between snakes.
+*    If heads collide: both die. If head hits other's body: attacker dies.
+*    Share same food or have separate food for each player.
+*
+* Q8: How to implement obstacles/walls?
+* A: Store obstacles as Set<Point> in GameGrid. Check collision with obstacles
+*    same as wall collision. Can add obstacles dynamically as difficulty increases.
+*
+* Q9: How would you implement power-ups?
+* A: Create PowerUp class similar to Food. Types: speed boost, slow down, shrink,
+*    invincibility. Use Strategy pattern for different power-up effects.
+*
+* Q10: How to optimize rendering for large grids?
+* A: Only render changed cells (diff from previous frame). Use dirty rectangles.
+*    For web: use Canvas API with requestAnimationFrame for smooth rendering.
+     */

@@ -1,32 +1,28 @@
-package lld;
-
-import java.util.*;
-
 /**
- * LLD #80-81: Quiz/Exam Engine with Adaptive Difficulty
- * 
- * Design Patterns:
- * 1. Strategy Pattern - Different question types and scoring strategies
- * 2. Factory Pattern - Question creation
- * 3. State Pattern - Quiz state management
- * 4. Template Method - Quiz flow
- * 5. Observer Pattern - Progress tracking
- * 
- * Adaptive Difficulty: Adjusts question difficulty based on performance
- */
+* LLD #80-81: Quiz/Exam Engine with Adaptive Difficulty
+*
+* Design Patterns:
+* 1. Strategy Pattern - Different question types and scoring strategies
+* 2. Factory Pattern - Question creation
+* 3. State Pattern - Quiz state management
+* 4. Template Method - Quiz flow
+* 5. Observer Pattern - Progress tracking
+*
+* Adaptive Difficulty: Adjusts question difficulty based on performance
+  */
 
 enum QuestionType { MULTIPLE_CHOICE, TRUE_FALSE, SHORT_ANSWER, FILL_BLANK }
 enum DifficultyLevel { EASY, MEDIUM, HARD }
 enum QuizState { NOT_STARTED, IN_PROGRESS, COMPLETED, PAUSED }
 
 abstract class Question {
-    protected String id;
-    protected String questionText;
-    protected QuestionType type;
-    protected DifficultyLevel difficulty;
-    protected int points;
-    protected String category;
-    
+protected String id;
+protected String questionText;
+protected QuestionType type;
+protected DifficultyLevel difficulty;
+protected int points;
+protected String category;
+
     public Question(String id, String questionText, QuestionType type, DifficultyLevel difficulty, int points) {
         this.id = id;
         this.questionText = questionText;
@@ -45,9 +41,9 @@ abstract class Question {
 }
 
 class MultipleChoiceQuestion extends Question {
-    private List<String> options;
-    private String correctAnswer;
-    
+private List<String> options;
+private String correctAnswer;
+
     public MultipleChoiceQuestion(String id, String text, List<String> options, String correct, DifficultyLevel diff, int points) {
         super(id, text, QuestionType.MULTIPLE_CHOICE, diff, points);
         this.options = options;
@@ -66,8 +62,8 @@ class MultipleChoiceQuestion extends Question {
 }
 
 class TrueFalseQuestion extends Question {
-    private boolean correctAnswer;
-    
+private boolean correctAnswer;
+
     public TrueFalseQuestion(String id, String text, boolean correct, DifficultyLevel diff, int points) {
         super(id, text, QuestionType.TRUE_FALSE, diff, points);
         this.correctAnswer = correct;
@@ -88,40 +84,40 @@ class TrueFalseQuestion extends Question {
 
 // Strategy Pattern - Scoring Strategy
 interface ScoringStrategy {
-    int calculateScore(List<QuestionResult> results);
+int calculateScore(List<QuestionResult> results);
 }
 
 class StandardScoring implements ScoringStrategy {
-    @Override
-    public int calculateScore(List<QuestionResult> results) {
-        return results.stream()
-                .filter(QuestionResult::isCorrect)
-                .mapToInt(r -> r.getQuestion().getPoints())
-                .sum();
-    }
+@Override
+public int calculateScore(List<QuestionResult> results) {
+return results.stream()
+.filter(QuestionResult::isCorrect)
+.mapToInt(r -> r.getQuestion().getPoints())
+.sum();
+}
 }
 
 class PartialCreditScoring implements ScoringStrategy {
-    @Override
-    public int calculateScore(List<QuestionResult> results) {
-        int total = 0;
-        for (QuestionResult result : results) {
-            if (result.isCorrect()) {
-                total += result.getQuestion().getPoints();
-            } else if (result.getTimeSpent() < 30000) { // Attempted quickly
-                total += result.getQuestion().getPoints() / 4; // 25% partial credit
-            }
-        }
-        return total;
-    }
+@Override
+public int calculateScore(List<QuestionResult> results) {
+int total = 0;
+for (QuestionResult result : results) {
+if (result.isCorrect()) {
+total += result.getQuestion().getPoints();
+} else if (result.getTimeSpent() < 30000) { // Attempted quickly
+total += result.getQuestion().getPoints() / 4; // 25% partial credit
+}
+}
+return total;
+}
 }
 
 class QuestionResult {
-    private Question question;
-    private String userAnswer;
-    private boolean correct;
-    private long timeSpent; // milliseconds
-    
+private Question question;
+private String userAnswer;
+private boolean correct;
+private long timeSpent; // milliseconds
+
     public QuestionResult(Question question, String userAnswer, boolean correct, long timeSpent) {
         this.question = question;
         this.userAnswer = userAnswer;
@@ -136,10 +132,10 @@ class QuestionResult {
 
 // Adaptive Difficulty Manager
 class AdaptiveDifficultyManager {
-    private static final int WINDOW_SIZE = 5;
-    private Deque<Boolean> recentResults;
-    private DifficultyLevel currentLevel;
-    
+private static final int WINDOW_SIZE = 5;
+private Deque<Boolean> recentResults;
+private DifficultyLevel currentLevel;
+
     public AdaptiveDifficultyManager() {
         this.recentResults = new LinkedList<>();
         this.currentLevel = DifficultyLevel.MEDIUM;
@@ -171,9 +167,9 @@ class AdaptiveDifficultyManager {
 }
 
 class QuestionBank {
-    private Map<DifficultyLevel, List<Question>> questionsByDifficulty;
-    private Map<String, Integer> usedQuestions; // Track usage frequency
-    
+private Map<DifficultyLevel, List<Question>> questionsByDifficulty;
+private Map<String, Integer> usedQuestions; // Track usage frequency
+
     public QuestionBank() {
         questionsByDifficulty = new HashMap<>();
         for (DifficultyLevel level : DifficultyLevel.values()) {
@@ -204,16 +200,16 @@ class QuestionBank {
 }
 
 public class QuizEngine {
-    private QuestionBank questionBank;
-    private List<Question> currentQuiz;
-    private List<QuestionResult> results;
-    private int currentQuestionIndex;
-    private QuizState state;
-    private ScoringStrategy scoringStrategy;
-    private AdaptiveDifficultyManager adaptiveManager;
-    private boolean adaptiveMode;
-    private long questionStartTime;
-    
+private QuestionBank questionBank;
+private List<Question> currentQuiz;
+private List<QuestionResult> results;
+private int currentQuestionIndex;
+private QuizState state;
+private ScoringStrategy scoringStrategy;
+private AdaptiveDifficultyManager adaptiveManager;
+private boolean adaptiveMode;
+private long questionStartTime;
+
     public QuizEngine(boolean adaptiveMode) {
         this.questionBank = new QuestionBank();
         this.currentQuiz = new ArrayList<>();
@@ -355,54 +351,54 @@ public class QuizEngine {
 }
 
 /*
- * INTERVIEW QUESTIONS & ANSWERS:
- * 
- * Q1: How does adaptive difficulty work?
- * A: Track recent answers (sliding window). Calculate accuracy.
- *    If accuracy > 80%: increase difficulty
- *    If accuracy < 40%: decrease difficulty
- *    Keeps quiz challenging but not frustrating.
- * 
- * Q2: How to prevent question repetition?
- * A: Track usage count for each question. Always select least-used question
- *    from the appropriate difficulty level. Use LRU cache for better distribution.
- * 
- * Q3: How would you implement different scoring strategies?
- * A: Strategy pattern. StandardScoring: binary correct/wrong.
- *    PartialCreditScoring: award partial points for attempt/speed.
- *    TimeBonusScoring: bonus points for fast correct answers.
- * 
- * Q4: How to handle short answer/essay questions?
- * A: Use fuzzy matching (Levenshtein distance) for short answers.
- *    For essays: keyword matching, sentiment analysis, or manual grading workflow.
- *    Store "requires manual grading" flag.
- * 
- * Q5: How would you implement timed quizzes?
- * A: Track start time per question and overall quiz.
- *    Auto-submit when time expires. Use Timer/ScheduledExecutorService.
- * 
- * Q6: How to handle quiz pause/resume?
- * A: Store current state (question index, time elapsed) when pausing.
- *    Restore state when resuming. Don't count pause time in quiz duration.
- * 
- * Q7: How would you implement question categories/tags?
- * A: Add category field to Question. Index questions by category.
- *    Allow filtering/searching by category. Generate category-specific quizzes.
- * 
- * Q8: How to detect cheating in online quizzes?
- * A: Track time patterns (too fast = possible cheating).
- *    Randomize question order per student. Use question pools.
- *    Monitor tab switches, copy-paste events. Proctoring integration.
- * 
- * Q9: How would you implement quiz analytics?
- * A: Store all QuestionResult objects. Analyze:
- *    - Most missed questions (need review)
- *    - Average time per question type
- *    - Difficulty vs performance correlation
- *    - Learning curve over multiple attempts
- * 
- * Q10: How to scale for millions of users?
- * A: Stateless quiz engine. Store state in Redis/database.
- *    Cache questions in CDN. Use message queue for result processing.
- *    Shard question bank by category. Load balance quiz servers.
- */
+* INTERVIEW QUESTIONS & ANSWERS:
+*
+* Q1: How does adaptive difficulty work?
+* A: Track recent answers (sliding window). Calculate accuracy.
+*    If accuracy > 80%: increase difficulty
+*    If accuracy < 40%: decrease difficulty
+*    Keeps quiz challenging but not frustrating.
+*
+* Q2: How to prevent question repetition?
+* A: Track usage count for each question. Always select least-used question
+*    from the appropriate difficulty level. Use LRU cache for better distribution.
+*
+* Q3: How would you implement different scoring strategies?
+* A: Strategy pattern. StandardScoring: binary correct/wrong.
+*    PartialCreditScoring: award partial points for attempt/speed.
+*    TimeBonusScoring: bonus points for fast correct answers.
+*
+* Q4: How to handle short answer/essay questions?
+* A: Use fuzzy matching (Levenshtein distance) for short answers.
+*    For essays: keyword matching, sentiment analysis, or manual grading workflow.
+*    Store "requires manual grading" flag.
+*
+* Q5: How would you implement timed quizzes?
+* A: Track start time per question and overall quiz.
+*    Auto-submit when time expires. Use Timer/ScheduledExecutorService.
+*
+* Q6: How to handle quiz pause/resume?
+* A: Store current state (question index, time elapsed) when pausing.
+*    Restore state when resuming. Don't count pause time in quiz duration.
+*
+* Q7: How would you implement question categories/tags?
+* A: Add category field to Question. Index questions by category.
+*    Allow filtering/searching by category. Generate category-specific quizzes.
+*
+* Q8: How to detect cheating in online quizzes?
+* A: Track time patterns (too fast = possible cheating).
+*    Randomize question order per student. Use question pools.
+*    Monitor tab switches, copy-paste events. Proctoring integration.
+*
+* Q9: How would you implement quiz analytics?
+* A: Store all QuestionResult objects. Analyze:
+*    - Most missed questions (need review)
+*    - Average time per question type
+*    - Difficulty vs performance correlation
+*    - Learning curve over multiple attempts
+*
+* Q10: How to scale for millions of users?
+* A: Stateless quiz engine. Store state in Redis/database.
+*    Cache questions in CDN. Use message queue for result processing.
+*    Shard question bank by category. Load balance quiz servers.
+     */

@@ -1,42 +1,38 @@
-package lld;
-
-import java.util.*;
-
 /**
- * LLD #77: TicTacToe Engine
- * 
- * Design Patterns Used:
- * 1. State Pattern - Game state management (Playing, Won, Draw)
- * 2. Strategy Pattern - Different win detection strategies (3x3, NxN)
- * 3. Template Method - Game flow template
- * 
- * Why These Patterns?
- * - State: Clean separation of game states and transitions
- * - Strategy: Support different board sizes and win conditions
- * - Template Method: Standardize game flow while allowing customization
- * 
- * Key Components:
- * - Board: NxN grid representation
- * - Player: Player identification and symbol
- * - WinDetector: Checks win conditions (rows, cols, diagonals)
- * - GameState: Current state of the game
- * 
- * Time Complexity: O(N) for win detection where N is board size
- * Space Complexity: O(N²) for board storage
- */
+* LLD #77: TicTacToe Engine
+*
+* Design Patterns Used:
+* 1. State Pattern - Game state management (Playing, Won, Draw)
+* 2. Strategy Pattern - Different win detection strategies (3x3, NxN)
+* 3. Template Method - Game flow template
+*
+* Why These Patterns?
+* - State: Clean separation of game states and transitions
+* - Strategy: Support different board sizes and win conditions
+* - Template Method: Standardize game flow while allowing customization
+*
+* Key Components:
+* - Board: NxN grid representation
+* - Player: Player identification and symbol
+* - WinDetector: Checks win conditions (rows, cols, diagonals)
+* - GameState: Current state of the game
+*
+* Time Complexity: O(N) for win detection where N is board size
+* Space Complexity: O(N²) for board storage
+  */
 
 enum CellState {
-    EMPTY, X, O
+EMPTY, X, O
 }
 
 enum GameStateType {
-    PLAYING, X_WON, O_WON, DRAW
+PLAYING, X_WON, O_WON, DRAW
 }
 
 class Player {
-    String name;
-    CellState symbol;
-    
+String name;
+CellState symbol;
+
     public Player(String name, CellState symbol) {
         this.name = name;
         this.symbol = symbol;
@@ -45,20 +41,20 @@ class Player {
 
 // State Pattern - Different game states
 interface GameState {
-    GameStateType getType();
-    boolean canMakeMove();
-    String getStatusMessage();
+GameStateType getType();
+boolean canMakeMove();
+String getStatusMessage();
 }
 
 class PlayingState implements GameState {
-    public GameStateType getType() { return GameStateType.PLAYING; }
-    public boolean canMakeMove() { return true; }
-    public String getStatusMessage() { return "Game in progress"; }
+public GameStateType getType() { return GameStateType.PLAYING; }
+public boolean canMakeMove() { return true; }
+public String getStatusMessage() { return "Game in progress"; }
 }
 
 class WonState implements GameState {
-    CellState winner;
-    
+CellState winner;
+
     public WonState(CellState winner) {
         this.winner = winner;
     }
@@ -71,19 +67,19 @@ class WonState implements GameState {
 }
 
 class DrawState implements GameState {
-    public GameStateType getType() { return GameStateType.DRAW; }
-    public boolean canMakeMove() { return false; }
-    public String getStatusMessage() { return "Game is a draw!"; }
+public GameStateType getType() { return GameStateType.DRAW; }
+public boolean canMakeMove() { return false; }
+public String getStatusMessage() { return "Game is a draw!"; }
 }
 
 // Strategy Pattern - Win Detection
 interface WinDetector {
-    boolean checkWin(CellState[][] board, int row, int col, CellState player);
+boolean checkWin(CellState[][] board, int row, int col, CellState player);
 }
 
 class StandardWinDetector implements WinDetector {
-    private int boardSize;
-    
+private int boardSize;
+
     public StandardWinDetector(int boardSize) {
         this.boardSize = boardSize;
     }
@@ -127,10 +123,10 @@ class StandardWinDetector implements WinDetector {
 }
 
 class TicTacToeBoard {
-    private int size;
-    private CellState[][] cells;
-    private int movesCount;
-    
+private int size;
+private CellState[][] cells;
+private int movesCount;
+
     public TicTacToeBoard(int size) {
         this.size = size;
         this.cells = new CellState[size][size];
@@ -194,14 +190,14 @@ class TicTacToeBoard {
 }
 
 public class TicTacToeEngine {
-    private TicTacToeBoard board;
-    private Player player1;
-    private Player player2;
-    private Player currentPlayer;
-    private GameState gameState;
-    private WinDetector winDetector;
-    private List<String> moveHistory;
-    
+private TicTacToeBoard board;
+private Player player1;
+private Player player2;
+private Player currentPlayer;
+private GameState gameState;
+private WinDetector winDetector;
+private List<String> moveHistory;
+
     public TicTacToeEngine(int boardSize) {
         this.board = new TicTacToeBoard(boardSize);
         this.player1 = new Player("Player 1", CellState.X);
@@ -295,65 +291,65 @@ public class TicTacToeEngine {
 }
 
 /*
- * IMPORTANT INTERVIEW QUESTIONS & ANSWERS:
- * 
- * Q1: How do you detect a win efficiently?
- * A: After each move, only check the row, column, and diagonals (if applicable)
- *    containing the last move. Don't scan entire board. Time: O(N) where N = board size.
- * 
- * Q2: How would you scale this to a larger board (e.g., 15x15 with 5 in a row)?
- * A: Use sliding window approach. After each move, check windows of size 5 in
- *    all 4 directions (horizontal, vertical, 2 diagonals). Time: O(1) per move.
- * 
- * Q3: How do you optimize win detection for very large boards?
- * A: Track count of consecutive pieces in each direction from each cell.
- *    When placing a piece, update counts in 4 directions. Check if any count >= target.
- *    Time: O(1) per move, Space: O(N²) for counts.
- * 
- * Q4: How would you implement an AI opponent?
- * A: Start with Minimax algorithm with alpha-beta pruning:
- *    - Max player tries to maximize score
- *    - Min player tries to minimize score
- *    - Evaluate board positions (win=+10, loss=-10, draw=0)
- *    - Prune branches that can't improve result
- *    - For TicTacToe, perfect play possible (always draw)
- * 
- * Q5: How to handle undo/redo operations?
- * A: Use Command pattern with move history stack:
- *    - Each move is a Command object
- *    - Undo: pop from history, restore board state
- *    - Redo: keep separate redo stack
- *    - Store enough info to reverse moves
- * 
- * Q6: How would you support different win conditions (e.g., 4 in a row on 6x6)?
- * A: Use Strategy pattern for WinDetector. Pass win length as parameter.
- *    Check windows of specified length in all directions.
- * 
- * Q7: How to implement online multiplayer?
- * A: Separate game logic from UI:
- *    - Server hosts game state
- *    - Players send moves via WebSocket/REST
- *    - Server validates and broadcasts moves
- *    - Handle disconnections and timeouts
- *    - Synchronize game state across clients
- * 
- * Q8: What's the state space complexity of TicTacToe?
- * A: For 3x3: approximately 5,478 valid positions (many impossible)
- *    Each cell can be X, O, or empty: 3^9 = 19,683 theoretical states
- *    But many violate rules (too many Xs, impossible positions)
- * 
- * Q9: How would you implement tournament mode with multiple games?
- * A: Create Game class as separate entity:
- *    - Tournament manages multiple Game instances
- *    - Track wins/losses for each player
- *    - Implement Swiss system or round-robin
- *    - Store game history and statistics
- * 
- * Q10: How to make the game more challenging/interesting?
- * A: Variations:
- *    - 3D TicTacToe (3x3x3 cube)
- *    - Quantum TicTacToe (superposition of moves)
- *    - Ultimate TicTacToe (9 boards in 3x3 grid)
- *    - Time limits per move
- *    - Random cell disabling each turn
- */
+* IMPORTANT INTERVIEW QUESTIONS & ANSWERS:
+*
+* Q1: How do you detect a win efficiently?
+* A: After each move, only check the row, column, and diagonals (if applicable)
+*    containing the last move. Don't scan entire board. Time: O(N) where N = board size.
+*
+* Q2: How would you scale this to a larger board (e.g., 15x15 with 5 in a row)?
+* A: Use sliding window approach. After each move, check windows of size 5 in
+*    all 4 directions (horizontal, vertical, 2 diagonals). Time: O(1) per move.
+*
+* Q3: How do you optimize win detection for very large boards?
+* A: Track count of consecutive pieces in each direction from each cell.
+*    When placing a piece, update counts in 4 directions. Check if any count >= target.
+*    Time: O(1) per move, Space: O(N²) for counts.
+*
+* Q4: How would you implement an AI opponent?
+* A: Start with Minimax algorithm with alpha-beta pruning:
+*    - Max player tries to maximize score
+*    - Min player tries to minimize score
+*    - Evaluate board positions (win=+10, loss=-10, draw=0)
+*    - Prune branches that can't improve result
+*    - For TicTacToe, perfect play possible (always draw)
+*
+* Q5: How to handle undo/redo operations?
+* A: Use Command pattern with move history stack:
+*    - Each move is a Command object
+*    - Undo: pop from history, restore board state
+*    - Redo: keep separate redo stack
+*    - Store enough info to reverse moves
+*
+* Q6: How would you support different win conditions (e.g., 4 in a row on 6x6)?
+* A: Use Strategy pattern for WinDetector. Pass win length as parameter.
+*    Check windows of specified length in all directions.
+*
+* Q7: How to implement online multiplayer?
+* A: Separate game logic from UI:
+*    - Server hosts game state
+*    - Players send moves via WebSocket/REST
+*    - Server validates and broadcasts moves
+*    - Handle disconnections and timeouts
+*    - Synchronize game state across clients
+*
+* Q8: What's the state space complexity of TicTacToe?
+* A: For 3x3: approximately 5,478 valid positions (many impossible)
+*    Each cell can be X, O, or empty: 3^9 = 19,683 theoretical states
+*    But many violate rules (too many Xs, impossible positions)
+*
+* Q9: How would you implement tournament mode with multiple games?
+* A: Create Game class as separate entity:
+*    - Tournament manages multiple Game instances
+*    - Track wins/losses for each player
+*    - Implement Swiss system or round-robin
+*    - Store game history and statistics
+*
+* Q10: How to make the game more challenging/interesting?
+* A: Variations:
+*    - 3D TicTacToe (3x3x3 cube)
+*    - Quantum TicTacToe (superposition of moves)
+*    - Ultimate TicTacToe (9 boards in 3x3 grid)
+*    - Time limits per move
+*    - Random cell disabling each turn
+       */

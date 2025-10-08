@@ -1,28 +1,24 @@
-package lld;
-
-import java.util.*;
-
 /**
- * LLD #84: Media Streaming Buffer Controller
- * 
- * Design Patterns:
- * 1. Strategy Pattern - Different buffering strategies
- * 2. Observer Pattern - Buffer state notifications
- * 3. State Pattern - Buffering states (Buffering, Playing, Paused)
- * 
- * Adaptive buffering based on network conditions and playback
- */
+* LLD #84: Media Streaming Buffer Controller
+*
+* Design Patterns:
+* 1. Strategy Pattern - Different buffering strategies
+* 2. Observer Pattern - Buffer state notifications
+* 3. State Pattern - Buffering states (Buffering, Playing, Paused)
+*
+* Adaptive buffering based on network conditions and playback
+  */
 
 enum BufferState { BUFFERING, READY, PLAYING, PAUSED, STALLED }
 enum NetworkQuality { EXCELLENT, GOOD, FAIR, POOR }
 
 class MediaSegment {
-    private int segmentId;
-    private int qualityLevel; // 0=lowest, higher=better
-    private byte[] data;
-    private long duration; // milliseconds
-    private long size; // bytes
-    
+private int segmentId;
+private int qualityLevel; // 0=lowest, higher=better
+private byte[] data;
+private long duration; // milliseconds
+private long size; // bytes
+
     public MediaSegment(int segmentId, int qualityLevel, long duration, long size) {
         this.segmentId = segmentId;
         this.qualityLevel = qualityLevel;
@@ -39,23 +35,23 @@ class MediaSegment {
 
 // Observer Pattern
 interface BufferObserver {
-    void onBufferStateChanged(BufferState state);
-    void onBufferLevelChanged(double percentage);
-    void onQualityChanged(int newQuality);
-    void onStallDetected();
+void onBufferStateChanged(BufferState state);
+void onBufferLevelChanged(double percentage);
+void onQualityChanged(int newQuality);
+void onStallDetected();
 }
 
 // Strategy Pattern - Buffering strategies
 interface BufferingStrategy {
-    int calculateTargetBufferSize(NetworkQuality networkQuality, int currentBuffer);
-    int selectQualityLevel(NetworkQuality networkQuality, int bufferLevel);
-    boolean shouldStartPlayback(int bufferLevel, int targetBuffer);
+int calculateTargetBufferSize(NetworkQuality networkQuality, int currentBuffer);
+int selectQualityLevel(NetworkQuality networkQuality, int bufferLevel);
+boolean shouldStartPlayback(int bufferLevel, int targetBuffer);
 }
 
 class AdaptiveBufferingStrategy implements BufferingStrategy {
-    private static final int MIN_BUFFER_MS = 5000;  // 5 seconds
-    private static final int MAX_BUFFER_MS = 30000; // 30 seconds
-    
+private static final int MIN_BUFFER_MS = 5000;  // 5 seconds
+private static final int MAX_BUFFER_MS = 30000; // 30 seconds
+
     @Override
     public int calculateTargetBufferSize(NetworkQuality networkQuality, int currentBuffer) {
         // MAIN ALGORITHM: Adaptive target buffer calculation
@@ -105,10 +101,10 @@ class AdaptiveBufferingStrategy implements BufferingStrategy {
 }
 
 class NetworkMonitor {
-    private Queue<Long> downloadTimes; // Recent download times
-    private Queue<Long> downloadSizes;
-    private static final int SAMPLE_SIZE = 10;
-    
+private Queue<Long> downloadTimes; // Recent download times
+private Queue<Long> downloadSizes;
+private static final int SAMPLE_SIZE = 10;
+
     public NetworkMonitor() {
         downloadTimes = new LinkedList<>();
         downloadSizes = new LinkedList<>();
@@ -148,10 +144,10 @@ class NetworkMonitor {
 }
 
 class CircularMediaBuffer {
-    private Queue<MediaSegment> buffer;
-    private int maxSegments;
-    private long totalBufferedDuration; // milliseconds
-    
+private Queue<MediaSegment> buffer;
+private int maxSegments;
+private long totalBufferedDuration; // milliseconds
+
     public CircularMediaBuffer(int maxSegments) {
         this.buffer = new LinkedList<>();
         this.maxSegments = maxSegments;
@@ -194,16 +190,16 @@ class CircularMediaBuffer {
 }
 
 public class MediaStreamingBufferController {
-    private CircularMediaBuffer buffer;
-    private BufferingStrategy strategy;
-    private NetworkMonitor networkMonitor;
-    private BufferState state;
-    private int currentQualityLevel;
-    private int targetBufferMs;
-    private List<BufferObserver> observers;
-    private long lastPlaybackTime;
-    private Timer monitoringTimer;
-    
+private CircularMediaBuffer buffer;
+private BufferingStrategy strategy;
+private NetworkMonitor networkMonitor;
+private BufferState state;
+private int currentQualityLevel;
+private int targetBufferMs;
+private List<BufferObserver> observers;
+private long lastPlaybackTime;
+private Timer monitoringTimer;
+
     private static final int SEGMENT_DURATION_MS = 2000; // 2-second segments
     private static final int STALL_THRESHOLD_MS = 100; // Consider stalled if buffer < 100ms
     
@@ -399,81 +395,81 @@ public class MediaStreamingBufferController {
 }
 
 /*
- * INTERVIEW QUESTIONS & ANSWERS:
- * 
- * Q1: How does adaptive bitrate streaming work?
- * A: Monitor network bandwidth continuously. If bandwidth drops, switch to lower quality.
- *    If bandwidth is good and buffer is healthy, increase quality.
- *    Algorithms: Netflix uses DASH, YouTube uses HLS.
- *    Key: Balance quality vs buffering/stalls.
- * 
- * Q2: How do you detect and prevent buffer stalls?
- * A: Multiple approaches:
- *    - Maintain minimum buffer (5-10 seconds)
- *    - Predict future bandwidth using moving average
- *    - Preemptively lower quality before buffer depletes
- *    - Prefetch segments during idle time
- * 
- * Q3: What's the optimal buffer size?
- * A: Trade-offs:
- *    - Too small: Frequent stalls, bad UX
- *    - Too large: High memory usage, slow seek, wasted data
- *    Optimal: 10-30 seconds depending on network variability
- *    Adaptive: Increase buffer on poor network
- * 
- * Q4: How would you implement live streaming vs VOD?
- * A: Live streaming differences:
- *    - Lower latency requirement (2-10 seconds vs 30+ for VOD)
- *    - Smaller buffer size
- *    - Can't seek ahead
- *    - Handle stream interruptions gracefully
- *    - Sync issues more critical
- * 
- * Q5: How to optimize for mobile devices?
- * A: Mobile-specific considerations:
- *    - Lower default quality (save data)
- *    - Smaller buffer (save memory)
- *    - Handle network switches (WiFi ↔ cellular)
- *    - Background/foreground transitions
- *    - Battery optimization (lower decode complexity)
- * 
- * Q6: How would you implement prefetching?
- * A: Predictive prefetching:
- *    - Download next segment before current ends
- *    - Prefetch higher quality when idle
- *    - Use viewing patterns (users watch 80% on average)
- *    - Don't prefetch if battery low or cellular data
- * 
- * Q7: How to handle network switches (WiFi to cellular)?
- * A: Network transition handling:
- *    - Detect network change immediately
- *    - Re-evaluate quality level
- *    - May need to lower quality instantly
- *    - Clear buffer if switching to cellular (data limits)
- *    - Notify user of quality change
- * 
- * Q8: What metrics should you track?
- * A: Key metrics:
- *    - Rebuffer ratio (% time buffering)
- *    - Startup time (time to first frame)
- *    - Average bitrate
- *    - Bitrate switches frequency
- *    - Video abandonment rate
- *    - Buffer health over time
- * 
- * Q9: How would you implement Picture-in-Picture mode?
- * A: PiP considerations:
- *    - Continue playback in smaller window
- *    - Maintain buffer controller
- *    - May lower quality (smaller display)
- *    - Handle state transitions carefully
- *    - Synchronize with main player state
- * 
- * Q10: How to optimize seek operations?
- * A: Fast seeking:
- *    - Use keyframe index (seek to I-frames only)
- *    - Clear buffer and request new segment
- *    - Prefetch around seek position
- *    - Show preview thumbnails (trick play)
- *    - Minimize rebuffering after seek
- */
+* INTERVIEW QUESTIONS & ANSWERS:
+*
+* Q1: How does adaptive bitrate streaming work?
+* A: Monitor network bandwidth continuously. If bandwidth drops, switch to lower quality.
+*    If bandwidth is good and buffer is healthy, increase quality.
+*    Algorithms: Netflix uses DASH, YouTube uses HLS.
+*    Key: Balance quality vs buffering/stalls.
+*
+* Q2: How do you detect and prevent buffer stalls?
+* A: Multiple approaches:
+*    - Maintain minimum buffer (5-10 seconds)
+*    - Predict future bandwidth using moving average
+*    - Preemptively lower quality before buffer depletes
+*    - Prefetch segments during idle time
+*
+* Q3: What's the optimal buffer size?
+* A: Trade-offs:
+*    - Too small: Frequent stalls, bad UX
+*    - Too large: High memory usage, slow seek, wasted data
+*    Optimal: 10-30 seconds depending on network variability
+*    Adaptive: Increase buffer on poor network
+*
+* Q4: How would you implement live streaming vs VOD?
+* A: Live streaming differences:
+*    - Lower latency requirement (2-10 seconds vs 30+ for VOD)
+*    - Smaller buffer size
+*    - Can't seek ahead
+*    - Handle stream interruptions gracefully
+*    - Sync issues more critical
+*
+* Q5: How to optimize for mobile devices?
+* A: Mobile-specific considerations:
+*    - Lower default quality (save data)
+*    - Smaller buffer (save memory)
+*    - Handle network switches (WiFi ↔ cellular)
+*    - Background/foreground transitions
+*    - Battery optimization (lower decode complexity)
+*
+* Q6: How would you implement prefetching?
+* A: Predictive prefetching:
+*    - Download next segment before current ends
+*    - Prefetch higher quality when idle
+*    - Use viewing patterns (users watch 80% on average)
+*    - Don't prefetch if battery low or cellular data
+*
+* Q7: How to handle network switches (WiFi to cellular)?
+* A: Network transition handling:
+*    - Detect network change immediately
+*    - Re-evaluate quality level
+*    - May need to lower quality instantly
+*    - Clear buffer if switching to cellular (data limits)
+*    - Notify user of quality change
+*
+* Q8: What metrics should you track?
+* A: Key metrics:
+*    - Rebuffer ratio (% time buffering)
+*    - Startup time (time to first frame)
+*    - Average bitrate
+*    - Bitrate switches frequency
+*    - Video abandonment rate
+*    - Buffer health over time
+*
+* Q9: How would you implement Picture-in-Picture mode?
+* A: PiP considerations:
+*    - Continue playback in smaller window
+*    - Maintain buffer controller
+*    - May lower quality (smaller display)
+*    - Handle state transitions carefully
+*    - Synchronize with main player state
+*
+* Q10: How to optimize seek operations?
+* A: Fast seeking:
+*    - Use keyframe index (seek to I-frames only)
+*    - Clear buffer and request new segment
+*    - Prefetch around seek position
+*    - Show preview thumbnails (trick play)
+*    - Minimize rebuffering after seek
+       */

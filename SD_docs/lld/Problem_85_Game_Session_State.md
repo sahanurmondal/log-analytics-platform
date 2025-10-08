@@ -1,34 +1,29 @@
-package lld;
-
-import java.util.*;
-import java.util.concurrent.*;
-
 /**
- * LLD #85: Game Session State Manager
- * 
- * Design Patterns:
- * 1. State Pattern - Session states (Active, Paused, Timeout, Ended)
- * 2. Strategy Pattern - Different timeout strategies
- * 3. Observer Pattern - Session event notifications
- * 4. Singleton Pattern - SessionManager instance
- * 
- * Manages pause/resume, timeouts, and session lifecycle
- */
+* LLD #85: Game Session State Manager
+*
+* Design Patterns:
+* 1. State Pattern - Session states (Active, Paused, Timeout, Ended)
+* 2. Strategy Pattern - Different timeout strategies
+* 3. Observer Pattern - Session event notifications
+* 4. Singleton Pattern - SessionManager instance
+*
+* Manages pause/resume, timeouts, and session lifecycle
+  */
 
 enum SessionState { CREATED, ACTIVE, PAUSED, TIMEOUT, ENDED, ABANDONED }
 
 class GameSession {
-    private String sessionId;
-    private String userId;
-    private String gameType;
-    private SessionState state;
-    private long createdAt;
-    private long lastActiveAt;
-    private long pausedAt;
-    private long totalPausedDuration;
-    private long totalPlayDuration;
-    private Map<String, Object> sessionData;
-    
+private String sessionId;
+private String userId;
+private String gameType;
+private SessionState state;
+private long createdAt;
+private long lastActiveAt;
+private long pausedAt;
+private long totalPausedDuration;
+private long totalPlayDuration;
+private Map<String, Object> sessionData;
+
     public GameSession(String sessionId, String userId, String gameType) {
         this.sessionId = sessionId;
         this.userId = userId;
@@ -66,24 +61,24 @@ class GameSession {
 
 // Observer Pattern
 interface SessionObserver {
-    void onSessionStarted(GameSession session);
-    void onSessionPaused(GameSession session);
-    void onSessionResumed(GameSession session);
-    void onSessionTimeout(GameSession session);
-    void onSessionEnded(GameSession session);
+void onSessionStarted(GameSession session);
+void onSessionPaused(GameSession session);
+void onSessionResumed(GameSession session);
+void onSessionTimeout(GameSession session);
+void onSessionEnded(GameSession session);
 }
 
 // Strategy Pattern - Timeout strategies
 interface TimeoutStrategy {
-    long getInactivityTimeout();
-    long getPauseTimeout();
-    boolean shouldTimeout(GameSession session);
+long getInactivityTimeout();
+long getPauseTimeout();
+boolean shouldTimeout(GameSession session);
 }
 
 class StandardTimeoutStrategy implements TimeoutStrategy {
-    private static final long INACTIVITY_TIMEOUT = 5 * 60 * 1000; // 5 minutes
-    private static final long PAUSE_TIMEOUT = 30 * 60 * 1000; // 30 minutes
-    
+private static final long INACTIVITY_TIMEOUT = 5 * 60 * 1000; // 5 minutes
+private static final long PAUSE_TIMEOUT = 30 * 60 * 1000; // 30 minutes
+
     @Override
     public long getInactivityTimeout() {
         return INACTIVITY_TIMEOUT;
@@ -109,9 +104,9 @@ class StandardTimeoutStrategy implements TimeoutStrategy {
 }
 
 class MultiplayerTimeoutStrategy implements TimeoutStrategy {
-    private static final long INACTIVITY_TIMEOUT = 60 * 1000; // 1 minute (stricter)
-    private static final long PAUSE_TIMEOUT = 2 * 60 * 1000; // 2 minutes
-    
+private static final long INACTIVITY_TIMEOUT = 60 * 1000; // 1 minute (stricter)
+private static final long PAUSE_TIMEOUT = 2 * 60 * 1000; // 2 minutes
+
     @Override
     public long getInactivityTimeout() {
         return INACTIVITY_TIMEOUT;
@@ -137,8 +132,8 @@ class MultiplayerTimeoutStrategy implements TimeoutStrategy {
 }
 
 public class GameSessionStateManager {
-    private static GameSessionStateManager instance;
-    
+private static GameSessionStateManager instance;
+
     private Map<String, GameSession> sessions;
     private Map<String, TimeoutStrategy> strategyMap;
     private List<SessionObserver> observers;
@@ -435,82 +430,82 @@ public class GameSessionStateManager {
 }
 
 /*
- * INTERVIEW QUESTIONS & ANSWERS:
- * 
- * Q1: How do you detect idle/inactive sessions?
- * A: Track lastActiveAt timestamp. Use scheduled task to check periodically.
- *    If (currentTime - lastActiveAt) > timeout → mark as idle/timeout.
- *    Update lastActiveAt on any user interaction (moves, clicks, etc).
- * 
- * Q2: How would you handle reconnection after timeout?
- * A: Grace period approach:
- *    - Don't immediately delete timed-out session
- *    - Keep in TIMEOUT state for 5-10 minutes
- *    - Allow reconnection with session restoration
- *    - If grace period expires → permanently end session
- * 
- * Q3: How to implement fair timeout for multiplayer games?
- * A: Stricter timeouts for multiplayer:
- *    - Shorter inactivity window (30-60 seconds)
- *    - Notify other players of pause/timeout
- *    - Allow vote to continue or forfeit
- *    - Penalize frequent abandoners (reputation system)
- * 
- * Q4: How would you persist sessions across server restarts?
- * A: Session persistence:
- *    - Serialize session state to Redis/database
- *    - Store: session ID, user ID, state, timestamps, game data
- *    - On restart: reload active sessions
- *    - Resume from last known state
- *    - Consider sessions > N hours old as expired
- * 
- * Q5: How to handle pause in real-time multiplayer games?
- * A: Complex in multiplayer:
- *    - May not allow pause in competitive games
- *    - If allowed: pause for all players
- *    - Vote to pause system
- *    - Time bank (limited pause time per player)
- *    - Pause only at specific moments (between rounds)
- * 
- * Q6: How would you implement session migration across servers?
- * A: Distributed session management:
- *    - Store session in centralized cache (Redis)
- *    - Stateless game servers
- *    - Session sticky routing or any-server access
- *    - Serialize game state with session
- *    - Use distributed locks for concurrent access
- * 
- * Q7: What metrics should you track for sessions?
- * A: Key metrics:
- *    - Average session duration
- *    - Pause frequency and duration
- *    - Timeout/abandonment rate
- *    - Reconnection success rate
- *    - Active sessions over time (concurrency)
- *    - Session end reasons (normal vs timeout vs crash)
- * 
- * Q8: How to implement progressive timeout warnings?
- * A: Warning system:
- *    - At 80% of timeout: send first warning
- *    - At 90%: send urgent warning
- *    - At 95%: final warning
- *    - Give user chance to extend/resume
- *    - Log warning responses for analysis
- * 
- * Q9: How would you handle time zones for global games?
- * A: Always use UTC:
- *    - Store all timestamps in UTC
- *    - Convert to local time for display only
- *    - Avoid time zone arithmetic on server
- *    - Use ISO 8601 format for timestamps
- *    - Handle daylight saving transitions
- * 
- * Q10: How to optimize for millions of concurrent sessions?
- * A: Scale strategies:
- *    - Partition sessions across multiple managers
- *    - Use Redis for distributed session storage
- *    - Lazy timeout checking (check only when accessed)
- *    - Background job for batch cleanup
- *    - TTL-based automatic expiration
- *    - Separate active/inactive session stores
- */
+* INTERVIEW QUESTIONS & ANSWERS:
+*
+* Q1: How do you detect idle/inactive sessions?
+* A: Track lastActiveAt timestamp. Use scheduled task to check periodically.
+*    If (currentTime - lastActiveAt) > timeout → mark as idle/timeout.
+*    Update lastActiveAt on any user interaction (moves, clicks, etc).
+*
+* Q2: How would you handle reconnection after timeout?
+* A: Grace period approach:
+*    - Don't immediately delete timed-out session
+*    - Keep in TIMEOUT state for 5-10 minutes
+*    - Allow reconnection with session restoration
+*    - If grace period expires → permanently end session
+*
+* Q3: How to implement fair timeout for multiplayer games?
+* A: Stricter timeouts for multiplayer:
+*    - Shorter inactivity window (30-60 seconds)
+*    - Notify other players of pause/timeout
+*    - Allow vote to continue or forfeit
+*    - Penalize frequent abandoners (reputation system)
+*
+* Q4: How would you persist sessions across server restarts?
+* A: Session persistence:
+*    - Serialize session state to Redis/database
+*    - Store: session ID, user ID, state, timestamps, game data
+*    - On restart: reload active sessions
+*    - Resume from last known state
+*    - Consider sessions > N hours old as expired
+*
+* Q5: How to handle pause in real-time multiplayer games?
+* A: Complex in multiplayer:
+*    - May not allow pause in competitive games
+*    - If allowed: pause for all players
+*    - Vote to pause system
+*    - Time bank (limited pause time per player)
+*    - Pause only at specific moments (between rounds)
+*
+* Q6: How would you implement session migration across servers?
+* A: Distributed session management:
+*    - Store session in centralized cache (Redis)
+*    - Stateless game servers
+*    - Session sticky routing or any-server access
+*    - Serialize game state with session
+*    - Use distributed locks for concurrent access
+*
+* Q7: What metrics should you track for sessions?
+* A: Key metrics:
+*    - Average session duration
+*    - Pause frequency and duration
+*    - Timeout/abandonment rate
+*    - Reconnection success rate
+*    - Active sessions over time (concurrency)
+*    - Session end reasons (normal vs timeout vs crash)
+*
+* Q8: How to implement progressive timeout warnings?
+* A: Warning system:
+*    - At 80% of timeout: send first warning
+*    - At 90%: send urgent warning
+*    - At 95%: final warning
+*    - Give user chance to extend/resume
+*    - Log warning responses for analysis
+*
+* Q9: How would you handle time zones for global games?
+* A: Always use UTC:
+*    - Store all timestamps in UTC
+*    - Convert to local time for display only
+*    - Avoid time zone arithmetic on server
+*    - Use ISO 8601 format for timestamps
+*    - Handle daylight saving transitions
+*
+* Q10: How to optimize for millions of concurrent sessions?
+* A: Scale strategies:
+*    - Partition sessions across multiple managers
+*    - Use Redis for distributed session storage
+*    - Lazy timeout checking (check only when accessed)
+*    - Background job for batch cleanup
+*    - TTL-based automatic expiration
+*    - Separate active/inactive session stores
+       */

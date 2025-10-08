@@ -1,37 +1,34 @@
-package lld;
 
-import java.util.*;
-import java.io.*;
 
 /**
- * LLD #83: Game State Persistence Layer (Snapshot & Restore)
- * 
- * Design Patterns:
- * 1. Memento Pattern - State snapshots
- * 2. Strategy Pattern - Different serialization strategies
- * 3. Template Method - Save/load workflow
- * 4. Prototype Pattern - Deep cloning of game state
- * 
- * Supports multiple games (Chess, TicTacToe, Snake, etc.)
- */
+* LLD #83: Game State Persistence Layer (Snapshot & Restore)
+*
+* Design Patterns:
+* 1. Memento Pattern - State snapshots
+* 2. Strategy Pattern - Different serialization strategies
+* 3. Template Method - Save/load workflow
+* 4. Prototype Pattern - Deep cloning of game state
+*
+* Supports multiple games (Chess, TicTacToe, Snake, etc.)
+  */
 
 // Generic game state interface
 interface GameState extends Serializable {
-    String getGameType();
-    Map<String, Object> getStateData();
-    void restoreFromData(Map<String, Object> data);
-    GameState clone();
+String getGameType();
+Map<String, Object> getStateData();
+void restoreFromData(Map<String, Object> data);
+GameState clone();
 }
 
 // Example game states
 class ChessGameState implements GameState {
-    private static final long serialVersionUID = 1L;
-    private String[][] board;
-    private String currentPlayer;
-    private List<String> moveHistory;
-    private boolean whiteCanCastleKingSide;
-    private boolean whiteCanCastleQueenSide;
-    
+private static final long serialVersionUID = 1L;
+private String[][] board;
+private String currentPlayer;
+private List<String> moveHistory;
+private boolean whiteCanCastleKingSide;
+private boolean whiteCanCastleQueenSide;
+
     public ChessGameState(String[][] board, String currentPlayer, List<String> moveHistory) {
         this.board = board;
         this.currentPlayer = currentPlayer;
@@ -75,13 +72,13 @@ class ChessGameState implements GameState {
 }
 
 class SnakeGameState implements GameState {
-    private static final long serialVersionUID = 1L;
-    private List<int[]> snakeBody;
-    private int[] foodPosition;
-    private String direction;
-    private int score;
-    private int level;
-    
+private static final long serialVersionUID = 1L;
+private List<int[]> snakeBody;
+private int[] foodPosition;
+private String direction;
+private int score;
+private int level;
+
     public SnakeGameState(List<int[]> snakeBody, int[] foodPosition, String direction, int score) {
         this.snakeBody = snakeBody;
         this.foodPosition = foodPosition;
@@ -127,20 +124,20 @@ class SnakeGameState implements GameState {
 
 // Strategy Pattern - Serialization strategies
 interface SerializationStrategy {
-    byte[] serialize(GameState state) throws IOException;
-    GameState deserialize(byte[] data) throws IOException, ClassNotFoundException;
+byte[] serialize(GameState state) throws IOException;
+GameState deserialize(byte[] data) throws IOException, ClassNotFoundException;
 }
 
 class JavaSerializationStrategy implements SerializationStrategy {
-    @Override
-    public byte[] serialize(GameState state) throws IOException {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        ObjectOutputStream oos = new ObjectOutputStream(bos);
-        oos.writeObject(state);
-        oos.close();
-        return bos.toByteArray();
-    }
-    
+@Override
+public byte[] serialize(GameState state) throws IOException {
+ByteArrayOutputStream bos = new ByteArrayOutputStream();
+ObjectOutputStream oos = new ObjectOutputStream(bos);
+oos.writeObject(state);
+oos.close();
+return bos.toByteArray();
+}
+
     @Override
     public GameState deserialize(byte[] data) throws IOException, ClassNotFoundException {
         ByteArrayInputStream bis = new ByteArrayInputStream(data);
@@ -150,14 +147,14 @@ class JavaSerializationStrategy implements SerializationStrategy {
 }
 
 class JSONSerializationStrategy implements SerializationStrategy {
-    @Override
-    public byte[] serialize(GameState state) throws IOException {
-        // Simplified JSON serialization
-        Map<String, Object> wrapper = new HashMap<>();
-        wrapper.put("gameType", state.getGameType());
-        wrapper.put("stateData", state.getStateData());
-        wrapper.put("timestamp", System.currentTimeMillis());
-        
+@Override
+public byte[] serialize(GameState state) throws IOException {
+// Simplified JSON serialization
+Map<String, Object> wrapper = new HashMap<>();
+wrapper.put("gameType", state.getGameType());
+wrapper.put("stateData", state.getStateData());
+wrapper.put("timestamp", System.currentTimeMillis());
+
         String json = convertToJSON(wrapper);
         return json.getBytes();
     }
@@ -185,13 +182,13 @@ class JSONSerializationStrategy implements SerializationStrategy {
 
 // Snapshot metadata
 class GameSnapshot {
-    private String snapshotId;
-    private String gameType;
-    private long timestamp;
-    private byte[] serializedData;
-    private String description;
-    private Map<String, String> metadata;
-    
+private String snapshotId;
+private String gameType;
+private long timestamp;
+private byte[] serializedData;
+private String description;
+private Map<String, String> metadata;
+
     public GameSnapshot(String snapshotId, String gameType, byte[] data, String description) {
         this.snapshotId = snapshotId;
         this.gameType = gameType;
@@ -211,15 +208,15 @@ class GameSnapshot {
 
 // Storage interface
 interface SnapshotStorage {
-    void saveSnapshot(GameSnapshot snapshot) throws IOException;
-    GameSnapshot loadSnapshot(String snapshotId) throws IOException;
-    List<GameSnapshot> listSnapshots(String gameType);
-    void deleteSnapshot(String snapshotId) throws IOException;
+void saveSnapshot(GameSnapshot snapshot) throws IOException;
+GameSnapshot loadSnapshot(String snapshotId) throws IOException;
+List<GameSnapshot> listSnapshots(String gameType);
+void deleteSnapshot(String snapshotId) throws IOException;
 }
 
 class InMemoryStorage implements SnapshotStorage {
-    private Map<String, GameSnapshot> snapshots = new HashMap<>();
-    
+private Map<String, GameSnapshot> snapshots = new HashMap<>();
+
     @Override
     public void saveSnapshot(GameSnapshot snapshot) {
         snapshots.put(snapshot.getSnapshotId(), snapshot);
@@ -249,10 +246,10 @@ class InMemoryStorage implements SnapshotStorage {
 }
 
 public class GameStatePersistence {
-    private SerializationStrategy serializationStrategy;
-    private SnapshotStorage storage;
-    private Map<String, GameState> activeGames;
-    
+private SerializationStrategy serializationStrategy;
+private SnapshotStorage storage;
+private Map<String, GameState> activeGames;
+
     public GameStatePersistence(SerializationStrategy strategy, SnapshotStorage storage) {
         this.serializationStrategy = strategy;
         this.storage = storage;
@@ -376,78 +373,78 @@ public class GameStatePersistence {
 }
 
 /*
- * INTERVIEW QUESTIONS & ANSWERS:
- * 
- * Q1: How do you handle versioning of game states?
- * A: Include version number in serialized data. Use adapter pattern:
- *    - Store version with each snapshot
- *    - Create converters for old versions → new versions
- *    - Maintain backward compatibility for several versions
- *    - Deprecate very old versions with migration tools
- * 
- * Q2: How would you implement cloud save/sync?
- * A: Use cloud storage (S3, Firebase):
- *    - Upload snapshots to cloud
- *    - Sync across devices using unique game/user ID
- *    - Handle conflicts (last-write-wins or merge)
- *    - Use delta sync for efficiency (only changed data)
- * 
- * Q3: What's the trade-off between full snapshots vs delta snapshots?
- * A: Full: Simple, fast restore, more storage
- *    Delta: Less storage, slower restore (need to replay), complex
- *    Hybrid: Periodic full snapshots + intermediate deltas
- * 
- * Q4: How to handle corrupt save files?
- * A: Multi-layered approach:
- *    - Checksum validation (MD5/SHA)
- *    - Keep multiple save slots
- *    - Automatic backup before overwrite
- *    - Graceful degradation (partial restore)
- *    - User notification with recovery options
- * 
- * Q5: How would you compress game states?
- * A: Multiple approaches:
- *    - GZIP compression on serialized data
- *    - Custom encoding for repetitive data
- *    - Delta encoding from base state
- *    - Use binary formats instead of JSON
- *    Typical: 50-90% size reduction
- * 
- * Q6: How to implement save slots (multiple saves per game)?
- * A: Organize storage by game ID + slot number:
- *    - Directory structure: /saves/gameId/slot1/, slot2/, etc.
- *    - Metadata file per slot (timestamp, description, preview)
- *    - UI shows all slots with thumbnails
- * 
- * Q7: How would you generate save file previews/thumbnails?
- * A: Store additional metadata:
- *    - Screenshot (small compressed image)
- *    - Key stats (level, score, time played)
- *    - Mini-map or board state visualization
- *    - Generated at save time, displayed in load menu
- * 
- * Q8: How to handle save migration during game updates?
- * A: Migration pipeline:
- *    - Detect save file version
- *    - Apply transformation chain (v1→v2→v3)
- *    - Validate migrated data
- *    - Keep backup of original
- *    - Log migration for debugging
- * 
- * Q9: How would you implement auto-save without impacting gameplay?
- * A: Asynchronous saving:
- *    - Clone game state (Prototype pattern)
- *    - Serialize in background thread
- *    - Write to disk asynchronously
- *    - Don't block game loop
- *    - Use double buffering for state
- * 
- * Q10: How to secure save files from tampering?
- * A: Security measures:
- *    - Encrypt save files (AES)
- *    - Digital signatures (HMAC)
- *    - Obfuscation of data
- *    - Server-side validation for multiplayer
- *    - Store critical data server-side
- *    Trade-off: Performance vs security
- */
+* INTERVIEW QUESTIONS & ANSWERS:
+*
+* Q1: How do you handle versioning of game states?
+* A: Include version number in serialized data. Use adapter pattern:
+*    - Store version with each snapshot
+*    - Create converters for old versions → new versions
+*    - Maintain backward compatibility for several versions
+*    - Deprecate very old versions with migration tools
+*
+* Q2: How would you implement cloud save/sync?
+* A: Use cloud storage (S3, Firebase):
+*    - Upload snapshots to cloud
+*    - Sync across devices using unique game/user ID
+*    - Handle conflicts (last-write-wins or merge)
+*    - Use delta sync for efficiency (only changed data)
+*
+* Q3: What's the trade-off between full snapshots vs delta snapshots?
+* A: Full: Simple, fast restore, more storage
+*    Delta: Less storage, slower restore (need to replay), complex
+*    Hybrid: Periodic full snapshots + intermediate deltas
+*
+* Q4: How to handle corrupt save files?
+* A: Multi-layered approach:
+*    - Checksum validation (MD5/SHA)
+*    - Keep multiple save slots
+*    - Automatic backup before overwrite
+*    - Graceful degradation (partial restore)
+*    - User notification with recovery options
+*
+* Q5: How would you compress game states?
+* A: Multiple approaches:
+*    - GZIP compression on serialized data
+*    - Custom encoding for repetitive data
+*    - Delta encoding from base state
+*    - Use binary formats instead of JSON
+*    Typical: 50-90% size reduction
+*
+* Q6: How to implement save slots (multiple saves per game)?
+* A: Organize storage by game ID + slot number:
+*    - Directory structure: /saves/gameId/slot1/, slot2/, etc.
+*    - Metadata file per slot (timestamp, description, preview)
+*    - UI shows all slots with thumbnails
+*
+* Q7: How would you generate save file previews/thumbnails?
+* A: Store additional metadata:
+*    - Screenshot (small compressed image)
+*    - Key stats (level, score, time played)
+*    - Mini-map or board state visualization
+*    - Generated at save time, displayed in load menu
+*
+* Q8: How to handle save migration during game updates?
+* A: Migration pipeline:
+*    - Detect save file version
+*    - Apply transformation chain (v1→v2→v3)
+*    - Validate migrated data
+*    - Keep backup of original
+*    - Log migration for debugging
+*
+* Q9: How would you implement auto-save without impacting gameplay?
+* A: Asynchronous saving:
+*    - Clone game state (Prototype pattern)
+*    - Serialize in background thread
+*    - Write to disk asynchronously
+*    - Don't block game loop
+*    - Use double buffering for state
+*
+* Q10: How to secure save files from tampering?
+* A: Security measures:
+*    - Encrypt save files (AES)
+*    - Digital signatures (HMAC)
+*    - Obfuscation of data
+*    - Server-side validation for multiplayer
+*    - Store critical data server-side
+*    Trade-off: Performance vs security
+     */

@@ -1,5 +1,7 @@
 package binarysearch.hard;
 
+import java.util.Comparator;
+
 /**
  * LeetCode 23: Merge k Sorted Lists (Binary Search + Divide & Conquer approach)
  * https://leetcode.com/problems/merge-k-sorted-lists/
@@ -100,7 +102,7 @@ public class MergeKSortedLists {
         }
 
         java.util.PriorityQueue<ListNode> pq = new java.util.PriorityQueue<>(
-                (a, b) -> Integer.compare(a.val, b.val));
+                Comparator.comparingInt(a -> a.val));
 
         // Add all heads to priority queue
         for (ListNode list : lists) {
