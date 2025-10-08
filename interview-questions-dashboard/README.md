@@ -5,6 +5,23 @@
 ## 📊 Overview
 Comprehensive interview preparation dashboard with **1,299 DSA questions** featuring AI-generated solutions with syntax highlighting and code execution simulation.
 
+### 🚀 Quick Commands for Contributors
+
+**Setup Gemini API (Required for AI generation):**
+```bash
+export GEMINI_API_KEY='your-api-key-here'
+```
+
+**Run Batch 2 Processing:**
+```bash
+cd /Users/sahanur/IdeaProjects/log-analytics-platform
+python3 interview-questions-dashboard/threaded_multi_ai.py \
+  -i interview-questions-dashboard/batch_2_gemini.json \
+  -c DSA -p gemini --backup --threads 4
+```
+
+Get your Gemini API key: https://makersuite.google.com/app/apikey
+
 ### ✨ Enhanced Features
 - 🤖 **193 AI-Generated Solutions** (14.9% coverage) powered by Google Gemini 2.0 Flash
 - 💻 **IDE-Like Code Editor** with VS Code dark theme and Prism.js syntax highlighting
@@ -47,6 +64,76 @@ curl -s "https://raw.githubusercontent.com/sahanurmondal/log-analytics-platform/
 - **Data Sources**: JSON files with comprehensive answers and problem-specific tips
 - **Performance**: Optimized for both local and GitHub Pages deployment
 - **Compatibility**: Works across all modern browsers and devices
+
+### 🤖 AI Solution Generation (For Contributors)
+
+#### **Setup Gemini API**
+To generate AI solutions for interview questions, you need a Google Gemini API key:
+
+```bash
+# Get your API key from: https://makersuite.google.com/app/apikey
+export GEMINI_API_KEY='your-api-key-here'
+
+# Or add to .env file in interview-questions-dashboard directory
+echo "GEMINI_API_KEY=your-api-key-here" > .env
+```
+
+#### **Generate Solutions with Threading**
+```bash
+# Navigate to project directory
+cd /Users/sahanur/IdeaProjects/log-analytics-platform
+
+# Test with 10 problems first
+python3 interview-questions-dashboard/threaded_multi_ai.py \
+  -i interview-questions-dashboard/test_gemini_10.json \
+  -c DSA -p gemini
+
+# Process batch 2 (180 problems) - RECOMMENDED STARTING POINT
+python3 interview-questions-dashboard/threaded_multi_ai.py \
+  -i interview-questions-dashboard/batch_2_gemini.json \
+  -c DSA -p gemini --backup --threads 4
+
+# Process all batches sequentially
+python3 interview-questions-dashboard/threaded_multi_ai.py \
+  -i interview-questions-dashboard/batch_1_gemini.json \
+  -c DSA -p gemini --backup --threads 4
+
+python3 interview-questions-dashboard/threaded_multi_ai.py \
+  -i interview-questions-dashboard/batch_3_gemini.json \
+  -c DSA -p gemini --backup --threads 4
+
+python3 interview-questions-dashboard/threaded_multi_ai.py \
+  -i interview-questions-dashboard/batch_4_gemini.json \
+  -c DSA -p gemini --backup --threads 4
+
+python3 interview-questions-dashboard/threaded_multi_ai.py \
+  -i interview-questions-dashboard/batch_5_gemini.json \
+  -c DSA -p gemini --backup --threads 4
+```
+
+**Command Options:**
+- `-i, --input`: Input JSON file path (required)
+- `-c, --category`: Category to process (e.g., DSA)
+- `-p, --provider`: AI provider (gemini, openai, claude)
+- `--backup`: Create backup before processing
+- `--threads`: Number of threads (default: 4)
+- `--no-resume`: Don't resume from checkpoint
+- `--dry-run`: Show what would be processed without running
+
+#### **Cost Estimates (Gemini 2.0 Flash)**
+- **Cost**: $0.0005 per 1K tokens (~$0.001 per problem)
+- **Test (10 problems)**: ~$0.01
+- **Batch (180 problems)**: ~$0.18
+- **Full dataset (1,088 problems)**: ~$1.09
+- **Daily Limit**: ~1,500 requests
+
+#### **Features**
+- ✅ Multi-threaded processing (4 threads default)
+- ✅ Auto-resume on network failure (checkpoint system)
+- ✅ Backup creation before processing
+- ✅ Rate limiting (15 requests/minute)
+- ✅ Progress tracking and statistics
+- ✅ Only processes empty answers
 
 ### 🔧 Troubleshooting
 

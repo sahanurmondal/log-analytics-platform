@@ -12,15 +12,18 @@ from datetime import datetime
 def merge_batches():
     """Merge all batch results back into main file."""
     
-    # Files to merge
-    source_file = "src/company/webscraper/enginebogie/enginebogie_answer.json"
+    # Get script directory to handle relative paths correctly
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    
+    # Files to merge (use absolute paths)
+    source_file = os.path.join(script_dir, "src/company/webscraper/enginebogie/enginebogie_answer.json")
     batch_files = [
-        "test_gemini_10.json",
-        "batch_1_gemini.json",
-        "batch_2_gemini.json",
-        "batch_3_gemini.json",
-        "batch_4_gemini.json",
-        "batch_5_gemini.json"
+        os.path.join(script_dir, "test_gemini_10.json"),
+        os.path.join(script_dir, "batch_1_gemini.json"),
+        os.path.join(script_dir, "batch_2_gemini.json"),
+        os.path.join(script_dir, "batch_3_gemini.json"),
+        os.path.join(script_dir, "batch_4_gemini.json"),
+        os.path.join(script_dir, "batch_5_gemini.json")
     ]
     
     print("🔄 Merging Batch Results")
@@ -67,8 +70,9 @@ def merge_batches():
         total_updated += updated
     
     # Create backup
-    backup_file = f"src/company/webscraper/enginebogie/enginebogie_answer_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json"
-    print(f"\n💾 Creating backup: {backup_file}")
+    backup_dir = os.path.join(script_dir, "src/company/webscraper/enginebogie")
+    backup_file = os.path.join(backup_dir, f"enginebogie_answer_backup_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json")
+    print(f"\n💾 Creating backup: {os.path.basename(backup_file)}")
     with open(backup_file, 'w', encoding='utf-8') as f:
         json.dump(json.load(open(source_file, 'r', encoding='utf-8')), f, indent=2, ensure_ascii=False)
     
@@ -97,7 +101,8 @@ def merge_batches():
 
 def verify_merge():
     """Verify the merge was successful."""
-    source_file = "src/company/webscraper/enginebogie/enginebogie_answer.json"
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    source_file = os.path.join(script_dir, "src/company/webscraper/enginebogie/enginebogie_answer.json")
     
     print(f"\n🔍 Verification Report")
     print("=" * 60)

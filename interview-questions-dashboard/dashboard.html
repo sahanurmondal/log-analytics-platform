@@ -1367,8 +1367,13 @@
         // Data loading functions
         async function loadCompanyData() {
             try {
+                // DATA VERSION for cache control
+                const DATA_VERSION = '20251008';
+
                 // Cache-busting for fresh data
-                const cacheBuster = `v=${new Date().getTime()}&r=${Math.random().toString(36).substring(7)}`;
+                const timestamp = new Date().getTime();
+                const random = Math.random().toString(36).substring(7);
+                const cacheBuster = `v=${DATA_VERSION}&t=${timestamp}&r=${random}`;
                 const response = await fetch(`./src/company/webscraper/leetcode_company_wise/leetcode_enhanced_complete.json?${cacheBuster}`, {
                     cache: 'no-store',
                     headers: {
@@ -1388,8 +1393,13 @@
 
         async function loadProblemsData() {
             try {
+                // DATA VERSION for cache control
+                const DATA_VERSION = '20251008';
+
                 // Cache-busting for fresh data
-                const cacheBuster = `v=${new Date().getTime()}&r=${Math.random().toString(36).substring(7)}`;
+                const timestamp = new Date().getTime();
+                const random = Math.random().toString(36).substring(7);
+                const cacheBuster = `v=${DATA_VERSION}&t=${timestamp}&r=${random}`;
                 const response = await fetch(`./src/company/webscraper/leetcode_problem_solution/leetcode_ca_search_enhanced.json?${cacheBuster}`, {
                     cache: 'no-store',
                     headers: {
@@ -1409,11 +1419,14 @@
 
         async function loadInterviewPrepData() {
             try {
+                // DATA VERSION - Update this timestamp when JSON is regenerated!
+                const DATA_VERSION = '20251008_merged';  // Update after each merge!
+
                 // AGGRESSIVE cache-busting for GitHub Pages
-                // Combine timestamp + random number to bypass ALL caching layers
+                // Combine data version + timestamp + random number to bypass ALL caching layers
                 const timestamp = new Date().getTime();
                 const random = Math.random().toString(36).substring(7);
-                const cacheBuster = `v=${timestamp}&r=${random}`;
+                const cacheBuster = `v=${DATA_VERSION}&t=${timestamp}&r=${random}`;
 
                 const response = await fetch(`./src/company/webscraper/enginebogie/enginebogie_answer.json?${cacheBuster}`, {
                     method: 'GET',
