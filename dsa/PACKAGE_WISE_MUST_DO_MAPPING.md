@@ -253,28 +253,29 @@
 ## 📊 Dynamic Programming Package (`src/dp/`)
 
 ### Must-Do Problems in Your DP Package
-| Priority | Problem | Your File | LeetCode | Difficulty | Recent MAANG |
-|----------|---------|-----------|----------|------------|--------------|
-| 🔥 Critical | Climbing Stairs | [`linear/basic/ClimbingStairs.java`](./dp/linear/basic/ClimbingStairs.java) | [70](https://leetcode.com/problems/climbing-stairs/) | Easy | Amazon, Apple 2024 |
-| 🔥 Critical | House Robber | [`linear/optimization/HouseRobber.java`](./dp/linear/optimization/HouseRobber.java) | [198](https://leetcode.com/problems/house-robber/) | Easy | Google, Meta 2024 |
-| 🔥 Critical | Maximum Subarray | [`linear/sequence/MaximumSubarray.java`](./dp/linear/sequence/MaximumSubarray.java) | [53](https://leetcode.com/problems/maximum-subarray/) | Easy | Microsoft, Amazon 2024 |
-| 🔥 Critical | Min Cost Climbing Stairs | [`advanced/MinCostClimbingStairs.java`](./dp/advanced/MinCostClimbingStairs.java) | [746](https://leetcode.com/problems/min-cost-climbing-stairs/) | Easy | Meta, Apple 2024 |
-| 🎯 High | Coin Change | [`knapsack/unbounded/CoinChange.java`](./dp/knapsack/unbounded/CoinChange.java) | [322](https://leetcode.com/problems/coin-change/) | Medium | Google, Amazon 2024 |
-| 🎯 High | Longest Increasing Subsequence | [`linear/sequence/LongestIncreasingSubsequence.java`](./dp/linear/sequence/LongestIncreasingSubsequence.java) | [300](https://leetcode.com/problems/longest-increasing-subsequence/) | Medium | Microsoft, Meta 2024 |
-| 🎯 High | Word Break | [`advanced/WordBreak.java`](./dp/advanced/WordBreak.java) | [139](https://leetcode.com/problems/word-break/) | Medium | Apple, Google 2024 |
-| 🎯 High | Combination Sum IV | [`knapsack/unbounded/CombinationSumIV.java`](./dp/knapsack/unbounded/CombinationSumIV.java) | [377](https://leetcode.com/problems/combination-sum-iv/) | Medium | Amazon, Microsoft 2024 |
-| 🎯 High | House Robber II | [`linear/optimization/HouseRobberII.java`](./dp/linear/optimization/HouseRobberII.java) | [213](https://leetcode.com/problems/house-robber-ii/) | Medium | Meta, Apple 2024 |
-| 🎯 High | Decode Ways | [`state_machine/DecodeWays.java`](./dp/state_machine/DecodeWays.java) | [91](https://leetcode.com/problems/decode-ways/) | Medium | Google, Amazon 2024 |
-| 🎯 High | Unique Paths | [`grid/path_counting/UniquePaths.java`](./dp/grid/path_counting/UniquePaths.java) | [62](https://leetcode.com/problems/unique-paths/) | Medium | Microsoft, Meta 2024 |
-| 🎯 High | Unique Paths II | [`grid/medium/UniquePathsII.java`](./grid/medium/UniquePathsII.java) | [63](https://leetcode.com/problems/unique-paths-ii/) | Medium | Apple, Google 2024 |
-| 🎯 High | Minimum Path Sum | [`grid/optimization/MinimumPathSum.java`](./dp/grid/optimization/MinimumPathSum.java) | [64](https://leetcode.com/problems/minimum-path-sum/) | Medium | Amazon, Microsoft 2024 |
-| 🎯 High | Longest Common Subsequence | [`string/subsequence/LongestCommonSubsequence.java`](./dp/string/subsequence/LongestCommonSubsequence.java) | [1143](https://leetcode.com/problems/longest-common-subsequence/) | Medium | Meta, Apple 2024 |
-| 🎯 High | Maximum Product Subarray | [`linear/sequence/MaximumProductSubarray.java`](./dp/linear/sequence/MaximumProductSubarray.java) | [152](https://leetcode.com/problems/maximum-product-subarray/) | Medium | Google, Amazon 2024 |
-| 🎯 High | Jump Game | [`linear/basic/JumpGameII.java`](./dp/advanced/JumpGameII.java) | [55](https://leetcode.com/problems/jump-game/) | Medium | Microsoft, Meta 2024 |
+| Priority | Problem                         | Your File | LeetCode                                                              | Difficulty | Recent MAANG |
+|----------|---------------------------------|-----------|-----------------------------------------------------------------------|------------|--------------|
+| 🔥 Critical | Climbing Stairs                 | [`linear/basic/ClimbingStairs.java`](./dp/linear/basic/ClimbingStairs.java) | [70](https://leetcode.com/problems/climbing-stairs/)                  | Easy | Amazon, Apple 2024 |
+| 🔥 Critical | House Robber                    | [`linear/optimization/HouseRobber.java`](./dp/linear/optimization/HouseRobber.java) | [198](https://leetcode.com/problems/house-robber/)                    | Easy | Google, Meta 2024 |
+| 🔥 Critical | Maximum Subarray                | [`linear/sequence/MaximumSubarray.java`](./dp/linear/sequence/MaximumSubarray.java) | [53](https://leetcode.com/problems/maximum-subarray/)                 | Easy | Microsoft, Amazon 2024 |
+| 🔥 Critical | Min Cost Climbing Stairs        | [`advanced/MinCostClimbingStairs.java`](./dp/advanced/MinCostClimbingStairs.java) | [746](https://leetcode.com/problems/min-cost-climbing-stairs/)        | Easy | Meta, Apple 2024 |
+| 🎯 High | Coin Change                     | [`knapsack/unbounded/CoinChange.java`](./dp/knapsack/unbounded/CoinChange.java) | [322](https://leetcode.com/problems/coin-change/)                     | Medium | Google, Amazon 2024 |
+| 🎯 High | Coin Change II                  | [`knapsack/unbounded/CoinChangeII.java`](./dp/knapsack/unbounded/CoinChangeII.java) | [322](https://leetcode.com/problems/coin-change-ii/)                  | Medium | Google, Amazon 2024 |
+| 🎯 High | Longest Increasing Subsequence  | [`linear/sequence/LongestIncreasingSubsequence.java`](./dp/linear/sequence/LongestIncreasingSubsequence.java) | [300](https://leetcode.com/problems/longest-increasing-subsequence/)  | Medium | Microsoft, Meta 2024 |
+| 🎯 High | Word Break                      | [`advanced/WordBreak.java`](./dp/advanced/WordBreak.java) | [139](https://leetcode.com/problems/word-break/)                      | Medium | Apple, Google 2024 |
+| 🎯 High | Combination Sum IV              | [`knapsack/unbounded/CombinationSumIV.java`](./dp/knapsack/unbounded/CombinationSumIV.java) | [377](https://leetcode.com/problems/combination-sum-iv/)              | Medium | Amazon, Microsoft 2024 |
+| 🎯 High | House Robber II                 | [`linear/optimization/HouseRobberII.java`](./dp/linear/optimization/HouseRobberII.java) | [213](https://leetcode.com/problems/house-robber-ii/)                 | Medium | Meta, Apple 2024 |
+| 🎯 High | Decode Ways                     | [`state_machine/DecodeWays.java`](./dp/state_machine/DecodeWays.java) | [91](https://leetcode.com/problems/decode-ways/)                      | Medium | Google, Amazon 2024 |
+| 🎯 High | Unique Paths                    | [`grid/path_counting/UniquePaths.java`](./dp/grid/path_counting/UniquePaths.java) | [62](https://leetcode.com/problems/unique-paths/)                     | Medium | Microsoft, Meta 2024 |
+| 🎯 High | Unique Paths II                 | [`grid/medium/UniquePathsII.java`](./grid/medium/UniquePathsII.java) | [63](https://leetcode.com/problems/unique-paths-ii/)                  | Medium | Apple, Google 2024 |
+| 🎯 High | Minimum Path Sum                | [`grid/optimization/MinimumPathSum.java`](./dp/grid/optimization/MinimumPathSum.java) | [64](https://leetcode.com/problems/minimum-path-sum/)                 | Medium | Amazon, Microsoft 2024 |
+| 🎯 High | Longest Common Subsequence      | [`string/subsequence/LongestCommonSubsequence.java`](./dp/string/subsequence/LongestCommonSubsequence.java) | [1143](https://leetcode.com/problems/longest-common-subsequence/)     | Medium | Meta, Apple 2024 |
+| 🎯 High | Maximum Product Subarray        | [`linear/sequence/MaximumProductSubarray.java`](./dp/linear/sequence/MaximumProductSubarray.java) | [152](https://leetcode.com/problems/maximum-product-subarray/)        | Medium | Google, Amazon 2024 |
+| 🎯 High | Jump Game                       | [`linear/basic/JumpGameII.java`](./dp/advanced/JumpGameII.java) | [55](https://leetcode.com/problems/jump-game/)                        | Medium | Microsoft, Meta 2024 |
 | 🎯 High | Best Time to Buy and Sell Stock | [`stock_trading/BestTimeToBuyAndSellStock.java`](./dp/stock_trading/BestTimeToBuyAndSellStock.java) | [121](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) | Easy | Apple, Google 2024 |
-| 🏆 Medium | Edit Distance | [`string/matching/EditDistance.java`](./dp/string/matching/EditDistance.java) | [72](https://leetcode.com/problems/edit-distance/) | Hard | Amazon, Meta 2024 |
-| 🏆 Medium | Regular Expression Matching | [`string/matching/RegularExpressionMatching.java`](./dp/string/matching/RegularExpressionMatching.java) | [10](https://leetcode.com/problems/regular-expression-matching/) | Hard | Google, Microsoft 2024 |
-| 🏆 Medium | Wildcard Matching | [`string/matching/WildcardMatching.java`](./dp/string/matching/WildcardMatching.java) | [44](https://leetcode.com/problems/wildcard-matching/) | Hard | Apple, Amazon 2024 |
+| 🏆 Medium | Edit Distance                   | [`string/matching/EditDistance.java`](./dp/string/matching/EditDistance.java) | [72](https://leetcode.com/problems/edit-distance/)                    | Hard | Amazon, Meta 2024 |
+| 🏆 Medium | Regular Expression Matching     | [`string/matching/RegularExpressionMatching.java`](./dp/string/matching/RegularExpressionMatching.java) | [10](https://leetcode.com/problems/regular-expression-matching/)      | Hard | Google, Microsoft 2024 |
+| 🏆 Medium | Wildcard Matching               | [`string/matching/WildcardMatching.java`](./dp/string/matching/WildcardMatching.java) | [44](https://leetcode.com/problems/wildcard-matching/)                | Hard | Apple, Amazon 2024 |
 
 ### Additional Essential Problems (Create if Missing)
 | Priority | Problem | Suggested File | LeetCode | Difficulty | Recent MAANG |
