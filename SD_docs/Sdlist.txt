@@ -1,0 +1,253 @@
+A	B	C	D	E	F
+1
+Num	Title	Topic	Estimated Length (min)	Module	Youtube Video Link
+2
+1	Course Orientation: Master System Design & Shine in Interviews	Orientation	45	M00 - Orientation & Template	
+3
+2	The System Design Mindset: Depth, Breadth & Tradeoff Thinking	Orientation	45	M00 - Orientation & Template	
+4
+3	The 6-Step System Design Template You’ll Use in Every Interview	Method	45	M00 - Orientation & Template	
+5
+4	Scalability & Performance 101: Latency, Throughput & Tail Latency	Foundations	60	M01 - Scalability Foundations	
+6
+5	Estimation & Capacity Planning: QPS, Storage, Network	Foundations	60	M01 - Scalability Foundations	
+7
+6	Availability & Durability: SLAs, SLOs, SLIs & Failure Domains	Foundations	60	M01 - Scalability Foundations	
+8
+7	Consistency Models: Strong, Eventual, Read-Your-Writes	Foundations	60	M01 - Scalability Foundations	
+9
+8	CAP vs PACELC: Tradeoffs Under Real Constraints	Foundations	45	M01 - Scalability Foundations	
+10
+9	Tradeoff Frameworks: Cost vs Performance vs Reliability	Foundations	45	M01 - Scalability Foundations	
+11
+10	Partitioning & Replication Strategies	Foundations	60	M01 - Scalability Foundations	
+12
+11	Database Open Connections: Lifecycle, Scaling & Pooling	Foundations	45	M01 - Scalability Foundations	
+13
+12	Version Upgrades & DB Migrations: Zero Downtime in Practice	Foundations	45	M01 - Scalability Foundations	
+14
+13	OSI/TCP/IP for System Designers	Networking	45	M02 - Networking & Delivery	
+15
+14	HTTP/1.1 vs HTTP/2 vs HTTP/3, gRPC & WebSockets	Networking	45	M02 - Networking & Delivery	
+16
+15	Load Balancing: L4/L7, Anycast & DNS Patterns	Networking	60	M02 - Networking & Delivery	
+17
+16	CDNs & Edge Delivery	Networking	45	M02 - Networking & Delivery	
+18
+17	Flow Control & Rate Limiting	Networking	45	M02 - Networking & Delivery	
+19
+18	RDBMS Internals: Indexes, Isolation & ACID	Storage	60	M03 - Data, Storage & Caching	
+20
+19	NoSQL in Practice: KV, Doc, Wide-Column, Graph	Storage	60	M03 - Data, Storage & Caching	
+21
+20	Choosing a Database: Practical Decision Matrix	Storage	45	M03 - Data, Storage & Caching	
+22
+21	Sharding & Rebalancing	Storage	60	M03 - Data, Storage & Caching	
+23
+22	Secondary Indexes & Precomputation	Storage	45	M03 - Data, Storage & Caching	
+24
+23	Time-Series & Counters	Storage	45	M03 - Data, Storage & Caching	
+25
+24	Search Systems 101: Lucene/Elasticsearch	Storage	60	M03 - Data, Storage & Caching	
+26
+25	Data Formats & Compression	Storage	45	M03 - Data, Storage & Caching	
+27
+26	Backups, PITR & Disaster Recovery	Storage	45	M03 - Data, Storage & Caching	
+28
+27	Data Lake Architectures: Ingestion, Governance & Querying	Data Engineering	60	M03 - Data, Storage & Caching	
+29
+28	Cache Placement & Eviction: LRU/LFU/TTL	Caching	45	M03 - Data, Storage & Caching	
+30
+29	Layered Caching: CDN + App + Client	Caching	45	M03 - Data, Storage & Caching	
+31
+30	Write-Through vs Write-Back	Caching	45	M03 - Data, Storage & Caching	
+32
+31	Hot Keys & Cache Stampede Mitigation	Caching	45	M03 - Data, Storage & Caching	
+33
+32	Queues vs Streams	Messaging	60	M04 - Messaging & Event-Driven Systems	
+34
+33	Kafka Fundamentals	Messaging	60	M04 - Messaging & Event-Driven Systems	
+35
+34	Pub/Sub & Event Routers (incl. Solace)	Messaging	60	M04 - Messaging & Event-Driven Systems	
+36
+35	Event-Driven Architecture: CQRS, Event Sourcing & Replay	Messaging	60	M04 - Messaging & Event-Driven Systems	
+37
+36	Exactly-Once in Practice & Outbox Pattern	Messaging	60	M04 - Messaging & Event-Driven Systems	
+38
+37	Distributed Transactions & Sagas	Messaging	45	M04 - Messaging & Event-Driven Systems	
+39
+38	Stream Processing at Scale	Messaging	60	M04 - Messaging & Event-Driven Systems	
+40
+39	Replay & Backfills	Messaging	45	M04 - Messaging & Event-Driven Systems	
+41
+40	DDD Service Boundaries & Decomposition	Microservices	60	M05 - Microservices & Reliability	
+42
+41	API Design: REST vs gRPC vs GraphQL	Microservices	60	M05 - Microservices & Reliability	
+43
+42	Config Mgmt & Service Discovery	Microservices	45	M05 - Microservices & Reliability	
+44
+43	Resiliency Patterns: Circuit Breakers, Retries & Timeouts	Microservices	60	M05 - Microservices & Reliability	
+45
+44	Schema & API Versioning	Microservices	45	M05 - Microservices & Reliability	
+46
+45	Multi-Tenancy Models	Microservices	45	M05 - Microservices & Reliability	
+47
+46	Fair-Use Enforcement: Quotas & Isolation	Microservices	45	M05 - Microservices & Reliability	
+48
+47	High Availability: Active-Active vs Active-Passive	Reliability	60	M05 - Microservices & Reliability	
+49
+48	Leader Election & Quorum	Reliability	45	M05 - Microservices & Reliability	
+50
+49	Stateful vs Stateless Scaling	Reliability	45	M05 - Microservices & Reliability	
+51
+50	Chaos Engineering in Practice	Reliability	45	M05 - Microservices & Reliability	
+52
+51	Incident Response & Blameless Postmortems	Reliability	45	M05 - Microservices & Reliability	
+53
+52	OAuth2, OIDC, JWTs & mTLS	Security	60	M06 - Security, Observability & FinOps	
+54
+53	Secrets Management & Key Rotation	Security	45	M06 - Security, Observability & FinOps	
+55
+54	Threat Modeling with STRIDE	Security	45	M06 - Security, Observability & FinOps	
+56
+55	Zero-Downtime Security Patching	Security	45	M06 - Security, Observability & FinOps	
+57
+56	PII/PCI Handling: Tokenization & Masking	Security	45	M06 - Security, Observability & FinOps	
+58
+57	Abuse & Bot Prevention	Security	60	M06 - Security, Observability & FinOps	
+59
+58	Logging at Scale & Retention	Observability	45	M06 - Security, Observability & FinOps	
+60
+59	Metrics & Dashboards (RED/USE)	Observability	45	M06 - Security, Observability & FinOps	
+61
+60	Distributed Tracing & Root-Cause Analysis	Observability	45	M06 - Security, Observability & FinOps	
+62
+61	Advanced Observability: eBPF & Telemetry Pipelines	Observability	45	M06 - Security, Observability & FinOps	
+63
+62	FinOps: Cost Models & Unit Economics	Operations	45	M06 - Security, Observability & FinOps	
+64
+63	Docker & Containers for Interviews	Cloud	45	M07 - Cloud & Infrastructure	
+65
+64	Kubernetes Architecture & Scheduling	Cloud	60	M07 - Cloud & Infrastructure	
+66
+65	Service Mesh (Istio/Linkerd)	Cloud	45	M07 - Cloud & Infrastructure	
+67
+66	Serverless & Event-Driven Designs	Cloud	60	M07 - Cloud & Infrastructure	
+68
+67	Multi-AZ & Multi-Region Blueprints	Cloud	60	M07 - Cloud & Infrastructure	
+69
+68	Hybrid & Edge Deployments	Cloud	45	M07 - Cloud & Infrastructure	
+70
+69	Terraform & IaC Foundations	Cloud	45	M07 - Cloud & Infrastructure	
+71
+70	Batch vs Streaming Pipelines	Data Engineering	60	M08 - Data Engineering & AI Systems	
+72
+71	Orchestration with Airflow/Temporal	Data Engineering	45	M08 - Data Engineering & AI Systems	
+73
+72	Warehouse vs Lakehouse	Data Engineering	45	M08 - Data Engineering & AI Systems	
+74
+73	Data Quality & Lineage	Data Engineering	45	M08 - Data Engineering & AI Systems	
+75
+74	Feature Stores & Real-Time ML	Data Engineering	45	M08 - Data Engineering & AI Systems	
+76
+75	Vector Search & ANN Indexes	AI/LLM Systems	45	M08 - Data Engineering & AI Systems	
+77
+76	RAG Architectures	AI/LLM Systems	60	M08 - Data Engineering & AI Systems	
+78
+77	Prompt Caches & Token Budgets	AI/LLM Systems	45	M08 - Data Engineering & AI Systems	
+79
+78	LLM Evaluation & Safety	AI/LLM Systems	45	M08 - Data Engineering & AI Systems	
+80
+79	Scalable Inference & GPU Autoscaling	AI/LLM Systems	60	M08 - Data Engineering & AI Systems	
+81
+80	Design URL Shortener	Case Study	45	M09 - System Design Case Studies	
+82
+81	Design Pastebin / Doc Store	Case Study	45	M09 - System Design Case Studies	
+83
+82	Design File Upload Service (Drive-like)	Case Study	60	M09 - System Design Case Studies	
+84
+83	Design Image CDN (Imgur / Pinterest)	Case Study	60	M09 - System Design Case Studies	
+85
+84	Design Instagram	Case Study	60	M09 - System Design Case Studies	
+86
+85	Design YouTube / Video Streaming	Case Study	60	M09 - System Design Case Studies	
+87
+86	Design Twitter / News Feed	Case Study	60	M09 - System Design Case Studies	
+88
+87	Design Real-Time Chat / WhatsApp	Case Study	60	M09 - System Design Case Studies	
+89
+88	Design Notification System	Case Study	60	M09 - System Design Case Studies	
+90
+89	Design Search Autocomplete	Case Study	45	M09 - System Design Case Studies	
+91
+90	Design E-Commerce Platform	Case Study	60	M09 - System Design Case Studies	
+92
+91	Design Payment Gateway	Case Study	60	M09 - System Design Case Studies	
+93
+92	Design Ads Platform & Auction System	Case Study	60	M09 - System Design Case Studies	
+94
+93	Design Ride-Hailing (Uber)	Case Study	60	M09 - System Design Case Studies	
+95
+94	Design Maps & Geocoding	Case Study	60	M09 - System Design Case Studies	
+96
+95	Design Food Delivery System	Case Study	60	M09 - System Design Case Studies	
+97
+96	Design Inventory & Warehouse System	Case Study	45	M09 - System Design Case Studies	
+98
+97	Design Ticket Booking System	Case Study	60	M09 - System Design Case Studies	
+99
+98	Design Logistics / Fleet Tracking	Case Study	60	M09 - System Design Case Studies	
+100
+99	Design Payment Reconciliation & Ledger	Case Study	60	M09 - System Design Case Studies	
+101
+100	Design Data Warehouse (BigQuery/Redshift)	Case Study	60	M09 - System Design Case Studies	
+102
+101	Design Event Analytics Platform	Case Study	60	M09 - System Design Case Studies	
+103
+102	Design Real-Time Dashboard	Case Study	45	M09 - System Design Case Studies	
+104
+103	Design Web Crawler & Indexer	Case Study	60	M09 - System Design Case Studies	
+105
+104	Design Feature Flag System	Case Study	45	M09 - System Design Case Studies	
+106
+105	Design Multi-Region Replication System	Case Study	45	M09 - System Design Case Studies	
+107
+106	Design Job Scheduler (like Airflow)	Case Study	45	M09 - System Design Case Studies	
+108
+107	Design IoT Platform (Device Telemetry)	Case Study	60	M09 - System Design Case Studies	
+109
+108	Design API Gateway	Case Study	45	M09 - System Design Case Studies	
+110
+109	Design Data Pipeline for ETL	Case Study	45	M09 - System Design Case Studies	
+111
+110	Design Recommendation Engine	Case Study	60	M09 - System Design Case Studies	
+112
+111	Design Chatbot / LLM Query System	Case Study	60	M09 - System Design Case Studies	
+113
+112	Design Voice Assistant	Case Study	45	M09 - System Design Case Studies	
+114
+113	Design Fraud Detection System	Case Study	45	M09 - System Design Case Studies	
+115
+114	Design A/B Testing Framework	Case Study	45	M09 - System Design Case Studies	
+116
+115	Design Real-Time Personalization Engine	Case Study	45	M09 - System Design Case Studies	
+117
+116	Design Auto-Scaling ML Pipeline	Case Study	45	M09 - System Design Case Studies	
+118
+117	Design Video Processing Pipeline	Case Study	45	M09 - System Design Case Studies	
+119
+118	Design Document Vector Search System	Case Study	45	M09 - System Design Case Studies	
+120
+119	Design RAG System End-to-End	Case Study	60	M09 - System Design Case Studies	
+121
+120	Mock interview - 1 (Social Feed)	Practice	45	M10 - Mock Interview & Practice	
+122
+121	Mock #2 (File Storage & Sync)	Practice	45	M10 - Mock Interview & Practice	
+123
+122	Mock #3 (E-Commerce Checkout)	Practice	45	M10 - Mock Interview & Practice	
+124
+123	Speed Drills: APIs, Schemas & Estimation	Practice	45	M10 - Mock Interview & Practice	
+125
+124	Storytelling & Diagramming: Landing the Interview	Practice	45	M10 - Mock Interview & Practice	
+126
+125	Final Capstone: Design Your Own System	Practice	60	M10 - Mock Interview & Practice	
