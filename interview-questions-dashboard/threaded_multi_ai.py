@@ -26,14 +26,23 @@ import random
 
 def load_env_file():
     """Load environment variables from .env file if it exists."""
-    env_file = '.env'
-    if os.path.exists(env_file):
-        with open(env_file, 'r') as f:
-            for line in f:
-                line = line.strip()
-                if line and not line.startswith('#') and '=' in line:
-                    key, value = line.split('=', 1)
-                    os.environ[key.strip()] = value.strip()
+    # Look for .env in the script's directory first, then in current directory
+    script_dir = os.path.dirname(os.path.abspath(__file__))
+    env_locations = [
+        os.path.join(script_dir, '.env'),  # Same directory as script
+        '.env'  # Current working directory
+    ]
+    
+    for env_file in env_locations:
+        if os.path.exists(env_file):
+            print(f"Loading environment from: {env_file}")
+            with open(env_file, 'r') as f:
+                for line in f:
+                    line = line.strip()
+                    if line and not line.startswith('#') and '=' in line:
+                        key, value = line.split('=', 1)
+                        os.environ[key.strip()] = value.strip()
+            return  # Stop after finding first .env file
 
 # Setup logging
 logging.basicConfig(
@@ -95,82 +104,47 @@ class ThreadedMultiAI:
         self.stats = {provider: {
             'requests': 0, 'successes': 0, 'failures': 0, 'cost': 0.0
         } for provider in self.providers}
-        # Add huggingface stats even though it's not in providers dict (free, no API key)
-        self.stats['huggingface'] = {'requests': 0, 'successes': 0, 'failures': 0, 'cost': 0.0}
         self.rate_limiter = RateLimiter(max_requests_per_minute=15)  # Conservative rate limiting
         self.progress_counter = ThreadSafeCounter()
         self.stats_lock = threading.Lock()
         self.max_threads = max_threads
         
     def setup_providers(self) -> Dict:
-        """Setup available AI providers."""
+        """Setup available AI providers - Gemini 2.0 Flash primary, 1.5 Flash backup."""
         providers = {}
         
-        # Google Gemini
+        # Google Gemini models with automatic fallback
         gemini_key = os.getenv('GEMINI_API_KEY') or os.getenv('GOOGLE_API_KEY')
         if gemini_key:
             try:
                 import google.generativeai as genai
                 genai.configure(api_key=gemini_key)
-                providers['gemini'] = {
-                    'model': genai.GenerativeModel('gemini-2.0-flash'),
-                    'name': 'Google Gemini 2.0 Flash',
-                    'cost_per_1k': 0.0005
+                
+                # Primary: Gemini 2.0 Flash Experimental (newest, fastest)
+                providers['gemini-2.0-flash'] = {
+                    'model': genai.GenerativeModel('gemini-2.0-flash-exp'),
+                    'name': 'Google Gemini 2.0 Flash Experimental',
+                    'cost_per_1k': 0.0
                 }
-                logger.info("✅ Google Gemini 2.0 Flash initialized")
+                logger.info("✅ Google Gemini 2.0 Flash Experimental initialized (primary)")
+                
+                # Backup: Gemini 2.5 Flash - Latest stable version with higher quota
+                providers['gemini-2.5-flash'] = {
+                    'model': genai.GenerativeModel('gemini-2.5-flash'),
+                    'name': 'Google Gemini 2.5 Flash (1500 RPD backup)',
+                    'cost_per_1k': 0.0
+                }
+                logger.info("✅ Google Gemini 2.5 Flash initialized (backup - 1500 RPD)")
+                
             except ImportError:
-                logger.warning("❌ Google Generative AI library not installed")
-        
-        # OpenAI GPT
-        if os.getenv('OPENAI_API_KEY'):
-            # Try to use the most cost-effective model available
-            # gpt-4o-mini is currently the cheapest and most capable
-            providers['openai'] = {
-                'api_key': os.getenv('OPENAI_API_KEY'),
-                'model': 'gpt-4o-mini',  # Most cost-effective OpenAI model
-                'name': 'OpenAI GPT-4o-mini (Cost-effective)',
-                'cost_per_1k': 0.00015  # Very affordable pricing
-            }
-            logger.info("✅ OpenAI GPT-4o-mini initialized (cost-effective)")
-        
-        # Claude
-        if os.getenv('CLAUDE_API_KEY'):
-            providers['claude'] = {
-                'api_key': os.getenv('CLAUDE_API_KEY'),
-                'model': 'claude-3-haiku-20240307',
-                'name': 'Anthropic Claude 3 Haiku',
-                'cost_per_1k': 0.0025
-            }
-            logger.info("✅ Anthropic Claude 3 Haiku initialized")
-        
-        # Hugging Face Free Inference API (No API key needed for some models)
-        try:
-            providers['huggingface'] = {
-                'model': 'microsoft/phi-2',  # Free, good for coding
-                'name': 'Hugging Face Phi-2 (Free)',
-                'cost_per_1k': 0.0,
-                'api_url': 'https://api-inference.huggingface.co/models/microsoft/phi-2'
-            }
-            logger.info("✅ Hugging Face Phi-2 initialized (Free)")
-        except Exception as e:
-            logger.warning(f"Could not initialize Hugging Face: {e}")
-        
-        # DeepSeek Coder (Free API)
-        try:
-            providers['deepseek'] = {
-                'model': 'deepseek-coder',
-                'name': 'DeepSeek Coder (Free)',
-                'cost_per_1k': 0.0,
-                'api_url': 'https://api.deepseek.com/v1/chat/completions'
-            }
-            logger.info("✅ DeepSeek Coder initialized (Free)")
-        except Exception as e:
-            logger.warning(f"Could not initialize DeepSeek: {e}")
+                logger.error("❌ Google Generative AI library not installed")
+                logger.error("   Install with: pip install google-generativeai")
+                raise ValueError("google-generativeai package required")
         
         if not providers:
-            raise ValueError("No AI providers configured! Set GEMINI_API_KEY, OPENAI_API_KEY, or CLAUDE_API_KEY")
+            raise ValueError("No AI providers configured! Set GEMINI_API_KEY environment variable")
         
-        logger.info(f"Initialized {len(providers)} AI providers")
+        logger.info(f"✅ Initialized {len(providers)} Gemini models with fallback")
         return providers
     
     def update_stats(self, provider: str, success: bool, cost: float = 0.0):
@@ -183,286 +157,53 @@ class ThreadedMultiAI:
                 self.stats[provider]['failures'] += 1
             self.stats[provider]['cost'] += cost
     
-    def generate_with_gemini(self, prompt: str) -> Optional[str]:
-        """Generate solution with Gemini."""
+    def generate_with_gemini(self, prompt: str, model_key: str) -> Optional[str]:
+        """Generate solution with specified Gemini model."""
         try:
-            if 'gemini' not in self.providers:
+            if model_key not in self.providers:
                 return None
             
             self.rate_limiter.wait_if_needed()
             
-            response = self.providers['gemini']['model'].generate_content(prompt)
+            response = self.providers[model_key]['model'].generate_content(prompt)
             
             if response and response.text:
-                # Estimate cost (rough approximation)
+                # Estimate cost (free for both models)
                 tokens = len(prompt.split()) + len(response.text.split())
-                cost = (tokens / 1000) * self.providers['gemini']['cost_per_1k']
-                self.update_stats('gemini', True, cost)
+                cost = (tokens / 1000) * self.providers[model_key]['cost_per_1k']
+                self.update_stats(model_key, True, cost)
                 return response.text
             
-            self.update_stats('gemini', False)
+            self.update_stats(model_key, False)
             return None
             
         except Exception as e:
-            logger.error(f"Gemini error: {str(e)}")
-            self.update_stats('gemini', False)
+            logger.error(f"Gemini {model_key} error: {str(e)}")
+            self.update_stats(model_key, False)
             return None
     
-    def generate_with_openai(self, prompt: str) -> Optional[str]:
-        """Generate solution with OpenAI GPT."""
-        try:
-            if 'openai' not in self.providers:
-                return None
-            
-            self.rate_limiter.wait_if_needed()
-            
-            headers = {
-                'Authorization': f'Bearer {self.providers["openai"]["api_key"]}',
-                'Content-Type': 'application/json'
-            }
-            
-            payload = {
-                'model': self.providers['openai']['model'],
-                'messages': [
-                    {'role': 'user', 'content': prompt}
-                ],
-                'max_tokens': 2500,
-                'temperature': 0.7
-            }
-            
-            response = requests.post(
-                'https://api.openai.com/v1/chat/completions',
-                headers=headers,
-                json=payload,
-                timeout=60
-            )
-            
-            if response.status_code == 200:
-                result = response.json()
-                content = result['choices'][0]['message']['content']
-                
-                # Calculate cost
-                total_tokens = result.get('usage', {}).get('total_tokens', 0)
-                cost = (total_tokens / 1000) * self.providers['openai']['cost_per_1k']
-                self.update_stats('openai', True, cost)
-                return content
-            else:
-                logger.error(f"OpenAI API error: {response.status_code}")
-                self.update_stats('openai', False)
-                return None
-                
-        except Exception as e:
-            logger.error(f"OpenAI error: {str(e)}")
-            self.update_stats('openai', False)
-            return None
-    
-    def generate_with_claude(self, prompt: str) -> Optional[str]:
-        """Generate solution with Claude."""
-        try:
-            if 'claude' not in self.providers:
-                return None
-            
-            self.rate_limiter.wait_if_needed()
-            
-            headers = {
-                'x-api-key': self.providers['claude']['api_key'],
-                'Content-Type': 'application/json',
-                'anthropic-version': '2023-06-01'
-            }
-            
-            payload = {
-                'model': self.providers['claude']['model'],
-                'max_tokens': 2500,
-                'messages': [
-                    {'role': 'user', 'content': prompt}
-                ]
-            }
-            
-            response = requests.post(
-                'https://api.anthropic.com/v1/messages',
-                headers=headers,
-                json=payload,
-                timeout=60
-            )
-            
-            if response.status_code == 200:
-                result = response.json()
-                content = result['content'][0]['text']
-                
-                # Estimate cost
-                input_tokens = result.get('usage', {}).get('input_tokens', 0)
-                output_tokens = result.get('usage', {}).get('output_tokens', 0)
-                cost = ((input_tokens + output_tokens) / 1000) * self.providers['claude']['cost_per_1k']
-                self.update_stats('claude', True, cost)
-                return content
-            else:
-                logger.error(f"Claude API error: {response.status_code}")
-                self.update_stats('claude', False)
-                return None
-                
-        except Exception as e:
-            logger.error(f"Claude error: {str(e)}")
-            self.update_stats('claude', False)
-            return None
-    
-    def generate_with_huggingface(self, prompt: str) -> Optional[str]:
-        """Generate solution with Hugging Face (Free)."""
-        try:
-            if 'huggingface' not in self.providers:
-                return None
-            
-            self.rate_limiter.wait_if_needed()
-            
-            headers = {'Content-Type': 'application/json'}
-            payload = {
-                'inputs': prompt,
-                'parameters': {
-                    'max_new_tokens': 2000,
-                    'temperature': 0.7,
-                    'return_full_text': False
-                }
-            }
-            
-            response = requests.post(
-                self.providers['huggingface']['api_url'],
-                headers=headers,
-                json=payload,
-                timeout=120  # Longer timeout for free tier
-            )
-            
-            if response.status_code == 200:
-                result = response.json()
-                content = result[0]['generated_text'] if isinstance(result, list) else result.get('generated_text', '')
-                self.update_stats('huggingface', True, 0.0)
-                return content
-            else:
-                logger.error(f"Hugging Face API error: {response.status_code}")
-                self.update_stats('huggingface', False)
-                return None
-                
-        except Exception as e:
-            logger.error(f"Hugging Face error: {str(e)}")
-            self.update_stats('huggingface', False)
-            return None
-    
-    def generate_with_deepseek(self, prompt: str) -> Optional[str]:
-        """Generate solution with DeepSeek Coder (Free)."""
-        try:
-            if 'deepseek' not in self.providers:
-                return None
-            
-            self.rate_limiter.wait_if_needed()
-            
-            headers = {'Content-Type': 'application/json'}
-            payload = {
-                'model': 'deepseek-coder',
-                'messages': [{'role': 'user', 'content': prompt}],
-                'max_tokens': 2500,
-                'temperature': 0.7
-            }
-            
-            response = requests.post(
-                self.providers['deepseek']['api_url'],
-                headers=headers,
-                json=payload,
-                timeout=90
-            )
-            
-            if response.status_code == 200:
-                result = response.json()
-                content = result['choices'][0]['message']['content']
-                self.update_stats('deepseek', True, 0.0)
-                return content
-            else:
-                logger.error(f"DeepSeek API error: {response.status_code}")
-                self.update_stats('deepseek', False)
-                return None
-                
-        except Exception as e:
-            logger.error(f"DeepSeek error: {str(e)}")
-            self.update_stats('deepseek', False)
-            return None
-    
-    def generate_with_huggingface_free(self, prompt: str) -> Optional[str]:
-        """Generate solution with Hugging Face free inference API (no API key needed)."""
-        try:
-            # Using Qwen2.5-Coder-32B-Instruct - excellent for code generation, free tier
-            api_url = "https://api-inference.huggingface.co/models/Qwen/Qwen2.5-Coder-32B-Instruct"
-            
-            headers = {"Content-Type": "application/json"}
-            
-            payload = {
-                "inputs": prompt,
-                "parameters": {
-                    "max_new_tokens": 2500,
-                    "temperature": 0.7,
-                    "return_full_text": False
-                }
-            }
-            
-            self.rate_limiter.wait_if_needed()
-            
-            response = requests.post(api_url, headers=headers, json=payload, timeout=90)
-            
-            if response.status_code == 200:
-                result = response.json()
-                if isinstance(result, list) and len(result) > 0:
-                    content = result[0].get('generated_text', '')
-                    if content:
-                        self.update_stats('huggingface', True, 0.0)  # Free
-                        return content
-            else:
-                logger.error(f"HuggingFace API error: {response.status_code}")
-            
-            self.update_stats('huggingface', False)
-            return None
-            
-        except Exception as e:
-            logger.error(f"HuggingFace error: {str(e)}")
-            self.update_stats('huggingface', False)
-            return None
-
     def generate_solution(self, prompt: str, preferred_provider: Optional[str] = None) -> Tuple[Optional[str], str]:
-        """Generate solution with automatic fallback - Gemini first, then free providers."""
-        providers_to_try = []
+        """Generate solution with automatic fallback: 2.0 Flash -> 2.5 Flash."""
+        # Try Gemini 2.0 Flash Exp first, then fall back to 2.5 Flash
+        gemini_models = ['gemini-2.0-flash', 'gemini-2.5-flash']
         
-        # Priority order: Gemini first (we have ~170 quota left), then free alternatives
-        if 'gemini' in self.providers:
-            providers_to_try.append('gemini')
-        
-        # Add free provider as backup
-        providers_to_try.append('huggingface')  # Free, no API key needed
-        
-        # Then add other paid providers if configured
-        if preferred_provider and preferred_provider in self.providers and preferred_provider not in providers_to_try:
-            providers_to_try.append(preferred_provider)
-        
-        for provider in ['openai', 'claude']:
-            if provider in self.providers and provider not in providers_to_try:
-                providers_to_try.append(provider)
-        
-        for provider in providers_to_try:
-            provider_name = self.providers.get(provider, {}).get('name', provider.upper()) if provider in self.providers else "Hugging Face Free"
+        for model_key in gemini_models:
+            if model_key not in self.providers:
+                continue
+            
+            provider_name = self.providers[model_key]['name']
             logger.info(f"Trying {provider_name}...")
             
-            result = None
-            if provider == 'gemini':
-                result = self.generate_with_gemini(prompt)
-            elif provider == 'openai':
-                result = self.generate_with_openai(prompt)
-            elif provider == 'claude':
-                result = self.generate_with_claude(prompt)
-            elif provider == 'huggingface':
-                result = self.generate_with_huggingface_free(prompt)
+            result = self.generate_with_gemini(prompt, model_key)
             
             if result:
                 logger.info(f"✅ Success with {provider_name}")
-                return result, provider
+                return result, model_key
             
-            # Add delay between provider attempts
-            time.sleep(3)
+            # Short delay between attempts
+            time.sleep(1)
         
-        logger.error("❌ All providers failed")
+        logger.error("❌ All Gemini models failed")
         return None, 'failed'
 
 class ThreadedSolutionGenerator:
@@ -501,11 +242,101 @@ class ThreadedSolutionGenerator:
         return None
     
     def create_optimized_prompt(self, problem: Dict, provider: Optional[str] = None) -> str:
-        """Create optimized prompt for solution generation."""
+        """Create optimized prompt for solution generation - handles DSA, System Design, and General Interview Questions."""
         # Use description field if problem field is empty
         problem_text = problem.get('problem') or problem.get('description', 'Not specified')
+        category = problem.get('category', '').strip().upper()
         
-        base_prompt = f"""
+        # Analyze question type
+        description_lower = problem_text.lower()
+        
+        # Check if it's a coding problem first (higher priority for LLD/DSA)
+        coding_categories = ['DSA', 'ALGORITHMS', 'DATA STRUCTURES', 'LLD', 'LOW LEVEL DESIGN']
+        is_coding_category = category in coding_categories
+        
+        # Strong coding indicators
+        strong_coding_keywords = ['implement', 'write a function', 'write a method', 'write code',
+                                 'solve', 'find the', 'calculate', 'return', 'given an array', 
+                                 'given a string', 'given a list', 'write an algorithm']
+        has_strong_coding_signal = any(keyword in description_lower for keyword in strong_coding_keywords)
+        
+        # LLD with "implement" or "write" is definitely coding
+        is_coding = is_coding_category or has_strong_coding_signal
+        
+        # System Design indicators (check after coding to avoid false positives)
+        is_system_design_category = category == 'SYSTEM DESIGN'
+        system_design_keywords = ['design a system', 'design an architecture', 'system design', 
+                                 'scalability', 'distributed system', 'how would you design',
+                                 'high-level design', 'hld', 'design twitter', 'design uber',
+                                 'design instagram', 'design netflix']
+        has_system_design_signal = any(keyword in description_lower for keyword in system_design_keywords)
+        
+        # For "design X" questions, check if it's asking for code implementation or system architecture
+        if 'design and implement' in description_lower or 'implement a' in description_lower:
+            # "Design and implement" with data structure/algorithm = coding problem
+            is_coding = True
+            is_system_design = False
+        else:
+            is_system_design = is_system_design_category or has_system_design_signal
+        
+        if is_system_design and not is_coding:
+            # System Design prompt
+            prompt = f"""
+Provide a comprehensive System Design solution for this question:
+
+Question: {problem_text}
+Category: {problem.get('category', 'Not specified')}
+Company: {problem.get('company', 'Not specified')}
+
+IMPORTANT: Structure your answer with the following sections:
+
+1. FUNCTIONAL REQUIREMENTS (FRs):
+   - List all key functional requirements
+   - What features/capabilities should the system provide?
+
+2. NON-FUNCTIONAL REQUIREMENTS (NFRs):
+   - Scalability, Availability, Consistency, Latency requirements
+   - Performance goals, Security considerations
+
+3. CAPACITY ESTIMATION (if applicable):
+   - Traffic estimates (DAU, QPS, etc.)
+   - Storage estimates (data volume, growth rate)
+   - Bandwidth requirements
+   - Memory/Cache requirements
+
+4. CORE COMPONENTS:
+   a) Actors: Who are the users/services?
+   b) Entities: What are the main data models/objects?
+   c) APIs: Key API endpoints with request/response
+   d) Flows: Main workflows/sequences (use ASCII diagrams if helpful)
+
+5. HIGH-LEVEL DESIGN (HLD):
+   - Draw ASCII architecture diagram showing main components
+   - Explain component responsibilities
+   - Show data flow between components
+   - Include Load Balancers, Databases, Caches, Message Queues, etc.
+
+6. DEEP DIVE & TRADE-OFFS:
+   - Database choice (SQL vs NoSQL) and why
+   - Caching strategy (Redis, CDN, etc.) and why
+   - Consistency vs Availability trade-offs (CAP theorem)
+   - Scalability considerations (horizontal vs vertical)
+   - Bottlenecks and how to address them
+   - Data partitioning/sharding strategy if needed
+   - Replication strategy if needed
+
+7. FUTURE IMPROVEMENTS & EDGE CASES:
+   - What could be enhanced?
+   - How to handle failures/edge cases?
+   - Monitoring and alerting strategy
+
+Make the answer thorough, interview-ready, and production-focused.
+Use clear ASCII diagrams where helpful.
+Be specific about technology choices and explain WHY.
+"""
+        elif is_coding:
+            # Regular DSA/Coding prompt
+            prompt = f"""
 Generate an optimized Java solution for this coding problem:
 
 Problem: {problem_text}
@@ -529,16 +360,70 @@ Format the response as a complete Java class with:
 - Clear variable naming and structure
 
 Make the solution production-ready and interview-quality.
+Focus on clean, efficient code with clear explanations.
+"""
+        else:
+            # General Interview Question (Behavioral, Theoretical, Conceptual, etc.)
+            prompt = f"""
+Provide a comprehensive and structured answer to this interview question:
+
+Question: {problem_text}
+Category: {problem.get('category', 'Not specified')}
+Company: {problem.get('company', 'Not specified')}
+
+IMPORTANT: Provide a thorough, interview-ready answer with the following structure:
+
+1. ANSWER OVERVIEW:
+   - Start with a concise, direct answer to the question
+   - Provide context and background if needed
+
+2. DETAILED EXPLANATION:
+   - Break down the topic into logical sections
+   - Explain key concepts clearly with examples
+   - Use real-world scenarios to illustrate points
+
+3. KEY POINTS TO REMEMBER:
+   - Highlight the most important takeaways
+   - List critical facts, best practices, or principles
+   - Include common patterns or approaches
+
+4. PRACTICAL EXAMPLES:
+   - Provide 2-3 concrete examples
+   - Show real-world applications
+   - Include code snippets or diagrams if relevant (ASCII format)
+
+5. COMMON PITFALLS & CONSIDERATIONS:
+   - What mistakes to avoid
+   - Edge cases or special scenarios to consider
+   - Trade-offs and limitations
+
+6. INTERVIEW TIPS:
+   - How to approach this topic in an interview
+   - What interviewers typically look for
+   - Follow-up questions you might encounter
+
+7. RELATED CONCEPTS:
+   - Connected topics worth mentioning
+   - How this fits into the bigger picture
+   - Additional resources or areas to explore
+
+Guidelines:
+- Be thorough but concise
+- Use bullet points for clarity
+- Include examples wherever possible
+- Explain technical terms clearly
+- Structure the answer logically
+- Make it interview-ready and memorable
+- If it's a "What is..." question, explain definition, use cases, and examples
+- If it's a "How..." question, provide step-by-step approach
+- If it's a "When..." question, discuss scenarios and decision criteria
+- If it's a comparison question, use a table or structured comparison
+- If it's about patterns/best practices, explain WHY they matter
+
+Make the answer comprehensive, professional, and suitable for senior-level interviews.
 """
         
-        if provider == 'gemini':
-            return base_prompt + "\n\nFocus on clean, efficient code with clear explanations."
-        elif provider == 'openai':
-            return base_prompt + "\n\nEmphasize best practices and comprehensive testing."
-        elif provider == 'claude':
-            return base_prompt + "\n\nProvide detailed reasoning and multiple approaches if applicable."
-        
-        return base_prompt
+        return prompt
     
     def should_process_problem(self, problem: Dict) -> bool:
         """Check if problem should be processed."""
@@ -721,13 +606,11 @@ def main():
     # Load environment variables from .env file
     load_env_file()
     
-    parser = argparse.ArgumentParser(description='Threaded Multi-AI Solution Generator')
+    parser = argparse.ArgumentParser(description='Threaded Gemini Solution Generator (DSA + System Design + General Interview) - FREE tier: 2.0 Flash (50 RPD) + 2.5 Flash (1500 RPD)')
     parser.add_argument('--input', '-i', required=True, help='Input JSON file path')
     parser.add_argument('--output', '-o', help='Output JSON file path (default: input file)')
-    parser.add_argument('--category', '-c', help='Category to process')
+    parser.add_argument('--category', '-c', help='Category to process (DSA, System Design, Behavioral, etc.)')
     parser.add_argument('--limit', '-l', type=int, help='Limit number of problems')
-    parser.add_argument('--provider', '-p', choices=['gemini', 'openai', 'claude'], 
-                        help='Preferred AI provider')
     parser.add_argument('--threads', '-t', type=int, default=4, help='Number of threads (default: 4)')
     parser.add_argument('--dry-run', action='store_true', help='Show what would be processed')
     parser.add_argument('--backup', action='store_true', help='Create backup before processing')
@@ -751,10 +634,33 @@ def main():
             if args.category:
                 processable = [p for p in processable 
                              if p.get('category', '').upper() == args.category.upper()]
-            logger.info(f"Would process {len(processable)} problems")
             
-            if args.provider:
-                logger.info(f"Would use preferred provider: {args.provider}")
+            # Count different question types
+            system_design_count = 0
+            coding_count = 0
+            general_count = 0
+            
+            coding_categories = ['DSA', 'ALGORITHMS', 'DATA STRUCTURES', 'LLD', 'LOW LEVEL DESIGN']
+            
+            for p in processable:
+                cat = p.get('category', '').upper()
+                desc = (p.get('problem') or p.get('description', '')).lower()
+                
+                if cat == 'SYSTEM DESIGN' or any(kw in desc for kw in ['design a', 'design an', 'architecture']):
+                    system_design_count += 1
+                elif cat in coding_categories or any(kw in desc for kw in ['implement', 'algorithm', 'code']):
+                    coding_count += 1
+                else:
+                    general_count += 1
+            
+            logger.info(f"Would process {len(processable)} problems total:")
+            if system_design_count > 0:
+                logger.info(f"  - {system_design_count} System Design questions (comprehensive HLD/LLD answers)")
+            if coding_count > 0:
+                logger.info(f"  - {coding_count} Coding/DSA questions (Java solutions with tests)")
+            if general_count > 0:
+                logger.info(f"  - {general_count} General Interview questions (structured answers with examples)")
+            logger.info(f"Will use Gemini 2.0 Flash (50 RPD) → 2.5 Flash (1500 RPD) fallback")
             
             return
         
@@ -770,7 +676,7 @@ def main():
         resume = not args.no_resume
         if args.category:
             updated_data = generator.process_category_threaded(
-                data, args.category, args.limit, args.provider, resume
+                data, args.category, args.limit, None, resume
             )
         else:
             logger.info("Processing all categories...")
@@ -781,7 +687,7 @@ def main():
                 if category.upper() not in ['SYSTEM DESIGN', 'SYSTEM_DESIGN']:
                     logger.info(f"\nProcessing category: {category}")
                     updated_data = generator.process_category_threaded(
-                        updated_data, category, args.limit, args.provider, resume
+                        updated_data, category, args.limit, None, resume
                     )
         
         # Save results

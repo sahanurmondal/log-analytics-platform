@@ -7,20 +7,38 @@ Comprehensive interview preparation dashboard with **1,299 DSA questions** featu
 
 ### 🚀 Quick Commands for Contributors
 
-**Setup Gemini API (Required for AI generation):**
+**⚡ AI Solution Generator - Google Gemini 1.5 Flash Only**
+
+The script uses **Google Gemini 1.5 Flash** (FREE tier with high quota):
+- **1,500 requests per day** on free tier (RPD)
+- **Cost**: $0 (completely free)
+- **Performance**: Fast and high quality for coding problems
+- **Quota**: Can process ~180 problems per batch easily
+
+**Setup API Key:**
 ```bash
-export GEMINI_API_KEY='your-api-key-here'
+# Method 1: Export (session-based)
+export GEMINI_API_KEY='your-gemini-key-here'
+
+# Method 2: Create .env file (persistent)
+echo "GEMINI_API_KEY=your-gemini-key-here" > interview-questions-dashboard/.env
 ```
 
-**Run Batch 2 Processing:**
+**Get API Key:**
+- Gemini: https://makersuite.google.com/app/apikey (FREE tier - 1500 req/day)
+
+**Run Batch Processing:**
 ```bash
 cd /Users/sahanur/IdeaProjects/log-analytics-platform
+
+# Process a specific batch
 python3 interview-questions-dashboard/threaded_multi_ai.py \
   -i interview-questions-dashboard/batch_2_gemini.json \
-  -c DSA -p gemini --backup --threads 4
-```
+  -c DSA --backup --threads 8
 
-Get your Gemini API key: https://makersuite.google.com/app/apikey
+# Merge results back to main file
+python3 interview-questions-dashboard/merge_batches.py
+```
 
 ### ✨ Enhanced Features
 - 🤖 **193 AI-Generated Solutions** (14.9% coverage) powered by Google Gemini 2.0 Flash

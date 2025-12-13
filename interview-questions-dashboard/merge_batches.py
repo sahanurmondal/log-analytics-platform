@@ -23,7 +23,8 @@ def merge_batches():
         os.path.join(script_dir, "batch_2_gemini.json"),
         os.path.join(script_dir, "batch_3_gemini.json"),
         os.path.join(script_dir, "batch_4_gemini.json"),
-        os.path.join(script_dir, "batch_5_gemini.json")
+        os.path.join(script_dir, "batch_5_gemini.json"),
+        os.path.join(script_dir, "batch_system_design.json")
     ]
     
     print("🔄 Merging Batch Results")
