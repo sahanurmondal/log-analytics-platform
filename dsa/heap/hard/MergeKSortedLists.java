@@ -1,5 +1,6 @@
 package heap.hard;
 
+import java.util.Comparator;
 import java.util.PriorityQueue;
 
 /**
@@ -54,7 +55,7 @@ public class MergeKSortedLists {
             return null;
         }
 
-        PriorityQueue<ListNode> minHeap = new PriorityQueue<>((a, b) -> a.val - b.val);
+        PriorityQueue<ListNode> minHeap = new PriorityQueue<>(Comparator.comparingInt(a -> a.val));
 
         // Add the head of each list to the heap
         for (ListNode node : lists) {

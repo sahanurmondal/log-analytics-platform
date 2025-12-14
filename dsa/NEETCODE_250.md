@@ -21,7 +21,7 @@
 | 2   | 217 | Contains Duplicate                  | [`easy/ContainsDuplicate.java`](./arrays/easy/ContainsDuplicate.java)                                                         | Easy       | Hash           |
 | 3   | 242 | Valid Anagram                       | [`easy/ValidAnagram.java`](./arrays/easy/ValidAnagram.java)                                                                   | Easy       | Strings        |
 | 4   | 49  | Group Anagrams                      | [`medium/GroupAnagrams.java`](./hashmaps/medium/GroupAnagrams.java)                                                           | Medium     | Hash           |
-| 5   | 347 | Top K Frequent Elements             | [`medium/TopKFrequentElements.java`](./heap/medium/TopKFrequentElements.java)                                                 | Medium     | Heap           |
+| 5   | 347 | Top K Frequent Elements             | [`medium/TopKFrequentElements.java`](./hashmaps/medium/TopKFrequentElements.java)                                             | Medium     | Heap           |
 | 6   | 238 | Product of Array Except Self        | [`medium/ProductOfArrayExceptSelf.java`](./arrays/medium/ProductOfArrayExceptSelf.java)                                       | Medium     | Arrays         |
 | 7   | 20  | Valid Parentheses                   | [`easy/ValidParentheses.java`](./stacks/medium/ValidParentheses.java)                                                         | Easy       | Stacks         |
 | 8   | 21  | Merge Two Sorted Lists              | [`easy/MergeTwoSortedLists.java`](./linkedlist/easy/MergeTwoSortedLists.java)                                                 | Easy       | Linked Lists   |
@@ -63,8 +63,8 @@
 | 44  | 739 | Daily Temperatures                  | [`medium/DailyTemperatures.java`](./stacks/medium/DailyTemperatures.java)                                                     | Medium     | Stacks         |
 | 45  | 150 | Evaluate Reverse Polish Notation    | [`medium/EvaluateReversePolishNotation.java`](./stacks/medium/EvaluateReversePolishNotation.java)                             | Medium     | Stacks         |
 | 46  | 721 | Accounts Merge                      | [`medium/AccountsMerge.java`](./unionfind/medium/AccountsMerge.java)                                                          | Medium     | Union Find     |
-| 47  | 323 | Number of Connected Components      | [`medium/NumberOfConnectedComponents.java`](./graphs/medium/NumberOfConnectedComponents.java)                                 | Medium     | Union Find     |
-| 48  | 128 | Longest Consecutive                 | [`medium/LongestConsecutive.java`](./arrays/medium/LongestConsecutive.java)                                                   | Medium     | Hash           |
+| 47  | 323 | Number of Connected Components      | [`medium/NumberOfConnectedComponents.java`](./unionfind/medium/NumberOfConnectedComponents.java)                              | Medium     | Union Find     |
+| 48  | 128 | Longest Consecutive                 | [`medium/LongestConsecutiveSequence.java`](./arrays/medium/LongestConsecutiveSequence.java)                                   | Medium     | Hash           |
 | 49  | 567 | Permutation in String               | [`medium/PermutationInString.java`](./slidingwindow/medium/PermutationInString.java)                                          | Medium     | Sliding Window |
 | 50  | 560 | Subarray Sum Equals K               | [`medium/SubarraySumEqualsK.java`](./arrays/medium/SubarraySumEqualsK.java)                                                   | Medium     | Hash           |
 
@@ -125,7 +125,7 @@
 | 97  | 74   | Search a 2D Matrix             | [`medium/SearchA2DMatrix.java`](./matrix/medium/SearchA2DMatrix.java)                                           | M    | Binary Search    |
 | 98  | 4    | Median of Two Sorted Arrays    | [`hard/MedianOfTwoSortedArrays.java`](./arrays/hard/MedianOfTwoSortedArrays.java)                               | H    | Binary Search    |
 | 99  | 410  | Split Array Largest Sum        | [`hard/SplitArrayLargestSum.java`](./binarysearch/hard/SplitArrayLargestSum.java)                               | H    | Binary Search    |
-| 100 | 69   | Sqrt(x)                        | [`easy/Sqrt.java`](./binarysearch/easy/Sqrt.java)                                                               | E    | Binary Search    |
+| 100 | 69   | Sqrt(x)                        | [`easy/Sqrt.java`](./binarysearch/easy/SqrtX.java)                                                              | E    | Binary Search    |
 | 101 | 367  | Valid Perfect Square           | [`easy/ValidPerfectSquare.java`](./binarysearch/easy/ValidPerfectSquare.java)                                   | E    | Binary Search    |
 | 102 | 875  | Koko Eating Bananas            | [`medium/KokoEatingBananas.java`](./binarysearch/medium/KokoEatingBananas.java)                                 | M    | Binary Search    |
 | 103 | 981  | Time Based Key-Value Store     | [`medium/TimeBasedKeyValueStore.java`](./binarysearch/medium/TimeBasedKeyValueStore.java)                       | M    | Binary Search    |
@@ -168,7 +168,7 @@
 | 135 | 186  | Reverse Words String II      | M    | Strings        | [`medium/ReverseWordsInStringII.java`](./strings/medium/ReverseWordsInStringII.java)                                              |
 | 136 | 155  | Min Stack                    | E    | Stacks         | [`easy/MinStack.java`](./design/easy/MinStack.java)                                                                               |
 | 137 | 739  | Daily Temperatures           | M    | Stacks         | [`medium/DailyTemperatures.java`](./stacks/medium/DailyTemperatures.java)                                                         |
-| 138 | 150  | Evaluate RPN                 | M    | Stacks         | [`medium/EvaluateRPN.java`](./stacks/medium/EvaluateRPN.java)                                                                     |
+| 138 | 150  | Evaluate RPN                 | M    | Stacks         | [`medium/EvaluateRPN.java`](./stacks/medium/EvaluateReversePolishNotation.java)                                                   |
 | 139 | 735  | Asteroid Collision           | M    | Stacks         | [`medium/AsteroidCollision.java`](./stacks/medium/AsteroidCollision.java)                                                         |
 | 140 | 227  | Basic Calculator II          | M    | Stacks         | [`medium/BasicCalculatorII.java`](./stacks/medium/BasicCalculatorII.java)                                                         |
 | 141 | 206  | Reverse Linked List          | E    | Linked Lists   | [`medium/ReverseLinkedList.java`](./linkedlist/medium/ReverseLinkedList.java)                                                     |
