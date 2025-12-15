@@ -44,11 +44,11 @@ public class SlidingWindowMaximum {
             }
 
             // Remove indices with smaller values
-            while (!deque.isEmpty() && nums[deque.peekLast()] < nums[i]) {
-                deque.pollLast();
+            while (!deque.isEmpty() && nums[deque.peek()] < nums[i]) {
+                deque.poll();
             }
 
-            deque.offerLast(i);
+            deque.offer(i);
 
             // Add to result when window size reached
             if (i >= k - 1) {
