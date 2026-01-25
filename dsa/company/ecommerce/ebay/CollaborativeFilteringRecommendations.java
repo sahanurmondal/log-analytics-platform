@@ -164,7 +164,7 @@ public class CollaborativeFilteringRecommendations {
 
         // Min heap for top k
         PriorityQueue<Map.Entry<Integer, Double>> heap =
-            new PriorityQueue<>((a, b) -> Double.compare(a.getValue(), b.getValue()));
+            new PriorityQueue<>(Comparator.comparingDouble(Map.Entry::getValue));
 
         for (int otherId : users.keySet()) {
             if (otherId == userId) continue;

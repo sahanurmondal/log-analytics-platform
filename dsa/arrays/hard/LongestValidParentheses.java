@@ -5,21 +5,21 @@ import java.util.*;
 /**
  * LeetCode 32: Longest Valid Parentheses
  * https://leetcode.com/problems/longest-valid-parentheses/
- *
+ * <p>
  * Description:
  * Given a string containing just the characters '(' and ')', find the length of
  * the longest valid parentheses substring.
- *
+ * <p>
  * Constraints:
  * - 0 <= s.length <= 3 * 10^4
  * - s[i] is '(', or ')'
- *
+ * <p>
  * Follow-up:
  * - Can you solve it in O(1) space?
- * 
+ * <p>
  * Time Complexity: O(n)
  * Space Complexity: O(n)
- * 
+ * <p>
  * Algorithm:
  * 1. Use stack to track indices of unmatched parentheses
  * 2. Push -1 initially as base for length calculation
@@ -30,7 +30,7 @@ public class LongestValidParentheses {
         Stack<Integer> stack = new Stack<>();
         stack.push(-1);
         int maxLen = 0;
-
+        String res = "";
         for (int i = 0; i < s.length(); i++) {
             if (s.charAt(i) == '(') {
                 stack.push(i);
@@ -39,11 +39,14 @@ public class LongestValidParentheses {
                 if (stack.isEmpty()) {
                     stack.push(i);
                 } else {
-                    maxLen = Math.max(maxLen, i - stack.peek());
+                    if (maxLen < i - stack.peek()) {
+                        maxLen = i - stack.peek();
+                        res = s.substring(stack.peek() + 1, i+1);
+                    }
                 }
             }
         }
-
+        System.out.println(res);
         return maxLen;
     }
 

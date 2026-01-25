@@ -32,31 +32,31 @@ This document provides a comprehensive collection of interview questions, prepar
 
 #### Frequently Asked at Oracle OHAI Loop Rounds
 1. **String Manipulation & Pattern Matching**
-   - [LeetCode #1554: Strings Differ by One Character](https://leetcode.com/problems/strings-differ-by-one-character/)
-   - [LeetCode #1408: String Matching in an Array](https://leetcode.com/problems/string-matching-in-an-array/)
-   - [LeetCode #28: Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/)
+   - [LeetCode #1554: Strings Differ by One Character](https://leetcode.ca/2020-03-02-1554-Strings-Differ-by-One-Character/)
+   - [LeetCode #1408: String Matching in an Array](https://leetcode.ca/2019-10-08-1408-String-Matching-in-an-Array/)
+   - [LeetCode #28: Find the Index of the First Occurrence in a String](https://leetcode.com/problems/find-the-index-of-the-first-occurrence-in-a-string/) | [Solution](../../../strings/medium/ImplementStrStr.java)
    - [LeetCode #3: Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
-   - [LeetCode #76: Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
+   - [LeetCode #76: Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/) | [Solution](../../../arrays/hard/MinimumWindowSubstring.java)
    - Solution approaches: Hash tables, Rabin-Karp algorithm, sliding window
 
 2. **Array Transformations**
-   - [LeetCode #238: Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/)
-   - [LeetCode #41: First Missing Positive](https://leetcode.com/problems/first-missing-positive/)
-   - [LeetCode #287: Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/)
-   - [LeetCode #448: Find All Numbers Disappeared in an Array](https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/)
+   - [LeetCode #238: Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) | [Solution](../../../arrays/medium/ProductOfArrayExceptSelf.java)
+   - [LeetCode #41: First Missing Positive](https://leetcode.com/problems/first-missing-positive/) | [Solution](../../../arrays/medium/FirstMissingPositive.java)
+   - [LeetCode #287: Find the Duplicate Number](https://leetcode.com/problems/find-the-duplicate-number/) | [Solution](../../../miscellaneous/recent/FindDuplicateNumber.java)
+   - [LeetCode #448: Find All Numbers Disappeared in an Array](https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/) | [Solution](../../../arrays/easy/FindAllNumbersDisappearedInArray.java)
    - [GeeksforGeeks: Rearrange array alternately](https://www.geeksforgeeks.org/rearrange-array-maximum-minimum-form/)
    - Oracle variation: Optimizing for space complexity in database contexts
 
 3. **Subarray Problems**
-   - [LeetCode #53: Maximum Subarray](https://leetcode.com/problems/maximum-subarray/)
-   - [LeetCode #560: Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/)
+   - [LeetCode #53: Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) | [Solution](../../../arrays/medium/MaximumSubarray.java)
+   - [LeetCode #560: Subarray Sum Equals K](https://leetcode.com/problems/subarray-sum-equals-k/) | [Solution](../../../arrays/medium/SubarraySumEqualsK.java)
    - [LeetCode #974: Subarray Sums Divisible by K](https://leetcode.com/problems/subarray-sums-divisible-by-k/)
    - [LeetCode #325: Maximum Size Subarray Sum Equals k](https://leetcode.com/problems/maximum-size-subarray-sum-equals-k/)
    - [LeetCode #209: Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)
    - Oracle context: Often framed as database query optimization problems
 
 4. **Advanced String Processing**
-   - [LeetCode #5: Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/)
+   - [LeetCode #5: Longest Palindromic Substring](https://leetcode.com/problems/longest-palindromic-substring/) | [Solution](../../../strings/medium/LongestPalindromicSubstring.java)
    - [LeetCode #647: Palindromic Substrings](https://leetcode.com/problems/palindromic-substrings/)
    - Healthcare context: DNA sequence analysis, medical record text processing
 
@@ -64,23 +64,23 @@ This document provides a comprehensive collection of interview questions, prepar
 
 #### OHAI Specific
 1. **Patient Record Mapping & Caching**
-   - [LeetCode #380: Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/)
-   - [LeetCode #146: LRU Cache](https://leetcode.com/problems/lru-cache/)
+   - [LeetCode #380: Insert Delete GetRandom O(1)](https://leetcode.com/problems/insert-delete-getrandom-o1/) | [Solution](../../../design/medium/RandomizedSet.java)
+   - [LeetCode #146: LRU Cache](https://leetcode.com/problems/lru-cache/) | [Solution](../../../design/medium/LRUCache.java)
    - [LeetCode #460: LFU Cache](https://leetcode.com/problems/lfu-cache/)
    - [LeetCode #1396: Design Underground System](https://leetcode.com/problems/design-underground-system/)
    - Healthcare context: Efficient patient record retrieval systems, EHR caching
 
 2. **Medical Data Deduplication**
    - [LeetCode #1941: Check if All Characters Have Equal Number of Occurrences](https://leetcode.com/problems/check-if-all-characters-have-equal-number-of-occurrences/)
-   - [LeetCode #49: Group Anagrams](https://leetcode.com/problems/group-anagrams/)
+   - [LeetCode #49: Group Anagrams](https://leetcode.com/problems/group-anagrams/) | [Solution](../../../arrays/medium/GroupAnagrams.java)
    - [LeetCode #202: Happy Number](https://leetcode.com/problems/happy-number/)
    - [GeeksforGeeks: Find duplicates in a given array](https://www.geeksforgeeks.org/find-duplicates-in-on-time-and-constant-extra-space/)
    - OHAI application: Patient record deduplication algorithms
 
 3. **Frequency Analysis & Medical Statistics**
-   - [LeetCode #347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/)
+   - [LeetCode #347: Top K Frequent Elements](https://leetcode.com/problems/top-k-frequent-elements/) | [Solution](../../../hashmaps/medium/TopKFrequentElements.java)
    - [LeetCode #692: Top K Frequent Words](https://leetcode.com/problems/top-k-frequent-words/)
-   - [LeetCode #1: Two Sum](https://leetcode.com/problems/two-sum/)
+   - [LeetCode #1: Two Sum](https://leetcode.com/problems/two-sum/) | [Solution](../../../arrays/easy/TwoSum.java)
    - [LeetCode #454: 4Sum II](https://leetcode.com/problems/4sum-ii/)
    - Healthcare application: Drug interaction analysis, symptom frequency tracking
 
@@ -88,31 +88,31 @@ This document provides a comprehensive collection of interview questions, prepar
 
 #### Oracle Common Questions
 1. **Database Query Optimization Trees**
-   - [LeetCode #105: Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/)
+   - [LeetCode #105: Construct Binary Tree from Preorder and Inorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-preorder-and-inorder-traversal/) | [Solution](../../../trees/medium/ConstructBinaryTreeFromPreorderAndInorderTraversal.java)
    - [LeetCode #106: Construct Binary Tree from Inorder and Postorder Traversal](https://leetcode.com/problems/construct-binary-tree-from-inorder-and-postorder-traversal/)
-   - [LeetCode #236: Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/)
-   - [LeetCode #235: Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/)
-   - [LeetCode #98: Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/)
+   - [LeetCode #236: Lowest Common Ancestor of a Binary Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-tree/) | [Solution](../../../trees/medium/FindLCAOfBinaryTree.java)
+   - [LeetCode #235: Lowest Common Ancestor of a Binary Search Tree](https://leetcode.com/problems/lowest-common-ancestor-of-a-binary-search-tree/) | [Solution](../../../binarysearchtree/medium/LowestCommonAncestorBST.java)
+   - [LeetCode #98: Validate Binary Search Tree](https://leetcode.com/problems/validate-binary-search-tree/) | [Solution](../../../trees/medium/ValidateBinarySearchTree.java)
    - Oracle context: Database query plan optimization, B-tree indexing
 
 2. **Network and Data Flow Graphs**
-   - [LeetCode #207: Course Schedule](https://leetcode.com/problems/course-schedule/)
+   - [LeetCode #207: Course Schedule](https://leetcode.com/problems/course-schedule/) | [Solution](../../../graphs/medium/CourseSchedule.java)
    - [LeetCode #210: Course Schedule II](https://leetcode.com/problems/course-schedule-ii/)
-   - [LeetCode #743: Network Delay Time](https://leetcode.com/problems/network-delay-time/)
-   - [LeetCode #200: Number of Islands](https://leetcode.com/problems/number-of-islands/)
-   - [LeetCode #133: Clone Graph](https://leetcode.com/problems/clone-graph/)
+   - [LeetCode #743: Network Delay Time](https://leetcode.com/problems/network-delay-time/) | [Solution](../../../graphs/medium/NetworkDelayTime.java)
+   - [LeetCode #200: Number of Islands](https://leetcode.com/problems/number-of-islands/) | [Solution](../../../graphs/medium/NumberOfIslands.java)
+   - [LeetCode #133: Clone Graph](https://leetcode.com/problems/clone-graph/) | [Solution](../../../graphs/medium/CloneGraph.java)
    - Enterprise context: Data flow optimization in Oracle systems, network topology
 
 #### OHAI Specific Graph Problems
 1. **Patient Treatment Pathways**
-   - [LeetCode #787: Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/)
+   - [LeetCode #787: Cheapest Flights Within K Stops](https://leetcode.com/problems/cheapest-flights-within-k-stops/) | [Solution](../../../graphs/medium/CheapestFlightsWithinKStops.java)
    - [LeetCode #1631: Path With Minimum Effort](https://leetcode.com/problems/path-with-minimum-effort/)
-   - [LeetCode #127: Word Ladder](https://leetcode.com/problems/word-ladder/)
+   - [LeetCode #127: Word Ladder](https://leetcode.com/problems/word-ladder/) | [Solution](../../../tries/hard/WordLadder.java)
    - Healthcare context: Finding optimal treatment paths with constraints
 
 2. **Medical Knowledge Graphs**
-   - [LeetCode #399: Evaluate Division](https://leetcode.com/problems/evaluate-division/)
-   - [LeetCode #332: Reconstruct Itinerary](https://leetcode.com/problems/reconstruct-itinerary/)
+   - [LeetCode #399: Evaluate Division](https://leetcode.ca/2017-01-02-399-Evaluate-Division/) | [Solution](../../../graphs/medium/EvaluateDivision.java)
+   - [LeetCode #332: Reconstruct Itinerary](https://leetcode.com/problems/reconstruct-itinerary/) | [Solution](../../../graphs/medium/ReconstructItinerary.java)
    - [GeeksforGeeks: Detect cycle in a directed graph](https://www.geeksforgeeks.org/detect-cycle-in-a-graph/)
    - OHAI application: Medical knowledge representation and inference
 
@@ -120,28 +120,28 @@ This document provides a comprehensive collection of interview questions, prepar
 
 #### Commonly Asked at Oracle
 1. **Resource Optimization Problems**
-   - [LeetCode #322: Coin Change](https://leetcode.com/problems/coin-change/)
-   - [LeetCode #518: Coin Change 2](https://leetcode.com/problems/coin-change-2/)
-   - [LeetCode #1335: Minimum Difficulty of a Job Schedule](https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/)
-   - [LeetCode #300: Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+   - [LeetCode #322: Coin Change](https://leetcode.com/problems/coin-change/) | [Solution](../../../arrays/medium/CoinChange.java)
+   - [LeetCode #518: Coin Change 2](https://leetcode.com/problems/coin-change-2/) | [Solution](../../../dp/knapsack/unbounded/CoinChangeII.java)
+   - [LeetCode #1335: Minimum Difficulty of a Job Schedule](https://leetcode.com/problems/minimum-difficulty-of-a-job-schedule/)| [Solution](../../../dp/interval/MinimumDifficultyOfAJobSchedule.java)
+   - [LeetCode #300: Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/) | [Solution](../../../dp/linear/sequence/LongestIncreasingSubsequence.java)
    - Oracle context: Database resource allocation, query optimization
 
 2. **String Transformation**
-   - [LeetCode #72: Edit Distance](https://leetcode.com/problems/edit-distance/)
-   - [LeetCode #1143: Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
-   - [LeetCode #115: Distinct Subsequences](https://leetcode.com/problems/distinct-subsequences/)
+   - [LeetCode #72: Edit Distance](https://leetcode.com/problems/edit-distance/) | [Solution](../../../dp/string/matching/EditDistance.java)
+   - [LeetCode #1143: Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/) | [Solution](../../../dp/string/subsequence/LongestCommonSubsequence.java)
+   - [LeetCode #115: Distinct Subsequences](https://leetcode.com/problems/distinct-subsequences/) | [Solution](../../../dp/string/subsequence/DistinctSubsequences.java)
    - Data cleaning context: Record matching with tolerance
 
 #### OHAI Specific
 1. **Medical Sequence Alignment**
    - [LeetCode #1035: Uncrossed Lines](https://leetcode.com/problems/uncrossed-lines/)
-   - [LeetCode #583: Delete Operation for Two Strings](https://leetcode.com/problems/delete-operation-for-two-strings/)
+   - [LeetCode #583: Delete Operation for Two Strings](https://leetcode.ca/2017-07-05-583-Delete-Operation-for-Two-Strings/) | [Solution](../../../dp/medium/DeleteOperationForTwoStrings.java)
    - Healthcare context: Genomic sequence alignment algorithms, protein folding
 
 2. **Treatment Cost Optimization**
-   - [LeetCode #983: Minimum Cost For Tickets](https://leetcode.com/problems/minimum-cost-for-tickets/)
-   - [LeetCode #198: House Robber](https://leetcode.com/problems/house-robber/)
-   - [LeetCode #213: House Robber II](https://leetcode.com/problems/house-robber-ii/)
+   - [LeetCode #983: Minimum Cost For Tickets](https://leetcode.com/problems/minimum-cost-for-tickets/) | [Solution](../../../dp/mathematical/MinimumCostForTickets.java)
+   - [LeetCode #198: House Robber](https://leetcode.com/problems/house-robber/) | [Solution](../../../dp/linear/optimization/HouseRobber.java)
+   - [LeetCode #213: House Robber II](https://leetcode.com/problems/house-robber-ii/) | [Solution](../../../dp/linear/optimization/HouseRobberII.java)
    - [GeeksforGeeks: Minimum cost to fill given weight in a bag](https://www.geeksforgeeks.org/minimum-cost-to-fill-given-weight-in-a-bag/)
    - OHAI application: Healthcare resource allocation algorithms, treatment path optimization
 
@@ -149,27 +149,27 @@ This document provides a comprehensive collection of interview questions, prepar
 
 1. **Time Series Analysis & Medical Monitoring**
    - [LeetCode #1425: Constrained Subsequence Sum](https://leetcode.com/problems/constrained-subsequence-sum/)
-   - [LeetCode #239: Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/)
+   - [LeetCode #239: Sliding Window Maximum](https://leetcode.com/problems/sliding-window-maximum/) | [Solution](../../../arrays/hard/SlidingWindowMaximum.java)
    - [LeetCode #862: Shortest Subarray with Sum at Least K](https://leetcode.com/problems/shortest-subarray-with-sum-at-least-k/)
    - Healthcare application: Patient vitals monitoring and anomaly detection, ECG analysis
 
 2. **Clustering and Classification**
    - [GeeksforGeeks: K-Means Clustering Implementation](https://www.geeksforgeeks.org/k-means-clustering-introduction/)
-   - [LeetCode #215: Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/)
-   - [LeetCode #973: K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/)
+   - [LeetCode #215: Kth Largest Element in an Array](https://leetcode.com/problems/kth-largest-element-in-an-array/) | [Solution](../../../heap/medium/KthLargestElementInArray.java)
+   - [LeetCode #973: K Closest Points to Origin](https://leetcode.com/problems/k-closest-points-to-origin/) | [Solution](../../../sorting/medium/KClosestPointsToOrigin.java)
    - OHAI context: Patient cohort identification and stratification
 
 3. **Pattern Recognition in Medical Data**
-   - [LeetCode #1044: Longest Duplicate Substring](https://leetcode.com/problems/longest-duplicate-substring/)
+   - [LeetCode #1044: Longest Duplicate Substring](https://leetcode.com/problems/longest-duplicate-substring/) | [Solution](../../../strings/medium/FindAllDuplicatesInString.java)
    - [LeetCode #1297: Maximum Number of Occurrences of a Substring](https://leetcode.com/problems/maximum-number-of-occurrences-of-a-substring/)
    - Healthcare application: Identifying recurring patterns in patient conditions, DNA analysis
 
 ### Oracle-Specific Design Patterns & Data Structures (3 Problems)
 
 1. **Design Problems Common in Oracle Interviews**
-   - [LeetCode #155: Min Stack](https://leetcode.com/problems/min-stack/)
-   - [LeetCode #208: Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/)
-   - [LeetCode #355: Design Twitter](https://leetcode.com/problems/design-twitter/)
+   - [LeetCode #155: Min Stack](https://leetcode.com/problems/min-stack/) | [Solution](../../../design/easy/MinStack.java)
+   - [LeetCode #208: Implement Trie (Prefix Tree)](https://leetcode.com/problems/implement-trie-prefix-tree/) | [Solution](../../../tries/medium/Trie.java)
+   - [LeetCode #355: Design Twitter](https://leetcode.com/problems/design-twitter/) | [Solution](../../../design/medium/DesignTwitter.java)
    - Oracle context: Database indexing structures, query optimization engines
 
 ## 🏗️ System Design Questions
