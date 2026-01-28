@@ -5,25 +5,25 @@ import java.util.*;
 /**
  * LeetCode 76: Minimum Window Substring
  * https://leetcode.com/problems/minimum-window-substring/
- *
+ * <p>
  * Description:
  * Given two strings s and t of lengths m and n respectively, return the minimum
  * window substring
  * of s such that every character in t (including duplicates) is included in the
  * window.
- *
+ * <p>
  * Constraints:
  * - m == s.length
  * - n == t.length
  * - 1 <= m, n <= 10^5
  * - s and t consist of uppercase and lowercase English letters
- *
+ * <p>
  * Follow-up:
  * - Can you find an algorithm that runs in O(m + n) time?
- * 
+ * <p>
  * Time Complexity: O(m + n)
  * Space Complexity: O(m + n)
- * 
+ * <p>
  * Algorithm:
  * 1. Use sliding window with two pointers
  * 2. Expand right pointer until all characters of t are included
@@ -75,11 +75,30 @@ public class MinimumWindowSubstring {
         return minLen == Integer.MAX_VALUE ? "" : s.substring(minStart, minStart + minLen);
     }
 
+    public String minWindowClean(String s, String t) {
+        int[] map = new int[256];
+        for (char c : t.toCharArray()) map[c]++;
+        int counter = t.length(), begin = 0, end = 0, minLen = Integer.MAX_VALUE, minStart = 0;
+        while (end < s.length()) {
+            if (map[s.charAt(end++)]-- > 0) counter--; //in t
+            while (counter == 0) { //valid
+                if (end - begin < minLen) {
+                    minLen = end - begin;
+                    minStart = begin;
+                }
+                if (map[s.charAt(begin++)]++ == 0) counter++;  //make it invalid
+            }
+        }
+        System.out.println("d " + minLen + " head " + minStart);
+        return minLen == Integer.MAX_VALUE || minStart + minLen > s.length() ?
+                "" : s.substring(minStart, minStart + minLen);
+    }
+
     public static void main(String[] args) {
         MinimumWindowSubstring solution = new MinimumWindowSubstring();
 
         // Test Case 1: Normal case
-        System.out.println(solution.minWindow("ADOBECODEBANC", "ABC")); // Expected: "BANC"
+        System.out.println(solution.minWindowClean("ADOBECODEBANC", "ABC")); // Expected: "BANC"
 
         // Test Case 2: Edge case - no valid window
         System.out.println(solution.minWindow("a", "aa")); // Expected: ""
